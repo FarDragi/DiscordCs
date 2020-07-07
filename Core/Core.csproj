@@ -6,7 +6,7 @@
     <RootNamespace>FarDragi.DragiCordApi.Core</RootNamespace>
     <Authors>Vulcan</Authors>
     <Company>FarDragi</Company>
-    <Product>DragiCordApi</Product>
+    <Product>DragiCordApi.Core</Product>
   </PropertyGroup>
 
 </Project>

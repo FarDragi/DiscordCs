@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>FarDragi.DragiCordApi.Teste</AssemblyName>
+    <RootNamespace>FarDragi.DragiCordApi.Teste</RootNamespace>
+    <Authors>Vulcan</Authors>
+    <Company>FarDragi</Company>
+    <Product>DragiCordApi.Teste</Product>
+  </PropertyGroup>
+
+</Project>
