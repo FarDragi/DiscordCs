@@ -67,5 +67,11 @@ namespace FarDragi.DragiCordApi.Core.Models
         public bool IsUnavailable { get; set; }
         [JsonProperty("member_count")]
         public uint MemberCount { get; set; }
+        [JsonProperty("voice_states")]
+        public DiscordVoice[] VoicesStates { get; set; }
+        [JsonProperty("members")]
+        public DiscordGuildMember[] Members { get; set; }
+        [JsonProperty("channels")]
+        public DiscordChannel[] Channels { get; set; }
     }
 }
