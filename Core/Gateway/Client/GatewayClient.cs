@@ -37,6 +37,7 @@ namespace FarDragi.DragiCordApi.Core.Gateway.Client
             {
                 case GatewayOpcode.Dispatch:
                     new DispatchWorker(this, json);
+                    Console.WriteLine($"[DataReceived]\n\n{e}\n\n");
                     break;
                 case GatewayOpcode.Hello:
                     new HeartbeatWorker(ref _socket);
@@ -51,6 +52,8 @@ namespace FarDragi.DragiCordApi.Core.Gateway.Client
 
         private Task Socket_SocketDataReceived(string e)
         {
+            JObject json = JObject.Parse(e);
+            UpdateSessionCode(json);
             Console.WriteLine($"[DataRecived]\n\n{e}\n\n");
             return Task.CompletedTask;
         }
