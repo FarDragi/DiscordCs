@@ -6,11 +6,15 @@ using System.Text;
 
 namespace FarDragi.DragiCordApi.Core.Gateway.Models.Payloads
 {
-    class PayloadRecived
+    internal sealed class PayloadRecived<TData>
     {
         [JsonProperty("t")]
         public string Type { get; set; }
+        [JsonProperty("s")]
+        public ulong Session { get; set; }
         [JsonProperty("op")]
         public GatewayOpcode Opcode { get; set; }
+        [JsonProperty("d")]
+        public TData Data { get; set; }
     }
 }

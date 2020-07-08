@@ -29,37 +29,20 @@ namespace FarDragi.DragiCordApi.Core.Gateway.Client
 
         private Task Socket_SocketMessageReceived(string e)
         {
-            Console.WriteLine($"[DataRecived]\n\n{e}\n\n");
-
             JObject json = JObject.Parse(e);
+            UpdateSessionCode(json);
             GatewayOpcode opcode = (GatewayOpcode)Convert.ToByte(json["op"].ToString());
 
             switch (opcode)
             {
                 case GatewayOpcode.Dispatch:
-                    break;
-                case GatewayOpcode.Heartbeat:
-                    break;
-                case GatewayOpcode.Identify:
-                    break;
-                case GatewayOpcode.PresenceUpdate:
-                    break;
-                case GatewayOpcode.VoiceStateUpdate:
-                    break;
-                case GatewayOpcode.Resume:
-                    break;
-                case GatewayOpcode.Reconnect:
-                    break;
-                case GatewayOpcode.RequestGuildMembers:
-                    break;
-                case GatewayOpcode.InvalidSession:
+                    new DispatchWorker(this, json);
                     break;
                 case GatewayOpcode.Hello:
                     new HeartbeatWorker(ref _socket);
                     break;
-                case GatewayOpcode.HeartbeatACK:
-                    break;
                 default:
+                    Console.WriteLine($"[DataReceived]\n\n{e}\n\n");
                     break;
             }
 
@@ -81,6 +64,14 @@ namespace FarDragi.DragiCordApi.Core.Gateway.Client
             });
             Console.WriteLine("Connect");
             return Task.CompletedTask;
+        }
+
+        internal async void UpdateSessionCode(JObject json)
+        {
+            if (ulong.TryParse(json["s"].ToString(), out ulong result))
+            {
+                _socket.SessionCode = result;
+            }
         }
 
         public void Dispose()

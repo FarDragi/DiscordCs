@@ -19,6 +19,7 @@ namespace FarDragi.DragiCordApi.Core.Gateway.Client
         internal event Opened SocketOpened;
 
         private readonly WebSocket _discordSocket = null;
+        internal ulong SessionCode = 0;
 
         public GatewayWebSocket(string socketUrl)
         {

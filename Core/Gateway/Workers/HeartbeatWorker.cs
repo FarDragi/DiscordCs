@@ -1,8 +1,5 @@
 ﻿using FarDragi.DragiCordApi.Core.Gateway.Client;
 using FarDragi.DragiCordApi.Core.Gateway.Models.Payloads;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 
 namespace FarDragi.DragiCordApi.Core.Gateway.Workers
@@ -23,10 +20,10 @@ namespace FarDragi.DragiCordApi.Core.Gateway.Workers
         {
             do
             {
-                _webSocket.SendMessage(new PayloadSend<int>
+                _webSocket.SendMessage(new PayloadSend<ulong>
                 {
                     Opcode = Codes.GatewayOpcode.Heartbeat,
-                    Data = 20000
+                    Data = _webSocket.SessionCode
                 });
 
                 Thread.Sleep(20000);
