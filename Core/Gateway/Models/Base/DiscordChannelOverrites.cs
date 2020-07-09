@@ -1,16 +1,20 @@
-﻿using Newtonsoft.Json;
+﻿using FarDragi.DragiCordApi.Core.Gateway.Models.Enumerators;
+using Newtonsoft.Json;
 
-namespace FarDragi.DragiCordApi.Core.Models
+namespace FarDragi.DragiCordApi.Core.Gateway.Models.Base
 {
     public class DiscordChannelOverrites
     {
         [JsonProperty("id")]
         public ulong Id { get; set; }
+
         [JsonProperty("type")]
         public string Type { get; set; }
+
         [JsonProperty("allow")]
-        public DiscordRolePermission Allow { get; set; }
+        public DiscordPermissions Allow { get; set; }
+
         [JsonProperty("deny")]
-        public DiscordRolePermission Deny { get; set; }
+        public DiscordPermissions Deny { get; set; }
     }
 }

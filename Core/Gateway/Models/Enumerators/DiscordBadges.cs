@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace FarDragi.DragiCordApi.Core.Models
+namespace FarDragi.DragiCordApi.Core.Gateway.Models.Enumerators
 {
     [Flags]
-    public enum DiscordUserFlag
+    public enum DiscordBadges
     {
         None = 0,
         DiscordEmployee = 1,

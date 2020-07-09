@@ -1,27 +1,35 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace FarDragi.DragiCordApi.Core.Models
+namespace FarDragi.DragiCordApi.Core.Gateway.Models.Base
 {
     public class DiscordPresence
     {
         [JsonProperty("user")]
         public DiscordUser User { get; set; }
+
         [JsonProperty("roles")]
         public ulong Roles { get; set; }
+
         [JsonProperty("game")]
         public DiscordActivity Game { get; set; }
+
         [JsonProperty("guild_id")]
         public ulong GuildId { get; set; }
+
         [JsonProperty("status")]
         public string Status { get; set; }
+
         [JsonProperty("activities")]
         public DiscordActivity[] Activities { get; set; }
+
         [JsonProperty("client_status")]
-        public DiscordPresenceClientStatus ClientStatus { get; set; }
+        public DiscordClientStatus ClientStatus { get; set; }
+
         [JsonProperty("premium_since")]
-        public DateTime PremiumSince { get; set; }
+        public DateTime? PremiumSince { get; set; }
+
         [JsonProperty("nick")]
-        public string Nick { get; set; 
+        public string Nick { get; set; }
     }
 }

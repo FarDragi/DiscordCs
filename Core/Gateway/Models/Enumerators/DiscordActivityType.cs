@@ -1,4 +1,4 @@
-﻿namespace FarDragi.DragiCordApi.Core.Models
+﻿namespace FarDragi.DragiCordApi.Core.Gateway.Models.Enumerators
 {
     public enum DiscordActivityType : byte
     {

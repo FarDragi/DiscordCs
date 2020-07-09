@@ -10,7 +10,7 @@ namespace FarDragi.DragiCordApi.Teste
         {
             DiscordClient client = new DiscordClient
             {
-                Token = "NzMwMDk0Mjg3MzQ1MTU2MTM2.XwY8MA.wMYfAaAWKJ7kVAEedWTyK4oWDM4"
+                Token = ""
             };
             await client.Connect();
             await Task.Delay(-1);

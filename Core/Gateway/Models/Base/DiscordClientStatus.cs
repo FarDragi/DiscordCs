@@ -1,16 +1,15 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace FarDragi.DragiCordApi.Core.Models
+namespace FarDragi.DragiCordApi.Core.Gateway.Models.Base
 {
-    public class DiscordPresenceClientStatus
+    public class DiscordClientStatus
     {
         [JsonProperty("desktop")]
         public string Desktop { get; set; }
+
         [JsonProperty("mobile")]
         public string Mobile { get; set; }
+
         [JsonProperty("web")]
         public string Web { get; set; }
     }
