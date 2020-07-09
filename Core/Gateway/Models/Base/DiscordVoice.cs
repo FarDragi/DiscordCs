@@ -2,7 +2,7 @@
 
 namespace FarDragi.DragiCordApi.Core.Gateway.Models.Base
 {
-    public class DiscordVoice
+    internal class DiscordVoice
     {
         [JsonProperty("guild_id")]
         public ulong GuildId { get; set; }

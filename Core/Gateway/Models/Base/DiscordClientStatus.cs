@@ -2,7 +2,7 @@
 
 namespace FarDragi.DragiCordApi.Core.Gateway.Models.Base
 {
-    public class DiscordClientStatus
+    internal class DiscordClientStatus
     {
         [JsonProperty("desktop")]
         public string Desktop { get; set; }

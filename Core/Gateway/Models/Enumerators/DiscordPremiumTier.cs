@@ -1,6 +1,6 @@
 ﻿namespace FarDragi.DragiCordApi.Core.Gateway.Models.Enumerators
 {
-    public enum DiscordPremiumTier : byte
+    internal enum DiscordPremiumTier : byte
     {
         None = 0,
         Tier1 = 1,

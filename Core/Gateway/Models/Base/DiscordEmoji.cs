@@ -2,7 +2,7 @@
 
 namespace FarDragi.DragiCordApi.Core.Gateway.Models.Base
 {
-    public class DiscordEmoji
+    internal class DiscordEmoji
     {
         [JsonProperty("id")]
         public ulong? Id { get; set; }

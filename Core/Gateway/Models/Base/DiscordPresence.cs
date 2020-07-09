@@ -3,7 +3,7 @@ using System;
 
 namespace FarDragi.DragiCordApi.Core.Gateway.Models.Base
 {
-    public class DiscordPresence
+    internal class DiscordPresence
     {
         [JsonProperty("user")]
         public DiscordUser User { get; set; }

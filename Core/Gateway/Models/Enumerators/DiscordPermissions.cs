@@ -3,7 +3,7 @@
 namespace FarDragi.DragiCordApi.Core.Gateway.Models.Enumerators
 {
     [Flags]
-    public enum DiscordPermissions : ulong
+    internal enum DiscordPermissions : ulong
     {
         None = 0,
         CreateInstantInvite = 1,

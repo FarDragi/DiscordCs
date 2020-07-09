@@ -1,6 +1,6 @@
 ﻿namespace FarDragi.DragiCordApi.Core.Gateway.Models.Enumerators
 {
-    public enum DiscordFeatures : byte
+    internal enum DiscordFeatures : byte
     {
         INVITE_SPLASH,
         VIP_REGIONS,

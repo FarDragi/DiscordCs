@@ -1,6 +1,6 @@
 ﻿namespace FarDragi.DragiCordApi.Core.Gateway.Models.Enumerators
 {
-    public enum DiscordChannelType : byte
+    internal enum DiscordChannelType : byte
     {
         GuildText = 0,
         Dm = 1,

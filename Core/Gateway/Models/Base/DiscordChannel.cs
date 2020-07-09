@@ -4,7 +4,7 @@ using System;
 
 namespace FarDragi.DragiCordApi.Core.Gateway.Models.Base
 {
-    public class DiscordChannel
+    internal class DiscordChannel
     {
         [JsonProperty("id")]
         public ulong Id { get; set; }

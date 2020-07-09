@@ -2,7 +2,7 @@
 
 namespace FarDragi.DragiCordApi.Core.Gateway.Models.Base
 {
-    public class DiscordActivitySecrets
+    internal class DiscordActivitySecrets
     {
         [JsonProperty("join")]
         public string Join { get; set; }

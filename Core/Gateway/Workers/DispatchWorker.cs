@@ -52,6 +52,7 @@ namespace FarDragi.DragiCordApi.Core.Gateway.Workers
                 case GatewayEvent.CHANNEL_PINS_UPDATE:
                     break;
                 case GatewayEvent.GUILD_CREATE:
+                    PayloadRecived<EventGuildCreate> guildCreate = json.ToObject<PayloadRecived<EventGuildCreate>>();
                     break;
                 case GatewayEvent.GUILD_UPDATE:
                     break;

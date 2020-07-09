@@ -3,7 +3,7 @@ using System;
 
 namespace FarDragi.DragiCordApi.Core.Gateway.Models.Base
 {
-    public class DiscordMember
+    internal class DiscordMember
     {
         [JsonProperty("user")]
         public DiscordUser User { get; set; }
@@ -12,7 +12,7 @@ namespace FarDragi.DragiCordApi.Core.Gateway.Models.Base
         public string Nick { get; set; }
 
         [JsonProperty("roles")]
-        public DiscordRole[] Roles { get; set; }
+        public ulong[] Roles { get; set; }
 
         [JsonProperty("joined_at")]
         public DateTime JoinedAt { get; set; }

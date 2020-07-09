@@ -1,11 +1,10 @@
 ﻿using FarDragi.DragiCordApi.Core.Gateway.Models.Enumerators;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using System;
 
 namespace FarDragi.DragiCordApi.Core.Gateway.Models.Base
 {
-    public class DiscordGuild
+    internal class DiscordGuild
     {
         [JsonProperty("id")]
         public ulong Id { get; set; }
@@ -62,8 +61,7 @@ namespace FarDragi.DragiCordApi.Core.Gateway.Models.Base
         public DiscordEmoji[] Emojis { get; set; }
 
         [JsonProperty("features")]
-        [JsonConverter(typeof(StringEnumConverter))]
-        public DiscordFeatures[] Features { get; set; }
+        public string[] Features { get; set; }
 
         [JsonProperty("mfa_level")]
         public DiscordMfaLevel MfaLevel { get; set; }

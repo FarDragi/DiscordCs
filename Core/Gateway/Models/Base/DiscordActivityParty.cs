@@ -2,7 +2,7 @@
 
 namespace FarDragi.DragiCordApi.Core.Gateway.Models.Base
 {
-    public class DiscordActivityParty
+    internal class DiscordActivityParty
     {
         [JsonProperty("id")]
         public string Id { get; set; }

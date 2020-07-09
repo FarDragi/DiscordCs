@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace FarDragi.DragiCordApi.Core.Gateway.Models.Base
 {
-    public class DiscordActivity
+    internal class DiscordActivity
     {
         [JsonProperty("name")]
         public string Name { get; set; }

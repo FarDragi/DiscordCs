@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace FarDragi.DragiCordApi.Core.Gateway.Models.Base
 {
-    public class DiscordRole
+    internal class DiscordRole
     {
         [JsonProperty("id")]
         public ulong Id { get; set; }

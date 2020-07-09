@@ -2,7 +2,7 @@
 
 namespace FarDragi.DragiCordApi.Core.Gateway.Models.Base
 {
-    public class DiscordActivityAssets
+    internal class DiscordActivityAssets
     {
         [JsonProperty("large_image")]
         public string LargeImage { get; set; }

@@ -3,7 +3,7 @@
 namespace FarDragi.DragiCordApi.Core.Gateway.Models.Enumerators
 {
     [Flags]
-    public enum DiscordActivityFlags
+    internal enum DiscordActivityFlags
     {
         Instance = 1,
         Join = 2,

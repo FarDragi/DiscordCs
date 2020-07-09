@@ -2,7 +2,7 @@
 
 namespace FarDragi.DragiCordApi.Core.Gateway.Models.Base
 {
-    public class DiscordActivityTimestamp
+    internal class DiscordActivityTimestamp
     {
         [JsonProperty("start")]
         public ulong Start { get; set; }
