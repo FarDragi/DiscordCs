@@ -73,5 +73,31 @@ namespace FarDragi.DragiCordApi.Core.Models
         public DiscordGuildMember[] Members { get; set; }
         [JsonProperty("channels")]
         public DiscordChannel[] Channels { get; set; }
+        [JsonProperty("presences")]
+        public DiscordPresence[] Presences { get; set; }
+        [JsonProperty("max_presences")]
+        public uint MaxPresences { get; set; }
+        [JsonProperty("max_members")]
+        public uint MaxMembers { get; set; }
+        [JsonProperty("vanity_url_code")]
+        public string VanityUrlCode { get; set; }
+        [JsonProperty("description")]
+        public string Description { get; set; }
+        [JsonProperty("banner")]
+        public string Banner { get; set; }
+        [JsonProperty("premium_tier")]
+        public DiscordGuildPremiunTier PremiunTier { get; set; }
+        [JsonProperty("premium_subscription_count")]
+        public uint PremiumSubscriptionCount { get; set; }
+        [JsonProperty("preferred_locale")]
+        public string PreferredLocale { get; set; }
+        [JsonProperty("public_updates_channel_id")]
+        public ulong PublicUpdatesChannelId { get; set; }
+        [JsonProperty("max_video_channel_users")]
+        public uint MaxVideoChannelUsers { get; set; }
+        [JsonProperty("approximate_member_count")]
+        public uint ApproximateMemberCount { get; set; }
+        [JsonProperty("approximate_presence_count")]
+        public uint ApproximatePresenceCount { get; set; }
     }
 }
