@@ -1,6 +1,7 @@
 ﻿using FarDragi.DragiCordApi.Core.Gateway.Extensions;
 using FarDragi.DragiCordApi.Core.Gateway.Models.Payloads;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace FarDragi.DragiCordApi.Core.Gateway.Client
     internal sealed class GatewayWebSocket : IDisposable
     {
         internal delegate Task MessageReceived(string e);
-        internal delegate Task DataReceived(string e);
+        internal delegate Task DataReceived(JObject e);
         internal delegate Task Opened(EventArgs e);
 
         internal event MessageReceived SocketMessageReceived;
@@ -48,7 +49,8 @@ namespace FarDragi.DragiCordApi.Core.Gateway.Client
 
         private async void DiscordSocket_DataReceived(object sender, DataReceivedEventArgs e)
         {
-            SocketDataReceived?.Invoke(await e.Data.Decompress());
+            JObject jObjects = await e.Data.Decompress();
+            SocketDataReceived?.Invoke(jObjects);
         }
 
         private void DiscordSocket_MessageReceived(object sender, MessageReceivedEventArgs e)

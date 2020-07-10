@@ -51,14 +51,25 @@ namespace FarDragi.DragiCordApi.Core.Gateway.Client
             return Task.CompletedTask;
         }
 
-        private Task Socket_SocketDataReceived(string e)
+        private Task Socket_SocketDataReceived(JObject json)
         {
-            JObject json = JObject.Parse(e);
             UpdateSessionCode(json);
+            GatewayOpcode opcode = (GatewayOpcode)Convert.ToByte(json["op"].ToString());
 
-            Console.WriteLine($"[DataReceived]\n\n{e}\n\n");
+            Console.WriteLine($"[DataReceived]\n\n{json.ToString()}\n\n");
 
-            new DispatchWorker(this, json);
+
+            switch (opcode)
+            {
+                case GatewayOpcode.Dispatch:
+                    new DispatchWorker(this, json);
+                    break;
+                case GatewayOpcode.Hello:
+                    new HeartbeatWorker(ref _socket);
+                    break;
+                default:
+                    break;
+            }
 
             return Task.CompletedTask;
         }
