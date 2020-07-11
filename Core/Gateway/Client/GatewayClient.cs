@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FarDragi.DragiCordApi.Core.Gateway.Client
 {
-    internal sealed class GatewayClient : IDisposable
+    internal sealed class GatewayClient : GatewayClientEvents, IDisposable
     {
         private GatewayWebSocket _socket = null;
         private IdentifyGateway _identify = null;

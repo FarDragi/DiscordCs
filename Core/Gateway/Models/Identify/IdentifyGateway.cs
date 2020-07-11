@@ -15,7 +15,7 @@ namespace FarDragi.DragiCordApi.Core.Gateway.Models.Identify
         [JsonProperty("guild_subscriptions")]
         internal bool GuildSubscriptions { get; set; }
         [JsonProperty("shard")]
-        internal uint[] Shard { get; set; }
+        internal uint[] Shards { get; set; }
         [JsonProperty("presence")]
         internal IdentifyPresence Presence { get; set; }
         [JsonProperty("intents")]

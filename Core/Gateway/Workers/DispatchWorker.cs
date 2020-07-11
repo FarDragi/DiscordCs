@@ -1,6 +1,7 @@
 ﻿using FarDragi.DragiCordApi.Core.Gateway.Client;
 using FarDragi.DragiCordApi.Core.Gateway.Codes;
 using FarDragi.DragiCordApi.Core.Gateway.Models.Events;
+using FarDragi.DragiCordApi.Core.Gateway.Models.EventsArgs;
 using FarDragi.DragiCordApi.Core.Gateway.Models.Payloads;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -36,6 +37,7 @@ namespace FarDragi.DragiCordApi.Core.Gateway.Workers
                     break;
                 case GatewayEvent.READY:
                     PayloadRecived<EventReady> ready = json.ToObject<PayloadRecived<EventReady>>();
+                    _client.OnEventReady(new GatewayReadyEventArgs(ready));
                     break;
                 case GatewayEvent.RESUMED:
                     break;
