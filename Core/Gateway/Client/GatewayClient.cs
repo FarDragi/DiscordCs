@@ -51,8 +51,9 @@ namespace FarDragi.DragiCordApi.Core.Gateway.Client
             return Task.CompletedTask;
         }
 
-        private Task Socket_SocketDataReceived(JObject json)
+        private Task Socket_SocketDataReceived(string e)
         {
+            JObject json = JObject.Parse(e);
             UpdateSessionCode(json);
             GatewayOpcode opcode = (GatewayOpcode)Convert.ToByte(json["op"].ToString());
 
@@ -85,7 +86,7 @@ namespace FarDragi.DragiCordApi.Core.Gateway.Client
             return Task.CompletedTask;
         }
 
-        internal async void UpdateSessionCode(JObject json)
+        internal void UpdateSessionCode(JObject json)
         {
             if (ulong.TryParse(json["s"].ToString(), out ulong result))
             {

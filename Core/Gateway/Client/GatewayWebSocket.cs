@@ -12,7 +12,7 @@ namespace FarDragi.DragiCordApi.Core.Gateway.Client
     internal sealed class GatewayWebSocket : IDisposable
     {
         internal delegate Task MessageReceived(string e);
-        internal delegate Task DataReceived(JObject e);
+        internal delegate Task DataReceived(string e);
         internal delegate Task Opened(EventArgs e);
 
         internal event MessageReceived SocketMessageReceived;
@@ -20,10 +20,12 @@ namespace FarDragi.DragiCordApi.Core.Gateway.Client
         internal event Opened SocketOpened;
 
         private readonly WebSocket _discordSocket = null;
+        private readonly DecompressedExtension _decompressor;
         internal ulong SessionCode = 0;
 
         public GatewayWebSocket(string socketUrl)
         {
+            _decompressor = new DecompressedExtension();
             _discordSocket = new WebSocket(socketUrl);
             _discordSocket.MessageReceived += DiscordSocket_MessageReceived;
             _discordSocket.DataReceived += DiscordSocket_DataReceived;
@@ -47,10 +49,12 @@ namespace FarDragi.DragiCordApi.Core.Gateway.Client
             SocketOpened?.Invoke(e);
         }
 
-        private async void DiscordSocket_DataReceived(object sender, DataReceivedEventArgs e)
+        private void DiscordSocket_DataReceived(object sender, DataReceivedEventArgs e)
         {
-            JObject jObjects = await e.Data.Decompress();
-            SocketDataReceived?.Invoke(jObjects);
+            if (_decompressor.TryDecompress(e.Data, out string json))
+            {
+                SocketDataReceived?.Invoke(json);
+            }
         }
 
         private void DiscordSocket_MessageReceived(object sender, MessageReceivedEventArgs e)
