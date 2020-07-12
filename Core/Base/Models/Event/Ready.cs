@@ -1,6 +1,6 @@
-﻿using FarDragi.DragiCordApi.Core.Base.Models.Base;
+﻿using FarDragi.DiscordCs.Core.Base.Models.Base;
 
-namespace FarDragi.DragiCordApi.Core.Base.Models.Event
+namespace FarDragi.DiscordCs.Core.Base.Models.Event
 {
     public class Ready
     {

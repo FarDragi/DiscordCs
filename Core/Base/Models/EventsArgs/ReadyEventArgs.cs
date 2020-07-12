@@ -1,9 +1,9 @@
-﻿using FarDragi.DragiCordApi.Core.Base.Models.Event;
+﻿using FarDragi.DiscordCs.Core.Base.Models.Event;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FarDragi.DragiCordApi.Core.Base.Models.EventsArgs
+namespace FarDragi.DiscordCs.Core.Base.Models.EventsArgs
 {
     public class ReadyEventArgs
     {

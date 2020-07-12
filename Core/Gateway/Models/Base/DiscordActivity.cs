@@ -1,7 +1,7 @@
-﻿using FarDragi.DragiCordApi.Core.Gateway.Models.Enumerators;
+﻿using FarDragi.DiscordCs.Core.Gateway.Models.Enumerators;
 using Newtonsoft.Json;
 
-namespace FarDragi.DragiCordApi.Core.Gateway.Models.Base
+namespace FarDragi.DiscordCs.Core.Gateway.Models.Base
 {
     internal class DiscordActivity
     {

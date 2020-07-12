@@ -1,4 +1,4 @@
-﻿namespace FarDragi.DragiCordApi.Core.Gateway.Codes
+﻿namespace FarDragi.DiscordCs.Core.Gateway.Codes
 {
     internal enum GatewayEvent : byte
     {

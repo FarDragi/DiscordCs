@@ -1,4 +1,4 @@
-﻿namespace FarDragi.DragiCordApi.Core.Base.Models.Base
+﻿namespace FarDragi.DiscordCs.Core.Base.Models.Base
 {
     public class DiscordShards
     {

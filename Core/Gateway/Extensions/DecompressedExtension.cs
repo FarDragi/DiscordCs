@@ -2,7 +2,7 @@
 using System.IO.Compression;
 using System.Text;
 
-namespace FarDragi.DragiCordApi.Core.Gateway.Extensions
+namespace FarDragi.DiscordCs.Core.Gateway.Extensions
 {
     public class DecompressedExtension
     {

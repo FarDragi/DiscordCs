@@ -1,10 +1,10 @@
-﻿using FarDragi.DragiCordApi.Core.Base.Models.Base;
-using FarDragi.DragiCordApi.Core.Gateway.Client;
-using FarDragi.DragiCordApi.Core.Gateway.Models.Identify;
+﻿using FarDragi.DiscordCs.Core.Base.Models.Base;
+using FarDragi.DiscordCs.Core.Gateway.Client;
+using FarDragi.DiscordCs.Core.Gateway.Models.Identify;
 using System;
 using System.Threading.Tasks;
 
-namespace FarDragi.DragiCordApi.Core.Base.Client
+namespace FarDragi.DiscordCs.Core.Base.Client
 {
     public class DiscordClient : DiscordClientEvents, IDisposable
     {
@@ -18,7 +18,7 @@ namespace FarDragi.DragiCordApi.Core.Base.Client
                 Token = clientConfig.Token,
                 Properties = new IdentifyConnectionProperties
                 {
-                    Browser = "DragiCordApi",
+                    Browser = "DiscordCs",
                     Device = Environment.MachineName,
                     OperatingSystem = Environment.OSVersion.Platform.ToString()
                 },

@@ -1,12 +1,12 @@
-﻿using FarDragi.DragiCordApi.Core.Base.Models.EventsArgs;
-using FarDragi.DragiCordApi.Core.Gateway.Client;
-using FarDragi.DragiCordApi.Core.Gateway.Models.EventsArgs;
+﻿using FarDragi.DiscordCs.Core.Base.Models.EventsArgs;
+using FarDragi.DiscordCs.Core.Gateway.Client;
+using FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FarDragi.DragiCordApi.Core.Base.Client
+namespace FarDragi.DiscordCs.Core.Base.Client
 {
     public class DiscordClientEvents : DiscordClientData
     {

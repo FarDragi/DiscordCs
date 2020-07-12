@@ -1,8 +1,8 @@
-﻿using FarDragi.DragiCordApi.Core.Gateway.Client;
-using FarDragi.DragiCordApi.Core.Gateway.Models.Payloads;
+﻿using FarDragi.DiscordCs.Core.Gateway.Client;
+using FarDragi.DiscordCs.Core.Gateway.Models.Payloads;
 using System.Threading;
 
-namespace FarDragi.DragiCordApi.Core.Gateway.Workers
+namespace FarDragi.DiscordCs.Core.Gateway.Workers
 {
     internal sealed class HeartbeatWorker
     {

@@ -1,10 +1,10 @@
-﻿using FarDragi.DragiCordApi.Core.Gateway.Models.EventsArgs;
+﻿using FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FarDragi.DragiCordApi.Core.Gateway.Client
+namespace FarDragi.DiscordCs.Core.Gateway.Client
 {
     internal class GatewayClientEvents
     {

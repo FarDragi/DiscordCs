@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FarDragi.DragiCordApi.Core.Gateway.Models.Enumerators
+namespace FarDragi.DiscordCs.Core.Gateway.Models.Enumerators
 {
     [Flags]
     internal enum DiscordSystemChannel : byte

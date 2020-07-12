@@ -1,11 +1,11 @@
-﻿using FarDragi.DragiCordApi.Core.Base.Client;
-using FarDragi.DragiCordApi.Core.Base.Models.Base;
+﻿using FarDragi.DiscordCs.Core.Base.Client;
+using FarDragi.DiscordCs.Core.Base.Models.Base;
 using System;
 using System.Configuration;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace FarDragi.DragiCordApi.Teste
+namespace FarDragi.DiscordCs.Teste
 {
     class Program
     {
@@ -23,7 +23,7 @@ namespace FarDragi.DragiCordApi.Teste
                 ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
             }
 
-            DragiCordApiTest apiTest = new DragiCordApiTest(token);
+            DiscordCsTest apiTest = new DiscordCsTest(token);
             await apiTest.Start();
         }
     }

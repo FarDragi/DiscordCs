@@ -1,5 +1,5 @@
-﻿using FarDragi.DragiCordApi.Core.Gateway.Extensions;
-using FarDragi.DragiCordApi.Core.Gateway.Models.Payloads;
+﻿using FarDragi.DiscordCs.Core.Gateway.Extensions;
+using FarDragi.DiscordCs.Core.Gateway.Models.Payloads;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebSocket4Net;
 
-namespace FarDragi.DragiCordApi.Core.Gateway.Client
+namespace FarDragi.DiscordCs.Core.Gateway.Client
 {
     internal sealed class GatewayWebSocket : IDisposable
     {

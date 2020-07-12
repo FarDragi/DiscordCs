@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <AssemblyName>FarDragi.DragiCordApi.Core</AssemblyName>
-    <RootNamespace>FarDragi.DragiCordApi.Core</RootNamespace>
+    <AssemblyName>FarDragi.DiscordCs.Core</AssemblyName>
+    <RootNamespace>FarDragi.DiscordCs.Core</RootNamespace>
     <Authors>Vulcan</Authors>
     <Company>FarDragi</Company>
-    <Product>DragiCordApi.Core</Product>
+    <Product>DiscordCs.Core</Product>
   </PropertyGroup>
 
   <ItemGroup>

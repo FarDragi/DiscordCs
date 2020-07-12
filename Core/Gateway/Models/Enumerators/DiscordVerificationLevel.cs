@@ -1,4 +1,4 @@
-﻿namespace FarDragi.DragiCordApi.Core.Gateway.Models.Enumerators
+﻿namespace FarDragi.DiscordCs.Core.Gateway.Models.Enumerators
 {
     internal enum DiscordVerificationLevel : byte
     {

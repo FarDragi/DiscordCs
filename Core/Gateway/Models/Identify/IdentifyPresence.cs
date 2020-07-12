@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace FarDragi.DragiCordApi.Core.Gateway.Models.Identify
+namespace FarDragi.DiscordCs.Core.Gateway.Models.Identify
 {
     internal sealed class IdentifyPresence
     {

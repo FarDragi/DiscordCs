@@ -1,4 +1,4 @@
-﻿namespace FarDragi.DragiCordApi.Core.Gateway.Client
+﻿namespace FarDragi.DiscordCs.Core.Gateway.Client
 {
     internal sealed class GatewayConfig
     {

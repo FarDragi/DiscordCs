@@ -1,6 +1,6 @@
-﻿using FarDragi.DragiCordApi.Core.Base.Models.Base;
+﻿using FarDragi.DiscordCs.Core.Base.Models.Base;
 
-namespace FarDragi.DragiCordApi.Core.Base.Client
+namespace FarDragi.DiscordCs.Core.Base.Client
 {
     public class DiscordClientConfig
     {

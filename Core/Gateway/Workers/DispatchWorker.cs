@@ -1,8 +1,8 @@
-﻿using FarDragi.DragiCordApi.Core.Gateway.Client;
-using FarDragi.DragiCordApi.Core.Gateway.Codes;
-using FarDragi.DragiCordApi.Core.Gateway.Models.Events;
-using FarDragi.DragiCordApi.Core.Gateway.Models.EventsArgs;
-using FarDragi.DragiCordApi.Core.Gateway.Models.Payloads;
+﻿using FarDragi.DiscordCs.Core.Gateway.Client;
+using FarDragi.DiscordCs.Core.Gateway.Codes;
+using FarDragi.DiscordCs.Core.Gateway.Models.Events;
+using FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs;
+using FarDragi.DiscordCs.Core.Gateway.Models.Payloads;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -11,7 +11,7 @@ using System.Globalization;
 using System.Text;
 using System.Threading;
 
-namespace FarDragi.DragiCordApi.Core.Gateway.Workers
+namespace FarDragi.DiscordCs.Core.Gateway.Workers
 {
     internal sealed class DispatchWorker
     {

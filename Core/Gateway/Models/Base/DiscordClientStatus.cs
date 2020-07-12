@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace FarDragi.DragiCordApi.Core.Gateway.Models.Base
+namespace FarDragi.DiscordCs.Core.Gateway.Models.Base
 {
     internal class DiscordClientStatus
     {

@@ -1,12 +1,12 @@
-﻿using FarDragi.DragiCordApi.Core.Gateway.Codes;
-using FarDragi.DragiCordApi.Core.Gateway.Models.Identify;
-using FarDragi.DragiCordApi.Core.Gateway.Models.Payloads;
-using FarDragi.DragiCordApi.Core.Gateway.Workers;
+﻿using FarDragi.DiscordCs.Core.Gateway.Codes;
+using FarDragi.DiscordCs.Core.Gateway.Models.Identify;
+using FarDragi.DiscordCs.Core.Gateway.Models.Payloads;
+using FarDragi.DiscordCs.Core.Gateway.Workers;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Threading.Tasks;
 
-namespace FarDragi.DragiCordApi.Core.Gateway.Client
+namespace FarDragi.DiscordCs.Core.Gateway.Client
 {
     internal sealed class GatewayClient : GatewayClientEvents, IDisposable
     {

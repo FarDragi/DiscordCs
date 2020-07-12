@@ -1,12 +1,12 @@
-﻿using FarDragi.DragiCordApi.Core.Base.Models.Base;
-using FarDragi.DragiCordApi.Core.Base.Models.Event;
-using FarDragi.DragiCordApi.Core.Gateway.Models.Events;
-using FarDragi.DragiCordApi.Core.Gateway.Models.Payloads;
+﻿using FarDragi.DiscordCs.Core.Base.Models.Base;
+using FarDragi.DiscordCs.Core.Base.Models.Event;
+using FarDragi.DiscordCs.Core.Gateway.Models.Events;
+using FarDragi.DiscordCs.Core.Gateway.Models.Payloads;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FarDragi.DragiCordApi.Core.Gateway.Models.EventsArgs
+namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
 {
     internal class GatewayReadyEventArgs
     {

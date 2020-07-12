@@ -1,15 +1,15 @@
-﻿using FarDragi.DragiCordApi.Core.Base.Client;
-using FarDragi.DragiCordApi.Core.Base.Models.Base;
-using FarDragi.DragiCordApi.Core.Base.Models.EventsArgs;
+﻿using FarDragi.DiscordCs.Core.Base.Client;
+using FarDragi.DiscordCs.Core.Base.Models.Base;
+using FarDragi.DiscordCs.Core.Base.Models.EventsArgs;
 using System.Threading.Tasks;
 
-namespace FarDragi.DragiCordApi.Teste
+namespace FarDragi.DiscordCs.Teste
 {
-    public class DragiCordApiTest
+    public class DiscordCsTest
     {
         private readonly DiscordClient _client;
 
-        public DragiCordApiTest(string token)
+        public DiscordCsTest(string token)
         {
             _client = new DiscordClient(new DiscordClientConfig
             {
