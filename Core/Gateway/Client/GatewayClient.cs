@@ -61,7 +61,7 @@ namespace FarDragi.DiscordCs.Core.Gateway.Client
             UpdateSessionCode(json);
             GatewayOpcode opcode = (GatewayOpcode)Convert.ToByte(json["op"].ToString());
 
-            //Console.WriteLine($"[DataReceived]\n\n{json}\n\n");
+            Console.WriteLine($"[DataReceived]\n\n{json}\n\n");
 
 
             switch (opcode)

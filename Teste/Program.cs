@@ -1,5 +1,6 @@
 ﻿using FarDragi.DiscordCs.Core.Base.Client;
 using FarDragi.DiscordCs.Core.Base.Models.Base;
+using FarDragi.DiscordCs.Core.Base.Models.Collections;
 using System;
 using System.Configuration;
 using System.IO;
@@ -22,6 +23,9 @@ namespace FarDragi.DiscordCs.Teste
                 configFile.Save(ConfigurationSaveMode.Modified);
                 ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
             }
+
+            ClasseMortaDeTeste teste = new ClasseMortaDeTeste();
+            teste.Teste();
 
             DiscordCsTest apiTest = new DiscordCsTest(token);
             await apiTest.Start();

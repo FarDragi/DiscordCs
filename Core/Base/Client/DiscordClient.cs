@@ -1,8 +1,11 @@
 ﻿using FarDragi.DiscordCs.Core.Base.Models.Base;
+using FarDragi.DiscordCs.Core.Base.Models.Collections;
 using FarDragi.DiscordCs.Core.Base.Models.EventsArgs;
 using FarDragi.DiscordCs.Core.Gateway.Client;
 using FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs;
 using FarDragi.DiscordCs.Core.Gateway.Models.Identify;
+using FarDragi.DiscordCs.Core.Rest.Client;
+using FarDragi.DiscordCs.Core.Rest.Models.Identify;
 using System;
 using System.Threading.Tasks;
 
@@ -13,7 +16,7 @@ namespace FarDragi.DiscordCs.Core.Base.Client
         #region Data
 
         public DiscordUser User { get; internal set; }
-        public DiscordGuild[] Guilds { get; internal set; }
+        public DiscordGuildList Guilds { get; }
 
         #endregion
 
@@ -21,6 +24,8 @@ namespace FarDragi.DiscordCs.Core.Base.Client
 
         private readonly GatewayClient _gatewayClient;
         private readonly IdentifyGateway _identifyGateway;
+        private readonly RestClient _restClient;
+        private readonly IdentifyRest _identifyRest;
 
         public DiscordClient(DiscordClientConfig clientConfig)
         {
@@ -44,7 +49,15 @@ namespace FarDragi.DiscordCs.Core.Base.Client
                 _identifyGateway.Shards = new uint[] { clientConfig.Shards.ShardId, clientConfig.Shards.ShardCount };
             }
 
+            _identifyRest = new IdentifyRest
+            {
+                Token = clientConfig.Token
+            };
+
             // TODO game acitity
+            Guilds = new DiscordGuildList(_restClient);
+
+            _restClient = new RestClient(_identifyRest);
 
             _gatewayClient = new GatewayClient(_identifyGateway);
             _gatewayClient.Ready += OnEventReady;
@@ -59,6 +72,7 @@ namespace FarDragi.DiscordCs.Core.Base.Client
         public void Dispose()
         {
             _gatewayClient.Dispose();
+            _restClient.Dispose();
         }
 
         #endregion
@@ -80,6 +94,7 @@ namespace FarDragi.DiscordCs.Core.Base.Client
 
         internal Task OnEventGuildCreate(GatewayEventGuildCreateArgs e)
         {
+            Guilds.Add(e.Data);
             GuildCreate?.Invoke(new EventGuildCreateArgs(e.Data));
             return Task.CompletedTask;
         }

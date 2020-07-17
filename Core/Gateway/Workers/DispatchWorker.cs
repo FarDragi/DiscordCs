@@ -90,6 +90,7 @@ namespace FarDragi.DiscordCs.Core.Gateway.Workers
                 case GatewayEvent.INVITE_DELETE:
                     break;
                 case GatewayEvent.MESSAGE_CREATE:
+                    PayloadRecived<EventMessageCreate> messageCreate = json.ToObject<PayloadRecived<EventMessageCreate>>();
                     break;
                 case GatewayEvent.MESSAGE_UPDATE:
                     break;
