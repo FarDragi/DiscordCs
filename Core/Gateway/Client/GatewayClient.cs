@@ -1,4 +1,5 @@
 ﻿using FarDragi.DiscordCs.Core.Gateway.Codes;
+using FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs;
 using FarDragi.DiscordCs.Core.Gateway.Models.Identify;
 using FarDragi.DiscordCs.Core.Gateway.Models.Payloads;
 using FarDragi.DiscordCs.Core.Gateway.Workers;
@@ -8,14 +9,19 @@ using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs.Core.Gateway.Client
 {
-    internal sealed class GatewayClient : GatewayClientEvents, IDisposable
+    internal sealed class GatewayClient : IDisposable
     {
+        #region Configs
+
         private GatewayWebSocket _socket = null;
         private IdentifyGateway _identify = null;
+
+        private DispatchWorker _dispatch = null;
 
         internal GatewayClient(IdentifyGateway identify)
         {
             _identify = identify;
+            _dispatch = new DispatchWorker(this);
         }
 
         internal async Task Connect()
@@ -27,19 +33,19 @@ namespace FarDragi.DiscordCs.Core.Gateway.Client
             await _socket.Connect();
         }
 
-        private Task Socket_SocketMessageReceived(string e)
+        private async Task Socket_SocketMessageReceived(string e)
         {
             JObject json = JObject.Parse(e);
             UpdateSessionCode(json);
             GatewayOpcode opcode = (GatewayOpcode)Convert.ToByte(json["op"].ToString());
 
-            Console.WriteLine($"[DataReceived]\n\n{e}\n\n");
+            //Console.WriteLine($"[DataReceived]\n\n{e}\n\n");
 
 
             switch (opcode)
             {
                 case GatewayOpcode.Dispatch:
-                    new DispatchWorker(this, json);
+                    await _dispatch.Worker(json);
                     break;
                 case GatewayOpcode.Hello:
                     new HeartbeatWorker(ref _socket);
@@ -47,23 +53,21 @@ namespace FarDragi.DiscordCs.Core.Gateway.Client
                 default:
                     break;
             }
-
-            return Task.CompletedTask;
         }
 
-        private Task Socket_SocketDataReceived(string e)
+        private async Task Socket_SocketDataReceived(string e)
         {
             JObject json = JObject.Parse(e);
             UpdateSessionCode(json);
             GatewayOpcode opcode = (GatewayOpcode)Convert.ToByte(json["op"].ToString());
 
-            Console.WriteLine($"[DataReceived]\n\n{json.ToString()}\n\n");
+            //Console.WriteLine($"[DataReceived]\n\n{json}\n\n");
 
 
             switch (opcode)
             {
                 case GatewayOpcode.Dispatch:
-                    new DispatchWorker(this, json);
+                    await _dispatch.Worker(json);
                     break;
                 case GatewayOpcode.Hello:
                     new HeartbeatWorker(ref _socket);
@@ -71,8 +75,6 @@ namespace FarDragi.DiscordCs.Core.Gateway.Client
                 default:
                     break;
             }
-
-            return Task.CompletedTask;
         }
 
         private Task Socket_SocketOpened(EventArgs e)
@@ -98,5 +100,27 @@ namespace FarDragi.DiscordCs.Core.Gateway.Client
         {
             _socket.Dispose();
         }
+
+        #endregion
+
+        #region Events
+
+        internal delegate Task HandlerEventReady(GatewayEventReadyArgs e);
+        internal delegate Task HandlerEventGuildCrate(GatewayEventGuildCreateArgs e);
+
+        internal event HandlerEventReady Ready;
+        internal event HandlerEventGuildCrate GuildCreate;
+
+        internal void OnEventReady(GatewayEventReadyArgs e)
+        {
+            Ready?.Invoke(e);
+        }
+
+        internal void OnEventGuildCreate(GatewayEventGuildCreateArgs e)
+        {
+            GuildCreate?.Invoke(e);
+        }
+
+        #endregion
     }
 }

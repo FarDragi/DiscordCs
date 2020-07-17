@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs.Core.Gateway.Workers
 {
@@ -17,19 +18,20 @@ namespace FarDragi.DiscordCs.Core.Gateway.Workers
     {
         internal GatewayClient _client;
 
-        public DispatchWorker(GatewayClient client, JObject json)
+        public DispatchWorker(GatewayClient client)
         {
             _client = client;
-            Worker(json);
         }
 
-        internal void Worker(JObject json)
+        internal async Task Worker(JObject json)
         {
+            await Task.Yield();
+
             string name = json["t"].ToString();
 
             GatewayEvent events = (GatewayEvent)Enum.Parse(typeof(GatewayEvent), name);
 
-            Console.WriteLine(new CultureInfo("pt-BR").TextInfo.ToTitleCase(name.ToLower().Replace('_', ' ')).Replace(" ", ""));
+            //Console.WriteLine(new CultureInfo("pt-BR").TextInfo.ToTitleCase(name.ToLower().Replace('_', ' ')).Replace(" ", ""));
 
             switch (events)
             {
@@ -37,7 +39,7 @@ namespace FarDragi.DiscordCs.Core.Gateway.Workers
                     break;
                 case GatewayEvent.READY:
                     PayloadRecived<EventReady> ready = json.ToObject<PayloadRecived<EventReady>>();
-                    _client.OnEventReady(new GatewayReadyEventArgs(ready));
+                    _client.OnEventReady(new GatewayEventReadyArgs(ready));
                     break;
                 case GatewayEvent.RESUMED:
                     break;
@@ -55,6 +57,7 @@ namespace FarDragi.DiscordCs.Core.Gateway.Workers
                     break;
                 case GatewayEvent.GUILD_CREATE:
                     PayloadRecived<EventGuildCreate> guildCreate = json.ToObject<PayloadRecived<EventGuildCreate>>();
+                    _client.OnEventGuildCreate(new GatewayEventGuildCreateArgs(guildCreate));
                     break;
                 case GatewayEvent.GUILD_UPDATE:
                     break;

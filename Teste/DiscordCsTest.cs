@@ -22,11 +22,17 @@ namespace FarDragi.DiscordCs.Teste
             });
 
             _client.Ready += Client_Ready;
+            _client.GuildCreate += Client_GuildCreate;
         }
 
-        private Task Client_Ready(ReadyEventArgs e)
+        private async Task Client_GuildCreate(EventGuildCreateArgs e)
         {
-            throw new System.NotImplementedException();
+            System.Console.WriteLine(e.Data.Name);
+        }
+
+        private async Task Client_Ready(EventReadyArgs e)
+        {
+            System.Console.WriteLine("Bot Ready");
         }
 
         public async Task Start()

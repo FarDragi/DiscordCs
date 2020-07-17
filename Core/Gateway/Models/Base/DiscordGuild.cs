@@ -6,30 +6,37 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.Base
 {
     internal class DiscordGuild
     {
+        // Discord Guild
         [JsonProperty("id")]
         public ulong Id { get; set; }
 
+        // Discord Guild
         [JsonProperty("name")]
         public string Name { get; set; }
 
+        // Discord Guild
         [JsonProperty("icon")]
         public string Icon { get; set; }
 
+        // Discord Guild
         [JsonProperty("splash")]
         public string Splash { get; set; }
 
+        // Discord Guild
         [JsonProperty("discovery_splash")]
         public string DiscoverySplash { get; set; }
 
         [JsonProperty("owner")]
         public bool IsOwner { get; set; }
 
+        // Discord Guild
         [JsonProperty("owner_id")]
         public ulong OwnerId { get; set; }
 
         [JsonProperty("permissions")]
         public DiscordPermissions Permissions { get; set; }
 
+        // Discord Guild
         [JsonProperty("region")]
         public string Region { get; set; }
 
@@ -90,6 +97,7 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.Base
         [JsonProperty("large")]
         public bool Large { get; set; }
 
+        // Discord Guild
         [JsonProperty("unavailable")]
         public bool IsUnavailable { get; set; }
 
@@ -117,6 +125,7 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.Base
         [JsonProperty("vanity_url_code")]
         public string VanityUrlCode { get; set; }
 
+        // Discord Guild
         [JsonProperty("description")]
         public string Description { get; set; }
 

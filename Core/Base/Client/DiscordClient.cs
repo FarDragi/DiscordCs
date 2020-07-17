@@ -1,13 +1,23 @@
 ﻿using FarDragi.DiscordCs.Core.Base.Models.Base;
+using FarDragi.DiscordCs.Core.Base.Models.EventsArgs;
 using FarDragi.DiscordCs.Core.Gateway.Client;
+using FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs;
 using FarDragi.DiscordCs.Core.Gateway.Models.Identify;
 using System;
 using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs.Core.Base.Client
 {
-    public class DiscordClient : DiscordClientEvents, IDisposable
+    public class DiscordClient : IDisposable
     {
+        #region Data
+
+        public DiscordGuild[] Guilds { get; internal set; }
+
+        #endregion
+
+        #region Configs
+
         private readonly GatewayClient _gatewayClient;
         private readonly IdentifyGateway _identifyGateway;
 
@@ -37,6 +47,7 @@ namespace FarDragi.DiscordCs.Core.Base.Client
 
             _gatewayClient = new GatewayClient(_identifyGateway);
             _gatewayClient.Ready += OnEventReady;
+            _gatewayClient.GuildCreate += OnEventGuildCreate;
         }
 
         public async Task Connect()
@@ -48,5 +59,29 @@ namespace FarDragi.DiscordCs.Core.Base.Client
         {
             _gatewayClient.Dispose();
         }
+
+        #endregion
+
+        #region Events
+
+        public delegate Task HandlerEventReady(EventReadyArgs e);
+        public delegate Task HandlerEventGuildCreate(EventGuildCreateArgs e);
+
+        public event HandlerEventReady Ready;
+        public event HandlerEventGuildCreate GuildCreate;
+
+        internal Task OnEventReady(GatewayEventReadyArgs e)
+        {
+            Ready?.Invoke(new EventReadyArgs(e.Data));
+            return Task.CompletedTask;
+        }
+
+        internal Task OnEventGuildCreate(GatewayEventGuildCreateArgs e)
+        {
+            GuildCreate?.Invoke(new EventGuildCreateArgs(e.Data));
+            return Task.CompletedTask;
+        }
+
+        #endregion
     }
 }

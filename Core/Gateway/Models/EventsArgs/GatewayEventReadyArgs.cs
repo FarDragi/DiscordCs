@@ -8,11 +8,11 @@ using System.Text;
 
 namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
 {
-    internal class GatewayReadyEventArgs
+    internal class GatewayEventReadyArgs
     {
         internal Ready Data;
 
-        internal GatewayReadyEventArgs(PayloadRecived<EventReady> payload)
+        internal GatewayEventReadyArgs(PayloadRecived<EventReady> payload)
         {
             Data = new Ready
             {

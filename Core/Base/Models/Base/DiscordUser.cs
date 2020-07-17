@@ -1,4 +1,6 @@
-﻿namespace FarDragi.DiscordCs.Core.Base.Models.Base
+﻿using FarDragi.DiscordCs.Core.Base.Models.Enumerators;
+
+namespace FarDragi.DiscordCs.Core.Base.Models.Base
 {
     public class DiscordUser
     {
@@ -12,8 +14,7 @@
         public string Locale { get; set; }
         public bool IsVerified { get; set; }
         public string Email { get; set; }
-        //public DiscordBadges Badges { get; set; }
-        //public DiscordPremiumType PremiumType { get; set; }
-        //public DiscordBadges PublicBadges { get; set; }
+        public DiscordBadges Badges { get; set; }
+        public DiscordPremiumType PremiumType { get; set; }
     }
 }
