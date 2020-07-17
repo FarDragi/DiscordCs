@@ -12,6 +12,7 @@ namespace FarDragi.DiscordCs.Core.Base.Client
     {
         #region Data
 
+        public DiscordUser User { get; internal set; }
         public DiscordGuild[] Guilds { get; internal set; }
 
         #endregion
@@ -72,6 +73,7 @@ namespace FarDragi.DiscordCs.Core.Base.Client
 
         internal Task OnEventReady(GatewayEventReadyArgs e)
         {
+            User = e.Data.User;
             Ready?.Invoke(new EventReadyArgs(e.Data));
             return Task.CompletedTask;
         }
