@@ -1,7 +1,9 @@
-﻿using FarDragi.DiscordCs.Core.Base.Models.Base.Guild;
-using FarDragi.DiscordCs.Core.Base.Models.Event;
-using FarDragi.DiscordCs.Core.Gateway.Models.Events;
+﻿using FarDragi.DiscordCs.Core.Gateway.Models.Events;
 using FarDragi.DiscordCs.Core.Gateway.Models.Payloads;
+using FarDragi.DiscordCs.Core.Models.Base.Bot;
+using FarDragi.DiscordCs.Core.Models.Base.Guild;
+using FarDragi.DiscordCs.Core.Models.Base.User;
+using FarDragi.DiscordCs.Core.Models.Event;
 
 namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
 {
