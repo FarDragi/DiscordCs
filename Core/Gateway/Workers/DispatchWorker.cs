@@ -91,6 +91,7 @@ namespace FarDragi.DiscordCs.Core.Gateway.Workers
                     break;
                 case GatewayEvent.MESSAGE_CREATE:
                     PayloadRecived<EventMessageCreate> messageCreate = json.ToObject<PayloadRecived<EventMessageCreate>>();
+                    _client.OnEventMessageCreate(new GatewayEventMessageCreateArgs(messageCreate));
                     break;
                 case GatewayEvent.MESSAGE_UPDATE:
                     break;

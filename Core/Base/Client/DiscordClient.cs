@@ -62,6 +62,7 @@ namespace FarDragi.DiscordCs.Core.Base.Client
             _gatewayClient = new GatewayClient(_identifyGateway);
             _gatewayClient.Ready += OnEventReady;
             _gatewayClient.GuildCreate += OnEventGuildCreate;
+            _gatewayClient.MessageCreate += OnEventMessageCreate;
         }
 
         public async Task Connect()
@@ -81,22 +82,27 @@ namespace FarDragi.DiscordCs.Core.Base.Client
 
         public delegate Task HandlerEventReady(EventReadyArgs e);
         public delegate Task HandlerEventGuildCreate(EventGuildCreateArgs e);
+        public delegate Task HandlerEventMessageCreate(EventMessageCreateArgs e);
 
         public event HandlerEventReady Ready;
         public event HandlerEventGuildCreate GuildCreate;
+        public event HandlerEventMessageCreate MessageCreate;
 
-        internal Task OnEventReady(GatewayEventReadyArgs e)
+        internal void OnEventReady(GatewayEventReadyArgs e)
         {
             User = e.Data.User;
             Ready?.Invoke(new EventReadyArgs(e.Data));
-            return Task.CompletedTask;
         }
 
-        internal Task OnEventGuildCreate(GatewayEventGuildCreateArgs e)
+        internal void OnEventGuildCreate(GatewayEventGuildCreateArgs e)
         {
             Guilds.Add(e.Data);
             GuildCreate?.Invoke(new EventGuildCreateArgs(e.Data));
-            return Task.CompletedTask;
+        }
+
+        internal void OnEventMessageCreate(GatewayEventMessageCreateArgs e)
+        {
+            MessageCreate?.Invoke(new EventMessageCreateArgs(e.Data));
         }
 
         #endregion

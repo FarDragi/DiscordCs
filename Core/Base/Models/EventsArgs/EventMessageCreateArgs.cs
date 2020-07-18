@@ -5,13 +5,13 @@ using System.Text;
 
 namespace FarDragi.DiscordCs.Core.Base.Models.EventsArgs
 {
-    public class EventGuildCreateArgs
+    public class EventMessageCreateArgs
     {
-        public GuildCreate Data { get; }
+        public MessageCreate Data { get; }
 
-        internal EventGuildCreateArgs(GuildCreate guildCreate)
+        internal EventMessageCreateArgs(MessageCreate messageCreate)
         {
-            Data = guildCreate;
+            Data = messageCreate;
         }
     }
 }

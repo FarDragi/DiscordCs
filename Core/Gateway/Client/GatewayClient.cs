@@ -105,11 +105,13 @@ namespace FarDragi.DiscordCs.Core.Gateway.Client
 
         #region Events
 
-        internal delegate Task HandlerEventReady(GatewayEventReadyArgs e);
-        internal delegate Task HandlerEventGuildCrate(GatewayEventGuildCreateArgs e);
+        internal delegate void HandlerEventReady(GatewayEventReadyArgs e);
+        internal delegate void HandlerEventGuildCrate(GatewayEventGuildCreateArgs e);
+        internal delegate void HandlerEventMessageCreate(GatewayEventMessageCreateArgs e);
 
         internal event HandlerEventReady Ready;
         internal event HandlerEventGuildCrate GuildCreate;
+        internal event HandlerEventMessageCreate MessageCreate;
 
         internal void OnEventReady(GatewayEventReadyArgs e)
         {
@@ -119,6 +121,11 @@ namespace FarDragi.DiscordCs.Core.Gateway.Client
         internal void OnEventGuildCreate(GatewayEventGuildCreateArgs e)
         {
             GuildCreate?.Invoke(e);
+        }
+
+        internal void OnEventMessageCreate(GatewayEventMessageCreateArgs e)
+        {
+            MessageCreate?.Invoke(e);
         }
 
         #endregion
