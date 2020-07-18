@@ -3,13 +3,8 @@ using FarDragi.DiscordCs.Core.Gateway.Codes;
 using FarDragi.DiscordCs.Core.Gateway.Models.Events;
 using FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs;
 using FarDragi.DiscordCs.Core.Gateway.Models.Payloads;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs.Core.Gateway.Workers

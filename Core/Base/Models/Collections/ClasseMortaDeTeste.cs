@@ -1,9 +1,5 @@
-﻿using FarDragi.DiscordCs.Core.Base.Models.Base;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace FarDragi.DiscordCs.Core.Base.Models.Collections
 {

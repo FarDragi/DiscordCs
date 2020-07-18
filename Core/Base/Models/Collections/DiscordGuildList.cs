@@ -1,4 +1,4 @@
-﻿using FarDragi.DiscordCs.Core.Base.Models.Base;
+﻿using FarDragi.DiscordCs.Core.Base.Models.Base.Guild;
 using FarDragi.DiscordCs.Core.Rest.Client;
 using System.Collections;
 using System.Collections.Generic;

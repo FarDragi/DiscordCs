@@ -1,9 +1,7 @@
 ﻿using FarDragi.DiscordCs.Core.Rest.Models.Identify;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 
 namespace FarDragi.DiscordCs.Core.Rest.Client
 {

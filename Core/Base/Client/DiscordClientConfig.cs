@@ -1,4 +1,4 @@
-﻿using FarDragi.DiscordCs.Core.Base.Models.Base;
+﻿using FarDragi.DiscordCs.Core.Base.Models.Base.Bot;
 
 namespace FarDragi.DiscordCs.Core.Base.Client
 {

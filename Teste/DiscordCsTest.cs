@@ -25,14 +25,16 @@ namespace FarDragi.DiscordCs.Teste
             _client.GuildCreate += Client_GuildCreate;
         }
 
-        private async Task Client_GuildCreate(EventGuildCreateArgs e)
+        private Task Client_GuildCreate(EventGuildCreateArgs e)
         {
             System.Console.WriteLine(e.Data.Name);
+            return Task.CompletedTask;
         }
 
-        private async Task Client_Ready(EventReadyArgs e)
+        private Task Client_Ready(EventReadyArgs e)
         {
             System.Console.WriteLine("Bot Ready");
+            return Task.CompletedTask;
         }
 
         public async Task Start()

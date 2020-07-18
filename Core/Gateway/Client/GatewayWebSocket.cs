@@ -1,7 +1,6 @@
 ﻿using FarDragi.DiscordCs.Core.Gateway.Extensions;
 using FarDragi.DiscordCs.Core.Gateway.Models.Payloads;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Text;
 using System.Threading.Tasks;

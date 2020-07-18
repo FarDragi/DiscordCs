@@ -1,6 +1,6 @@
 ﻿using FarDragi.DiscordCs.Core.Base.Models.Enumerators;
 
-namespace FarDragi.DiscordCs.Core.Base.Models.Base
+namespace FarDragi.DiscordCs.Core.Base.Models.Base.User
 {
     public class DiscordUser
     {

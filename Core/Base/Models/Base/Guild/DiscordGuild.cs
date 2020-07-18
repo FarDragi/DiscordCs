@@ -1,4 +1,4 @@
-﻿namespace FarDragi.DiscordCs.Core.Base.Models.Base
+﻿namespace FarDragi.DiscordCs.Core.Base.Models.Base.Guild
 {
     public class DiscordGuild
     {

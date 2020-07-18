@@ -1,5 +1,4 @@
-﻿using FarDragi.DiscordCs.Core.Base.Models.Base;
-using FarDragi.DiscordCs.Core.Base.Models.Collections;
+﻿using FarDragi.DiscordCs.Core.Base.Models.Collections;
 using FarDragi.DiscordCs.Core.Base.Models.EventsArgs;
 using FarDragi.DiscordCs.Core.Gateway.Client;
 using FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs;
