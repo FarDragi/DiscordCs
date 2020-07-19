@@ -17,5 +17,6 @@ namespace FarDragi.DiscordCs.Core.Models.Base.Guild
         public DiscordGuildEmbedConfig EmbedConfig { get; set; }
         public DiscordGuildConfig Config { get; set; }
         public DiscordRoleList Roles { get; set; }
+        public DiscordEmojiList Emojis { get; set; }
     }
 }

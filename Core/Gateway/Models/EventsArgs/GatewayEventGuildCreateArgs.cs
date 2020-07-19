@@ -1,7 +1,9 @@
 ﻿using FarDragi.DiscordCs.Core.Gateway.Models.Events;
 using FarDragi.DiscordCs.Core.Gateway.Models.Payloads;
+using FarDragi.DiscordCs.Core.Models.Base.Emoji;
 using FarDragi.DiscordCs.Core.Models.Base.Guild;
 using FarDragi.DiscordCs.Core.Models.Base.Role;
+using FarDragi.DiscordCs.Core.Models.Base.User;
 using FarDragi.DiscordCs.Core.Models.Collections;
 using FarDragi.DiscordCs.Core.Models.Enumerators.Guild;
 using FarDragi.DiscordCs.Core.Models.Enumerators.Role;
@@ -42,7 +44,8 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
                     DefaultMessageNotification = (DiscordGuildMessageNotificationLevel)payload.Data.DefaultMessageNotification,
                     ExplicitContentFilter = (DiscordGuildContentFilterLevel)payload.Data.ExplicitContentFilter
                 },
-                Roles = GetDiscordRoles(payload)
+                Roles = GetDiscordRoles(payload),
+                Emojis = GetDiscordEmojis(payload)
             };
         }
 
@@ -66,6 +69,27 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
             }
 
             return roles;
+        }
+
+        internal DiscordEmojiList GetDiscordEmojis(PayloadRecived<EventGuildCreate> payload)
+        {
+            DiscordEmojiList emojis = new DiscordEmojiList();
+
+            for (int i = 0; i < payload.Data.Emojis.Length; i++)
+            {
+                emojis.Add(new DiscordEmoji
+                {
+                    Id = payload.Data.Emojis[i].Id,
+                    Name = payload.Data.Emojis[i].Name,
+                    Roles = payload.Data.Emojis[i].Roles,
+                    RequireColons = payload.Data.Emojis[i].RequireColons,
+                    IsAnimated = payload.Data.Emojis[i].IsAnimated,
+                    IsAvailable = payload.Data.Emojis[i].IsAvailable,
+                    IsManaged = payload.Data.Emojis[i].IsManaged
+                });
+            }
+
+            return emojis;
         }
     }
 }

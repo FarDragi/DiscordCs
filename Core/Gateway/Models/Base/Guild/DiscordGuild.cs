@@ -1,4 +1,5 @@
-﻿using FarDragi.DiscordCs.Core.Gateway.Models.Base.Role;
+﻿using FarDragi.DiscordCs.Core.Gateway.Models.Base.Emoji;
+using FarDragi.DiscordCs.Core.Gateway.Models.Base.Role;
 using FarDragi.DiscordCs.Core.Gateway.Models.Enumerators;
 using FarDragi.DiscordCs.Core.Gateway.Models.Enumerators.Guild;
 using FarDragi.DiscordCs.Core.Gateway.Models.Enumerators.Role;

@@ -1,7 +1,7 @@
 ﻿using FarDragi.DiscordCs.Core.Gateway.Models.Base.Role;
 using Newtonsoft.Json;
 
-namespace FarDragi.DiscordCs.Core.Gateway.Models.Base
+namespace FarDragi.DiscordCs.Core.Gateway.Models.Base.Emoji
 {
     internal class DiscordEmoji
     {
@@ -12,7 +12,7 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.Base
         public string Name { get; set; }
 
         [JsonProperty("roles")]
-        public DiscordRole[] Roles { get; set; }
+        public ulong[] Roles { get; set; }
 
         [JsonProperty("user")]
         public DiscordUser User { get; set; }
