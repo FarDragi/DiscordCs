@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace FarDragi.DiscordCs.Core.Gateway.Models.Enumerators
+namespace FarDragi.DiscordCs.Core.Models.Enumerators.Guild
 {
     [Flags]
-    internal enum DiscordSystemChannel : byte
+    public enum DiscordGuildSystemChannelFlags : byte
     {
         SuppressJoinNotifications = 1,
         SuppressPremiumSubscriptions = 2

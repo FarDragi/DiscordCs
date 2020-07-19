@@ -76,29 +76,37 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.Base.Guild
         [JsonProperty("roles")]
         internal DiscordRole[] Roles { get; set; }
 
+        // Discord Guild
         [JsonProperty("emojis")]
         internal DiscordEmoji[] Emojis { get; set; }
 
+        // Discord Guild
         [JsonProperty("features")]
         internal string[] Features { get; set; }
 
+        // Discord Guild
         [JsonProperty("mfa_level")]
-        internal DiscordMfaLevel MfaLevel { get; set; }
+        internal DiscordGuildMfaLevel MfaLevel { get; set; }
 
+        // Discord Guild
         [JsonProperty("application_id")]
         internal ulong? ApplicationId { get; set; }
 
+        // Discord Guild Widget Config
         [JsonProperty("widget_enabled")]
         internal bool WidgetEnabled { get; set; }
 
+        // Discord Guild Widget Config
         [JsonProperty("widget_channel_id")]
         internal ulong? WidgetChannelId { get; set; }
 
+        // Discord Guild System Config
         [JsonProperty("system_channel_id")]
         internal ulong? SystemChannelId { get; set; }
 
+        // Discord Guild System Config
         [JsonProperty("system_channel_flags")]
-        internal DiscordSystemChannel SystemChannelFlags { get; set; }
+        internal DiscordGuildSystemChannelFlags SystemChannelFlags { get; set; }
 
         [JsonProperty("rules_channel_id")]
         internal ulong? RulesChannelId { get; set; }
