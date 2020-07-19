@@ -25,6 +25,7 @@ namespace FarDragi.DiscordCs.Core.Models.Base.Guild
         public DateTime JoinedAt { get; set; }
         public bool IsLarge { get; set; }
         public uint MemberCount { get; set; }
-        public DiscordVoiceList Voices { get; set; }
+        public DiscordVoiceList VoicesStates { get; set; }
+        public DiscordMemberList Members { get; set; }
     }
 }

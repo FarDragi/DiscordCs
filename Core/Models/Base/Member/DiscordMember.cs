@@ -12,5 +12,6 @@ namespace FarDragi.DiscordCs.Core.Models.Base.Member
         public DateTime? PremiumSince { get; set; }
         public bool IsDeaf { get; set; }
         public bool IsMute { get; set; }
+        public bool IsOwner { get; set; }
     }
 }

@@ -2,11 +2,14 @@
 using FarDragi.DiscordCs.Core.Gateway.Models.Payloads;
 using FarDragi.DiscordCs.Core.Models.Base.Emoji;
 using FarDragi.DiscordCs.Core.Models.Base.Guild;
+using FarDragi.DiscordCs.Core.Models.Base.Member;
 using FarDragi.DiscordCs.Core.Models.Base.Role;
+using FarDragi.DiscordCs.Core.Models.Base.User;
 using FarDragi.DiscordCs.Core.Models.Base.Voice;
 using FarDragi.DiscordCs.Core.Models.Collections;
 using FarDragi.DiscordCs.Core.Models.Enumerators.Guild;
 using FarDragi.DiscordCs.Core.Models.Enumerators.Role;
+using FarDragi.DiscordCs.Core.Models.Enumerators.User;
 using FarDragi.DiscordCs.Core.Models.Event;
 using System;
 
@@ -64,7 +67,8 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
                 JoinedAt = payload.Data.JoinedAt,
                 IsLarge = payload.Data.IsLarge,
                 MemberCount = payload.Data.MemberCount,
-                Voices = GetDiscordVoices(payload)
+                VoicesStates = GetDiscordVoices(payload),
+                Members = GetDiscordMembers(payload)
             };
         }
 
@@ -166,6 +170,42 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
             }
 
             return voices;
+        }
+
+        internal DiscordMemberList GetDiscordMembers(PayloadRecived<EventGuildCreate> payload)
+        {
+            DiscordMemberList members = new DiscordMemberList();
+
+            for (int i = 0; i < payload.Data.Members.Length; i++)
+            {
+                members.Add(new DiscordMember
+                {
+                    Nick = payload.Data.Members[i].Nick,
+                    IsDeaf = payload.Data.Members[i].IsDeaf,
+                    IsMute = payload.Data.Members[i].IsMute,
+                    IsOwner = payload.Data.Members[i].User.Id == payload.Data.OwnerId,
+                    JoinedAt = payload.Data.Members[i].JoinedAt,
+                    PremiumSince = payload.Data.Members[i].PremiumSince,
+                    Roles = payload.Data.Members[i].Roles,
+                    User = new DiscordUser
+                    {
+                        Id = payload.Data.Members[i].User.Id,
+                        Avatar = payload.Data.Members[i].User.Avatar,
+                        Discriminator = payload.Data.Members[i].User.Discriminator,
+                        Username = payload.Data.Members[i].User.Username,
+                        Badges = (DiscordUserBadges)payload.Data.Members[i].User.Badges,
+                        Email = payload.Data.Members[i].User.Email,
+                        IsBot = payload.Data.Members[i].User.IsBot,
+                        IsSystem = payload.Data.Members[i].User.IsSystem,
+                        IsVerified = payload.Data.Members[i].User.IsVerified,
+                        Locale = payload.Data.Members[i].User.Locale,
+                        MfaEnabled = payload.Data.Members[i].User.MfaEnabled,
+                        PremiumType = (DiscordUserPremiumType)payload.Data.Members[i].User.PremiumType
+                    }
+                });
+            }
+
+            return members;
         }
     }
 }
