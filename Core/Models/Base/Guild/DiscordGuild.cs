@@ -1,4 +1,6 @@
-﻿namespace FarDragi.DiscordCs.Core.Models.Base.Guild
+﻿using FarDragi.DiscordCs.Core.Models.Collections;
+
+namespace FarDragi.DiscordCs.Core.Models.Base.Guild
 {
     public class DiscordGuild
     {
@@ -13,5 +15,7 @@
         public bool IsUnavailable { get; set; }
         public DiscordGuildAfkConfig AfkConfig { get; set; }
         public DiscordGuildEmbedConfig EmbedConfig { get; set; }
+        public DiscordGuildConfig Config { get; set; }
+        public DiscordRoleList Roles { get; set; }
     }
 }

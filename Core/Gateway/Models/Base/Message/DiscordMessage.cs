@@ -1,4 +1,5 @@
 ﻿using FarDragi.DiscordCs.Core.Gateway.Models.Base.Embed;
+using FarDragi.DiscordCs.Core.Gateway.Models.Base.Role;
 using FarDragi.DiscordCs.Core.Gateway.Models.Enumerators.Message;
 using Newtonsoft.Json;
 using System;

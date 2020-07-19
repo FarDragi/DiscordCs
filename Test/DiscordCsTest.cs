@@ -1,6 +1,9 @@
 ﻿using FarDragi.DiscordCs.Core.Client;
 using FarDragi.DiscordCs.Core.Models.Base.Bot;
+using FarDragi.DiscordCs.Core.Models.Base.Role;
 using FarDragi.DiscordCs.Core.Models.EventsArgs;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs.Test

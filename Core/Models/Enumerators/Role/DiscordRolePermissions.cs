@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace FarDragi.DiscordCs.Core.Gateway.Models.Enumerators
+namespace FarDragi.DiscordCs.Core.Models.Enumerators.Role
 {
-    [Flags]
-    internal enum DiscordPermissions : ulong
+    public enum DiscordRolePermissions : ulong
     {
         None = 0,
         CreateInstantInvite = 1,

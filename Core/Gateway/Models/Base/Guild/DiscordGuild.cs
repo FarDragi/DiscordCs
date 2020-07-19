@@ -1,4 +1,7 @@
-﻿using FarDragi.DiscordCs.Core.Gateway.Models.Enumerators;
+﻿using FarDragi.DiscordCs.Core.Gateway.Models.Base.Role;
+using FarDragi.DiscordCs.Core.Gateway.Models.Enumerators;
+using FarDragi.DiscordCs.Core.Gateway.Models.Enumerators.Guild;
+using FarDragi.DiscordCs.Core.Gateway.Models.Enumerators.Role;
 using Newtonsoft.Json;
 using System;
 
@@ -34,7 +37,7 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.Base.Guild
         internal ulong OwnerId { get; set; }
 
         [JsonProperty("permissions")]
-        internal DiscordPermissions Permissions { get; set; }
+        internal DiscordRolePermissions Permissions { get; set; }
 
         // Discord Guild
         [JsonProperty("region")]
@@ -56,15 +59,19 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.Base.Guild
         [JsonProperty("embed_channel_id")]
         internal ulong? EmbedChannelId { get; set; }
 
+        // Discord Guild Config
         [JsonProperty("verification_level")]
-        internal DiscordVerificationLevel VerificationLevel { get; set; }
+        internal DiscordGuildVerificationLevel VerificationLevel { get; set; }
 
+        // Discord Guild Config
         [JsonProperty("default_message_notifications")]
-        internal DiscordMessageNotificationLevel DefaultMessageNotification { get; set; }
+        internal DiscordGuildMessageNotificationLevel DefaultMessageNotification { get; set; }
 
+        // Discord Guild Config
         [JsonProperty("explicit_content_filter")]
-        internal DiscordContentFilterLevel ExplicitContentFilter { get; set; }
+        internal DiscordGuildContentFilterLevel ExplicitContentFilter { get; set; }
 
+        // Discord Guild
         [JsonProperty("roles")]
         internal DiscordRole[] Roles { get; set; }
 

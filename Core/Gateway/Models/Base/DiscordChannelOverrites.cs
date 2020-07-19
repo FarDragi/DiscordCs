@@ -1,4 +1,5 @@
 ﻿using FarDragi.DiscordCs.Core.Gateway.Models.Enumerators;
+using FarDragi.DiscordCs.Core.Gateway.Models.Enumerators.Role;
 using Newtonsoft.Json;
 
 namespace FarDragi.DiscordCs.Core.Gateway.Models.Base
@@ -12,9 +13,9 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.Base
         public string Type { get; set; }
 
         [JsonProperty("allow")]
-        public DiscordPermissions Allow { get; set; }
+        public DiscordRolePermissions Allow { get; set; }
 
         [JsonProperty("deny")]
-        public DiscordPermissions Deny { get; set; }
+        public DiscordRolePermissions Deny { get; set; }
     }
 }

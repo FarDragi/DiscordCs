@@ -15,7 +15,7 @@ namespace FarDragi.DiscordCs.Core.Models.Collections
         internal DiscordGuildList(RestClient client)
         {
             _client = client;
-            _list = new ObservableCollection<DiscordGuild>();
+            _list = new Collection<DiscordGuild>();
         }
 
         public DiscordGuild this[ulong id]
