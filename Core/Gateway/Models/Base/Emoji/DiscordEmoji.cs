@@ -1,4 +1,5 @@
 ﻿using FarDragi.DiscordCs.Core.Gateway.Models.Base.Role;
+using FarDragi.DiscordCs.Core.Gateway.Models.Base.User;
 using Newtonsoft.Json;
 
 namespace FarDragi.DiscordCs.Core.Gateway.Models.Base.Emoji

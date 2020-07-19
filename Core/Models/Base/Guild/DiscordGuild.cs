@@ -1,5 +1,6 @@
 ﻿using FarDragi.DiscordCs.Core.Models.Collections;
 using FarDragi.DiscordCs.Core.Models.Enumerators.Guild;
+using System;
 
 namespace FarDragi.DiscordCs.Core.Models.Base.Guild
 {
@@ -20,5 +21,10 @@ namespace FarDragi.DiscordCs.Core.Models.Base.Guild
         public DiscordGuildFeatures Features { get; set; }
         public DiscordGuildMfaLevel MfaLevel { get; set; }
         public ulong? ApplicationId { get; set; }
+        public ulong? RulesChannelId { get; set; }
+        public DateTime JoinedAt { get; set; }
+        public bool IsLarge { get; set; }
+        public uint MemberCount { get; set; }
+        public DiscordVoiceList Voices { get; set; }
     }
 }

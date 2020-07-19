@@ -1,4 +1,5 @@
-﻿using FarDragi.DiscordCs.Core.Gateway.Models.Enumerators;
+﻿using FarDragi.DiscordCs.Core.Gateway.Models.Base.User;
+using FarDragi.DiscordCs.Core.Gateway.Models.Enumerators;
 using Newtonsoft.Json;
 using System;
 

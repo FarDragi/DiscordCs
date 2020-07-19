@@ -1,5 +1,7 @@
 ﻿using FarDragi.DiscordCs.Core.Gateway.Models.Base.Emoji;
+using FarDragi.DiscordCs.Core.Gateway.Models.Base.Member;
 using FarDragi.DiscordCs.Core.Gateway.Models.Base.Role;
+using FarDragi.DiscordCs.Core.Gateway.Models.Base.Voice;
 using FarDragi.DiscordCs.Core.Gateway.Models.Enumerators;
 using FarDragi.DiscordCs.Core.Gateway.Models.Enumerators.Guild;
 using FarDragi.DiscordCs.Core.Gateway.Models.Enumerators.Role;
@@ -108,19 +110,23 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.Base.Guild
         [JsonProperty("system_channel_flags")]
         internal DiscordGuildSystemChannelFlags SystemChannelFlags { get; set; }
 
+        // Discord Guild
         [JsonProperty("rules_channel_id")]
         internal ulong? RulesChannelId { get; set; }
 
+        // Discord Guild
         [JsonProperty("joined_at")]
         internal DateTime JoinedAt { get; set; }
 
+        // Discord Guild
         [JsonProperty("large")]
-        internal bool Large { get; set; }
+        internal bool IsLarge { get; set; }
 
         // Discord Guild
         [JsonProperty("unavailable")]
         internal bool IsUnavailable { get; set; }
 
+        // Discord Guild
         [JsonProperty("member_count")]
         internal uint MemberCount { get; set; }
 

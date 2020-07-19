@@ -3,6 +3,7 @@ using FarDragi.DiscordCs.Core.Gateway.Models.Payloads;
 using FarDragi.DiscordCs.Core.Models.Base.Emoji;
 using FarDragi.DiscordCs.Core.Models.Base.Guild;
 using FarDragi.DiscordCs.Core.Models.Base.Role;
+using FarDragi.DiscordCs.Core.Models.Base.Voice;
 using FarDragi.DiscordCs.Core.Models.Collections;
 using FarDragi.DiscordCs.Core.Models.Enumerators.Guild;
 using FarDragi.DiscordCs.Core.Models.Enumerators.Role;
@@ -58,7 +59,12 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
                 Emojis = GetDiscordEmojis(payload),
                 Features = GetDiscordGuildFeatures(payload),
                 MfaLevel = (DiscordGuildMfaLevel)payload.Data.MfaLevel,
-                ApplicationId = payload.Data.ApplicationId
+                ApplicationId = payload.Data.ApplicationId,
+                RulesChannelId = payload.Data.RulesChannelId,
+                JoinedAt = payload.Data.JoinedAt,
+                IsLarge = payload.Data.IsLarge,
+                MemberCount = payload.Data.MemberCount,
+                Voices = GetDiscordVoices(payload)
             };
         }
 
@@ -136,6 +142,30 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
             }
 
             return features;
+        }
+
+        internal DiscordVoiceList GetDiscordVoices(PayloadRecived<EventGuildCreate> payload)
+        {
+            DiscordVoiceList voices = new DiscordVoiceList();
+
+            for (int i = 0; i < payload.Data.VoicesStates.Length; i++)
+            {
+                voices.Add(new DiscordVoice
+                {
+                    GuildId = payload.Data.VoicesStates[i].GuildId,
+                    ChannelId = payload.Data.VoicesStates[i].ChannelId,
+                    UserId = payload.Data.VoicesStates[i].UserId,
+                    SessionId = payload.Data.VoicesStates[i].SessionId,
+                    IsDeaf = payload.Data.VoicesStates[i].IsDeaf,
+                    IsMute = payload.Data.VoicesStates[i].IsMute,
+                    IsSeflDeaf = payload.Data.VoicesStates[i].IsSeflDeaf,
+                    IsSelfMute = payload.Data.VoicesStates[i].IsSelfMute,
+                    IsSelfStream = payload.Data.VoicesStates[i].IsSelfStream,
+                    IsSeppress = payload.Data.VoicesStates[i].IsSeppress
+                });
+            }
+
+            return voices;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using FarDragi.DiscordCs.Core.Gateway.Models.Base.User;
+using Newtonsoft.Json;
 using System;
 
 namespace FarDragi.DiscordCs.Core.Gateway.Models.Base
