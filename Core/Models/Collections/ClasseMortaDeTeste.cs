@@ -8,7 +8,7 @@ namespace FarDragi.DiscordCs.Core.Models.Collections
     {
         public void Teste()
         {
-            DiscordGuildList guilds = new DiscordGuildList(new Rest.Client.RestClient(new Rest.Models.Identify.IdentifyRest()));
+            DiscordGuildList guilds = new DiscordGuildList();
             var result = from guild in guilds where guild.Id == 0 select guild;
 
 

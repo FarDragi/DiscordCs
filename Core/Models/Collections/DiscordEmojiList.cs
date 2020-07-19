@@ -7,25 +7,9 @@ using System.Text;
 
 namespace FarDragi.DiscordCs.Core.Models.Collections
 {
-    public class DiscordEmojiList : IEnumerable<DiscordEmoji>
+    public class DiscordEmojiList : DiscordList<DiscordEmoji>, IEnumerable<DiscordEmoji>
     {
-        private Collection<DiscordEmoji> _list;
-
-        public DiscordEmojiList()
-        {
-            _list = new Collection<DiscordEmoji>();
-        }
-
-        #region Functions
-
-        public void Add(DiscordEmoji emoji)
-        {
-            _list.Add(emoji);
-        }
-
-        #endregion
-
-        #region MyRegion
+        #region IEnumerable
 
         public IEnumerator<DiscordEmoji> GetEnumerator()
         {

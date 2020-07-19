@@ -7,17 +7,8 @@ using System.Linq;
 
 namespace FarDragi.DiscordCs.Core.Models.Collections
 {
-    public class DiscordGuildList : IEnumerable<DiscordGuild>
+    public class DiscordGuildList : DiscordList<DiscordGuild>, IEnumerable<DiscordGuild>
     {
-        private readonly Collection<DiscordGuild> _list;
-        private readonly RestClient _client;
-
-        internal DiscordGuildList(RestClient client)
-        {
-            _client = client;
-            _list = new Collection<DiscordGuild>();
-        }
-
         public DiscordGuild this[ulong id]
         {
             get
@@ -32,15 +23,6 @@ namespace FarDragi.DiscordCs.Core.Models.Collections
                 return _list.SingleOrDefault(x => x.Name == name);
             }
         }
-
-        #region Functions
-
-        internal void Add(DiscordGuild guild)
-        {
-            _list.Add(guild);
-        }
-
-        #endregion
 
         #region IEnumerable
 

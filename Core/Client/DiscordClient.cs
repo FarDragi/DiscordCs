@@ -55,7 +55,7 @@ namespace FarDragi.DiscordCs.Core.Client
             };
 
             // TODO game acitity
-            Guilds = new DiscordGuildList(_restClient);
+            Guilds = new DiscordGuildList();
 
             _restClient = new RestClient(_identifyRest);
 
