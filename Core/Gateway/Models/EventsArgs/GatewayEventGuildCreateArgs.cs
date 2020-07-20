@@ -1,5 +1,6 @@
 ﻿using FarDragi.DiscordCs.Core.Gateway.Models.Events;
 using FarDragi.DiscordCs.Core.Gateway.Models.Payloads;
+using FarDragi.DiscordCs.Core.Models.Base.Channel;
 using FarDragi.DiscordCs.Core.Models.Base.Emoji;
 using FarDragi.DiscordCs.Core.Models.Base.Guild;
 using FarDragi.DiscordCs.Core.Models.Base.Member;
@@ -7,6 +8,7 @@ using FarDragi.DiscordCs.Core.Models.Base.Role;
 using FarDragi.DiscordCs.Core.Models.Base.User;
 using FarDragi.DiscordCs.Core.Models.Base.Voice;
 using FarDragi.DiscordCs.Core.Models.Collections;
+using FarDragi.DiscordCs.Core.Models.Enumerators.Channel;
 using FarDragi.DiscordCs.Core.Models.Enumerators.Guild;
 using FarDragi.DiscordCs.Core.Models.Enumerators.Role;
 using FarDragi.DiscordCs.Core.Models.Enumerators.User;
@@ -70,6 +72,8 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
                 VoicesStates = GetDiscordVoices(payload),
                 Members = GetDiscordMembers(payload)
             };
+
+            GetChannels(Data, payload);
         }
 
         internal DiscordRoleList GetDiscordRoles(PayloadRecived<EventGuildCreate> payload)
@@ -206,6 +210,107 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
             }
 
             return members;
+        }
+
+        internal void GetChannels(GuildCreate guildCreate, PayloadRecived<EventGuildCreate> payload)
+        {
+            guildCreate.CategoryChannels = new DiscordCategoryChannelList();
+            guildCreate.TextChannels = new DiscordTextChannelList();
+            guildCreate.VoiceChannels = new DiscordVoiceChannelList();
+
+            for (int i = 0; i < payload.Data.Channels.Length; i++)
+            {
+                if (payload.Data.Channels[i].Type == Enumerators.Channel.DiscordChannelType.GuildCategory)
+                {
+                    DiscordCategoryChannel categoryChannel = new DiscordCategoryChannel
+                    {
+                        Id = payload.Data.Channels[i].Id,
+                        GuildId = payload.Data.Id,
+                        Name = payload.Data.Channels[i].Name,
+                        ParentId = payload.Data.Channels[i].ParentId,
+                        Position = payload.Data.Channels[i].Position,
+                        Type = (DiscordChannelType)payload.Data.Channels[i].Type,
+                        Overrites = new DiscordChannelOverritesList()
+                    };
+
+                    for (int j = 0; j < payload.Data.Channels[i].PermissionOverwrites.Length; j++)
+                    {
+                        DiscordChannelOverrites overrites = new DiscordChannelOverrites
+                        {
+                            Id = payload.Data.Channels[i].PermissionOverwrites[j].Id,
+                            Allow = (DiscordRolePermissions)payload.Data.Channels[i].PermissionOverwrites[j].Allow,
+                            Deny = (DiscordRolePermissions)payload.Data.Channels[i].PermissionOverwrites[j].Deny,
+                            Type = payload.Data.Channels[i].PermissionOverwrites[j].Type == "role" ? DiscordChannelOverritesType.Role : DiscordChannelOverritesType.Member
+                        };
+
+                        categoryChannel.Overrites.Add(overrites);
+                    }
+
+                    guildCreate.CategoryChannels.Add(categoryChannel);
+                }
+                else if (payload.Data.Channels[i].Type == Enumerators.Channel.DiscordChannelType.GuildText)
+                {
+                    DiscordTextChannel textChannel = new DiscordTextChannel
+                    {
+                        Id = payload.Data.Channels[i].Id,
+                        GuildId = payload.Data.Id,
+                        Name = payload.Data.Channels[i].Name,
+                        ParentId = payload.Data.Channels[i].ParentId,
+                        Position = payload.Data.Channels[i].Position,
+                        Type = (DiscordChannelType)payload.Data.Channels[i].Type,
+                        IsNsfw = payload.Data.Channels[i].IsNsfw,
+                        LastMessageId = payload.Data.Channels[i].LastMessageId,
+                        RateLimitPerUser = payload.Data.Channels[i].RateLimitPerUser,
+                        Topic = payload.Data.Channels[i].Topic,
+                        Overrites = new DiscordChannelOverritesList()
+                    };
+
+                    for (int j = 0; j < payload.Data.Channels[i].PermissionOverwrites.Length; j++)
+                    {
+                        DiscordChannelOverrites overrites = new DiscordChannelOverrites
+                        {
+                            Id = payload.Data.Channels[i].PermissionOverwrites[j].Id,
+                            Allow = (DiscordRolePermissions)payload.Data.Channels[i].PermissionOverwrites[j].Allow,
+                            Deny = (DiscordRolePermissions)payload.Data.Channels[i].PermissionOverwrites[j].Deny,
+                            Type = payload.Data.Channels[i].PermissionOverwrites[j].Type == "role" ? DiscordChannelOverritesType.Role : DiscordChannelOverritesType.Member
+                        };
+
+                        textChannel.Overrites.Add(overrites);
+                    }
+
+                    guildCreate.TextChannels.Add(textChannel);
+                }
+                else if (payload.Data.Channels[i].Type == Enumerators.Channel.DiscordChannelType.GuildVoice)
+                {
+                    DiscordVoiceChannel voiceChannel = new DiscordVoiceChannel
+                    {
+                        Id = payload.Data.Channels[i].Id,
+                        GuildId = payload.Data.Id,
+                        Name = payload.Data.Channels[i].Name,
+                        ParentId = payload.Data.Channels[i].ParentId,
+                        Position = payload.Data.Channels[i].Position,
+                        Type = (DiscordChannelType)payload.Data.Channels[i].Type,
+                        Bitrate = payload.Data.Channels[i].Bitrate,
+                        UserLimit = payload.Data.Channels[i].UserLimit,
+                        Overrites = new DiscordChannelOverritesList()
+                    };
+
+                    for (int j = 0; j < payload.Data.Channels[i].PermissionOverwrites.Length; j++)
+                    {
+                        DiscordChannelOverrites overrites = new DiscordChannelOverrites
+                        {
+                            Id = payload.Data.Channels[i].PermissionOverwrites[j].Id,
+                            Allow = (DiscordRolePermissions)payload.Data.Channels[i].PermissionOverwrites[j].Allow,
+                            Deny = (DiscordRolePermissions)payload.Data.Channels[i].PermissionOverwrites[j].Deny,
+                            Type = payload.Data.Channels[i].PermissionOverwrites[j].Type == "role" ? DiscordChannelOverritesType.Role : DiscordChannelOverritesType.Member
+                        };
+
+                        voiceChannel.Overrites.Add(overrites);
+                    }
+
+                    guildCreate.VoiceChannels.Add(voiceChannel);
+                }
+            }
         }
     }
 }

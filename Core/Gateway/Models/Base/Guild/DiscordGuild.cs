@@ -1,4 +1,5 @@
-﻿using FarDragi.DiscordCs.Core.Gateway.Models.Base.Emoji;
+﻿using FarDragi.DiscordCs.Core.Gateway.Models.Base.Channel;
+using FarDragi.DiscordCs.Core.Gateway.Models.Base.Emoji;
 using FarDragi.DiscordCs.Core.Gateway.Models.Base.Member;
 using FarDragi.DiscordCs.Core.Gateway.Models.Base.Role;
 using FarDragi.DiscordCs.Core.Gateway.Models.Base.Voice;

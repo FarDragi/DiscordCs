@@ -2,7 +2,7 @@
 using FarDragi.DiscordCs.Core.Gateway.Models.Enumerators.Role;
 using Newtonsoft.Json;
 
-namespace FarDragi.DiscordCs.Core.Gateway.Models.Base
+namespace FarDragi.DiscordCs.Core.Gateway.Models.Base.Channel
 {
     internal class DiscordChannelOverrites
     {

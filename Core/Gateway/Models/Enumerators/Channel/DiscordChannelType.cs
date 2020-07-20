@@ -1,4 +1,4 @@
-﻿namespace FarDragi.DiscordCs.Core.Gateway.Models.Enumerators
+﻿namespace FarDragi.DiscordCs.Core.Gateway.Models.Enumerators.Channel
 {
     internal enum DiscordChannelType : byte
     {
