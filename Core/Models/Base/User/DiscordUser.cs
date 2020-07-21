@@ -1,4 +1,4 @@
-﻿using FarDragi.DiscordCs.Core.Models.Enumerators.User;
+﻿using FarDragi.DiscordCs.Core.Models.Enums.User;
 
 namespace FarDragi.DiscordCs.Core.Models.Base.User
 {

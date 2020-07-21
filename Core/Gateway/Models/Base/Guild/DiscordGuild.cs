@@ -4,9 +4,9 @@ using FarDragi.DiscordCs.Core.Gateway.Models.Base.Member;
 using FarDragi.DiscordCs.Core.Gateway.Models.Base.Presence;
 using FarDragi.DiscordCs.Core.Gateway.Models.Base.Role;
 using FarDragi.DiscordCs.Core.Gateway.Models.Base.Voice;
-using FarDragi.DiscordCs.Core.Gateway.Models.Enumerators;
-using FarDragi.DiscordCs.Core.Gateway.Models.Enumerators.Guild;
-using FarDragi.DiscordCs.Core.Gateway.Models.Enumerators.Role;
+using FarDragi.DiscordCs.Core.Gateway.Models.Enums;
+using FarDragi.DiscordCs.Core.Gateway.Models.Enums.Guild;
+using FarDragi.DiscordCs.Core.Gateway.Models.Enums.Role;
 using Newtonsoft.Json;
 using System;
 

@@ -1,5 +1,5 @@
 ﻿using FarDragi.DiscordCs.Core.Models.Collections;
-using FarDragi.DiscordCs.Core.Models.Enumerators.Guild;
+using FarDragi.DiscordCs.Core.Models.Enums.Guild;
 using System;
 
 namespace FarDragi.DiscordCs.Core.Models.Base.Guild

@@ -1,4 +1,4 @@
-﻿using FarDragi.DiscordCs.Core.Models.Enumerators.Role;
+﻿using FarDragi.DiscordCs.Core.Models.Enums.Role;
 
 namespace FarDragi.DiscordCs.Core.Models.Base.Role
 {

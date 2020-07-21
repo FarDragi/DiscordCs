@@ -1,5 +1,5 @@
-﻿using FarDragi.DiscordCs.Core.Models.Enumerators.Channel;
-using FarDragi.DiscordCs.Core.Models.Enumerators.Role;
+﻿using FarDragi.DiscordCs.Core.Models.Enums.Channel;
+using FarDragi.DiscordCs.Core.Models.Enums.Role;
 using System;
 using System.Collections.Generic;
 using System.Text;

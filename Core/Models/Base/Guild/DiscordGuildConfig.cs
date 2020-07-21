@@ -1,4 +1,4 @@
-﻿using FarDragi.DiscordCs.Core.Models.Enumerators.Guild;
+﻿using FarDragi.DiscordCs.Core.Models.Enums.Guild;
 
 namespace FarDragi.DiscordCs.Core.Models.Base.Guild
 {

@@ -1,4 +1,4 @@
-﻿using FarDragi.DiscordCs.Core.Gateway.Models.Enumerators.Message;
+﻿using FarDragi.DiscordCs.Core.Gateway.Models.Enums.Message;
 using Newtonsoft.Json;
 
 namespace FarDragi.DiscordCs.Core.Gateway.Models.Base.Message

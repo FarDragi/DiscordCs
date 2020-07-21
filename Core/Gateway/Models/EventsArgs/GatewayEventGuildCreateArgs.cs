@@ -8,10 +8,10 @@ using FarDragi.DiscordCs.Core.Models.Base.Role;
 using FarDragi.DiscordCs.Core.Models.Base.User;
 using FarDragi.DiscordCs.Core.Models.Base.Voice;
 using FarDragi.DiscordCs.Core.Models.Collections;
-using FarDragi.DiscordCs.Core.Models.Enumerators.Channel;
-using FarDragi.DiscordCs.Core.Models.Enumerators.Guild;
-using FarDragi.DiscordCs.Core.Models.Enumerators.Role;
-using FarDragi.DiscordCs.Core.Models.Enumerators.User;
+using FarDragi.DiscordCs.Core.Models.Enums.Channel;
+using FarDragi.DiscordCs.Core.Models.Enums.Guild;
+using FarDragi.DiscordCs.Core.Models.Enums.Role;
+using FarDragi.DiscordCs.Core.Models.Enums.User;
 using FarDragi.DiscordCs.Core.Models.Event;
 using System;
 
@@ -166,10 +166,10 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
                     SessionId = payload.Data.VoicesStates[i].SessionId,
                     IsDeaf = payload.Data.VoicesStates[i].IsDeaf,
                     IsMute = payload.Data.VoicesStates[i].IsMute,
-                    IsSeflDeaf = payload.Data.VoicesStates[i].IsSeflDeaf,
+                    IsSelfDeaf = payload.Data.VoicesStates[i].IsSeflDeaf,
                     IsSelfMute = payload.Data.VoicesStates[i].IsSelfMute,
                     IsSelfStream = payload.Data.VoicesStates[i].IsSelfStream,
-                    IsSeppress = payload.Data.VoicesStates[i].IsSeppress
+                    IsSuppress = payload.Data.VoicesStates[i].IsSeppress
                 });
             }
 
@@ -220,7 +220,7 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
 
             for (int i = 0; i < payload.Data.Channels.Length; i++)
             {
-                if (payload.Data.Channels[i].Type == Enumerators.Channel.DiscordChannelType.GuildCategory)
+                if (payload.Data.Channels[i].Type == Enums.Channel.DiscordChannelType.GuildCategory)
                 {
                     DiscordCategoryChannel categoryChannel = new DiscordCategoryChannel
                     {
@@ -248,7 +248,7 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
 
                     guildCreate.CategoryChannels.Add(categoryChannel);
                 }
-                else if (payload.Data.Channels[i].Type == Enumerators.Channel.DiscordChannelType.GuildText)
+                else if (payload.Data.Channels[i].Type == Enums.Channel.DiscordChannelType.GuildText)
                 {
                     DiscordTextChannel textChannel = new DiscordTextChannel
                     {
@@ -280,7 +280,7 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
 
                     guildCreate.TextChannels.Add(textChannel);
                 }
-                else if (payload.Data.Channels[i].Type == Enumerators.Channel.DiscordChannelType.GuildVoice)
+                else if (payload.Data.Channels[i].Type == Enums.Channel.DiscordChannelType.GuildVoice)
                 {
                     DiscordVoiceChannel voiceChannel = new DiscordVoiceChannel
                     {

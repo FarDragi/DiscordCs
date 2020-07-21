@@ -14,9 +14,9 @@ namespace FarDragi.DiscordCs.Core.Models.Base.Voice
         public string SessionId { get; set; }
         public bool IsDeaf { get; set; }
         public bool IsMute { get; set; }
-        public bool IsSeflDeaf { get; set; }
+        public bool IsSelfDeaf { get; set; }
         public bool IsSelfMute { get; set; }
         public bool IsSelfStream { get; set; }
-        public bool IsSeppress { get; set; }
+        public bool IsSuppress { get; set; }
     }
 }

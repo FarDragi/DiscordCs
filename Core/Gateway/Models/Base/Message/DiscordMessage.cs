@@ -3,7 +3,7 @@ using FarDragi.DiscordCs.Core.Gateway.Models.Base.Embed;
 using FarDragi.DiscordCs.Core.Gateway.Models.Base.Member;
 using FarDragi.DiscordCs.Core.Gateway.Models.Base.Role;
 using FarDragi.DiscordCs.Core.Gateway.Models.Base.User;
-using FarDragi.DiscordCs.Core.Gateway.Models.Enumerators.Message;
+using FarDragi.DiscordCs.Core.Gateway.Models.Enums.Message;
 using Newtonsoft.Json;
 using System;
 
