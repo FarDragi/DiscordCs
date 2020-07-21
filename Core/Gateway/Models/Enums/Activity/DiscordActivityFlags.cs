@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FarDragi.DiscordCs.Core.Gateway.Models.Enums
+namespace FarDragi.DiscordCs.Core.Gateway.Models.Enums.Activity
 {
     [Flags]
     internal enum DiscordActivityFlags

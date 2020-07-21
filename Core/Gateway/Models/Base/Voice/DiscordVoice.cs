@@ -35,7 +35,7 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.Base.Voice
 
         // Discord Voice
         [JsonProperty("self_deaf")]
-        internal bool IsSeflDeaf { get; set; }
+        internal bool IsSelfDeaf { get; set; }
 
         // Discord Voice
         [JsonProperty("self_mute")]
@@ -47,7 +47,7 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.Base.Voice
 
         // Discord Voice
         [JsonProperty("suppress")]
-        internal bool IsSeppress { get; set; }
+        internal bool IsSuppress { get; set; }
     }
 
 }

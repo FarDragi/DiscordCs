@@ -30,5 +30,6 @@ namespace FarDragi.DiscordCs.Core.Models.Base.Guild
         public DiscordCategoryChannelList CategoryChannels { get; set; }
         public DiscordTextChannelList TextChannels { get; set; }
         public DiscordVoiceChannelList VoiceChannels { get; set; }
+        public DiscordPresenceList Presences { get; set; }
     }
 }

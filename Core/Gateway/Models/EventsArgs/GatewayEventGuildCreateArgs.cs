@@ -4,6 +4,7 @@ using FarDragi.DiscordCs.Core.Models.Base.Channel;
 using FarDragi.DiscordCs.Core.Models.Base.Emoji;
 using FarDragi.DiscordCs.Core.Models.Base.Guild;
 using FarDragi.DiscordCs.Core.Models.Base.Member;
+using FarDragi.DiscordCs.Core.Models.Base.Presence;
 using FarDragi.DiscordCs.Core.Models.Base.Role;
 using FarDragi.DiscordCs.Core.Models.Base.User;
 using FarDragi.DiscordCs.Core.Models.Base.Voice;
@@ -70,7 +71,8 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
                 IsLarge = payload.Data.IsLarge,
                 MemberCount = payload.Data.MemberCount,
                 VoicesStates = GetDiscordVoices(payload),
-                Members = GetDiscordMembers(payload)
+                Members = GetDiscordMembers(payload),
+                Presences = GetDiscordPresences(payload)
             };
 
             GetChannels(Data, payload);
@@ -166,10 +168,10 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
                     SessionId = payload.Data.VoicesStates[i].SessionId,
                     IsDeaf = payload.Data.VoicesStates[i].IsDeaf,
                     IsMute = payload.Data.VoicesStates[i].IsMute,
-                    IsSelfDeaf = payload.Data.VoicesStates[i].IsSeflDeaf,
+                    IsSelfDeaf = payload.Data.VoicesStates[i].IsSelfDeaf,
                     IsSelfMute = payload.Data.VoicesStates[i].IsSelfMute,
                     IsSelfStream = payload.Data.VoicesStates[i].IsSelfStream,
-                    IsSuppress = payload.Data.VoicesStates[i].IsSeppress
+                    IsSuppress = payload.Data.VoicesStates[i].IsSuppress
                 });
             }
 
@@ -311,6 +313,26 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
                     guildCreate.VoiceChannels.Add(voiceChannel);
                 }
             }
+        }
+
+        internal DiscordPresenceList GetDiscordPresences(PayloadRecived<EventGuildCreate> payload)
+        {
+            DiscordPresenceList presences = new DiscordPresenceList();
+
+            for (int i = 0; i < payload.Data.Presences.Length; i++)
+            {
+                presences.Add(new DiscordPresence
+                {
+                    Nick = payload.Data.Presences[i].Nick,
+                    GuildId = payload.Data.Presences[i].GuildId,
+                    Roles = payload.Data.Presences[i].Roles,
+                    Status = payload.Data.Presences[i].Status,
+                    PremiumSince = payload.Data.Presences[i].PremiumSince,
+                    
+                });
+            }
+
+            return presences;
         }
     }
 }
