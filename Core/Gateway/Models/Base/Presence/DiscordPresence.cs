@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System;
 
-namespace FarDragi.DiscordCs.Core.Gateway.Models.Base
+namespace FarDragi.DiscordCs.Core.Gateway.Models.Base.Presence
 {
     internal class DiscordPresence
     {

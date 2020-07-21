@@ -1,6 +1,7 @@
 ﻿using FarDragi.DiscordCs.Core.Gateway.Models.Base.Channel;
 using FarDragi.DiscordCs.Core.Gateway.Models.Base.Emoji;
 using FarDragi.DiscordCs.Core.Gateway.Models.Base.Member;
+using FarDragi.DiscordCs.Core.Gateway.Models.Base.Presence;
 using FarDragi.DiscordCs.Core.Gateway.Models.Base.Role;
 using FarDragi.DiscordCs.Core.Gateway.Models.Base.Voice;
 using FarDragi.DiscordCs.Core.Gateway.Models.Enumerators;
@@ -139,6 +140,7 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.Base.Guild
         [JsonProperty("members")]
         internal DiscordMember[] Members { get; set; }
 
+        // Discord Guild
         [JsonProperty("channels")]
         internal DiscordChannel[] Channels { get; set; }
 
