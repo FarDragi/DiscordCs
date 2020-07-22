@@ -1,5 +1,4 @@
-﻿using FarDragi.DiscordCs.Core.Gateway.Models.Base;
-using FarDragi.DiscordCs.Core.Gateway.Models.Base.User;
+﻿using FarDragi.DiscordCs.Core.Gateway.Models.Base.User;
 using FarDragi.DiscordCs.Core.Models.Base.Guild;
 using Newtonsoft.Json;
 

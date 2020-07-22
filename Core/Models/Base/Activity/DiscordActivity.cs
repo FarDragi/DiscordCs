@@ -1,8 +1,5 @@
 ﻿using FarDragi.DiscordCs.Core.Models.Base.Emoji;
 using FarDragi.DiscordCs.Core.Models.Enums.Activity;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FarDragi.DiscordCs.Core.Models.Base.Activity
 {

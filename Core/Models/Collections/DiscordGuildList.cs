@@ -1,8 +1,6 @@
 ﻿using FarDragi.DiscordCs.Core.Models.Base.Guild;
-using FarDragi.DiscordCs.Core.Rest.Client;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace FarDragi.DiscordCs.Core.Models.Collections

@@ -1,5 +1,4 @@
 ﻿using FarDragi.DiscordCs.Core.Gateway.Models.Base.Emoji;
-using FarDragi.DiscordCs.Core.Gateway.Models.Enums;
 using FarDragi.DiscordCs.Core.Gateway.Models.Enums.Activity;
 using Newtonsoft.Json;
 

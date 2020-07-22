@@ -1,5 +1,4 @@
 ﻿using FarDragi.DiscordCs.Core.Gateway.Models.Base.User;
-using FarDragi.DiscordCs.Core.Gateway.Models.Enums;
 using FarDragi.DiscordCs.Core.Gateway.Models.Enums.Channel;
 using Newtonsoft.Json;
 using System;

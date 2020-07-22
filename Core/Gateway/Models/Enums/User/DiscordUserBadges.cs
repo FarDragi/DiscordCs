@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace FarDragi.DiscordCs.Core.Gateway.Models.Enums
+namespace FarDragi.DiscordCs.Core.Gateway.Models.Enums.User
 {
     [Flags]
-    internal enum DiscordBadges
+    internal enum DiscordUserBadges
     {
         None = 0,
         DiscordEmployee = 1,

@@ -1,4 +1,4 @@
-﻿using FarDragi.DiscordCs.Core.Gateway.Models.Enums;
+﻿using FarDragi.DiscordCs.Core.Gateway.Models.Enums.User;
 using Newtonsoft.Json;
 
 namespace FarDragi.DiscordCs.Core.Gateway.Models.Base.User
@@ -47,14 +47,14 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.Base.User
 
         // Discord User
         [JsonProperty("flags")]
-        internal DiscordBadges Badges { get; set; }
+        internal DiscordUserBadges Badges { get; set; }
 
         // Discord User
         [JsonProperty("premium_type")]
-        internal DiscordPremiumType PremiumType { get; set; }
+        internal DiscordUserPremiumType PremiumType { get; set; }
 
         // Discord User
         [JsonProperty("public_flags")]
-        internal DiscordBadges PublicBadges { get; set; }
+        internal DiscordUserBadges PublicBadges { get; set; }
     }
 }
