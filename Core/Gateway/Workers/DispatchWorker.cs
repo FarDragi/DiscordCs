@@ -52,7 +52,7 @@ namespace FarDragi.DiscordCs.Core.Gateway.Workers
                     break;
                 case GatewayEvent.GUILD_CREATE:
                     PayloadRecived<EventGuildCreate> guildCreate = json.ToObject<PayloadRecived<EventGuildCreate>>();
-                    _client.OnEventGuildCreate(new GatewayEventGuildCreateArgs(guildCreate));
+                    _client.OnEventGuildCreate(await new GatewayEventGuildCreateArgs().DataConvert(guildCreate));
                     break;
                 case GatewayEvent.GUILD_UPDATE:
                     break;

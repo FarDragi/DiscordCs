@@ -15,15 +15,24 @@ using FarDragi.DiscordCs.Core.Models.Enums.Role;
 using FarDragi.DiscordCs.Core.Models.Enums.User;
 using FarDragi.DiscordCs.Core.Models.Event;
 using System;
+using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
 {
     internal class GatewayEventGuildCreateArgs
     {
-        internal GuildCreate Data;
+        internal GuildCreate Data { get; private set; }
 
-        internal GatewayEventGuildCreateArgs(PayloadRecived<EventGuildCreate> payload)
+        internal async Task<GatewayEventGuildCreateArgs> DataConvert(PayloadRecived<EventGuildCreate> payload)
         {
+            Task<DiscordRoleList> rolesTask = GetDiscordRoles(payload);
+            Task<DiscordEmojiList> emojisTask = GetDiscordEmojis(payload);
+            Task<DiscordGuildFeatures> featuresTask = GetDiscordGuildFeatures(payload);
+            Task<DiscordVoiceList> voicesTask = GetDiscordVoices(payload);
+            Task<DiscordMemberList> membersTask = GetDiscordMembers(payload);
+            Task<DiscordGuildChannels> channelsTask = GetDiscordGuildChannels(payload);
+            Task<DiscordPresenceList> presenceTask = GetDiscordPresences(payload);
+
             Data = new GuildCreate
             {
                 Id = payload.Data.Id,
@@ -61,24 +70,25 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
                         SystemChannelFlags = (DiscordGuildSystemChannelFlags)payload.Data.SystemChannelFlags
                     }
                 },
-                Roles = GetDiscordRoles(payload),
-                Emojis = GetDiscordEmojis(payload),
-                Features = GetDiscordGuildFeatures(payload),
                 MfaLevel = (DiscordGuildMfaLevel)payload.Data.MfaLevel,
                 ApplicationId = payload.Data.ApplicationId,
                 RulesChannelId = payload.Data.RulesChannelId,
                 JoinedAt = payload.Data.JoinedAt,
                 IsLarge = payload.Data.IsLarge,
                 MemberCount = payload.Data.MemberCount,
-                VoicesStates = GetDiscordVoices(payload),
-                Members = GetDiscordMembers(payload),
-                Presences = GetDiscordPresences(payload)
+                Roles = await rolesTask,
+                Emojis = await emojisTask,
+                Features = await featuresTask,
+                VoicesStates = await voicesTask,
+                Members = await membersTask,
+                Channels = await channelsTask,
+                Presences = await presenceTask
             };
 
-            GetChannels(Data, payload);
+            return this;
         }
 
-        internal DiscordRoleList GetDiscordRoles(PayloadRecived<EventGuildCreate> payload)
+        private Task<DiscordRoleList> GetDiscordRoles(PayloadRecived<EventGuildCreate> payload)
         {
             DiscordRoleList roles = new DiscordRoleList();
 
@@ -97,10 +107,10 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
                 });
             }
 
-            return roles;
+            return Task.FromResult(roles);
         }
 
-        internal DiscordEmojiList GetDiscordEmojis(PayloadRecived<EventGuildCreate> payload)
+        private Task<DiscordEmojiList> GetDiscordEmojis(PayloadRecived<EventGuildCreate> payload)
         {
             DiscordEmojiList emojis = new DiscordEmojiList();
 
@@ -118,12 +128,12 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
                 });
             }
 
-            return emojis;
+            return Task.FromResult(emojis);
         }
 
-        internal DiscordGuildFeatures GetDiscordGuildFeatures(PayloadRecived<EventGuildCreate> payload)
+        private Task<DiscordGuildFeatures> GetDiscordGuildFeatures(PayloadRecived<EventGuildCreate> payload)
         {
-            if (payload.Data.Features.Length == 0) return DiscordGuildFeatures.None;
+            if (payload.Data.Features.Length == 0) return Task.FromResult(DiscordGuildFeatures.None);
 
             DiscordGuildFeatures features = DiscordGuildFeatures.None;
 
@@ -151,10 +161,10 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
                 }
             }
 
-            return features;
+            return Task.FromResult(features);
         }
 
-        internal DiscordVoiceList GetDiscordVoices(PayloadRecived<EventGuildCreate> payload)
+        private Task<DiscordVoiceList> GetDiscordVoices(PayloadRecived<EventGuildCreate> payload)
         {
             DiscordVoiceList voices = new DiscordVoiceList();
 
@@ -175,10 +185,10 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
                 });
             }
 
-            return voices;
+            return Task.FromResult(voices);
         }
 
-        internal DiscordMemberList GetDiscordMembers(PayloadRecived<EventGuildCreate> payload)
+        private Task<DiscordMemberList> GetDiscordMembers(PayloadRecived<EventGuildCreate> payload)
         {
             DiscordMemberList members = new DiscordMemberList();
 
@@ -211,14 +221,14 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
                 });
             }
 
-            return members;
+            return Task.FromResult(members);
         }
 
-        internal void GetChannels(GuildCreate guildCreate, PayloadRecived<EventGuildCreate> payload)
+        private Task<DiscordGuildChannels> GetDiscordGuildChannels(PayloadRecived<EventGuildCreate> payload)
         {
-            guildCreate.CategoryChannels = new DiscordCategoryChannelList();
-            guildCreate.TextChannels = new DiscordTextChannelList();
-            guildCreate.VoiceChannels = new DiscordVoiceChannelList();
+            DiscordCategoryChannelList categoryChannels = new DiscordCategoryChannelList();
+            DiscordTextChannelList textChannels = new DiscordTextChannelList();
+            DiscordVoiceChannelList voiceChannels = new DiscordVoiceChannelList();
 
             for (int i = 0; i < payload.Data.Channels.Length; i++)
             {
@@ -248,7 +258,7 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
                         categoryChannel.Overrites.Add(overrites);
                     }
 
-                    guildCreate.CategoryChannels.Add(categoryChannel);
+                    categoryChannels.Add(categoryChannel);
                 }
                 else if (payload.Data.Channels[i].Type == Enums.Channel.DiscordChannelType.GuildText)
                 {
@@ -280,7 +290,7 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
                         textChannel.Overrites.Add(overrites);
                     }
 
-                    guildCreate.TextChannels.Add(textChannel);
+                    textChannels.Add(textChannel);
                 }
                 else if (payload.Data.Channels[i].Type == Enums.Channel.DiscordChannelType.GuildVoice)
                 {
@@ -310,12 +320,19 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
                         voiceChannel.Overrites.Add(overrites);
                     }
 
-                    guildCreate.VoiceChannels.Add(voiceChannel);
+                    voiceChannels.Add(voiceChannel);
                 }
             }
+
+            return Task.FromResult(new DiscordGuildChannels
+            {
+                CategoryChannels = categoryChannels,
+                TextChannels = textChannels,
+                VoiceChannels = voiceChannels
+            });
         }
 
-        internal DiscordPresenceList GetDiscordPresences(PayloadRecived<EventGuildCreate> payload)
+        private Task<DiscordPresenceList> GetDiscordPresences(PayloadRecived<EventGuildCreate> payload)
         {
             DiscordPresenceList presences = new DiscordPresenceList();
 
@@ -327,12 +344,11 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
                     GuildId = payload.Data.Presences[i].GuildId,
                     Roles = payload.Data.Presences[i].Roles,
                     Status = payload.Data.Presences[i].Status,
-                    PremiumSince = payload.Data.Presences[i].PremiumSince,
-                    
+                    PremiumSince = payload.Data.Presences[i].PremiumSince
                 });
             }
 
-            return presences;
+            return Task.FromResult(presences);
         }
     }
 }

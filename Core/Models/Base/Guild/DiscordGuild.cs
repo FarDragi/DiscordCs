@@ -27,9 +27,7 @@ namespace FarDragi.DiscordCs.Core.Models.Base.Guild
         public uint MemberCount { get; set; }
         public DiscordVoiceList VoicesStates { get; set; }
         public DiscordMemberList Members { get; set; }
-        public DiscordCategoryChannelList CategoryChannels { get; set; }
-        public DiscordTextChannelList TextChannels { get; set; }
-        public DiscordVoiceChannelList VoiceChannels { get; set; }
+        public DiscordGuildChannels Channels { get; set; }
         public DiscordPresenceList Presences { get; set; }
     }
 }
