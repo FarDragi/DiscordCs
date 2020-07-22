@@ -29,5 +29,16 @@ namespace FarDragi.DiscordCs.Core.Models.Base.Guild
         public DiscordMemberList Members { get; set; }
         public DiscordGuildChannels Channels { get; set; }
         public DiscordPresenceList Presences { get; set; }
+        public uint? MaxPresences { get; set; }
+        public uint MaxMembers { get; set; }
+        public string VanityUrlCode { get; set; }
+        public string Banner { get; set; }
+        public DiscordGuildPremiumTier PremiumTier { get; set; }
+        public uint PremiumSubscriptionCount { get; set; }
+        public string PreferredLocale { get; set; }
+        public ulong? PublicUpdatesChannelId { get; set; }
+        public uint MaxVideoChannelUsers { get; set; }
+        public uint ApproximateMemberCount { get; set; }
+        public uint ApproximatePresenceCount { get; set; }
     }
 }

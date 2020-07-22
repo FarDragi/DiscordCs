@@ -144,6 +144,7 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.Base.Guild
         [JsonProperty("channels")]
         internal DiscordChannel[] Channels { get; set; }
 
+        // Discord Guild
         [JsonProperty("presences")]
         internal DiscordPresence[] Presences { get; set; }
 
@@ -164,7 +165,7 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.Base.Guild
         internal string Banner { get; set; }
 
         [JsonProperty("premium_tier")]
-        internal DiscordPremiumTier PremiumTier { get; set; }
+        internal DiscordGuildPremiumTier PremiumTier { get; set; }
 
         [JsonProperty("premium_subscription_count")]
         internal uint PremiumSubscriptionCount { get; set; }
