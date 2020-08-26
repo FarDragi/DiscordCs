@@ -51,17 +51,21 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.Base.Message
         [JsonProperty("mention_everyone")]
         internal bool IsMentionEveryone { get; set; }
 
+        // Discord Message
         [JsonProperty("mentions")]
         internal DiscordUserMention[] Mentions { get; set; }
 
+        // Discord Message
         [JsonProperty("mention_roles")]
         internal DiscordRole[] MentionRoles { get; set; }
 
+        // Discord Message
         [JsonProperty("mention_channels")]
         internal DiscordChannel[] MentionChannels { get; set; }
 
+        // Discord Message
         [JsonProperty("attachments")]
-        internal DiscordAttachment[] Attachments { get; set; }
+        internal DiscordMessageAttachment[] Attachments { get; set; }
 
         [JsonProperty("embeds")]
         internal DiscordEmbed[] Embeds { get; set; }

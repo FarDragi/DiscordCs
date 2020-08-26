@@ -29,6 +29,8 @@ namespace FarDragi.DiscordCs.Core.Gateway.Extensions
             _compressed.Flush();
             _compressed.Position = 0;
 
+            // TODO mudar o byte array para um fixo
+
             byte[] sufix = data[^4..];
             if (sufix == new byte[] { 0x00, 0x00, 0xff, 0xff })
             {
