@@ -31,6 +31,8 @@ namespace FarDragi.DiscordCs.Test
         private Task Client_GuildCreate(EventGuildCreateArgs e)
         {
             System.Console.WriteLine(e.Data.Name);
+
+
             return Task.CompletedTask;
         }
 

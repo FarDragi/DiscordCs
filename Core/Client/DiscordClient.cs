@@ -97,7 +97,7 @@ namespace FarDragi.DiscordCs.Core.Client
         internal void OnEventGuildCreate(GatewayEventGuildCreateArgs e)
         {
             Guilds.Add(e.Data);
-            GuildCreate?.Invoke(new EventGuildCreateArgs(e.Data));
+            GuildCreate?.Invoke(new EventGuildCreateArgs(e.Data, this));
         }
 
         internal void OnEventMessageCreate(GatewayEventMessageCreateArgs e)

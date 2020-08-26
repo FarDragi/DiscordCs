@@ -355,7 +355,8 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
                     GuildId = payload.Data.Presences[i].GuildId,
                     Roles = payload.Data.Presences[i].Roles,
                     Status = payload.Data.Presences[i].Status,
-                    PremiumSince = payload.Data.Presences[i].PremiumSince
+                    PremiumSince = payload.Data.Presences[i].PremiumSince,
+                    
                 });
             }
 

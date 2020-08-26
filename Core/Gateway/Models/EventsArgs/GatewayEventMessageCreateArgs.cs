@@ -10,7 +10,7 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.EventsArgs
 
         internal GatewayEventMessageCreateArgs(PayloadRecived<EventMessageCreate> payload)
         {
-
+            
         }
     }
 }

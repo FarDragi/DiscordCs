@@ -1,6 +1,8 @@
-﻿namespace FarDragi.DiscordCs.Core.Models.Event
+﻿using FarDragi.DiscordCs.Core.Models.Base.Message;
+
+namespace FarDragi.DiscordCs.Core.Models.Event
 {
-    public class MessageCreate
+    public class MessageCreate : DiscordMessage
     {
     }
 }
