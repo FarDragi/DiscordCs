@@ -1,10 +1,23 @@
-﻿using System;
+﻿using FarDragi.DiscordCs.Core.Models.Base.User;
+using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FarDragi.DiscordCs.Core.Models.Collections
 {
-    class DiscordMentionList : DiscordList<DisMen>
+    public class DiscordMentionList : DiscordList<DiscordUserMention>, IEnumerable<DiscordUserMention>
     {
+        #region IEnumerable
+
+        public IEnumerator<DiscordUserMention> GetEnumerator()
+        {
+            return _list.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        #endregion
     }
 }

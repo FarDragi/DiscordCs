@@ -52,7 +52,7 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.Base.Message
         internal bool IsMentionEveryone { get; set; }
 
         [JsonProperty("mentions")]
-        internal DiscordMentionUser[] Mentions { get; set; }
+        internal DiscordUserMention[] Mentions { get; set; }
 
         [JsonProperty("mention_roles")]
         internal DiscordRole[] MentionRoles { get; set; }
