@@ -71,31 +71,40 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.Base.Message
         [JsonProperty("embeds")]
         internal DiscordEmbed[] Embeds { get; set; }
 
+        // Discord Message
         [JsonProperty("reactions")]
         internal DiscordMessageReaction[] Reactions { get; set; }
 
+        // Discord Message
         [JsonProperty("nonce")]
         internal string Nonce { get; set; }
 
+        // Discord Message
         [JsonProperty("pinned")]
         internal bool IsPinned { get; set; }
 
+        // Discord Message
         [JsonProperty("webhook_id")]
         internal ulong WebhookId { get; set; }
 
+        // Discord Message
         [JsonProperty("type")]
-        internal DiscordMessageType Type { get; set; }
+        internal DiscordMessageType MessageType { get; set; }
 
+        // Discord Message
         [JsonProperty("activity")]
         internal DiscordMessageActivity Activity { get; set; }
 
+        // Discord Message
         [JsonProperty("application")]
         internal DiscordMessageApplication Application { get; set; }
 
+        // Discord Message
         [JsonProperty("message_reference")]
         internal DiscordMessageReference Reference { get; set; }
 
+        // Discord Message
         [JsonProperty("flags")]
-        internal DiscordMessageFlags Flags { get; set; }
+        internal DiscordMessageFlags MessageFlags { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using FarDragi.DiscordCs.Core.Models.Base.Member;
 using FarDragi.DiscordCs.Core.Models.Base.User;
 using FarDragi.DiscordCs.Core.Models.Collections;
+using FarDragi.DiscordCs.Core.Models.Enums.Message;
 using System;
 
 namespace FarDragi.DiscordCs.Core.Models.Base.Message
@@ -23,5 +24,14 @@ namespace FarDragi.DiscordCs.Core.Models.Base.Message
         public DiscordGuildChannels Channels { get; set; }
         public DiscordMessageAttachmentList Attachments { get; set; }
         public DiscordEmbedList Embeds { get; set; }
+        public DiscordMessageReactionList Reactions { get; set; }
+        public string Nonce { get; set; }
+        public bool IsPinned { get; set; }
+        public ulong WebhookId { get; set; }
+        public DiscordMessageType MessageType { get; set; }
+        public DiscordMessageActivity Activity { get; set; }
+        public DiscordMessageApplication Application { get; set; }
+        public DiscordMessageReference Reference { get; set; }
+        public DiscordMessageFlags MessageFlags { get; set; }
     }
 }
