@@ -67,6 +67,7 @@ namespace FarDragi.DiscordCs.Core.Gateway.Models.Base.Message
         [JsonProperty("attachments")]
         internal DiscordMessageAttachment[] Attachments { get; set; }
 
+        // Discord Message
         [JsonProperty("embeds")]
         internal DiscordEmbed[] Embeds { get; set; }
 

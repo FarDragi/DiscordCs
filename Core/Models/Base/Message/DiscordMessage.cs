@@ -22,7 +22,6 @@ namespace FarDragi.DiscordCs.Core.Models.Base.Message
         public DiscordRoleList RolesMentions { get; set; }
         public DiscordGuildChannels Channels { get; set; }
         public DiscordMessageAttachmentList Attachments { get; set; }
-
-        // TODO fazer os embeds
+        public DiscordEmbedList Embeds { get; set; }
     }
 }
