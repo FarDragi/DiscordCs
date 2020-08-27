@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace FarDragi.DiscordCs.Core.Models.Collections
 {
-    public class DiscordMentionList : DiscordList<DiscordUserMention>, IEnumerable<DiscordUserMention>
+    public class DiscordUserMentionList : DiscordList<DiscordUserMention>, IEnumerable<DiscordUserMention>
     {
         #region IEnumerable
 

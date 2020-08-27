@@ -1,9 +1,6 @@
 ﻿using FarDragi.DiscordCs.Core.Client;
 using FarDragi.DiscordCs.Core.Models.Base.Bot;
-using FarDragi.DiscordCs.Core.Models.Base.Role;
 using FarDragi.DiscordCs.Core.Models.EventsArgs;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs.Test
@@ -26,6 +23,13 @@ namespace FarDragi.DiscordCs.Test
 
             _client.Ready += Client_Ready;
             _client.GuildCreate += Client_GuildCreate;
+            _client.MessageCreate += Client_MessageCreate;
+        }
+
+        private Task Client_MessageCreate(EventMessageCreateArgs e)
+        {
+            System.Console.WriteLine($"{e.Data.Author.Username}: {e.Data.Content}");
+            return Task.CompletedTask;
         }
 
         private Task Client_GuildCreate(EventGuildCreateArgs e)

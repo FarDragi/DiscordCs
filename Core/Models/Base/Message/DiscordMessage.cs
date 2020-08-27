@@ -19,9 +19,9 @@ namespace FarDragi.DiscordCs.Core.Models.Base.Message
         public DateTime? EditedTimestamp { get; set; }
         public bool IsTts { get; set; }
         public bool IsMentionEveryone { get; set; }
-        public DiscordMentionList UserMentions { get; set; }
+        public DiscordUserMentionList UserMentions { get; set; }
         public DiscordRoleList RolesMentions { get; set; }
-        public DiscordGuildChannels Channels { get; set; }
+        public DiscordGuildChannels ChannelsMentions { get; set; }
         public DiscordMessageAttachmentList Attachments { get; set; }
         public DiscordEmbedList Embeds { get; set; }
         public DiscordMessageReactionList Reactions { get; set; }
