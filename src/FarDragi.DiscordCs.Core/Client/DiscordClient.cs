@@ -1,16 +1,23 @@
-﻿using FarDragi.DiscordCs.Core.Websocket;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FarDragi.DiscordCs.Core.Client.Interfaces;
 
 namespace FarDragi.DiscordCs.Core.Client
 {
-    public class DiscordClient : BaseClient
+    public class DiscordClient : IClientData, IClientEvents
     {
-        public DiscordClient(ConfigClient config) : base(config)
+        private ClientBase[] clients;
+
+        public event IClientEvents.EventRaw Raw;
+
+        public ClientConfig Config { get; init; }
+
+        public DiscordClient(ClientConfig config)
         {
+            Config = config;
+        }
+
+        public void OnRaw(string data)
+        {
+            Raw.Invoke(data);
         }
     }
 }

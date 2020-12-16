@@ -1,24 +1,17 @@
 ﻿using FarDragi.DiscordCs.Core.Client;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using FarDragi.DiscordCs.Core.Websocket.Interfaces;
 
 namespace FarDragi.DiscordCs.Core.Websocket
 {
-    public class DiscordWebsocket : BaseWebsocket, IDisposable
+    public class DiscordWebsocket : IWebsocketData, IWebsocketEvents
     {
-        public BaseClient BaseClient { get; }
+        private readonly ClientBase client;
+        private readonly WebsocketBase websocket;
 
-        public DiscordWebsocket(BaseClient baseClient) : base(baseClient.Config.ConfigWebsocket)
+        public DiscordWebsocket(ClientBase client, WebsocketConfig config)
         {
-            BaseClient = baseClient;
-        }
-
-        public void Dispose()
-        {
-            GC.SuppressFinalize(this);
+            this.client = client;
+            websocket = new WebsocketBase(this, config);
         }
     }
 }

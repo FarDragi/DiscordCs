@@ -13,7 +13,7 @@ namespace DiscordCsBotTest
 
         public Bot(string token)
         {
-            client = new DiscordClient(new ConfigClient(token));
+            client = new DiscordClient(new ClientConfig(token));
         }
     }
 }

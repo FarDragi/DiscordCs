@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FarDragi.DiscordCs.Core.Websocket
+namespace FarDragi.DiscordCs.Core.Websocket.Interfaces
 {
-    public class ConfigWebsocket
+    public interface IWebsocketEvents
     {
-        public string Token { get; set; }
     }
 }
