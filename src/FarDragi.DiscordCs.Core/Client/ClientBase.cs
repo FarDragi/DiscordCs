@@ -10,7 +10,7 @@ namespace FarDragi.DiscordCs.Core.Client
         private readonly IClientData data;
         private readonly IClientEvents events;
 
-        public ClientBase(DiscordClient client, WebsocketConfig config)
+        public ClientBase(IClient client, WebsocketConfig config)
         {
             data = client;
             events = client;
@@ -20,6 +20,11 @@ namespace FarDragi.DiscordCs.Core.Client
         public void OnDataReceived()
         {
             
+        }
+
+        public void Connect()
+        {
+            websocket.Open();
         }
     }
 }

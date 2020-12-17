@@ -13,7 +13,21 @@ namespace DiscordCsBotTest
 
         public Bot(string token)
         {
-            client = new DiscordClient(new ClientConfig(token));
+            client = new DiscordClient(new ClientConfig(token)
+            {
+                 
+            });
+            client.Raw += Client_Raw;
+        }
+
+        private Task Client_Raw(string data)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Start()
+        {
+            client.Connect();
         }
     }
 }

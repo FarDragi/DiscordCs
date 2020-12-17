@@ -1,12 +1,17 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace DiscordCsBotTest
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            new Bot("");
+            Console.Write("Digite o token: ");
+            var bot = new Bot(Console.ReadLine());
+            bot.Start();
+
+            await Task.Delay(-1);
         }
     }
 }

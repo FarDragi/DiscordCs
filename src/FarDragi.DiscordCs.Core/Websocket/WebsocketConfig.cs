@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FarDragi.DiscordCs.Core.Jsons.Identify;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace FarDragi.DiscordCs.Core.Websocket
 {
     public class WebsocketConfig
     {
-        public string Token { get; set; }
+        public DiscordIdentify Identify { get; set; }
     }
 }
