@@ -15,7 +15,7 @@ namespace FarDragi.DiscordCs.Core.Jsons.Identify
         public IdentifyProperties Properties { get; set; }
 
         [JsonProperty("compress")]
-        public bool? Compress { get; set; } = false;
+        public bool? Compress { get; set; } = true;
 
         [JsonProperty("large_threshold")]
         public int? LargeThreshold { get; set; } = 50;

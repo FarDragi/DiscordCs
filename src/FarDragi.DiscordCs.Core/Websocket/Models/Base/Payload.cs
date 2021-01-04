@@ -1,5 +1,6 @@
 ﻿using FarDragi.DiscordCs.Core.Websocket.Models.Codes;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace FarDragi.DiscordCs.Core.Websocket.Models.Base
 {
@@ -15,6 +16,7 @@ namespace FarDragi.DiscordCs.Core.Websocket.Models.Base
         public int? Session { get; set; }
 
         [JsonProperty("t")]
-        public string EventName { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public GatewayEvents? EventName { get; set; }
     }
 }
