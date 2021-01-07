@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FarDragi.DiscordCs.Core.Emoji;
+using FarDragi.DiscordCs.Core.Role;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -26,5 +28,7 @@ namespace FarDragi.DiscordCs.Core.Guild
         public int VerificationLevel { get; set; }
         public int DefaultMessageNotifications { get; set; }
         public int ExplicitContentFilter { get; set; }
+        public IDiscordRole[] Roles { get; set; }
+        public IDiscordEmoji[] Emojis { get; set; }
     }
 }
