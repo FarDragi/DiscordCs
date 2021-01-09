@@ -6,6 +6,9 @@ using System.Text;
 
 namespace FarDragi.DiscordCs.Core.Application
 {
+    /// <summary>
+    /// https://discord.com/developers/docs/topics/oauth2#application-object
+    /// </summary>
     public interface IDiscordApplication
     {
         public ulong Id { get; set; }
