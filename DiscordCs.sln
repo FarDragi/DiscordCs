@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarDragi.DiscordCs.Core", "src\FarDragi.DiscordCs.Core\FarDragi.DiscordCs.Core.csproj", "{1BC8E479-3A71-4C23-9C1E-63F29E8A26DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarDragi.DiscordCs.Core", "src\FarDragi.DiscordCs.Core\FarDragi.DiscordCs.Core.csproj", "{1BC8E479-3A71-4C23-9C1E-63F29E8A26DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarDragi.DiscordCs.Gateway", "src\FarDragi.DiscordCs.Gateway\FarDragi.DiscordCs.Gateway.csproj", "{5E47F1AE-5D64-4D09-923E-7DBA2B0376A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{1BC8E479-3A71-4C23-9C1E-63F29E8A26DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BC8E479-3A71-4C23-9C1E-63F29E8A26DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BC8E479-3A71-4C23-9C1E-63F29E8A26DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E47F1AE-5D64-4D09-923E-7DBA2B0376A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E47F1AE-5D64-4D09-923E-7DBA2B0376A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E47F1AE-5D64-4D09-923E-7DBA2B0376A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E47F1AE-5D64-4D09-923E-7DBA2B0376A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
