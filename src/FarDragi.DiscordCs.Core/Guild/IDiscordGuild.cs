@@ -1,5 +1,6 @@
 ﻿using FarDragi.DiscordCs.Core.Emoji;
 using FarDragi.DiscordCs.Core.Role;
+using FarDragi.DiscordCs.Core.Voice;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -30,5 +31,17 @@ namespace FarDragi.DiscordCs.Core.Guild
         public int ExplicitContentFilter { get; set; }
         public IDiscordRole[] Roles { get; set; }
         public IDiscordEmoji[] Emojis { get; set; }
+        public string[] Features { get; set; }
+        public int MfaLevel { get; set; }
+        public ulong ApplicationId { get; set; }
+        public ulong SystemChannelId { get; set; }
+        public int SystemChannelFlags { get; set; }
+        public ulong RulesChannelId { get; set; }
+        public DateTime JoinedAt { get; set; }
+        public bool Large { get; set; }
+        public bool Unavailable { get; set; }
+        public int MemberCount { get; set; }
+        public IDiscordVoice[] Voices { get; set; }
+        public IGuildMember[] Members { get; set; }
     }
 }
