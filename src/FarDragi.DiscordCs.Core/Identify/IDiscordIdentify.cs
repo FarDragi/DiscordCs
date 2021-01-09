@@ -5,6 +5,9 @@ using System.Text;
 
 namespace FarDragi.DiscordCs.Core.Identify
 {
+    /// <summary>
+    /// https://discord.com/developers/docs/topics/gateway#identify-identify-structure
+    /// </summary>
     public interface IDiscordIdentify
     {
         public string Token { get; set; }
@@ -12,7 +15,7 @@ namespace FarDragi.DiscordCs.Core.Identify
         public bool Compress { get; set; }
         public int LargeThreshold { get; set; }
         public int[] Shard { get; set; }
-        public IDiscordPresence Presence { get; set; }
+        public IPresenceStatusUpdate Presence { get; set; }
         public bool GuildSubscriptions { get; set; }
         public int Intents { get; set; }
     }

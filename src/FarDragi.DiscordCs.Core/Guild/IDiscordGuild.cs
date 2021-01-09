@@ -1,5 +1,6 @@
 ﻿using FarDragi.DiscordCs.Core.Channel;
 using FarDragi.DiscordCs.Core.Emoji;
+using FarDragi.DiscordCs.Core.Presence;
 using FarDragi.DiscordCs.Core.Role;
 using FarDragi.DiscordCs.Core.Voice;
 using System;
@@ -45,5 +46,18 @@ namespace FarDragi.DiscordCs.Core.Guild
         public IDiscordVoice[] Voices { get; set; }
         public IGuildMember[] Members { get; set; }
         public IDiscordChannel[] Channels { get; set; }
+        public IDiscordPresence[] Presences { get; set; }
+        public int MaxPresences { get; set; }
+        public int MaxMembers { get; set; }
+        public string VanityUrlCode { get; set; }
+        public string Description { get; set; }
+        public string Banner { get; set; }
+        public int PremiumTier { get; set; }
+        public int PremiumSubscriptionCount { get; set; }
+        public string PreferredLocale { get; set; }
+        public ulong PublicUpdatesChannelId { get; set; }
+        public int MaxVideoChannelUsers { get; set; }
+        public int ApproximateMemberCount { get; set; }
+        public int ApproximatePresenceCount { get; set; }
     }
 }

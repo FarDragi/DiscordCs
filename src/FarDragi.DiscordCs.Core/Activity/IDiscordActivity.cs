@@ -4,6 +4,9 @@ using System.Text;
 
 namespace FarDragi.DiscordCs.Core.Activity
 {
+    /// <summary>
+    /// https://discord.com/developers/docs/topics/gateway#activity-object-activity-structure
+    /// </summary>
     public interface IDiscordActivity
     {
         public string Name { get; set; }
