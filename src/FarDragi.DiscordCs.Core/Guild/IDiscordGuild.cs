@@ -1,4 +1,5 @@
-﻿using FarDragi.DiscordCs.Core.Emoji;
+﻿using FarDragi.DiscordCs.Core.Channel;
+using FarDragi.DiscordCs.Core.Emoji;
 using FarDragi.DiscordCs.Core.Role;
 using FarDragi.DiscordCs.Core.Voice;
 using System;
@@ -43,5 +44,6 @@ namespace FarDragi.DiscordCs.Core.Guild
         public int MemberCount { get; set; }
         public IDiscordVoice[] Voices { get; set; }
         public IGuildMember[] Members { get; set; }
+        public IDiscordChannel[] Channels { get; set; }
     }
 }
