@@ -3,13 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FarDragi.DiscordCs.Gateway.Client
+namespace FarDragi.DiscordCs.Gateway
 {
-    public class DiscordGateway
+    public class GatewayClient
     {
         private IGatewayEvents events;
 
-        public DiscordGateway(IGatewayEvents events)
+        public GatewayClient(IGatewayEvents events)
         {
             this.events = events;
         }

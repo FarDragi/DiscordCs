@@ -7,6 +7,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarDragi.DiscordCs.Core", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarDragi.DiscordCs.Gateway", "src\FarDragi.DiscordCs.Gateway\FarDragi.DiscordCs.Gateway.csproj", "{5E47F1AE-5D64-4D09-923E-7DBA2B0376A0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarDragi.DiscordCs.Client", "src\FarDragi.DiscordCs.Client\FarDragi.DiscordCs.Client.csproj", "{59E98E38-AEF2-4B27-AA8A-D0658993D072}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6575F7A8-0D08-41D3-AC12-9FCE38639BF4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{58F48FEB-9B85-4D33-B578-1A6CEAE35A6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarDragi.DiscordCs.Test.Client", "test\FarDragi.DiscordCs.Test.Client\FarDragi.DiscordCs.Test.Client.csproj", "{FECDE062-AC8D-4755-AA7F-FD1D4D5A1B7E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +29,23 @@ Global
 		{5E47F1AE-5D64-4D09-923E-7DBA2B0376A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E47F1AE-5D64-4D09-923E-7DBA2B0376A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E47F1AE-5D64-4D09-923E-7DBA2B0376A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59E98E38-AEF2-4B27-AA8A-D0658993D072}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59E98E38-AEF2-4B27-AA8A-D0658993D072}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59E98E38-AEF2-4B27-AA8A-D0658993D072}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59E98E38-AEF2-4B27-AA8A-D0658993D072}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FECDE062-AC8D-4755-AA7F-FD1D4D5A1B7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FECDE062-AC8D-4755-AA7F-FD1D4D5A1B7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FECDE062-AC8D-4755-AA7F-FD1D4D5A1B7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FECDE062-AC8D-4755-AA7F-FD1D4D5A1B7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1BC8E479-3A71-4C23-9C1E-63F29E8A26DB} = {6575F7A8-0D08-41D3-AC12-9FCE38639BF4}
+		{5E47F1AE-5D64-4D09-923E-7DBA2B0376A0} = {6575F7A8-0D08-41D3-AC12-9FCE38639BF4}
+		{59E98E38-AEF2-4B27-AA8A-D0658993D072} = {6575F7A8-0D08-41D3-AC12-9FCE38639BF4}
+		{FECDE062-AC8D-4755-AA7F-FD1D4D5A1B7E} = {58F48FEB-9B85-4D33-B578-1A6CEAE35A6E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CBDFC198-519D-4F43-9613-405CE006A1B8}
