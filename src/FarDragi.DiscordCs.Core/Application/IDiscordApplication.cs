@@ -1,4 +1,5 @@
-﻿using FarDragi.DiscordCs.Core.User;
+﻿using FarDragi.DiscordCs.Core.Team;
+using FarDragi.DiscordCs.Core.User;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,5 +18,11 @@ namespace FarDragi.DiscordCs.Core.Application
         public IDiscordUser Owner { get; set; }
         public string Summary { get; set; }
         public string VerifyKey { get; set; }
+        public IDiscordTeam Team { get; set; }
+        public ulong GuildId { get; set; }
+        public ulong PrimarySkuId { get; set; }
+        public string Slug { get; set; }
+        public string CoverImage { get; set; }
+        public int Flags { get; set; }
     }
 }
