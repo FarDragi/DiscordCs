@@ -23,5 +23,10 @@ namespace FarDragi.DiscordCs.Gateway.Socket
         {
             socket = new WebSocket(config.Url);
         }
+
+        public void Login()
+        {
+
+        }
     }
 }

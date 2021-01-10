@@ -14,5 +14,10 @@ namespace FarDragi.DiscordCs.Client
         {
             gateway = new GatewayClient(this);
         }
+
+        public void Login(string token)
+        {
+            gateway
+        }
     }
 }

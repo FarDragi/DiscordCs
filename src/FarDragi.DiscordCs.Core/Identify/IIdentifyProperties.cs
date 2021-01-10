@@ -1,5 +1,8 @@
 ﻿namespace FarDragi.DiscordCs.Core.Identify
 {
+    /// <summary>
+    /// https://discord.com/developers/docs/topics/gateway#identify-identify-connection-properties
+    /// </summary>
     public interface IIdentifyProperties
     {
         public string OS { get; set; }
