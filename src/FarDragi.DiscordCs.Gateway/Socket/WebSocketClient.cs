@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using SuperSocket.ClientEngine;
+using System;
 using WebSocket4Net;
 
 namespace FarDragi.DiscordCs.Gateway.Socket
@@ -8,25 +7,43 @@ namespace FarDragi.DiscordCs.Gateway.Socket
     public class WebSocketClient
     {
         public WebSocket socket;
+        public WebSocketDecompress decompress;
 
         public WebSocketClient()
         {
+            decompress = new WebSocketDecompress();
             WebSocketConfig config = new WebSocketConfig
             {
                 ApiVersion = "8",
                 Encoding = "json"
             };
             socket = new WebSocket(config.Url);
+            socket.Opened += Socket_Opened;
+            socket.DataReceived += Socket_DataReceived;
+            socket.Error += Socket_Error;
         }
 
-        public WebSocketClient(WebSocketConfig config)
+        private void Socket_Error(object sender, ErrorEventArgs e)
         {
-            socket = new WebSocket(config.Url);
+            throw new NotImplementedException();
         }
 
-        public void Login()
+        private void Socket_DataReceived(object sender, DataReceivedEventArgs e)
         {
+            if (decompress.TryDecompress(e.Data, out string json))
+            {
 
+            }
+        }
+
+        private void Socket_Opened(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Open()
+        {
+            socket.Open();
         }
     }
 }
