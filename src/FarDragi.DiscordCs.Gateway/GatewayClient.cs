@@ -1,8 +1,5 @@
 ﻿using FarDragi.DiscordCs.Gateway.Interface;
 using FarDragi.DiscordCs.Gateway.Socket;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FarDragi.DiscordCs.Gateway
 {
@@ -14,11 +11,17 @@ namespace FarDragi.DiscordCs.Gateway
         public GatewayClient(IGatewayEvents events)
         {
             this.events = events;
+            webSocket = new WebSocketClient(this);
         }
 
         public void Open()
         {
             webSocket.Open();
+        }
+
+        public void OnEventReceived(string json)
+        {
+
         }
     }
 }

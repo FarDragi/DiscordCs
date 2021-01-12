@@ -6,11 +6,13 @@ namespace FarDragi.DiscordCs.Gateway.Socket
 {
     public class WebSocketClient
     {
-        public WebSocket socket;
-        public WebSocketDecompress decompress;
+        private WebSocket socket;
+        private WebSocketDecompress decompress;
+        private GatewayClient gatewayClient;
 
-        public WebSocketClient()
+        public WebSocketClient(GatewayClient gatewayClient)
         {
+            this.gatewayClient = gatewayClient;
             decompress = new WebSocketDecompress();
             WebSocketConfig config = new WebSocketConfig
             {
@@ -32,7 +34,7 @@ namespace FarDragi.DiscordCs.Gateway.Socket
         {
             if (decompress.TryDecompress(e.Data, out string json))
             {
-
+                gatewayClient.OnEventReceived(json);
             }
         }
 
