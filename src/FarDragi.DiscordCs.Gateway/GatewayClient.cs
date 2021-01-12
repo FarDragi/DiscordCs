@@ -42,7 +42,7 @@ namespace FarDragi.DiscordCs.Gateway
             webSocket.Open();
         }
 
-        public void OnEventReceived(string eventName, string json)
+        public void OnEventReceived(string eventName, object json)
         {
             events.OnRaw(this, json);
             eventsHandler[eventName].Invoke(this, json);

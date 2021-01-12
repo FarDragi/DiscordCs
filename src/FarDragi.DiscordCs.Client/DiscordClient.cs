@@ -17,17 +17,23 @@ namespace FarDragi.DiscordCs.Client
             gateway = new GatewayClient(this);
         }
 
-        public event IGatewayEvents.HandlerGateway<string> Raw;
+        public event HandlerGateway<string> Raw;
+        public event HandlerGateway<string> Ready;
 
         public void Login(string token)
         {
             gateway.Open();
         }
 
-        [EventName("RAW")]
-        public void OnRaw(object sender, object data)
+        public virtual void OnRaw(object sender, object data)
         {
             throw new NotImplementedException();
+        }
+
+        [EventName("READY")]
+        public virtual void OnReady(object sender, object data)
+        {
+
         }
     }
 }

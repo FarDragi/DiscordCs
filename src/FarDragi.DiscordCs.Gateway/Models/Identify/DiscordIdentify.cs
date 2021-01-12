@@ -11,8 +11,21 @@ namespace FarDragi.DiscordCs.Gateway.Models.Identify
     {
         [JsonProperty("token")]
         private string token;
+
         [JsonProperty("properties")]
         private IdentifyProperties properties;
+
+        [JsonProperty("compress")]
+        private bool compress;
+
+        [JsonProperty("large_threshold")]
+        private int largeThreshold;
+
+        [JsonProperty("shard")]
+        private int[] shard;
+
+        [JsonProperty("intents")]
+        private int intents;
 
         public string Token 
         { 
@@ -27,39 +40,39 @@ namespace FarDragi.DiscordCs.Gateway.Models.Identify
         }
 
         public bool Compress 
-        { 
-            get => throw new NotImplementedException(); 
-            set => throw new NotImplementedException(); 
+        {
+            get => compress;
+            set => compress = value; 
         }
 
         public int LargeThreshold 
-        { 
-            get => throw new NotImplementedException(); 
-            set => throw new NotImplementedException(); 
+        {
+            get => largeThreshold;
+            set => largeThreshold = value;
         }
 
         public int[] Shard 
-        { 
-            get => throw new NotImplementedException(); 
-            set => throw new NotImplementedException(); 
+        {
+            get => shard;
+            set => shard = value;
         }
 
         public IPresenceStatusUpdate Presence 
-        { 
-            get => throw new NotImplementedException(); 
-            set => throw new NotImplementedException(); 
+        {
+            get;
+            set;
         }
 
         public bool GuildSubscriptions 
-        { 
-            get => throw new NotImplementedException(); 
-            set => throw new NotImplementedException(); 
+        {
+            get;
+            set;
         }
 
         public int Intents 
-        { 
-            get => throw new NotImplementedException(); 
-            set => throw new NotImplementedException(); 
+        {
+            get => intents;
+            set => intents = value;
         }
     }
 }
