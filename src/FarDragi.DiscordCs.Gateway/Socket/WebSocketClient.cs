@@ -40,6 +40,8 @@ namespace FarDragi.DiscordCs.Gateway.Socket
             {
                 BasePayload<object> payload = JsonConvert.DeserializeObject<BasePayload<object>>(json);
 
+                Console.WriteLine(json);
+
                 switch (payload.OpCode)
                 {
                     case PayloadOpCode.Dispatch:
@@ -68,13 +70,23 @@ namespace FarDragi.DiscordCs.Gateway.Socket
                 OpCode = PayloadOpCode.Identify,
                 Data = new DiscordIdentify
                 {
-                    Token = "",
-                    Intents = 513,
-                    Properties = new IdentifyProperties
+                    token = "",
+                    intents = 32509,
+                    properties = new IdentifyProperties
                     {
-                        OS = Environment.OSVersion.Platform.ToString(),
-                        Browser = "DiscordCs",
-                        Device = "DiscordCs"
+                        os = Environment.OSVersion.Platform.ToString(),
+                        browser = "DiscordCs",
+                        device = "DiscordCs"
+                    },
+                    compress = true,
+                    largeThreshold = 50,
+                    shard = new int[] { 0, 1 },
+                    guildSubscriptions = false,
+                    presence = new Models.Presence.PresenceStatusUpdate
+                    {
+                        Afk = false,
+                        Since = null,
+                        Status = "online"
                     }
                 }
             });
@@ -87,7 +99,11 @@ namespace FarDragi.DiscordCs.Gateway.Socket
 
         public void Send<TDataType>(BasePayload<TDataType> obj)
         {
-            byte[] payload = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(obj));
+            string json = JsonConvert.SerializeObject(obj);
+
+            Console.WriteLine(json);
+
+            byte[] payload = Encoding.UTF8.GetBytes(json);
             socket.Send(payload, 0, payload.Length);
         }
     }

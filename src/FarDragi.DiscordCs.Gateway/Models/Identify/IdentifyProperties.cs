@@ -6,31 +6,13 @@ using System.Text;
 
 namespace FarDragi.DiscordCs.Gateway.Models.Identify
 {
-    public class IdentifyProperties : IIdentifyProperties
+    public class IdentifyProperties
     {
         [JsonProperty("$os")]
-        private string os;
+        public string os;
         [JsonProperty("$browser")]
-        private string browser;
+        public string browser;
         [JsonProperty("$device")]
-        private string device;
-
-        public string OS 
-        { 
-            get => os; 
-            set => os = value; 
-        }
-
-        public string Browser 
-        { 
-            get => browser; 
-            set => browser = value; 
-        }
-
-        public string Device 
-        { 
-            get => device; 
-            set => device = value; 
-        }
+        public string device;
     }
 }

@@ -45,7 +45,10 @@ namespace FarDragi.DiscordCs.Gateway
         public void OnEventReceived(string eventName, object json)
         {
             events.OnRaw(this, json);
-            eventsHandler[eventName].Invoke(this, json);
+            if (eventsHandler.TryGetValue(eventName, out Action<object, object> onAction))
+            {
+                onAction.Invoke(this, json);
+            }
         }
     }
 }

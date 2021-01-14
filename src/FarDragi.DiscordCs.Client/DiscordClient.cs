@@ -27,7 +27,7 @@ namespace FarDragi.DiscordCs.Client
 
         public virtual void OnRaw(object sender, object data)
         {
-            throw new NotImplementedException();
+
         }
 
         [EventName("READY")]
