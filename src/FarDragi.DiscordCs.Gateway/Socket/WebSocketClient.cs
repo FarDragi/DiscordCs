@@ -1,4 +1,4 @@
-﻿using FarDragi.DiscordCs.Gateway.Models.Identify;
+﻿using FarDragi.DiscordCs.Core.Interfaces.Identify;
 using FarDragi.DiscordCs.Gateway.Models.Payload;
 using Newtonsoft.Json;
 using SuperSocket.ClientEngine;
@@ -10,13 +10,15 @@ namespace FarDragi.DiscordCs.Gateway.Socket
 {
     public class WebSocketClient
     {
-        private WebSocket socket;
-        private WebSocketDecompress decompress;
-        private GatewayClient gatewayClient;
+        private readonly WebSocket socket;
+        private readonly WebSocketDecompress decompress;
+        private readonly GatewayClient gatewayClient;
+        private readonly IDiscordIdentify identify;
 
-        public WebSocketClient(GatewayClient gatewayClient)
+        public WebSocketClient(GatewayClient gatewayClient, IDiscordIdentify identify)
         {
             this.gatewayClient = gatewayClient;
+            this.identify = identify;
             decompress = new WebSocketDecompress();
             WebSocketConfig config = new WebSocketConfig
             {
@@ -65,31 +67,7 @@ namespace FarDragi.DiscordCs.Gateway.Socket
 
         private void Socket_Opened(object sender, EventArgs e)
         {
-            Send<DiscordIdentify>(new BasePayload<DiscordIdentify>
-            {
-                OpCode = PayloadOpCode.Identify,
-                Data = new DiscordIdentify
-                {
-                    token = "",
-                    intents = 32509,
-                    properties = new IdentifyProperties
-                    {
-                        os = Environment.OSVersion.Platform.ToString(),
-                        browser = "DiscordCs",
-                        device = "DiscordCs"
-                    },
-                    compress = true,
-                    largeThreshold = 50,
-                    shard = new int[] { 0, 1 },
-                    guildSubscriptions = false,
-                    presence = new Models.Presence.PresenceStatusUpdate
-                    {
-                        Afk = false,
-                        Since = null,
-                        Status = "online"
-                    }
-                }
-            });
+            Send(identify);
         }
 
         public void Open()
@@ -97,7 +75,7 @@ namespace FarDragi.DiscordCs.Gateway.Socket
             socket.Open();
         }
 
-        public void Send<TDataType>(BasePayload<TDataType> obj)
+        public void Send(object obj)
         {
             string json = JsonConvert.SerializeObject(obj);
 

@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FarDragi.DiscordCs.Core.Activity
+namespace FarDragi.DiscordCs.Core.Interfaces.Activity
 {
+    /// <summary>
+    /// https://discord.com/developers/docs/topics/gateway#activity-object-activity-emoji
+    /// </summary>
     public interface IActivityEmoji
     {
         public string Name { get; set; }

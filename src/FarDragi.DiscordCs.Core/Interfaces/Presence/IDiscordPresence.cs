@@ -1,10 +1,10 @@
-﻿using FarDragi.DiscordCs.Core.Activity;
-using FarDragi.DiscordCs.Core.User;
+﻿using FarDragi.DiscordCs.Core.Interfaces.Activity;
+using FarDragi.DiscordCs.Core.Interfaces.User;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FarDragi.DiscordCs.Core.Presence
+namespace FarDragi.DiscordCs.Core.Interfaces.Presence
 {
     /// <summary>
     /// https://discord.com/developers/docs/topics/gateway#presence-update-presence-update-event-fields

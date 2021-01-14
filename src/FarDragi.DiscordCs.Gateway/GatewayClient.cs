@@ -10,16 +10,18 @@ namespace FarDragi.DiscordCs.Gateway
 {
     public class GatewayClient
     {
-        private IGatewayEvents events;
-        private WebSocketClient webSocket;
-        private Dictionary<string, Action<object, object>> eventsHandler;
+        private readonly IGatewayEvents events;
+        private readonly GatewayConfig config;
+        private readonly WebSocketClient webSocket;
+        private readonly Dictionary<string, Action<object, object>> eventsHandler;
 
-        public GatewayClient(IGatewayEvents events)
+        public GatewayClient(IGatewayEvents gatewayEvents, GatewayConfig gatewayConfig)
         {
-            this.events = events;
+            events = gatewayEvents;
+            config = gatewayConfig;
             eventsHandler = new Dictionary<string, Action<object, object>>();
             RegisterHandlers();
-            webSocket = new WebSocketClient(this);
+            webSocket = new WebSocketClient(this, config.Identify);
         }
 
         private void RegisterHandlers()

@@ -1,4 +1,8 @@
-﻿namespace FarDragi.DiscordCs.Core.Identify
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace FarDragi.DiscordCs.Core.Interfaces.Identify
 {
     /// <summary>
     /// https://discord.com/developers/docs/topics/gateway#identify-identify-connection-properties

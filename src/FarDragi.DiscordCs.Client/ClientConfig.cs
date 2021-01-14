@@ -1,14 +1,12 @@
-﻿using FarDragi.DiscordCs.Core.Presence;
+﻿using FarDragi.DiscordCs.Core.Interfaces.Identify;
+using FarDragi.DiscordCs.Core.Interfaces.Presence;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FarDragi.DiscordCs.Core.Identify
+namespace FarDragi.DiscordCs.Client
 {
-    /// <summary>
-    /// https://discord.com/developers/docs/topics/gateway#identify-identify-structure
-    /// </summary>
-    public interface IDiscordIdentify
+    public class ClientConfig : IDiscordIdentify
     {
         public string Token { get; set; }
         public IIdentifyProperties Properties { get; set; }

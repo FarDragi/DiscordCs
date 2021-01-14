@@ -10,7 +10,7 @@ namespace FarDragi.DiscordCs.Client
 {
     public class DiscordClient : IGatewayEvents
     {
-        private GatewayClient gateway;
+        private readonly GatewayClient gateway;
 
         public DiscordClient()
         {
