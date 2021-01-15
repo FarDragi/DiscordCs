@@ -17,8 +17,8 @@ namespace FarDragi.DiscordCs.Client
             gateway = new GatewayClient(this);
         }
 
-        public event HandlerGateway<string> Raw;
-        public event HandlerGateway<string> Ready;
+        public event EventHandler<string> Raw;
+        public event EventHandler<string> Ready;
 
         public void Login(string token)
         {
