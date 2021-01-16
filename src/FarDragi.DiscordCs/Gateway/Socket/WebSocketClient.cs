@@ -1,9 +1,9 @@
-﻿using FarDragi.DiscordCs.Core.Interfaces.Identify;
-using FarDragi.DiscordCs.Core.Json.Models.Identify;
-using FarDragi.DiscordCs.Gateway.Models.Payload;
+﻿using FarDragi.DiscordCs.Entities.IdentifyModels;
+using FarDragi.DiscordCs.Entities.PayloadModels;
 using Newtonsoft.Json;
 using SuperSocket.ClientEngine;
 using System;
+using System.Collections.Generic;
 using System.Text;
 using WebSocket4Net;
 
@@ -14,9 +14,9 @@ namespace FarDragi.DiscordCs.Gateway.Socket
         private readonly WebSocket socket;
         private readonly WebSocketDecompress decompress;
         private readonly GatewayClient gatewayClient;
-        private readonly DiscordIdentifyBase identify;
+        private readonly Identify identify;
 
-        public WebSocketClient(GatewayClient gatewayClient, DiscordIdentifyBase identify)
+        public WebSocketClient(GatewayClient gatewayClient, Identify identify)
         {
             this.gatewayClient = gatewayClient;
             this.identify = identify;
@@ -41,7 +41,7 @@ namespace FarDragi.DiscordCs.Gateway.Socket
         {
             if (decompress.TryDecompress(e.Data, out string json))
             {
-                BasePayload<object> payload = JsonConvert.DeserializeObject<BasePayload<object>>(json);
+                Payload<object> payload = JsonConvert.DeserializeObject<Payload<object>>(json);
 
                 Console.WriteLine(json);
 

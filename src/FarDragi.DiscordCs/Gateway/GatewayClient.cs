@@ -1,10 +1,10 @@
 ﻿using FarDragi.DiscordCs.Gateway.Attributes;
-using FarDragi.DiscordCs.Gateway.Interface;
+using FarDragi.DiscordCs.Gateway.Interfaces;
 using FarDragi.DiscordCs.Gateway.Socket;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Text;
 
 namespace FarDragi.DiscordCs.Gateway
 {

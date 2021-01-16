@@ -1,6 +1,6 @@
 ﻿using FarDragi.DiscordCs.Core.Channel;
 using FarDragi.DiscordCs.Core.Emoji;
-using FarDragi.DiscordCs.Core.Presence;
+using FarDragi.DiscordCs.Core.Interfaces.Presence;
 using FarDragi.DiscordCs.Core.Role;
 using FarDragi.DiscordCs.Core.Voice;
 using System;

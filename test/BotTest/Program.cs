@@ -1,15 +1,17 @@
-﻿using FarDragi.DiscordCs.Client;
+﻿using FarDragi.DiscordCs;
 using System;
 using System.Threading.Tasks;
 
-namespace FarDragi.DiscordCs.Test.Client
+namespace BotTest
 {
     class Program
     {
         static async Task Main(string[] args)
         {
-            DiscordClient client = new();
-            client.Login("");
+            Client client = new(new ClientConfig
+            {
+                Token = ""
+            });
 
             await Task.Delay(-1);
         }

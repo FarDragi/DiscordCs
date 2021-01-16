@@ -12,15 +12,26 @@ namespace FarDragi.DiscordCs.Client
     {
         private readonly GatewayClient gateway;
 
-        public DiscordClient()
+        public DiscordClient(ClientConfig config)
         {
-            gateway = new GatewayClient(this);
+            config.Properties = new Models.Identify.IdentifyProperties
+            {
+                OS = Environment.OSVersion.Platform.ToString(),
+                Browser = "DiscordCs",
+                Device = "DiscordCs"
+            };
+
+            GatewayConfig gatewayConfig = new GatewayConfig
+            {
+                Identify = config
+            };
+            gateway = new GatewayClient(this, gatewayConfig);
         }
 
         public event EventHandler<string> Raw;
         public event EventHandler<string> Ready;
 
-        public void Login(string token)
+        public void Login()
         {
             gateway.Open();
         }
@@ -30,7 +41,7 @@ namespace FarDragi.DiscordCs.Client
 
         }
 
-        [EventName("READY")]
+        [GatewayEvent("READY")]
         public virtual void OnReady(object sender, object data)
         {
 

@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\FarDragi.DiscordCs.Client\FarDragi.DiscordCs.Client.csproj" />
+    <ProjectReference Include="..\..\src\FarDragi.DiscordCs\FarDragi.DiscordCs.csproj" />
   </ItemGroup>
 
 </Project>

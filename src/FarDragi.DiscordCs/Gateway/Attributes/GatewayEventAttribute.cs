@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace FarDragi.DiscordCs.Gateway.Attributes
 {
-    sealed public class EventNameAttribute : Attribute
+    sealed public class GatewayEventAttribute : Attribute
     {
         private readonly string name;
 
-        public EventNameAttribute(string name)
+        public GatewayEventAttribute(string name)
         {
             this.name = name;
         }

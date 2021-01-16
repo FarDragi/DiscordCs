@@ -1,12 +1,8 @@
-﻿using FarDragi.DiscordCs.Core.Interfaces.Identify;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Newtonsoft.Json;
 
 namespace FarDragi.DiscordCs.Core.Json.Models.Identify
 {
-    public class IdentifyProperties : IIdentifyProperties
+    public class IdentifyPropertiesBase
     {
         [JsonProperty("$os")]
         public string OS { get; set; }

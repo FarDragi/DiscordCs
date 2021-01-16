@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FarDragi.DiscordCs.Gateway.Models.Payload
 {
-    public class IdentifyPayload : BasePayload<DiscordIdentify>
+    public class IdentifyPayload : BasePayload<DiscordIdentifyBase>
     {
         public IdentifyPayload()
         {
