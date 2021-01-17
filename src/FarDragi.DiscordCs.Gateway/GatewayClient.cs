@@ -12,21 +12,21 @@ namespace FarDragi.DiscordCs.Gateway
     public class GatewayClient
     {
         private readonly IGatewayEvents events;
-        private readonly JsonIdentify config;
+        private readonly JsonIdentify identify;
         private readonly WebSocketClient webSocket;
         private readonly Dictionary<string, Action<object, object>> eventsHandler;
 
         public int[] Shard { get; set; }
         public int SessionId { get; set; }
 
-        public GatewayClient(IGatewayEvents gatewayEvents, JsonIdentify gatewayConfig)
+        public GatewayClient(IGatewayEvents gatewayEvents, JsonIdentify gatewayIdentify)
         {
-            Shard = gatewayConfig.Shard;
+            Shard = gatewayIdentify.Shard;
             events = gatewayEvents;
-            config = gatewayConfig;
+            identify = gatewayIdentify;
             eventsHandler = new Dictionary<string, Action<object, object>>();
             RegisterHandlers();
-            webSocket = new WebSocketClient(this, config);
+            webSocket = new WebSocketClient(this, identify);
         }
 
         private void RegisterHandlers()
