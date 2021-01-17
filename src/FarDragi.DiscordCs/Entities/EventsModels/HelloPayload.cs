@@ -1,4 +1,4 @@
-﻿using FarDragi.DiscordCs.Entities.IdentifyModels;
+﻿using FarDragi.DiscordCs.Entities.HelloModels;
 using FarDragi.DiscordCs.Entities.PayloadModels;
 using System;
 using System.Collections.Generic;
@@ -6,11 +6,11 @@ using System.Text;
 
 namespace FarDragi.DiscordCs.Entities.EventsModels
 {
-    public class PayloadIdentify : Payload<Identify>
+    public class HelloPayload : Payload<Hello>
     {
-        public PayloadIdentify()
+        public HelloPayload()
         {
-            OpCode = PayloadOpCode.Identify;
+            OpCode = PayloadOpCode.Hello;
         }
     }
 }

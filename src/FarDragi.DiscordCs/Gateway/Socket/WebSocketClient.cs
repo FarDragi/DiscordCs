@@ -1,11 +1,14 @@
 ﻿using FarDragi.DiscordCs.Entities.EventsModels;
+using FarDragi.DiscordCs.Entities.HelloModels;
 using FarDragi.DiscordCs.Entities.IdentifyModels;
 using FarDragi.DiscordCs.Entities.PayloadModels;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SuperSocket.ClientEngine;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using WebSocket4Net;
 
 namespace FarDragi.DiscordCs.Gateway.Socket
@@ -16,6 +19,8 @@ namespace FarDragi.DiscordCs.Gateway.Socket
         private readonly WebSocketDecompress decompress;
         private readonly GatewayClient gatewayClient;
         private readonly Identify identify;
+
+        private int? sequenceNumber;
 
         public WebSocketClient(GatewayClient gatewayClient, Identify identify)
         {
@@ -42,7 +47,8 @@ namespace FarDragi.DiscordCs.Gateway.Socket
         {
             if (decompress.TryDecompress(e.Data, out string json))
             {
-                Payload<object> payload = JsonConvert.DeserializeObject<Payload<object>>(json);
+                Payload<JObject> payload = JsonConvert.DeserializeObject<Payload<JObject>>(json);
+                sequenceNumber = payload.SequenceNumber;
 
                 Console.WriteLine(json);
 
@@ -52,6 +58,7 @@ namespace FarDragi.DiscordCs.Gateway.Socket
                         gatewayClient.OnEventReceived(payload.Event, payload.Data);
                         break;
                     case PayloadOpCode.Hello:
+                        Heartbeat(payload.Data.ToObject<Hello>());
                         break;
                     case PayloadOpCode.Heartbeat:
                         break;
@@ -69,10 +76,23 @@ namespace FarDragi.DiscordCs.Gateway.Socket
 
         private void Socket_Opened(object sender, EventArgs e)
         {
-            Send(new PayloadIdentify
+            Send(new IdentifyPayload
             {
                 Data = identify
             });
+        }
+
+        private async void Heartbeat(Hello hello)
+        {
+            while (true)
+            {
+                await Task.Delay(hello.HeartbeatInterval);
+
+                Send(new HeartbeatPayload
+                {
+                    SequenceNumber = sequenceNumber
+                });
+            }
         }
 
         public void Open()
