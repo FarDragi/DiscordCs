@@ -8,18 +8,20 @@ using SuperSocket.ClientEngine;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using WebSocket4Net;
 
 namespace FarDragi.DiscordCs.Gateway.Socket
 {
-    public class WebSocketClient
+    public class WebSocketClient : IDisposable
     {
         private readonly WebSocket socket;
         private readonly WebSocketDecompress decompress;
         private readonly GatewayClient gatewayClient;
         private readonly Identify identify;
 
+        private CancellationTokenSource tokenSource;
         private int? sequenceNumber;
 
         public WebSocketClient(GatewayClient gatewayClient, Identify identify)
@@ -35,12 +37,26 @@ namespace FarDragi.DiscordCs.Gateway.Socket
             socket = new WebSocket(config.Url);
             socket.Opened += Socket_Opened;
             socket.DataReceived += Socket_DataReceived;
+            socket.MessageReceived += Socket_MessageReceived;
             socket.Error += Socket_Error;
+            socket.Closed += Socket_Closed;
+        }
+
+        private void Socket_Closed(object sender, EventArgs e)
+        {
+            tokenSource.Cancel();
+            tokenSource.Dispose();
         }
 
         private void Socket_Error(object sender, ErrorEventArgs e)
         {
-            Console.WriteLine(e.Exception);
+            tokenSource.Cancel();
+            tokenSource.Dispose();
+        }
+
+        private void Socket_MessageReceived(object sender, MessageReceivedEventArgs e)
+        {
+            Console.WriteLine(e.Message);
         }
 
         private void Socket_DataReceived(object sender, DataReceivedEventArgs e)
@@ -51,6 +67,7 @@ namespace FarDragi.DiscordCs.Gateway.Socket
                 sequenceNumber = payload.SequenceNumber;
 
                 Console.WriteLine(json);
+                Console.WriteLine();
 
                 switch (payload.OpCode)
                 {
@@ -58,9 +75,8 @@ namespace FarDragi.DiscordCs.Gateway.Socket
                         gatewayClient.OnEventReceived(payload.Event, payload.Data);
                         break;
                     case PayloadOpCode.Hello:
-                        Heartbeat(payload.Data.ToObject<Hello>());
-                        break;
-                    case PayloadOpCode.Heartbeat:
+                        tokenSource = new CancellationTokenSource();
+                        Heartbeat(payload.Data.ToObject<Hello>(), tokenSource.Token);
                         break;
                     case PayloadOpCode.Reconnect:
                         break;
@@ -82,16 +98,22 @@ namespace FarDragi.DiscordCs.Gateway.Socket
             });
         }
 
-        private async void Heartbeat(Hello hello)
+        public async void Heartbeat(Hello hello, CancellationToken token)
         {
-            while (true)
+            try
             {
-                await Task.Delay(hello.HeartbeatInterval);
-
-                Send(new HeartbeatPayload
+                while (true)
                 {
-                    SequenceNumber = sequenceNumber
-                });
+                    await Task.Delay(hello.HeartbeatInterval, token);
+                    Send(new HeartbeatPayload
+                    {
+                        Data = sequenceNumber
+                    });
+                }
+            }
+            catch (Exception)
+            {
+                return;
             }
         }
 
@@ -105,9 +127,19 @@ namespace FarDragi.DiscordCs.Gateway.Socket
             string json = JsonConvert.SerializeObject(obj);
 
             Console.WriteLine(json);
+            Console.WriteLine();
 
             byte[] payload = Encoding.UTF8.GetBytes(json);
             socket.Send(payload, 0, payload.Length);
+        }
+
+        public void Dispose()
+        {
+            socket.Dispose();
+            if (tokenSource != null)
+            {
+                tokenSource.Dispose();
+            }
         }
     }
 }

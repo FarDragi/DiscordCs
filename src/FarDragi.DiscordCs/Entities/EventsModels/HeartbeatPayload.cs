@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FarDragi.DiscordCs.Entities.EventsModels
 {
-    public class HeartbeatPayload : Payload<string>
+    public class HeartbeatPayload : Payload<int?>
     {
         public HeartbeatPayload()
         {
