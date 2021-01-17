@@ -1,24 +1,23 @@
-﻿using FarDragi.DiscordCs.Entities.IdentifyModels;
-using FarDragi.DiscordCs.Gateway.Attributes;
+﻿using FarDragi.DiscordCs.Gateway.Attributes;
 using FarDragi.DiscordCs.Gateway.Interfaces;
 using FarDragi.DiscordCs.Gateway.Socket;
+using FarDragi.DiscordCs.Json.Entities.IdentifyModels;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 
 namespace FarDragi.DiscordCs.Gateway
 {
     public class GatewayClient
     {
         private readonly IGatewayEvents events;
-        private readonly Identify config;
+        private readonly JsonIdentify config;
         private readonly WebSocketClient webSocket;
         private readonly Dictionary<string, Action<object, object>> eventsHandler;
 
         public int[] Shard { get; set; }
 
-        public GatewayClient(IGatewayEvents gatewayEvents, Identify gatewayConfig)
+        public GatewayClient(IGatewayEvents gatewayEvents, JsonIdentify gatewayConfig)
         {
             Shard = gatewayConfig.Shard;
             events = gatewayEvents;

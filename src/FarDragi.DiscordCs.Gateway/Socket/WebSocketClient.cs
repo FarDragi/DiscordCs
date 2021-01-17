@@ -1,12 +1,10 @@
-﻿using FarDragi.DiscordCs.Entities.EventsModels;
-using FarDragi.DiscordCs.Entities.HelloModels;
-using FarDragi.DiscordCs.Entities.IdentifyModels;
-using FarDragi.DiscordCs.Entities.PayloadModels;
+﻿using FarDragi.DiscordCs.Gateway.Payloads;
+using FarDragi.DiscordCs.Json.Entities.HelloModels;
+using FarDragi.DiscordCs.Json.Entities.IdentifyModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SuperSocket.ClientEngine;
 using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,12 +17,12 @@ namespace FarDragi.DiscordCs.Gateway.Socket
         private readonly WebSocket socket;
         private readonly WebSocketDecompress decompress;
         private readonly GatewayClient gatewayClient;
-        private readonly Identify identify;
+        private readonly JsonIdentify identify;
 
         private CancellationTokenSource tokenSource;
         private int? sequenceNumber;
 
-        public WebSocketClient(GatewayClient gatewayClient, Identify identify)
+        public WebSocketClient(GatewayClient gatewayClient, JsonIdentify identify)
         {
             this.gatewayClient = gatewayClient;
             this.identify = identify;
@@ -76,7 +74,7 @@ namespace FarDragi.DiscordCs.Gateway.Socket
                         break;
                     case PayloadOpCode.Hello:
                         tokenSource = new CancellationTokenSource();
-                        Heartbeat(payload.Data.ToObject<Hello>(), tokenSource.Token);
+                        Heartbeat(payload.Data.ToObject<JsonHello>(), tokenSource.Token);
                         break;
                     case PayloadOpCode.Reconnect:
                         break;
@@ -98,7 +96,7 @@ namespace FarDragi.DiscordCs.Gateway.Socket
             });
         }
 
-        public async void Heartbeat(Hello hello, CancellationToken token)
+        public async void Heartbeat(JsonHello hello, CancellationToken token)
         {
             try
             {
