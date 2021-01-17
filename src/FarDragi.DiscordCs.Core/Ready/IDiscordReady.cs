@@ -1,9 +1,6 @@
 ﻿using FarDragi.DiscordCs.Core.Application;
 using FarDragi.DiscordCs.Core.Guild;
 using FarDragi.DiscordCs.Core.User;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FarDragi.DiscordCs.Core.Ready
 {

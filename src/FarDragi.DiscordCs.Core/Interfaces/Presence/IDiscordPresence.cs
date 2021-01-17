@@ -1,8 +1,5 @@
 ﻿using FarDragi.DiscordCs.Core.Interfaces.Activity;
 using FarDragi.DiscordCs.Core.Interfaces.User;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FarDragi.DiscordCs.Core.Interfaces.Presence
 {

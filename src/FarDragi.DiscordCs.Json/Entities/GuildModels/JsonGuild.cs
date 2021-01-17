@@ -1,5 +1,7 @@
-﻿using FarDragi.DiscordCs.Json.Entities.EmojiModels;
+﻿using FarDragi.DiscordCs.Json.Entities.ChannelModels;
+using FarDragi.DiscordCs.Json.Entities.EmojiModels;
 using FarDragi.DiscordCs.Json.Entities.MemberModels;
+using FarDragi.DiscordCs.Json.Entities.PresenceModels;
 using FarDragi.DiscordCs.Json.Entities.RoleModels;
 using FarDragi.DiscordCs.Json.Entities.VoiceModels;
 using Newtonsoft.Json;
@@ -104,19 +106,47 @@ namespace FarDragi.DiscordCs.Json.Entities.GuildModels
 
         [JsonProperty("members")]
         public JsonMember[] Members { get; set; }
-        public IDiscordChannel[] Channels { get; set; }
-        public IDiscordPresence[] Presences { get; set; }
-        public int MaxPresences { get; set; }
-        public int MaxMembers { get; set; }
+
+        [JsonProperty("channels")]
+        public JsonChannel[] Channels { get; set; }
+
+        [JsonProperty("presences")]
+        public JsonPresence[] Presences { get; set; }
+
+        [JsonProperty("max_presences")]
+        public int? MaxPresences { get; set; }
+
+        [JsonProperty("max_members")]
+        public int? MaxMembers { get; set; }
+
+        [JsonProperty("vanity_url_code")]
         public string VanityUrlCode { get; set; }
+
+        [JsonProperty("description")]
         public string Description { get; set; }
+
+        [JsonProperty("banner")]
         public string Banner { get; set; }
+
+        [JsonProperty("premium_tier")]
         public int PremiumTier { get; set; }
-        public int PremiumSubscriptionCount { get; set; }
+
+        [JsonProperty("premium_subscription_count")]
+        public int? PremiumSubscriptionCount { get; set; }
+
+        [JsonProperty("preferred_locale")]
         public string PreferredLocale { get; set; }
-        public ulong PublicUpdatesChannelId { get; set; }
-        public int MaxVideoChannelUsers { get; set; }
-        public int ApproximateMemberCount { get; set; }
-        public int ApproximatePresenceCount { get; set; }
+
+        [JsonProperty("public_updates_channel_id")]
+        public ulong? PublicUpdatesChannelId { get; set; }
+
+        [JsonProperty("max_video_channel_users")]
+        public int? MaxVideoChannelUsers { get; set; }
+
+        [JsonProperty("approximate_member_count")]
+        public int? ApproximateMemberCount { get; set; }
+
+        [JsonProperty("approximate_presence_count")]
+        public int? ApproximatePresenceCount { get; set; }
     }
 }

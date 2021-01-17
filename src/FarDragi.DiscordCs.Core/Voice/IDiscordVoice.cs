@@ -1,7 +1,4 @@
 ﻿using FarDragi.DiscordCs.Core.Guild;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FarDragi.DiscordCs.Core.Voice
 {

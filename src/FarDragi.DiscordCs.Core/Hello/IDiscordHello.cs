@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FarDragi.DiscordCs.Core.Hello
+﻿namespace FarDragi.DiscordCs.Core.Hello
 {
     public interface IDiscordHello
     {

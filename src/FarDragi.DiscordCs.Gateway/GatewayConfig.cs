@@ -1,12 +1,9 @@
-﻿using FarDragi.DiscordCs.Entities.IdentifyModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FarDragi.DiscordCs.Json.Entities.IdentifyModels;
 
 namespace FarDragi.DiscordCs.Gateway
 {
     public class GatewayConfig
     {
-        public Identify Identify { get; set; }
+        public JsonIdentify Identify { get; set; }
     }
 }

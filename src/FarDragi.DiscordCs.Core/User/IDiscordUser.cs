@@ -1,9 +1,4 @@
-﻿using FarDragi.DiscordCs.Core.Role;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FarDragi.DiscordCs.Core.User
+﻿namespace FarDragi.DiscordCs.Core.User
 {
     /// <summary>
     /// https://discord.com/developers/docs/resources/user#user-object-user-structure

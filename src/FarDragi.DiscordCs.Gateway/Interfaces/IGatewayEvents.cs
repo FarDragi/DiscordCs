@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Newtonsoft.Json.Linq;
 
 namespace FarDragi.DiscordCs.Gateway.Interfaces
 {
     public interface IGatewayEvents
     {
-        public event EventHandler<string> Raw;
-
-        public void OnRaw(object sender, object data);
+        public void OnRaw(object sender, JObject data);
     }
 }

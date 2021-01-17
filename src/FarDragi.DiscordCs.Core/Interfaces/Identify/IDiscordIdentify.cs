@@ -1,7 +1,4 @@
 ﻿using FarDragi.DiscordCs.Core.Interfaces.Presence;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FarDragi.DiscordCs.Core.Interfaces.Identify
 {

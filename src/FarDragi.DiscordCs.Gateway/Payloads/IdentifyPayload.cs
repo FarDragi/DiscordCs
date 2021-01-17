@@ -1,7 +1,4 @@
 ﻿using FarDragi.DiscordCs.Json.Entities.IdentifyModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FarDragi.DiscordCs.Gateway.Payloads
 {

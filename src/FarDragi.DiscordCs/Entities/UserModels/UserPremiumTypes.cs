@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FarDragi.DiscordCs.Entities.UserModels
+﻿namespace FarDragi.DiscordCs.Entities.UserModels
 {
     /// <summary>
     /// https://discord.com/developers/docs/resources/user#user-object-premium-types

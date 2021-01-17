@@ -2,6 +2,7 @@
 using FarDragi.DiscordCs.Gateway.Interfaces;
 using FarDragi.DiscordCs.Gateway.Socket;
 using FarDragi.DiscordCs.Json.Entities.IdentifyModels;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -16,6 +17,7 @@ namespace FarDragi.DiscordCs.Gateway
         private readonly Dictionary<string, Action<object, object>> eventsHandler;
 
         public int[] Shard { get; set; }
+        public int SessionId { get; set; }
 
         public GatewayClient(IGatewayEvents gatewayEvents, JsonIdentify gatewayConfig)
         {
@@ -47,7 +49,7 @@ namespace FarDragi.DiscordCs.Gateway
             webSocket.Open();
         }
 
-        public void OnEventReceived(string eventName, object json)
+        public void OnEventReceived(string eventName, JObject json)
         {
             events.OnRaw(this, json);
             if (eventsHandler.TryGetValue(eventName, out Action<object, object> onAction))

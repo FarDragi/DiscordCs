@@ -4,8 +4,6 @@ using FarDragi.DiscordCs.Core.Interfaces.Presence;
 using FarDragi.DiscordCs.Core.Role;
 using FarDragi.DiscordCs.Core.Voice;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FarDragi.DiscordCs.Core.Guild
 {

@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FarDragi.DiscordCs.Json.Entities.ActivityModels;
 
 namespace FarDragi.DiscordCs.Entities.ActivityModels
 {
@@ -10,13 +7,18 @@ namespace FarDragi.DiscordCs.Entities.ActivityModels
     /// </summary>
     public class ActivitySecrets
     {
-        [JsonProperty("join")]
         public string Join { get; set; }
-
-        [JsonProperty("spectate")]
         public string Spectate { get; set; }
-
-        [JsonProperty("match")]
         public string Match { get; set; }
+
+        public static implicit operator JsonActivitySecrets(ActivitySecrets activitySecrets)
+        {
+            return new JsonActivitySecrets
+            {
+                Join = activitySecrets.Join,
+                Match = activitySecrets.Match,
+                Spectate = activitySecrets.Spectate
+            };
+        }
     }
 }

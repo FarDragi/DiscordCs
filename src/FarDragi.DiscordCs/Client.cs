@@ -1,9 +1,8 @@
-﻿using FarDragi.DiscordCs.Entities.IdentifyModels;
-using FarDragi.DiscordCs.Gateway;
+﻿using FarDragi.DiscordCs.Gateway;
 using FarDragi.DiscordCs.Gateway.Interfaces;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FarDragi.DiscordCs
 {
@@ -45,7 +44,7 @@ namespace FarDragi.DiscordCs
             }
         }
 
-        public virtual void OnRaw(object sender, object data)
+        public virtual void OnRaw(object sender, JObject data)
         {
         }
     }

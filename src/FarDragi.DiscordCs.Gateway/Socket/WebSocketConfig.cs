@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FarDragi.DiscordCs.Gateway.Socket
+﻿namespace FarDragi.DiscordCs.Gateway.Socket
 {
     public class WebSocketConfig
     {

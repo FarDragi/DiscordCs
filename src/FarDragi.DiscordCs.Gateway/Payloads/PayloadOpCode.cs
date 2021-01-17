@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FarDragi.DiscordCs.Gateway.Payloads
+﻿namespace FarDragi.DiscordCs.Gateway.Payloads
 {
     /// <summary>
     /// https://discord.com/developers/docs/topics/opcodes-and-status-codes#gateway-gateway-opcodes

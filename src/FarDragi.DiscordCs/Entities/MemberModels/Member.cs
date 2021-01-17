@@ -1,8 +1,6 @@
 ﻿using FarDragi.DiscordCs.Entities.UserModels;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FarDragi.DiscordCs.Entities.MemberModels
 {

@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FarDragi.DiscordCs.Json.Entities.ActivityModels;
 
 namespace FarDragi.DiscordCs.Entities.ActivityModels
 {
@@ -10,13 +7,18 @@ namespace FarDragi.DiscordCs.Entities.ActivityModels
     /// </summary>
     public class ActivityEmoji
     {
-        [JsonProperty("name")]
         public string Name { get; set; }
-
-        [JsonProperty("id")]
         public ulong? Id { get; set; }
-
-        [JsonProperty("animated")]
         public bool Animated { get; set; }
+
+        public static implicit operator JsonActivityEmoji(ActivityEmoji activityEmoji)
+        {
+            return new JsonActivityEmoji
+            {
+                Animated = activityEmoji.Animated,
+                Id = activityEmoji.Id,
+                Name = activityEmoji.Name
+            };
+        }
     }
 }

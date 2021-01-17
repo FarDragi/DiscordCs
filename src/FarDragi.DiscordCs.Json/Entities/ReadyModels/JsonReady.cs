@@ -1,4 +1,5 @@
-﻿using FarDragi.DiscordCs.Json.Entities.GuildModels;
+﻿using FarDragi.DiscordCs.Json.Entities.ApplicationModels;
+using FarDragi.DiscordCs.Json.Entities.GuildModels;
 using FarDragi.DiscordCs.Json.Entities.UserModels;
 using Newtonsoft.Json;
 
@@ -25,6 +26,6 @@ namespace FarDragi.DiscordCs.Json.Entities.ReadyModels
         public int[] Shard { get; set; }
 
         [JsonProperty("application")]
-        public IDiscordApplication Application { get; set; }
+        public JsonApplication Application { get; set; }
     }
 }

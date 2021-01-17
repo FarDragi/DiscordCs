@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FarDragi.DiscordCs.Core.Role
+﻿namespace FarDragi.DiscordCs.Core.Role
 {
     /// <summary>
     /// https://discord.com/developers/docs/topics/permissions#role-object-role-tags-structure

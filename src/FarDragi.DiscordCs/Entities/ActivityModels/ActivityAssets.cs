@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FarDragi.DiscordCs.Json.Entities.ActivityModels;
 
 namespace FarDragi.DiscordCs.Entities.ActivityModels
 {
@@ -10,16 +7,20 @@ namespace FarDragi.DiscordCs.Entities.ActivityModels
     /// </summary>
     public class ActivityAssets
     {
-        [JsonProperty("large_image")]
         public string LargeImage { get; set; }
-
-        [JsonProperty("large_text")]
         public string LargeText { get; set; }
-
-        [JsonProperty("small_image")]
         public string SmallImage { get; set; }
-
-        [JsonProperty("small_text")]
         public string SmallText { get; set; }
+
+        public static implicit operator JsonActivityAssets(ActivityAssets activityAssets)
+        {
+            return new JsonActivityAssets
+            {
+                LargeImage = activityAssets.LargeImage,
+                LargeText = activityAssets.LargeText,
+                SmallImage = activityAssets.SmallImage,
+                SmallText = activityAssets.SmallText
+            };
+        }
     }
 }

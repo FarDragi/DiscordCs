@@ -1,7 +1,4 @@
-﻿using FarDragi.DiscordCs.Entities.HelloModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FarDragi.DiscordCs.Json.Entities.HelloModels;
 
 namespace FarDragi.DiscordCs.Gateway.Payloads
 {

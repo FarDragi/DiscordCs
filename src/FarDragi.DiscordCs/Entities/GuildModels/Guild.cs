@@ -4,8 +4,6 @@ using FarDragi.DiscordCs.Entities.RoleModels;
 using FarDragi.DiscordCs.Entities.VoiceModels;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FarDragi.DiscordCs.Entities.GuildModels
 {
@@ -106,8 +104,8 @@ namespace FarDragi.DiscordCs.Entities.GuildModels
 
         [JsonProperty("members")]
         public Member[] Members { get; set; }
-        public IDiscordChannel[] Channels { get; set; }
-        public IDiscordPresence[] Presences { get; set; }
+        //public IDiscordChannel[] Channels { get; set; }
+        //public IDiscordPresence[] Presences { get; set; }
         public int MaxPresences { get; set; }
         public int MaxMembers { get; set; }
         public string VanityUrlCode { get; set; }
