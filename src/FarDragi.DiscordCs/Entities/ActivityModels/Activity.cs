@@ -14,7 +14,7 @@ namespace FarDragi.DiscordCs.Entities.ActivityModels
         public string Name { get; set; }
 
         [JsonProperty("type")]
-        public ActivityType Type { get; set; }
+        public ActivityTypes Type { get; set; }
 
         [JsonProperty("url")]
         public string Url { get; set; }
@@ -50,6 +50,6 @@ namespace FarDragi.DiscordCs.Entities.ActivityModels
         public bool? Instance { get; set; }
 
         [JsonProperty("flags")]
-        public ActivityFlag Flags { get; set; }
+        public ActivityFlags Flags { get; set; }
     }
 }

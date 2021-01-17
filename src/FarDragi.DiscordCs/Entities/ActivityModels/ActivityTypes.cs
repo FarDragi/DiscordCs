@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FarDragi.DiscordCs.Entities.ActivityModels
 {
-    public enum ActivityType
+    public enum ActivityTypes
     {
         Game = 0,
         Streaming = 1,

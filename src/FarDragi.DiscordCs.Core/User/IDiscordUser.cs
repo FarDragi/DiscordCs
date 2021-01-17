@@ -5,6 +5,9 @@ using System.Text;
 
 namespace FarDragi.DiscordCs.Core.User
 {
+    /// <summary>
+    /// https://discord.com/developers/docs/resources/user#user-object-user-structure
+    /// </summary>
     public interface IDiscordUser
     {
         public ulong Id { get; set; }

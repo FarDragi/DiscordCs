@@ -8,7 +8,7 @@ namespace FarDragi.DiscordCs.Entities.ActivityModels
     /// https://discord.com/developers/docs/topics/gateway#activity-object-activity-flags
     /// </summary>
     [Flags]
-    public enum ActivityFlag
+    public enum ActivityFlags
     {
         None = 0,
         Instance = 1,
