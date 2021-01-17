@@ -1,4 +1,5 @@
-﻿using FarDragi.DiscordCs.Gateway.Attributes;
+﻿using FarDragi.DiscordCs.Entities.IdentifyModels;
+using FarDragi.DiscordCs.Gateway.Attributes;
 using FarDragi.DiscordCs.Gateway.Interfaces;
 using FarDragi.DiscordCs.Gateway.Socket;
 using System;
@@ -11,17 +12,20 @@ namespace FarDragi.DiscordCs.Gateway
     public class GatewayClient
     {
         private readonly IGatewayEvents events;
-        private readonly GatewayConfig config;
+        private readonly Identify config;
         private readonly WebSocketClient webSocket;
         private readonly Dictionary<string, Action<object, object>> eventsHandler;
 
-        public GatewayClient(IGatewayEvents gatewayEvents, GatewayConfig gatewayConfig)
+        public int[] Shard { get; set; }
+
+        public GatewayClient(IGatewayEvents gatewayEvents, Identify gatewayConfig)
         {
+            Shard = gatewayConfig.Shard;
             events = gatewayEvents;
             config = gatewayConfig;
             eventsHandler = new Dictionary<string, Action<object, object>>();
             RegisterHandlers();
-            webSocket = new WebSocketClient(this, config.Identify);
+            webSocket = new WebSocketClient(this, config);
         }
 
         private void RegisterHandlers()

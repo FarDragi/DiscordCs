@@ -12,7 +12,7 @@ namespace FarDragi.DiscordCs.Entities.PresenceModels
     public class PresenceStatusUpdate
     {
         [JsonProperty("since")]
-        public int Since { get; set; }
+        public int? Since { get; set; }
 
         [JsonProperty("activities")]
         public Activity[] Activities { get; set; }

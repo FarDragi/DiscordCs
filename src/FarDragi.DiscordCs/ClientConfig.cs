@@ -8,6 +8,9 @@ namespace FarDragi.DiscordCs
 {
     public class ClientConfig : Identify
     {
+        public uint Shards { get; set; } = 1;
+        public bool AutoSharding { get; set; } = true;
+
         public ClientConfig()
         {
             Compress = true;
@@ -17,13 +20,28 @@ namespace FarDragi.DiscordCs
                 Browser = "DiscordCs",
                 Device = "DiscordCs"
             };
-            LargeThreshold = 250;
+            LargeThreshold = 50;
             Presence = new PresenceStatusUpdate
             {
-                Since = 0,
                 Status = "online"
             };
-            Intents = IdentifyIntent.All;
+            Intents = IdentifyIntent.Default;
+            GuildSubscriptions = true;
+        }
+
+        public Identify GetIdentify(int[] shard)
+        {
+            return new Identify
+            {
+                Token = Token,
+                Compress = Compress,
+                GuildSubscriptions = GuildSubscriptions,
+                Intents = Intents,
+                LargeThreshold = LargeThreshold,
+                Presence = Presence,
+                Properties = Properties,
+                Shard = shard
+            };
         }
     }
 }

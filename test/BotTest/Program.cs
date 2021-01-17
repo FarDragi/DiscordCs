@@ -13,6 +13,8 @@ namespace BotTest
                 Token = ""
             });
 
+            client.Login();
+
             await Task.Delay(-1);
         }
     }

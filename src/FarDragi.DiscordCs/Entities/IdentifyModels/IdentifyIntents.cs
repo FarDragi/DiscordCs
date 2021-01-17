@@ -10,6 +10,23 @@ namespace FarDragi.DiscordCs.Entities.IdentifyModels
 
         /// <summary>
         /// <see cref="Guilds"/><br/>
+        /// <see cref="GuildBans"/><br/>
+        /// <see cref="GuildEmojis"/><br/>
+        /// <see cref="GuildIntegrations"/><br/>
+        /// <see cref="GuildWebhooks"/><br/>
+        /// <see cref="GuildInvites"/><br/>
+        /// <see cref="GuildVoiceStates"/><br/>
+        /// <see cref="GuildMessages"/><br/>
+        /// <see cref="GuildMessageReactions"/><br/>
+        /// <see cref="GuildMessageTyping"/><br/>
+        /// <see cref="DirectMessages"/><br/>
+        /// <see cref="DirectMessageReactions"/><br/>
+        /// <see cref="DirectMessageTyping"/><br/>
+        /// </summary>
+        Default = 32509,
+
+        /// <summary>
+        /// <see cref="Guilds"/><br/>
         /// <see cref="GuildMembers"/><br/>
         /// <see cref="GuildBans"/><br/>
         /// <see cref="GuildEmojis"/><br/>

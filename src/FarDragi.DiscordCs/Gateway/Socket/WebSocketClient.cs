@@ -1,4 +1,5 @@
-﻿using FarDragi.DiscordCs.Entities.IdentifyModels;
+﻿using FarDragi.DiscordCs.Entities.EventsModels;
+using FarDragi.DiscordCs.Entities.IdentifyModels;
 using FarDragi.DiscordCs.Entities.PayloadModels;
 using Newtonsoft.Json;
 using SuperSocket.ClientEngine;
@@ -68,7 +69,10 @@ namespace FarDragi.DiscordCs.Gateway.Socket
 
         private void Socket_Opened(object sender, EventArgs e)
         {
-            Send(identify);
+            Send(new PayloadIdentify
+            {
+                Data = identify
+            });
         }
 
         public void Open()
