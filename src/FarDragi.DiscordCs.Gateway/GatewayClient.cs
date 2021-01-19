@@ -61,7 +61,7 @@ namespace FarDragi.DiscordCs.Gateway
             events.OnRaw(this, json);
             if (eventsHandler.TryGetValue(eventName, out GatewayEvent gatewayEvent))
             {
-                gatewayEvent.Delegate.DynamicInvoke(this, data.ToObject(gatewayEvent.TypeConvert));
+                gatewayEvent.Delegate.Invoke(this, data.ToObject(gatewayEvent.TypeConvert));
             }
         }
     }

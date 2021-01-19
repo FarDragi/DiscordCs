@@ -5,6 +5,7 @@ using FarDragi.DiscordCs.Json.Entities.ReadyModels;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs
 {
@@ -21,7 +22,7 @@ namespace FarDragi.DiscordCs
             gateways = new List<GatewayClient>();
         }
 
-        public void Login()
+        public async void Login()
         {
             if (config.AutoSharding)
             {
@@ -30,6 +31,7 @@ namespace FarDragi.DiscordCs
                     GatewayClient client = new GatewayClient(this, config.GetIdentify(new int[] { i, (int)config.Shards }));
                     client.Open();
                     gateways.Add(client);
+                    await Task.Delay(6000);
                 }
             }
             else

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FarDragi.DiscordCs.Gateway.Socket
+namespace FarDragi.DiscordCs.Gateway
 {
     public delegate void GatewayDelegate(GatewayClient client, object obj);
 

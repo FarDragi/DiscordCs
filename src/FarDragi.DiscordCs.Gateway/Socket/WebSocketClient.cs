@@ -44,12 +44,19 @@ namespace FarDragi.DiscordCs.Gateway.Socket
         {
             tokenSource.Cancel();
             tokenSource.Dispose();
+
+            if (e is ClosedEventArgs args)
+            {
+                Console.WriteLine($"Code: {args.Code} Reason: {args.Reason}\n");
+            }
         }
 
         private void Socket_Error(object sender, ErrorEventArgs e)
         {
             tokenSource.Cancel();
             tokenSource.Dispose();
+
+            Console.WriteLine(e.Exception);
         }
 
         private void Socket_MessageReceived(object sender, MessageReceivedEventArgs e)
@@ -61,7 +68,7 @@ namespace FarDragi.DiscordCs.Gateway.Socket
         {
             if (decompress.TryDecompress(e.Data, out string json))
             {
-                Payload<JObject> payload = JsonConvert.DeserializeObject<Payload<JObject>>(json);
+                Payload<object> payload = JsonConvert.DeserializeObject<Payload<object>>(json);
                 sequenceNumber = payload.SequenceNumber;
 
                 Console.WriteLine(json);
@@ -70,11 +77,11 @@ namespace FarDragi.DiscordCs.Gateway.Socket
                 switch (payload.OpCode)
                 {
                     case PayloadOpCode.Dispatch:
-                        gatewayClient.OnEventReceived(payload.Event, payload.Data, json);
+                        gatewayClient.OnEventReceived(payload.Event, (JObject)payload.Data, json);
                         break;
                     case PayloadOpCode.Hello:
                         tokenSource = new CancellationTokenSource();
-                        Heartbeat(payload.Data.ToObject<JsonHello>(), tokenSource.Token);
+                        Heartbeat((payload.Data as JObject).ToObject<JsonHello>(), tokenSource.Token);
                         break;
                     case PayloadOpCode.Reconnect:
                         break;

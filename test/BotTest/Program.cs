@@ -1,4 +1,5 @@
 ﻿using FarDragi.DiscordCs;
+using FarDragi.DiscordCs.Entities.IdentifyModels;
 using System;
 using System.Configuration;
 using System.Threading.Tasks;
