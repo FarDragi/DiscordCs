@@ -27,9 +27,16 @@ namespace BotTest
                 Token = token
             });
 
+            client.Raw += Client_Raw;
+
             client.Login();
 
             await Task.Delay(-1);
+        }
+
+        private static Task Client_Raw(object client, string data)
+        {
+            return Task.CompletedTask;
         }
     }
 }

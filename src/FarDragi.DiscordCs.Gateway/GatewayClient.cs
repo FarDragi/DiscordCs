@@ -18,7 +18,7 @@ namespace FarDragi.DiscordCs.Gateway
         private readonly Dictionary<string, GatewayEvent> eventsHandler;
 
         public int[] Shard { get; set; }
-        public int SessionId { get; set; }
+        public string SessionId { get; set; }
 
         public GatewayClient(IGatewayEvents gatewayEvents, JsonIdentify gatewayIdentify)
         {

@@ -11,9 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarDragi.DiscordCs", "src\F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotTest", "test\BotTest\BotTest.csproj", "{7F8186D0-B54F-47F3-A58F-8CADDDE2DD9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarDragi.DiscordCs.Gateway", "src\FarDragi.DiscordCs.Gateway\FarDragi.DiscordCs.Gateway.csproj", "{DAEC0A0A-B338-4A8F-B033-BB0F42CBCC97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarDragi.DiscordCs.Gateway", "src\FarDragi.DiscordCs.Gateway\FarDragi.DiscordCs.Gateway.csproj", "{DAEC0A0A-B338-4A8F-B033-BB0F42CBCC97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarDragi.DiscordCs.Json", "src\FarDragi.DiscordCs.Json\FarDragi.DiscordCs.Json.csproj", "{F0207DC4-D890-402A-B8EB-25802F4254CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarDragi.DiscordCs.Json", "src\FarDragi.DiscordCs.Json\FarDragi.DiscordCs.Json.csproj", "{F0207DC4-D890-402A-B8EB-25802F4254CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

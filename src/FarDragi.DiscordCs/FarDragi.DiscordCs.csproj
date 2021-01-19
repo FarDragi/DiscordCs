@@ -14,4 +14,8 @@
     <ProjectReference Include="..\FarDragi.DiscordCs.Json\FarDragi.DiscordCs.Json.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Collections\" />
+  </ItemGroup>
+
 </Project>

@@ -9,12 +9,15 @@ using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs
 {
+    public delegate Task ClientEventHandler<TData>(object client, TData data);
+
     public class Client : IGatewayEvents
     {
         private readonly ClientConfig config;
         private readonly List<GatewayClient> gateways;
 
-        public event EventHandler<string> Raw;
+        public event ClientEventHandler<string> Raw;
+        public event ClientEventHandler<JsonReady> Ready;
 
         public Client(ClientConfig clientConfig) : base()
         {
@@ -36,12 +39,6 @@ namespace FarDragi.DiscordCs
             }
             else
             {
-                if (config.Shard == null)
-                {
-                    // TODO nomear o erro
-                    throw new ArgumentNullException();
-                }
-
                 GatewayClient client = new GatewayClient(this, config.GetIdentify(config.Shard));
                 client.Open();
                 gateways.Add(client);
@@ -50,6 +47,7 @@ namespace FarDragi.DiscordCs
 
         public virtual void OnRaw(GatewayClient sender, string data)
         {
+            Raw?.Invoke(this, data);
         }
 
         [GatewayEvent("READY", typeof(JsonReady))]
@@ -57,7 +55,7 @@ namespace FarDragi.DiscordCs
         {
             if (data is JsonReady ready)
             {
-
+                sender.SessionId = ready.SessionId;
             }
         }
     }
