@@ -1,5 +1,7 @@
 ﻿using FarDragi.DiscordCs.Gateway;
+using FarDragi.DiscordCs.Gateway.Attributes;
 using FarDragi.DiscordCs.Gateway.Interfaces;
+using FarDragi.DiscordCs.Json.Entities.ReadyModels;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -44,8 +46,17 @@ namespace FarDragi.DiscordCs
             }
         }
 
-        public virtual void OnRaw(object sender, JObject data)
+        public virtual void OnRaw(GatewayClient sender, string data)
         {
+        }
+
+        [GatewayEvent("READY", typeof(JsonReady))]
+        public virtual void OnReady(GatewayClient sender, object data)
+        {
+            if (data is JsonReady ready)
+            {
+
+            }
         }
     }
 }

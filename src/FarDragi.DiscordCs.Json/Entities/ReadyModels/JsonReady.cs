@@ -17,7 +17,7 @@ namespace FarDragi.DiscordCs.Json.Entities.ReadyModels
         public JsonUser User { get; set; }
 
         [JsonProperty("guilds")]
-        public JsonGuild[] Guilds { get; set; }
+        public JsonGuildUnavailable[] Guilds { get; set; }
 
         [JsonProperty("session_id")]
         public string SessionId { get; set; }

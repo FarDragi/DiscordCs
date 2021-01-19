@@ -70,7 +70,7 @@ namespace FarDragi.DiscordCs.Gateway.Socket
                 switch (payload.OpCode)
                 {
                     case PayloadOpCode.Dispatch:
-                        gatewayClient.OnEventReceived(payload.Event, payload.Data);
+                        gatewayClient.OnEventReceived(payload.Event, payload.Data, json);
                         break;
                     case PayloadOpCode.Hello:
                         tokenSource = new CancellationTokenSource();
