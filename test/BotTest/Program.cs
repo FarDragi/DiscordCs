@@ -1,5 +1,5 @@
 ﻿using FarDragi.DiscordCs;
-using FarDragi.DiscordCs.Entities.IdentifyModels;
+using FarDragi.DiscordCs.Entities.GuildModels;
 using System;
 using System.Configuration;
 using System.Threading.Tasks;
@@ -27,20 +27,16 @@ namespace BotTest
                 Token = token
             });
 
-            client.Raw += Client_Raw;
+            client.GuildCreate += Client_GuildCreate;
 
             client.Login();
 
             await Task.Delay(-1);
         }
 
-        private static Task Client_Raw(object sender, string data)
+        private static async Task Client_GuildCreate(Client client, ClientEventArgs<Guild> args)
         {
-            if (sender is Client client)
-            {
-            }
-
-            return Task.CompletedTask;
+            Console.WriteLine($"[{args.Data.Id}] [{args.Data.Name}]");
         }
     }
 }

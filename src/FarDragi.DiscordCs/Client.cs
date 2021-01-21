@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs
 {
-    public delegate Task ClientEventHandler<TData>(object sender, TData data);
+    public delegate Task ClientEventHandler<TData>(Client client, ClientEventArgs<TData> args);
 
     public class Client : IGatewayEvents
     {
@@ -54,7 +54,11 @@ namespace FarDragi.DiscordCs
 
         public virtual void OnRaw(GatewayClient gateway, string data)
         {
-            Raw?.Invoke(this, data);
+            Raw?.Invoke(this, new ClientEventArgs<string>
+            {
+                Data = data,
+                Gateway = gateway
+            });
         }
 
         [GatewayEvent("READY", typeof(JsonReady))]
@@ -69,9 +73,21 @@ namespace FarDragi.DiscordCs
         [GatewayEvent("GUILD_CREATE", typeof(JsonGuild))]
         public virtual void OnGuildCreate(GatewayClient gateway, object data)
         {
-            if (data is JsonGuild guilds)
+            if (data is JsonGuild json)
             {
+                Guild guild = new Guild
+                {
+                    Id = json.Id,
+                    Name = json.Name
+                };
 
+                Guilds.Caching(guild);
+
+                GuildCreate?.Invoke(this, new ClientEventArgs<Guild>
+                {
+                    Data = guild,
+                    Gateway = gateway
+                });
             }
         }
     }

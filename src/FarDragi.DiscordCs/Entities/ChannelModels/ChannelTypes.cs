@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FarDragi.DiscordCs.Entities.ChannelModels
+﻿namespace FarDragi.DiscordCs.Entities.ChannelModels
 {
     /// <summary>
     /// https://discord.com/developers/docs/resources/channel#channel-object-channel-types

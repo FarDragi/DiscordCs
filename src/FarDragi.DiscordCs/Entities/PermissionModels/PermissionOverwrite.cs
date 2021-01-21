@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FarDragi.DiscordCs.Entities.PermissionModels
+﻿namespace FarDragi.DiscordCs.Entities.PermissionModels
 {
     /// <summary>
     /// https://discord.com/developers/docs/resources/channel#overwrite-object-overwrite-structure

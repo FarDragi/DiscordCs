@@ -1,10 +1,8 @@
 ﻿using FarDragi.DiscordCs.Entities.UserModels;
 using FarDragi.DiscordCs.Interfaces;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 
 namespace FarDragi.DiscordCs.Collections
 {
@@ -21,7 +19,7 @@ namespace FarDragi.DiscordCs.Collections
             keyUsers = new Dictionary<ulong, User>();
         }
 
-        public User this[ulong id] 
+        public User this[ulong id]
         {
             get
             {

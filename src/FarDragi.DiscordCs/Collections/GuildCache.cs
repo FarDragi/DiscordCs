@@ -1,10 +1,8 @@
 ﻿using FarDragi.DiscordCs.Entities.GuildModels;
 using FarDragi.DiscordCs.Interfaces;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 
 namespace FarDragi.DiscordCs.Caching
 {
@@ -21,7 +19,7 @@ namespace FarDragi.DiscordCs.Caching
             keyGuilds = new Dictionary<ulong, Guild>();
         }
 
-        public Guild this[ulong id] 
+        public Guild this[ulong id]
         {
             get
             {

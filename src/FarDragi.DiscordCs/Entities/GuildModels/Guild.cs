@@ -4,7 +4,6 @@ using FarDragi.DiscordCs.Entities.MemberModels;
 using FarDragi.DiscordCs.Entities.PresenceModels;
 using FarDragi.DiscordCs.Entities.RoleModels;
 using FarDragi.DiscordCs.Entities.VoiceModels;
-using FarDragi.DiscordCs.Json.Entities.GuildModels;
 using System;
 
 namespace FarDragi.DiscordCs.Entities.GuildModels
