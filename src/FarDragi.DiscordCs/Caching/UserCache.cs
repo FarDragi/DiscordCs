@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace FarDragi.DiscordCs.Collections
+namespace FarDragi.DiscordCs.Caching
 {
     public class UserCache : ICache<User>, IEnumerable<User>
     {

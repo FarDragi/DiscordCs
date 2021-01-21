@@ -1,5 +1,4 @@
 ﻿using FarDragi.DiscordCs.Caching;
-using FarDragi.DiscordCs.Collections;
 using FarDragi.DiscordCs.Entities.GuildModels;
 using FarDragi.DiscordCs.Gateway;
 using FarDragi.DiscordCs.Gateway.Attributes;

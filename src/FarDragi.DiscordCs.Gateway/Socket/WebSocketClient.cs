@@ -29,7 +29,7 @@ namespace FarDragi.DiscordCs.Gateway.Socket
             decompress = new WebSocketDecompress();
             WebSocketConfig config = new WebSocketConfig
             {
-                ApiVersion = "8",
+                Version = 8,
                 Encoding = "json"
             };
             socket = new WebSocket(config.Url);
