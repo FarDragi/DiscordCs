@@ -34,8 +34,12 @@ namespace BotTest
             await Task.Delay(-1);
         }
 
-        private static Task Client_Raw(object client, string data)
+        private static Task Client_Raw(object sender, string data)
         {
+            if (sender is Client client)
+            {
+            }
+
             return Task.CompletedTask;
         }
     }

@@ -1,15 +1,17 @@
-﻿using FarDragi.DiscordCs.Gateway;
+﻿using FarDragi.DiscordCs.Caching;
+using FarDragi.DiscordCs.Collections;
+using FarDragi.DiscordCs.Entities.GuildModels;
+using FarDragi.DiscordCs.Gateway;
 using FarDragi.DiscordCs.Gateway.Attributes;
 using FarDragi.DiscordCs.Gateway.Interfaces;
+using FarDragi.DiscordCs.Json.Entities.GuildModels;
 using FarDragi.DiscordCs.Json.Entities.ReadyModels;
-using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs
 {
-    public delegate Task ClientEventHandler<TData>(object client, TData data);
+    public delegate Task ClientEventHandler<TData>(object sender, TData data);
 
     public class Client : IGatewayEvents
     {
@@ -18,11 +20,16 @@ namespace FarDragi.DiscordCs
 
         public event ClientEventHandler<string> Raw;
         public event ClientEventHandler<JsonReady> Ready;
+        public event ClientEventHandler<Guild> GuildCreate;
+
+        public readonly GuildCache Guilds;
+        public readonly UserCache Users;
 
         public Client(ClientConfig clientConfig) : base()
         {
             config = clientConfig;
             gateways = new List<GatewayClient>();
+            Guilds = new GuildCache(this);
         }
 
         public async void Login()
@@ -45,17 +52,26 @@ namespace FarDragi.DiscordCs
             }
         }
 
-        public virtual void OnRaw(GatewayClient sender, string data)
+        public virtual void OnRaw(GatewayClient gateway, string data)
         {
             Raw?.Invoke(this, data);
         }
 
         [GatewayEvent("READY", typeof(JsonReady))]
-        public virtual void OnReady(GatewayClient sender, object data)
+        public virtual void OnReady(GatewayClient gateway, object data)
         {
             if (data is JsonReady ready)
             {
-                sender.SessionId = ready.SessionId;
+                gateway.SessionId = ready.SessionId;
+            }
+        }
+
+        [GatewayEvent("GUILD_CREATE", typeof(JsonGuild))]
+        public virtual void OnGuildCreate(GatewayClient gateway, object data)
+        {
+            if (data is JsonGuild guilds)
+            {
+
             }
         }
     }
