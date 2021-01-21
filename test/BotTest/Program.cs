@@ -2,6 +2,7 @@
 using FarDragi.DiscordCs.Entities.GuildModels;
 using System;
 using System.Configuration;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BotTest
@@ -34,9 +35,19 @@ namespace BotTest
             await Task.Delay(-1);
         }
 
-        private static async Task Client_GuildCreate(Client client, ClientEventArgs<Guild> args)
+        private static Task Client_GuildCreate(Client client, ClientEventArgs<Guild> args)
         {
             Console.WriteLine($"[{args.Data.Id}] [{args.Data.Name}]");
+
+            if (ReferenceEquals(client.Guilds[args.Data.Id], args.Data))
+            {
+                if (ReferenceEquals(args.Data, client.Guilds.First(x => x.Id == args.Data.Id)))
+                {
+                    Console.WriteLine("true");
+                }
+            }
+
+            return Task.CompletedTask;
         }
     }
 }

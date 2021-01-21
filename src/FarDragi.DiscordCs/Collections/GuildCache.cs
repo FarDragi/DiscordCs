@@ -31,9 +31,10 @@ namespace FarDragi.DiscordCs.Caching
             }
         }
 
-        public void Caching(Guild type)
+        public void Caching(Guild data)
         {
-
+            guilds.Add(data);
+            keyGuilds.Add(data.Id, data);
         }
 
         public IEnumerator<Guild> GetEnumerator()

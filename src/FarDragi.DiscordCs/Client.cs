@@ -52,7 +52,7 @@ namespace FarDragi.DiscordCs
             }
         }
 
-        public virtual void OnRaw(GatewayClient gateway, string data)
+        public virtual void OnRawAsync(GatewayClient gateway, string data)
         {
             Raw?.Invoke(this, new ClientEventArgs<string>
             {
@@ -83,7 +83,7 @@ namespace FarDragi.DiscordCs
 
                 Guilds.Caching(guild);
 
-                GuildCreate?.Invoke(this, new ClientEventArgs<Guild>
+                GuildCreate.Invoke(this, new ClientEventArgs<Guild>
                 {
                     Data = guild,
                     Gateway = gateway

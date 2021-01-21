@@ -4,6 +4,6 @@
     {
         public TType this[ulong id] { get; set; }
 
-        public void Caching(TType type);
+        public void Caching(TType data);
     }
 }

@@ -1,7 +1,9 @@
-﻿namespace FarDragi.DiscordCs.Gateway.Interfaces
+﻿using System.Threading.Tasks;
+
+namespace FarDragi.DiscordCs.Gateway.Interfaces
 {
     public interface IGatewayEvents
     {
-        public void OnRaw(GatewayClient gateway, string data);
+        public void OnRawAsync(GatewayClient gateway, string data);
     }
 }

@@ -58,11 +58,11 @@ namespace FarDragi.DiscordCs.Gateway
 
         public void OnEventReceived(string eventName, JObject data, string json)
         {
-            events.OnRaw(this, json);
             if (eventsHandler.TryGetValue(eventName, out GatewayEvent gatewayEvent))
             {
                 gatewayEvent.Delegate.Invoke(this, data.ToObject(gatewayEvent.TypeConvert));
             }
+            events.OnRawAsync(this, json);
         }
     }
 }
