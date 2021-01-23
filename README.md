@@ -1,5 +1,3 @@
 ### DiscordCs
 
-||
-|:--:|
-|![Net 5.0](https://github.com/FarDragi/DiscordCs/workflows/Net%205.0/badge.svg)|
+![Net 5.0](https://github.com/FarDragi/DiscordCs/workflows/Net%205.0/badge.svg)
