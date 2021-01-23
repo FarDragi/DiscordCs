@@ -1,6 +1,7 @@
 ﻿using FarDragi.DiscordCs.Gateway.Payloads;
 using FarDragi.DiscordCs.Json.Entities.HelloModels;
 using FarDragi.DiscordCs.Json.Entities.IdentifyModels;
+using FarDragi.DiscordCs.Json.Entities.ResumeModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SuperSocket.ClientEngine;
@@ -44,19 +45,34 @@ namespace FarDragi.DiscordCs.Gateway.Socket
         {
             tokenSource.Cancel();
             tokenSource.Dispose();
+            tokenSource = new CancellationTokenSource();
 
             if (e is ClosedEventArgs args)
             {
                 Console.WriteLine($"Code: {args.Code} Reason: {args.Reason}\n");
+
+                if (args.Code == 1000)
+                {
+                    if (socket.State == WebSocketState.Closed)
+                    {
+                        socket.Open();
+                    }
+
+                    Send(new ResumePayload()
+                    {
+                        Data = new JsonResume
+                        {
+                            SequenceNumber = sequenceNumber,
+                            SessionId = gatewayClient.SessionId,
+                            Token = identify.Token
+                        }
+                    });
+                }
             }
         }
 
         private void Socket_Error(object sender, ErrorEventArgs e)
         {
-            tokenSource.Cancel();
-            tokenSource.Dispose();
-
-            Console.WriteLine(e.Exception);
         }
 
         private void Socket_MessageReceived(object sender, MessageReceivedEventArgs e)
@@ -118,6 +134,7 @@ namespace FarDragi.DiscordCs.Gateway.Socket
             }
             catch (Exception)
             {
+                tokenSource.Dispose();
                 return;
             }
         }
