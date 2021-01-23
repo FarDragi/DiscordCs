@@ -1,4 +1,4 @@
-name: .NET
+name: Net 5.0
 
 on:
   push:
