@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\FarDragi.DiscordCs.Gateway\FarDragi.DiscordCs.Gateway.csproj" />
     <ProjectReference Include="..\FarDragi.DiscordCs.Json\FarDragi.DiscordCs.Json.csproj" />
+    <ProjectReference Include="..\FarDragi.DiscordCs.Rest\FarDragi.DiscordCs.Rest.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -5,6 +5,7 @@ using FarDragi.DiscordCs.Gateway.Attributes;
 using FarDragi.DiscordCs.Gateway.Interfaces;
 using FarDragi.DiscordCs.Json.Entities.GuildModels;
 using FarDragi.DiscordCs.Json.Entities.ReadyModels;
+using FarDragi.DiscordCs.Rest;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,6 +17,7 @@ namespace FarDragi.DiscordCs
     {
         private readonly ClientConfig config;
         private readonly List<GatewayClient> gateways;
+        private RestClient restClient;
 
         public event ClientEventHandler<string> Raw;
         public event ClientEventHandler<JsonReady> Ready;
@@ -33,6 +35,11 @@ namespace FarDragi.DiscordCs
 
         public async void Login()
         {
+            restClient = new RestClient(new RestConfig
+            {
+                Token = config.Token
+            });
+
             if (config.AutoSharding)
             {
                 for (int i = 0; i < config.Shards; i++)
