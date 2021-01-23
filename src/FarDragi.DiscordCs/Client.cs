@@ -4,6 +4,7 @@ using FarDragi.DiscordCs.Gateway;
 using FarDragi.DiscordCs.Gateway.Attributes;
 using FarDragi.DiscordCs.Gateway.Interfaces;
 using FarDragi.DiscordCs.Json.Entities.GuildModels;
+using FarDragi.DiscordCs.Json.Entities.MessageModels;
 using FarDragi.DiscordCs.Json.Entities.ReadyModels;
 using FarDragi.DiscordCs.Rest;
 using System.Collections.Generic;
@@ -95,6 +96,12 @@ namespace FarDragi.DiscordCs
                     Gateway = gateway
                 });
             }
+        }
+
+        [GatewayEvent("MESSAGE_CREATE", typeof(JsonMessage))]
+        public virtual void OnMessageCreate(GatewayClient gateway, object data)
+        {
+
         }
     }
 }

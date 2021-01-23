@@ -35,7 +35,7 @@ namespace FarDragi.DiscordCs.Gateway
             Type type = events.GetType();
             MethodInfo[] methodInfos = type.GetMethods();
 
-            Parallel.For(0, methodInfos.Length, i =>
+            for (int i = 0; i < methodInfos.Length; i++)
             {
                 GatewayEventAttribute eventNameAttribute = methodInfos[i].GetCustomAttribute<GatewayEventAttribute>();
                 if (eventNameAttribute != null)
@@ -48,7 +48,7 @@ namespace FarDragi.DiscordCs.Gateway
 
                     eventsHandler.Add(eventNameAttribute.Name, gatewayEvent);
                 }
-            });
+            }
         }
 
         public void Open()
