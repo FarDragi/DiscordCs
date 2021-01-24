@@ -21,7 +21,8 @@ namespace FarDragi.DiscordCs.Gateway.Socket
         private readonly JsonIdentify identify;
 
         private CancellationTokenSource tokenSource;
-        private int? sequenceNumber;
+        private int sequenceNumber;
+        private bool firstConnection;
 
         public WebSocketClient(GatewayClient gatewayClient, JsonIdentify identify)
         {
@@ -34,6 +35,7 @@ namespace FarDragi.DiscordCs.Gateway.Socket
                 Encoding = "json"
             };
             socket = new WebSocket(config.Url);
+            firstConnection = true;
             socket.Opened += Socket_Opened;
             socket.DataReceived += Socket_DataReceived;
             socket.MessageReceived += Socket_MessageReceived;
@@ -43,36 +45,27 @@ namespace FarDragi.DiscordCs.Gateway.Socket
 
         private void Socket_Closed(object sender, EventArgs e)
         {
-            tokenSource.Cancel();
-            tokenSource.Dispose();
-            tokenSource = new CancellationTokenSource();
-
             if (e is ClosedEventArgs args)
             {
                 Console.WriteLine($"Code: {args.Code} Reason: {args.Reason}\n");
 
-                if (args.Code == 1000)
-                {
-                    if (socket.State == WebSocketState.Closed)
-                    {
-                        socket.Open();
-                    }
+                socket.Open();
 
-                    Send(new ResumePayload()
+                Send(new ResumePayload()
+                {
+                    Data = new JsonResume
                     {
-                        Data = new JsonResume
-                        {
-                            SequenceNumber = sequenceNumber,
-                            SessionId = gatewayClient.SessionId,
-                            Token = identify.Token
-                        }
-                    });
-                }
+                        SequenceNumber = sequenceNumber,
+                        SessionId = gatewayClient.SessionId,
+                        Token = identify.Token
+                    }
+                });
             }
         }
 
         private void Socket_Error(object sender, ErrorEventArgs e)
         {
+            socket.Close();
         }
 
         private void Socket_MessageReceived(object sender, MessageReceivedEventArgs e)
@@ -85,7 +78,10 @@ namespace FarDragi.DiscordCs.Gateway.Socket
             if (decompress.TryDecompress(e.Data, out string json))
             {
                 Payload<object> payload = JsonConvert.DeserializeObject<Payload<object>>(json);
-                sequenceNumber = payload.SequenceNumber;
+                if (payload.SequenceNumber != null)
+                {
+                    sequenceNumber = (int)payload.SequenceNumber;
+                }
 
                 Console.WriteLine(json);
                 Console.WriteLine();
@@ -113,10 +109,15 @@ namespace FarDragi.DiscordCs.Gateway.Socket
 
         private void Socket_Opened(object sender, EventArgs e)
         {
-            Send(new IdentifyPayload
+            if (firstConnection)
             {
-                Data = identify
-            });
+                Send(new IdentifyPayload
+                {
+                    Data = identify
+                });
+
+                firstConnection = false;
+            }
         }
 
         public async void Heartbeat(JsonHello hello, CancellationToken token)
