@@ -15,7 +15,7 @@ namespace FarDragi.DiscordCs.Gateway.Socket
 {
     public class WebSocketClient : IDisposable
     {
-        private readonly WebSocket socket;
+        private WebSocket socket;
         private readonly WebSocketDecompress decompress;
         private readonly GatewayClient gatewayClient;
         private readonly JsonIdentify identify;
@@ -29,13 +29,18 @@ namespace FarDragi.DiscordCs.Gateway.Socket
             this.gatewayClient = gatewayClient;
             this.identify = identify;
             decompress = new WebSocketDecompress();
+            AddEvents();
+            firstConnection = true;
+        }
+
+        private void AddEvents()
+        {
             WebSocketConfig config = new WebSocketConfig
             {
                 Version = 8,
                 Encoding = "json"
             };
             socket = new WebSocket(config.Url);
-            firstConnection = true;
             socket.Opened += Socket_Opened;
             socket.DataReceived += Socket_DataReceived;
             socket.MessageReceived += Socket_MessageReceived;
@@ -49,6 +54,8 @@ namespace FarDragi.DiscordCs.Gateway.Socket
             {
                 Console.WriteLine($"Code: {args.Code} Reason: {args.Reason}\n");
 
+                socket.Dispose();
+                AddEvents();
                 socket.Open();
 
                 Send(new ResumePayload()
@@ -65,7 +72,6 @@ namespace FarDragi.DiscordCs.Gateway.Socket
 
         private void Socket_Error(object sender, ErrorEventArgs e)
         {
-            socket.Close();
         }
 
         private void Socket_MessageReceived(object sender, MessageReceivedEventArgs e)
