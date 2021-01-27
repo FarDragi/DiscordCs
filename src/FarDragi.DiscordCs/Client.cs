@@ -34,7 +34,7 @@ namespace FarDragi.DiscordCs
             Guilds = new GuildCache(this);
         }
 
-        public async void Login()
+        public async Task Login()
         {
             restClient = new RestClient(new RestConfig
             {
@@ -46,7 +46,7 @@ namespace FarDragi.DiscordCs
                 for (int i = 0; i < config.Shards; i++)
                 {
                     GatewayClient client = new GatewayClient(this, config.GetIdentify(new int[] { i, (int)config.Shards }));
-                    client.Open();
+                    await client.Open();
                     gateways.Add(client);
                     await Task.Delay(6000);
                 }
@@ -54,7 +54,7 @@ namespace FarDragi.DiscordCs
             else
             {
                 GatewayClient client = new GatewayClient(this, config.GetIdentify(config.Shard));
-                client.Open();
+                await client.Open();
                 gateways.Add(client);
             }
         }

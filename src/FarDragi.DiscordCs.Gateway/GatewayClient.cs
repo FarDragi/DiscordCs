@@ -51,9 +51,9 @@ namespace FarDragi.DiscordCs.Gateway
             }
         }
 
-        public void Open()
+        public async Task<bool> Open()
         {
-            webSocket.Open();
+            return await webSocket.Open();
         }
 
         public void OnEventReceived(string eventName, JObject data, string json)

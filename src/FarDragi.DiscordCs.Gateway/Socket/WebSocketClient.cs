@@ -4,12 +4,11 @@ using FarDragi.DiscordCs.Json.Entities.IdentifyModels;
 using FarDragi.DiscordCs.Json.Entities.ResumeModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SuperSocket.ClientEngine;
 using System;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using WebSocket4Net;
+using WebSocketSharp;
 
 namespace FarDragi.DiscordCs.Gateway.Socket
 {
@@ -19,6 +18,7 @@ namespace FarDragi.DiscordCs.Gateway.Socket
         private readonly WebSocketDecompress decompress;
         private readonly GatewayClient gatewayClient;
         private readonly JsonIdentify identify;
+        private readonly WebSocketConfig config;
 
         private CancellationTokenSource tokenSource;
         private int sequenceNumber;
@@ -29,23 +29,42 @@ namespace FarDragi.DiscordCs.Gateway.Socket
             this.gatewayClient = gatewayClient;
             this.identify = identify;
             decompress = new WebSocketDecompress();
-            AddEvents();
             firstConnection = true;
-        }
-
-        private void AddEvents()
-        {
-            WebSocketConfig config = new WebSocketConfig
+            config = new WebSocketConfig
             {
                 Version = 8,
                 Encoding = "json"
             };
+            AddEvents();
+        }
+
+        private void AddEvents()
+        {
             socket = new WebSocket(config.Url);
-            socket.Opened += Socket_Opened;
-            socket.DataReceived += Socket_DataReceived;
-            socket.MessageReceived += Socket_MessageReceived;
-            socket.Error += Socket_Error;
-            socket.Closed += Socket_Closed;
+            socket.OnOpen += Socket_OnOpen;
+            socket.OnMessage += Socket_OnMessage;
+            socket.OnError += Socket_OnError;
+            socket.OnClose += Socket_OnClose;
+        }
+
+        private void Socket_OnClose(object sender, CloseEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Socket_OnError(object sender, ErrorEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Socket_OnMessage(object sender, MessageEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Socket_OnOpen(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void Socket_Closed(object sender, EventArgs e)
@@ -146,9 +165,9 @@ namespace FarDragi.DiscordCs.Gateway.Socket
             }
         }
 
-        public void Open()
+        public async Task<bool> Open()
         {
-            socket.Open();
+            return await socket.OpenAsync();
         }
 
         public void Send(object obj)
