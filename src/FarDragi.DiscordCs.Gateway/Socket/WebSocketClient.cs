@@ -4,11 +4,12 @@ using FarDragi.DiscordCs.Json.Entities.IdentifyModels;
 using FarDragi.DiscordCs.Json.Entities.ResumeModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SuperSocket.ClientEngine;
 using System;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using WebSocketSharp;
+using WebSocket4Net;
 
 namespace FarDragi.DiscordCs.Gateway.Socket
 {
@@ -41,30 +42,11 @@ namespace FarDragi.DiscordCs.Gateway.Socket
         private void AddEvents()
         {
             socket = new WebSocket(config.Url);
-            socket.OnOpen += Socket_OnOpen;
-            socket.OnMessage += Socket_OnMessage;
-            socket.OnError += Socket_OnError;
-            socket.OnClose += Socket_OnClose;
-        }
-
-        private void Socket_OnClose(object sender, CloseEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Socket_OnError(object sender, ErrorEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Socket_OnMessage(object sender, MessageEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Socket_OnOpen(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
+            socket.Closed += Socket_Closed;
+            socket.Error += Socket_Error;
+            socket.Opened += Socket_Opened;
+            socket.DataReceived += Socket_DataReceived;
+            socket.MessageReceived += Socket_MessageReceived;
         }
 
         private void Socket_Closed(object sender, EventArgs e)
