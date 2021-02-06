@@ -15,23 +15,23 @@ namespace FarDragi.DiscordCs.Gateway.Socket
 {
     public class WebSocketClient : IDisposable
     {
-        private WebSocket socket;
-        private readonly WebSocketDecompress decompress;
-        private readonly GatewayClient gatewayClient;
-        private readonly JsonIdentify identify;
-        private readonly WebSocketConfig config;
+        private WebSocket _socket;
+        private readonly WebSocketDecompress _decompress;
+        private readonly GatewayClient _gatewayClient;
+        private readonly JsonIdentify _identify;
+        private readonly WebSocketConfig _config;
 
-        private CancellationTokenSource tokenSource;
-        private int sequenceNumber;
-        private bool firstConnection;
+        private CancellationTokenSource _tokenSource;
+        private int _sequenceNumber;
+        private bool _firstConnection;
 
         public WebSocketClient(GatewayClient gatewayClient, JsonIdentify identify)
         {
-            this.gatewayClient = gatewayClient;
-            this.identify = identify;
-            decompress = new WebSocketDecompress();
-            firstConnection = true;
-            config = new WebSocketConfig
+            _gatewayClient = gatewayClient;
+            _identify = identify;
+            _decompress = new WebSocketDecompress();
+            _firstConnection = true;
+            _config = new WebSocketConfig
             {
                 Version = 8,
                 Encoding = "json"
@@ -41,12 +41,12 @@ namespace FarDragi.DiscordCs.Gateway.Socket
 
         private void AddEvents()
         {
-            socket = new WebSocket(config.Url);
-            socket.Closed += Socket_Closed;
-            socket.Error += Socket_Error;
-            socket.Opened += Socket_Opened;
-            socket.DataReceived += Socket_DataReceived;
-            socket.MessageReceived += Socket_MessageReceived;
+            _socket = new WebSocket(_config.Url);
+            _socket.Closed += Socket_Closed;
+            _socket.Error += Socket_Error;
+            _socket.Opened += Socket_Opened;
+            _socket.DataReceived += Socket_DataReceived;
+            _socket.MessageReceived += Socket_MessageReceived;
         }
 
         private void Socket_Closed(object sender, EventArgs e)
@@ -55,17 +55,17 @@ namespace FarDragi.DiscordCs.Gateway.Socket
             {
                 Console.WriteLine($"Code: {args.Code} Reason: {args.Reason}\n");
 
-                socket.Dispose();
+                _socket.Dispose();
                 AddEvents();
-                socket.Open();
+                _socket.Open();
 
                 Send(new ResumePayload()
                 {
                     Data = new JsonResume
                     {
-                        SequenceNumber = sequenceNumber,
-                        SessionId = gatewayClient.SessionId,
-                        Token = identify.Token
+                        SequenceNumber = _sequenceNumber,
+                        SessionId = _gatewayClient.SessionId,
+                        Token = _identify.Token
                     }
                 });
             }
@@ -82,12 +82,12 @@ namespace FarDragi.DiscordCs.Gateway.Socket
 
         private void Socket_DataReceived(object sender, DataReceivedEventArgs e)
         {
-            if (decompress.TryDecompress(e.Data, out string json))
+            if (_decompress.TryDecompress(e.Data, out string json))
             {
                 Payload<object> payload = JsonConvert.DeserializeObject<Payload<object>>(json);
                 if (payload.SequenceNumber != null)
                 {
-                    sequenceNumber = (int)payload.SequenceNumber;
+                    _sequenceNumber = (int)payload.SequenceNumber;
                 }
 
                 Console.WriteLine(json);
@@ -96,11 +96,11 @@ namespace FarDragi.DiscordCs.Gateway.Socket
                 switch (payload.OpCode)
                 {
                     case PayloadOpCode.Dispatch:
-                        gatewayClient.OnEventReceived(payload.Event, (JObject)payload.Data, json);
+                        _gatewayClient.OnEventReceived(payload.Event, (JObject)payload.Data, json);
                         break;
                     case PayloadOpCode.Hello:
-                        tokenSource = new CancellationTokenSource();
-                        Heartbeat((payload.Data as JObject).ToObject<JsonHello>(), tokenSource.Token);
+                        _tokenSource = new CancellationTokenSource();
+                        Heartbeat((payload.Data as JObject).ToObject<JsonHello>(), _tokenSource.Token);
                         break;
                     case PayloadOpCode.Reconnect:
                         break;
@@ -116,14 +116,14 @@ namespace FarDragi.DiscordCs.Gateway.Socket
 
         private void Socket_Opened(object sender, EventArgs e)
         {
-            if (firstConnection)
+            if (_firstConnection)
             {
                 Send(new IdentifyPayload
                 {
-                    Data = identify
+                    Data = _identify
                 });
 
-                firstConnection = false;
+                _firstConnection = false;
             }
         }
 
@@ -136,20 +136,20 @@ namespace FarDragi.DiscordCs.Gateway.Socket
                     await Task.Delay(hello.HeartbeatInterval, token);
                     Send(new HeartbeatPayload
                     {
-                        Data = sequenceNumber
+                        Data = _sequenceNumber
                     });
                 }
             }
             catch (Exception)
             {
-                tokenSource.Dispose();
+                _tokenSource.Dispose();
                 return;
             }
         }
 
         public async Task<bool> Open()
         {
-            return await socket.OpenAsync();
+            return await _socket.OpenAsync();
         }
 
         public void Send(object obj)
@@ -160,15 +160,15 @@ namespace FarDragi.DiscordCs.Gateway.Socket
             Console.WriteLine();
 
             byte[] payload = Encoding.UTF8.GetBytes(json);
-            socket.Send(payload, 0, payload.Length);
+            _socket.Send(payload, 0, payload.Length);
         }
 
         public void Dispose()
         {
-            socket.Dispose();
-            if (tokenSource != null)
+            _socket.Dispose();
+            if (_tokenSource != null)
             {
-                tokenSource.Dispose();
+                _tokenSource.Dispose();
             }
         }
     }

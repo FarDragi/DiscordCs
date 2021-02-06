@@ -16,9 +16,9 @@ namespace FarDragi.DiscordCs
 
     public class Client : IGatewayEvents
     {
-        private readonly ClientConfig config;
-        private readonly List<GatewayClient> gateways;
-        private RestClient restClient;
+        private readonly ClientConfig _config;
+        private readonly List<GatewayClient> _gateways;
+        private RestClient _restClient;
 
         public event ClientEventHandler<string> Raw;
         public event ClientEventHandler<JsonReady> Ready;
@@ -29,33 +29,33 @@ namespace FarDragi.DiscordCs
 
         public Client(ClientConfig clientConfig) : base()
         {
-            config = clientConfig;
-            gateways = new List<GatewayClient>();
+            _config = clientConfig;
+            _gateways = new List<GatewayClient>();
             Guilds = new GuildCache(this);
         }
 
         public async Task Login()
         {
-            restClient = new RestClient(new RestConfig
+            _restClient = new RestClient(new RestConfig
             {
-                Token = config.Token
+                Token = _config.Token
             });
 
-            if (config.AutoSharding)
+            if (_config.AutoSharding)
             {
-                for (int i = 0; i < config.Shards; i++)
+                for (int i = 0; i < _config.Shards; i++)
                 {
-                    GatewayClient client = new GatewayClient(this, config.GetIdentify(new int[] { i, (int)config.Shards }));
+                    GatewayClient client = new GatewayClient(this, _config.GetIdentify(new int[] { i, (int)_config.Shards }));
                     await client.Open();
-                    gateways.Add(client);
+                    _gateways.Add(client);
                     await Task.Delay(6000);
                 }
             }
             else
             {
-                GatewayClient client = new GatewayClient(this, config.GetIdentify(config.Shard));
+                GatewayClient client = new GatewayClient(this, _config.GetIdentify(_config.Shard));
                 await client.Open();
-                gateways.Add(client);
+                _gateways.Add(client);
             }
         }
 
@@ -101,7 +101,7 @@ namespace FarDragi.DiscordCs
         [GatewayEvent("MESSAGE_CREATE", typeof(JsonMessage))]
         public virtual void OnMessageCreate(GatewayClient gateway, object data)
         {
-
+            
         }
     }
 }

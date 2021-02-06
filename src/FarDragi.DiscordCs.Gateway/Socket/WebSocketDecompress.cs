@@ -8,13 +8,13 @@ namespace FarDragi.DiscordCs.Gateway.Socket
     {
         private readonly MemoryStream _compressed;
         private readonly DeflateStream _decompressor;
-        private readonly byte[] zLibSufix;
+        private readonly byte[] _zLibSufix;
 
         public WebSocketDecompress()
         {
             _compressed = new MemoryStream();
             _decompressor = new DeflateStream(_compressed, CompressionMode.Decompress);
-            zLibSufix = new byte[4] { 0x00, 0x00, 0xff, 0xff };
+            _zLibSufix = new byte[4] { 0x00, 0x00, 0xff, 0xff };
         }
 
         public bool TryDecompress(byte[] data, out string json)
@@ -32,7 +32,7 @@ namespace FarDragi.DiscordCs.Gateway.Socket
             _compressed.Position = 0;
 
             byte[] sufix = data[^4..];
-            if (sufix == zLibSufix)
+            if (sufix == _zLibSufix)
             {
                 json = null;
                 return false;

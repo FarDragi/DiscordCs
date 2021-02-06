@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarDragi.DiscordCs.Gateway"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarDragi.DiscordCs.Json", "src\FarDragi.DiscordCs.Json\FarDragi.DiscordCs.Json.csproj", "{F0207DC4-D890-402A-B8EB-25802F4254CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarDragi.DiscordCs.Rest", "src\FarDragi.DiscordCs.Rest\FarDragi.DiscordCs.Rest.csproj", "{D0275A35-CF66-40AF-820A-4F7CD0176173}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarDragi.DiscordCs.Rest", "src\FarDragi.DiscordCs.Rest\FarDragi.DiscordCs.Rest.csproj", "{D0275A35-CF66-40AF-820A-4F7CD0176173}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarDragi.DiscordCs.Caching", "src\FarDragi.DiscordCs.Caching\FarDragi.DiscordCs.Caching.csproj", "{1CD902A7-4253-484A-902F-F20268F76E41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,10 @@ Global
 		{D0275A35-CF66-40AF-820A-4F7CD0176173}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0275A35-CF66-40AF-820A-4F7CD0176173}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0275A35-CF66-40AF-820A-4F7CD0176173}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CD902A7-4253-484A-902F-F20268F76E41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CD902A7-4253-484A-902F-F20268F76E41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CD902A7-4253-484A-902F-F20268F76E41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CD902A7-4253-484A-902F-F20268F76E41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{DAEC0A0A-B338-4A8F-B033-BB0F42CBCC97} = {6575F7A8-0D08-41D3-AC12-9FCE38639BF4}
 		{F0207DC4-D890-402A-B8EB-25802F4254CD} = {6575F7A8-0D08-41D3-AC12-9FCE38639BF4}
 		{D0275A35-CF66-40AF-820A-4F7CD0176173} = {6575F7A8-0D08-41D3-AC12-9FCE38639BF4}
+		{1CD902A7-4253-484A-902F-F20268F76E41} = {6575F7A8-0D08-41D3-AC12-9FCE38639BF4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CBDFC198-519D-4F43-9613-405CE006A1B8}

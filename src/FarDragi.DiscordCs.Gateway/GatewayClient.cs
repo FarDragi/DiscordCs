@@ -12,27 +12,27 @@ namespace FarDragi.DiscordCs.Gateway
 {
     public class GatewayClient
     {
-        private readonly IGatewayEvents events;
-        private readonly JsonIdentify identify;
-        private readonly WebSocketClient webSocket;
-        private readonly Dictionary<string, GatewayEvent> eventsHandler;
+        private readonly IGatewayEvents _events;
+        private readonly JsonIdentify _identify;
+        private readonly WebSocketClient _webSocket;
+        private readonly Dictionary<string, GatewayEvent> _eventsHandler;
 
         public int[] Shard { get; set; }
         public string SessionId { get; set; }
 
-        public GatewayClient(IGatewayEvents gatewayEvents, JsonIdentify gatewayIdentify)
+        public GatewayClient(IGatewayEvents events, JsonIdentify identify)
         {
-            Shard = gatewayIdentify.Shard;
-            events = gatewayEvents;
-            identify = gatewayIdentify;
-            eventsHandler = new Dictionary<string, GatewayEvent>();
+            Shard = identify.Shard;
+            _events = events;
+            _identify = identify;
+            _eventsHandler = new Dictionary<string, GatewayEvent>();
             RegisterHandlers();
-            webSocket = new WebSocketClient(this, identify);
+            _webSocket = new WebSocketClient(this, _identify);
         }
 
         private void RegisterHandlers()
         {
-            Type type = events.GetType();
+            Type type = _events.GetType();
             MethodInfo[] methodInfos = type.GetMethods();
 
             for (int i = 0; i < methodInfos.Length; i++)
@@ -43,26 +43,26 @@ namespace FarDragi.DiscordCs.Gateway
                     GatewayEvent gatewayEvent = new GatewayEvent
                     {
                         TypeConvert = eventNameAttribute.Type,
-                        Delegate = (GatewayDelegate)methodInfos[i].CreateDelegate(typeof(GatewayDelegate), events)
+                        Delegate = (GatewayDelegate)methodInfos[i].CreateDelegate(typeof(GatewayDelegate), _events)
                     };
 
-                    eventsHandler.Add(eventNameAttribute.Name, gatewayEvent);
+                    _eventsHandler.Add(eventNameAttribute.Name, gatewayEvent);
                 }
             }
         }
 
         public async Task<bool> Open()
         {
-            return await webSocket.Open();
+            return await _webSocket.Open();
         }
 
         public void OnEventReceived(string eventName, JObject data, string json)
         {
-            if (eventsHandler.TryGetValue(eventName, out GatewayEvent gatewayEvent))
+            if (_eventsHandler.TryGetValue(eventName, out GatewayEvent gatewayEvent))
             {
                 gatewayEvent.Delegate.Invoke(this, data.ToObject(gatewayEvent.TypeConvert));
             }
-            events.OnRawAsync(this, json);
+            _events.OnRawAsync(this, json);
         }
     }
 }

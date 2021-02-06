@@ -4,20 +4,20 @@ namespace FarDragi.DiscordCs.Gateway.Attributes
 {
     sealed public class GatewayEventAttribute : Attribute
     {
-        private readonly string name;
-        private readonly Type type;
+        private readonly string _name;
+        private readonly Type _type;
 
         public GatewayEventAttribute(string name, Type type)
         {
-            this.name = name;
-            this.type = type;
+            _name = name;
+            _type = type;
         }
 
         public string Name
         {
             get
             {
-                return name;
+                return _name;
             }
         }
 
@@ -25,7 +25,7 @@ namespace FarDragi.DiscordCs.Gateway.Attributes
         {
             get
             {
-                return type;
+                return _type;
             }
         }
     }
