@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FarDragi.DiscordCs.Caching\FarDragi.DiscordCs.Caching.csproj" />
+    <ProjectReference Include="..\FarDragi.DiscordCs\FarDragi.DiscordCs.csproj" />
+  </ItemGroup>
+
+</Project>

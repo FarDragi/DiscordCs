@@ -8,6 +8,7 @@ namespace FarDragi.DiscordCs
     {
         public uint Shards { get; set; } = 1;
         public bool AutoSharding { get; set; } = true;
+        public Action<Client> CachingConfig { get; set; }
 
         public ClientConfig()
         {
@@ -25,6 +26,7 @@ namespace FarDragi.DiscordCs
             };
             Intents = IdentifyIntent.Default;
             GuildSubscriptions = true;
+            CachingConfig
         }
 
         public Identify GetIdentify(int[] shard)

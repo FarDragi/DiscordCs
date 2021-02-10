@@ -1,4 +1,5 @@
 ﻿using FarDragi.DiscordCs.Caching;
+using FarDragi.DiscordCs.Collections;
 using FarDragi.DiscordCs.Entities.GuildModels;
 using FarDragi.DiscordCs.Gateway;
 using FarDragi.DiscordCs.Gateway.Attributes;
@@ -24,14 +25,15 @@ namespace FarDragi.DiscordCs
         public event ClientEventHandler<JsonReady> Ready;
         public event ClientEventHandler<Guild> GuildCreate;
 
-        public readonly GuildCache Guilds;
-        public readonly UserCache Users;
+        public readonly GuildCollection Guilds;
+        public readonly UserCollection Users;
 
         public Client(ClientConfig clientConfig) : base()
         {
             _config = clientConfig;
             _gateways = new List<GatewayClient>();
-            Guilds = new GuildCache(this);
+            Guilds = new GuildCollection();
+            Users = new UserCollection();
         }
 
         public async Task Login()
