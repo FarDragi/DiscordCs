@@ -14,6 +14,19 @@ namespace FarDragi.DiscordCs.Collections
             _guilds = guilds;
         }
 
+        public Guild this[ulong id]
+        {
+            get
+            {
+                return _guilds.Get(id);
+            }
+        }
+
+        public void Caching(Guild data)
+        {
+            _guilds.Add(data);
+        }
+
         public IEnumerator<Guild> GetEnumerator()
         {
             return _guilds.GetEnumerator();

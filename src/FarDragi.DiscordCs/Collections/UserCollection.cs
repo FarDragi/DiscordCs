@@ -14,6 +14,19 @@ namespace FarDragi.DiscordCs.Collections
             _users = users;
         }
 
+        public User this[ulong id]
+        {
+            get
+            {
+                return _users.Get(id);
+            }
+        }
+
+        public void Caching(User data)
+        {
+            _users.Add(data);
+        }
+
         public IEnumerator<User> GetEnumerator()
         {
             return _users.GetEnumerator();

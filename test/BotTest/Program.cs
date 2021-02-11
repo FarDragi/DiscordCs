@@ -30,9 +30,7 @@ namespace BotTest
 
             client.GuildCreate += Client_GuildCreate;
 
-            client.Login();
-
-            await Task.Delay(-1);
+            await client.LoginAsync();
         }
 
         private static Task Client_GuildCreate(Client client, ClientEventArgs<Guild> args)

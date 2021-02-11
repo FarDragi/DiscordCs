@@ -43,7 +43,7 @@ namespace FarDragi.DiscordCs
             Guilds = new GuildCollection(_cacheConfig.GetGuildCaching());
         }
 
-        public async Task Login()
+        private async void Init()
         {
             if (_config.AutoSharding)
             {
@@ -61,6 +61,17 @@ namespace FarDragi.DiscordCs
                 await client.Open();
                 _gateways.Add(client);
             }
+        } 
+
+        public void Login()
+        {
+            Init();
+        }
+
+        public async Task LoginAsync()
+        {
+            Init();
+            await Task.Delay(-1);
         }
 
         public virtual void OnRawAsync(GatewayClient gateway, string data)

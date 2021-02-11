@@ -28,6 +28,7 @@ namespace CodeTest
                 { "d", "4" },
                 { "e", "5" }
             };
+            hash.Add("e", "5");
         }
 
         public IEnumerator<string> GetEnumerator()
