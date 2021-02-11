@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,7 +16,7 @@ namespace CodeTest
 
     public class Teste : IEnumerable<string>
     {
-        Dictionary<string, string> hash;
+        readonly Dictionary<string, string> hash;
 
         public Teste()
         {

@@ -1,8 +1,6 @@
 ﻿using FarDragi.DiscordCs.Entities.GuildModels;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FarDragi.DiscordCs.Caching.Standard.Caches
 {

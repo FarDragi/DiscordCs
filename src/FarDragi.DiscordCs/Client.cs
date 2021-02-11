@@ -105,7 +105,7 @@ namespace FarDragi.DiscordCs
         [GatewayEvent("MESSAGE_CREATE", typeof(JsonMessage))]
         public virtual void OnMessageCreate(GatewayClient gateway, object data)
         {
-            
+
         }
     }
 }

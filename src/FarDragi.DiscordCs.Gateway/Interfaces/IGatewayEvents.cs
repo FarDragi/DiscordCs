@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace FarDragi.DiscordCs.Gateway.Interfaces
+﻿namespace FarDragi.DiscordCs.Gateway.Interfaces
 {
     public interface IGatewayEvents
     {
