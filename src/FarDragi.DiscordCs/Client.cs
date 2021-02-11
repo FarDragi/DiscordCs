@@ -1,4 +1,5 @@
 ﻿using FarDragi.DiscordCs.Caching;
+using FarDragi.DiscordCs.Caching.Standard;
 using FarDragi.DiscordCs.Collections;
 using FarDragi.DiscordCs.Entities.GuildModels;
 using FarDragi.DiscordCs.Gateway;
@@ -18,6 +19,7 @@ namespace FarDragi.DiscordCs
     public class Client : IGatewayEvents
     {
         private readonly ClientConfig _config;
+        private readonly ICacheConfig _cacheConfig;
         private readonly List<GatewayClient> _gateways;
         private RestClient _restClient;
 
@@ -28,12 +30,13 @@ namespace FarDragi.DiscordCs
         public readonly GuildCollection Guilds;
         public readonly UserCollection Users;
 
-        public Client(ClientConfig clientConfig) : base()
+        public Client(ClientConfig clientConfig, ICacheConfig cacheConfig = null) : base()
         {
             _config = clientConfig;
+            _cacheConfig = cacheConfig ?? new StandardCacheConfig();
             _gateways = new List<GatewayClient>();
+            Users = new UserCollection(_cacheConfig.GetUserCaching());
             Guilds = new GuildCollection();
-            Users = new UserCollection();
         }
 
         public async Task Login()

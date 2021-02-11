@@ -26,7 +26,6 @@ namespace FarDragi.DiscordCs
             };
             Intents = IdentifyIntent.Default;
             GuildSubscriptions = true;
-            CachingConfig
         }
 
         public Identify GetIdentify(int[] shard)

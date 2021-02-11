@@ -7,7 +7,7 @@ using System.Text;
 
 namespace FarDragi.DiscordCs.Collections
 {
-    public class UserCollection : IEnumerable<User>
+    public class UserCollection : ICacheable<User>
     {
         private readonly ICaching<User> _users;
 
