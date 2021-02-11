@@ -9,7 +9,7 @@ namespace BotTest
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static async Task Main()
         {
             string token = ConfigurationManager.AppSettings["token"];
             if (token == null)
@@ -36,12 +36,16 @@ namespace BotTest
         private static Task Client_GuildCreate(Client client, ClientEventArgs<Guild> args)
         {
             Console.WriteLine($"[{args.Data.Id}] [{args.Data.Name}]");
+            Console.WriteLine($"GC: [0] {GC.CollectionCount(0)}");
+            Console.WriteLine($"GC: [1] {GC.CollectionCount(1)}");
+            Console.WriteLine($"GC: [2] {GC.CollectionCount(2)}");
 
             if (ReferenceEquals(client.Guilds[args.Data.Id], args.Data))
             {
                 if (ReferenceEquals(args.Data, client.Guilds.First(x => x.Id == args.Data.Id)))
                 {
                     Console.WriteLine("true");
+                    args.Data.Description = "";
                 }
             }
 

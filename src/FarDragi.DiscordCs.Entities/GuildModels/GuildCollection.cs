@@ -1,9 +1,10 @@
 ﻿using FarDragi.DiscordCs.Caching;
-using FarDragi.DiscordCs.Entities.GuildModels;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 
-namespace FarDragi.DiscordCs.Collections
+namespace FarDragi.DiscordCs.Entities.GuildModels
 {
     public class GuildCollection : ICacheable<Guild>
     {
@@ -14,7 +15,7 @@ namespace FarDragi.DiscordCs.Collections
             _guilds = guilds;
         }
 
-        public Guild this[ulong id]
+        public Guild this[in ulong id]
         {
             get
             {
@@ -22,7 +23,7 @@ namespace FarDragi.DiscordCs.Collections
             }
         }
 
-        public void Caching(Guild data)
+        public void Caching(ref Guild data)
         {
             _guilds.Add(data);
         }

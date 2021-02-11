@@ -1,9 +1,10 @@
 ﻿using FarDragi.DiscordCs.Caching;
-using FarDragi.DiscordCs.Entities.UserModels;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 
-namespace FarDragi.DiscordCs.Collections
+namespace FarDragi.DiscordCs.Entities.UserModels
 {
     public class UserCollection : ICacheable<User>
     {
@@ -14,7 +15,7 @@ namespace FarDragi.DiscordCs.Collections
             _users = users;
         }
 
-        public User this[ulong id]
+        public User this[in ulong id]
         {
             get
             {
@@ -22,7 +23,7 @@ namespace FarDragi.DiscordCs.Collections
             }
         }
 
-        public void Caching(User data)
+        public void Caching(ref User data)
         {
             _users.Add(data);
         }

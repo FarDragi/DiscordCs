@@ -1,19 +1,16 @@
 ﻿using FarDragi.DiscordCs.Caching.Standard.Caches;
 using FarDragi.DiscordCs.Entities.GuildModels;
+using FarDragi.DiscordCs.Entities.Interfaces;
 using FarDragi.DiscordCs.Entities.UserModels;
 
 namespace FarDragi.DiscordCs.Caching.Standard
 {
-    public class StandardCacheConfig : ICacheConfig
+    public static class StandardCacheConfig
     {
-        public ICaching<Guild> GetGuildCaching()
+        public static void UseStandardCache(this ICollections collections)
         {
-            return new GuildCache();
-        }
-
-        public ICaching<User> GetUserCaching()
-        {
-            return new UserCache();
+            collections.Guilds = new GuildCollection(new GuildCache());
+            collections.Users = new UserCollection(new UserCache());
         }
     }
 }

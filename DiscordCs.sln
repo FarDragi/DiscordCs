@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeTest", "test\CodeTest\C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarDragi.DiscordCs.Caching.Standard", "src\FarDragi.DiscordCs.Caching.Standard\FarDragi.DiscordCs.Caching.Standard.csproj", "{F5AD9034-11EE-4696-B599-E725B2583584}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarDragi.DiscordCs.Entities", "src\FarDragi.DiscordCs.Entities\FarDragi.DiscordCs.Entities.csproj", "{8E713EF0-E927-4A2F-8679-8014AC67E01E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarDragi.DiscordCs.Entities", "src\FarDragi.DiscordCs.Entities\FarDragi.DiscordCs.Entities.csproj", "{8E713EF0-E927-4A2F-8679-8014AC67E01E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
