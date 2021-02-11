@@ -21,7 +21,7 @@ namespace FarDragi.DiscordCs
         private readonly ClientConfig _config;
         private readonly ICacheConfig _cacheConfig;
         private readonly List<GatewayClient> _gateways;
-        private RestClient _restClient;
+        private readonly RestClient _restClient;
 
         public event ClientEventHandler<string> Raw;
         public event ClientEventHandler<JsonReady> Ready;
@@ -30,22 +30,21 @@ namespace FarDragi.DiscordCs
         public readonly GuildCollection Guilds;
         public readonly UserCollection Users;
 
-        public Client(ClientConfig clientConfig, ICacheConfig cacheConfig = null) : base()
+        public Client(ClientConfig clientConfig, ICacheConfig cacheConfig = null)
         {
             _config = clientConfig;
             _cacheConfig = cacheConfig ?? new StandardCacheConfig();
             _gateways = new List<GatewayClient>();
-            Users = new UserCollection(_cacheConfig.GetUserCaching());
-            Guilds = new GuildCollection();
-        }
-
-        public async Task Login()
-        {
             _restClient = new RestClient(new RestConfig
             {
                 Token = _config.Token
             });
+            Users = new UserCollection(_cacheConfig.GetUserCaching());
+            Guilds = new GuildCollection(_cacheConfig.GetGuildCaching());
+        }
 
+        public async Task Login()
+        {
             if (_config.AutoSharding)
             {
                 for (int i = 0; i < _config.Shards; i++)
