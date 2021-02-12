@@ -1,8 +1,6 @@
 ﻿using FarDragi.DiscordCs.Caching;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FarDragi.DiscordCs.Entities.UserModels
 {
@@ -25,7 +23,7 @@ namespace FarDragi.DiscordCs.Entities.UserModels
 
         public void Caching(ref User data)
         {
-            _users.Add(data);
+            _users.Add(data.Id, data);
         }
 
         public IEnumerator<User> GetEnumerator()

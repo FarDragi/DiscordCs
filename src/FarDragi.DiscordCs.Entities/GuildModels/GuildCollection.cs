@@ -1,8 +1,6 @@
 ﻿using FarDragi.DiscordCs.Caching;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FarDragi.DiscordCs.Entities.GuildModels
 {
@@ -25,7 +23,7 @@ namespace FarDragi.DiscordCs.Entities.GuildModels
 
         public void Caching(ref Guild data)
         {
-            _guilds.Add(data);
+            _guilds.Add(data.Id, data);
         }
 
         public IEnumerator<Guild> GetEnumerator()

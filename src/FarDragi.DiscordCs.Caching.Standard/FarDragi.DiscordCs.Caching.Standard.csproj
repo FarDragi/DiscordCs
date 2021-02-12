@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FarDragi.DiscordCs.Caching\FarDragi.DiscordCs.Caching.csproj" />
-    <ProjectReference Include="..\FarDragi.DiscordCs.Entities\FarDragi.DiscordCs.Entities.csproj" />
   </ItemGroup>
 
 </Project>

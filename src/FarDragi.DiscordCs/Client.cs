@@ -1,7 +1,6 @@
 ﻿using FarDragi.DiscordCs.Caching;
 using FarDragi.DiscordCs.Caching.Standard;
 using FarDragi.DiscordCs.Entities.GuildModels;
-using FarDragi.DiscordCs.Entities.Interfaces;
 using FarDragi.DiscordCs.Entities.UserModels;
 using FarDragi.DiscordCs.Gateway;
 using FarDragi.DiscordCs.Gateway.Attributes;
@@ -17,9 +16,10 @@ namespace FarDragi.DiscordCs
 {
     public delegate Task ClientEventHandler<TData>(Client client, ClientEventArgs<TData> args);
 
-    public class Client : IGatewayEvents, ICollections
+    public class Client : IGatewayEvents
     {
         private readonly ClientConfig _config;
+        private readonly ICacheConfig _cacheConfig;
         private readonly List<GatewayClient> _gateways;
         private readonly RestClient _restClient;
 
@@ -27,18 +27,19 @@ namespace FarDragi.DiscordCs
         public event ClientEventHandler<JsonReady> Ready;
         public event ClientEventHandler<Guild> GuildCreate;
 
-        public GuildCollection Guilds { get; set; }
-        public UserCollection Users { get; set; }
+        public readonly GuildCollection Guilds;
+        public readonly UserCollection Users;
 
-        public Client(ClientConfig clientConfig)
+        public Client(ClientConfig clientConfig, ICacheConfig cacheConfig = null)
         {
             _config = clientConfig;
+            _cacheConfig = cacheConfig ?? new StandardCacheConfig();
             _gateways = new List<GatewayClient>();
             _restClient = new RestClient(new RestConfig
             {
                 Token = _config.Token
             });
-            this.UseStandardCache();
+            Guilds = new GuildCollection(_cacheConfig.GetCache<Guild>());
         }
 
         private async void Init()
@@ -59,7 +60,7 @@ namespace FarDragi.DiscordCs
                 await client.Open();
                 _gateways.Add(client);
             }
-        } 
+        }
 
         public void Login()
         {
