@@ -96,11 +96,7 @@ namespace FarDragi.DiscordCs
         {
             if (data is JsonGuild json)
             {
-                Guild guild = new Guild
-                {
-                    Id = json.Id,
-                    Name = json.Name
-                };
+                Guild guild = json;
 
                 Guilds.Caching(ref guild);
 
