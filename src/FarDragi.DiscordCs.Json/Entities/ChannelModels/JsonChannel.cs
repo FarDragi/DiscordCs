@@ -56,10 +56,10 @@ namespace FarDragi.DiscordCs.Json.Entities.ChannelModels
         public ulong OwnerId { get; set; }
 
         [JsonProperty("application_id")]
-        public ulong ApplicationId { get; set; }
+        public ulong? ApplicationId { get; set; }
 
         [JsonProperty("parent_id")]
-        public ulong ParentId { get; set; }
+        public ulong? ParentId { get; set; }
 
         [JsonProperty("last_pin_timestamp")]
         public DateTime LastPinTimestamp { get; set; }

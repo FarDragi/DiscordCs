@@ -12,13 +12,17 @@ namespace FarDragi.DiscordCs.Entities.ChannelModels
         public ulong? LastMessageId { get; set; }
         public int RateLimitPerUser { get; set; }
 
+        public TextChannel()
+        {
+            Type = ChannelTypes.GuildText;
+        }
+
         public static explicit operator TextChannel(JsonChannel json)
         {
             return new TextChannel
             {
                 Id = json.Id,
                 Name = json.Name,
-                ApplicationId = json.ApplicationId,
                 GuildId = json.GuildId,
                 LastPinTimestamp = json.LastPinTimestamp,
                 Nsfw = json.Nsfw,

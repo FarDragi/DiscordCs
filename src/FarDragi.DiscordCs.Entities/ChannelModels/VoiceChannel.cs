@@ -11,13 +11,17 @@ namespace FarDragi.DiscordCs.Entities.ChannelModels
         public int Bitrate { get; set; }
         public int UserLimit { get; set; }
 
+        public VoiceChannel()
+        {
+            Type = ChannelTypes.GuildVoice;
+        }
+
         public static explicit operator VoiceChannel(JsonChannel json)
         {
             return new VoiceChannel
             {
                 Id = json.Id,
                 Name = json.Name,
-                ApplicationId = json.ApplicationId,
                 GuildId = json.GuildId,
                 LastPinTimestamp = json.LastPinTimestamp,
                 Nsfw = json.Nsfw,

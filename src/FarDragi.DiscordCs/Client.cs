@@ -131,6 +131,13 @@ namespace FarDragi.DiscordCs
                             break;
                     }
 
+                    channel.GuildId = guild.Id;
+
+                    if (channel.ParentId != null)
+                    {
+                        channel.Parent = (GuildCategory)Channels[(ulong)channel.ParentId];
+                    }
+
                     Channels.Caching(ref channel);
                     guild.Channels.Caching(ref channel);
                 });

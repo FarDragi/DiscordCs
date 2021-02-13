@@ -17,24 +17,8 @@ namespace FarDragi.DiscordCs.Entities.ChannelModels
         public PermissionOverwrite[] PermissionOverwrites { get; set; }
         public string Name { get; set; }
         public bool Nsfw { get; set; }
-        public ulong ApplicationId { get; set; }
-        public ulong ParentId { get; set; }
+        public ulong? ParentId { get; set; }
+        public GuildCategory Parent { get; set; }
         public DateTime LastPinTimestamp { get; set; }
-
-        public static implicit operator Channel(JsonChannel json)
-        {
-            return new Channel
-            {
-                Id = json.Id,
-                Name = json.Name,
-                ApplicationId = json.ApplicationId,
-                GuildId = json.GuildId,
-                LastPinTimestamp = json.LastPinTimestamp,
-                Nsfw = json.Nsfw,
-                ParentId = json.ParentId,
-                Position = json.Position,
-                Type = (ChannelTypes)json.Type,
-            };
-        }
     }
 }

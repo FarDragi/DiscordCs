@@ -14,7 +14,6 @@ namespace FarDragi.DiscordCs.Entities.ChannelModels
             {
                 Id = json.Id,
                 Name = json.Name,
-                ApplicationId = json.ApplicationId,
                 GuildId = json.GuildId,
                 LastPinTimestamp = json.LastPinTimestamp,
                 Nsfw = json.Nsfw,
