@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using FarDragi.DiscordCs.Json.Entities.UserModels;
+using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace FarDragi.DiscordCs.Entities.UserModels
 {
@@ -7,43 +9,40 @@ namespace FarDragi.DiscordCs.Entities.UserModels
     /// </summary>
     public class User
     {
-        [JsonProperty("id")]
         public ulong Id { get; set; }
-
-        [JsonProperty("username")]
         public string UserName { get; set; }
-
-        [JsonProperty("discriminator")]
         public string Discriminator { get; set; }
-
-        [JsonProperty("avatar")]
+        public string Nick { get; set; }
         public string Avatar { get; set; }
-
-        [JsonProperty("bot")]
-        public bool Bot { get; set; }
-
-        [JsonProperty("system")]
-        public bool System { get; set; }
-
-        [JsonProperty("mfa_enabled")]
-        public bool MfaEnabled { get; set; }
-
-        [JsonProperty("locale")]
-        public bool Locale { get; set; }
-
-        [JsonProperty("verified")]
-        public bool Verified { get; set; }
-
-        [JsonProperty("email")]
+        public bool IsBot { get; set; }
+        public bool IsSystem { get; set; }
+        public bool IsMfaEnabled { get; set; }
+        public string Locale { get; set; }
+        public bool IsVerified { get; set; }
         public string Email { get; set; }
-
-        [JsonProperty("flags")]
         public UserFlags Flags { get; set; }
-
-        [JsonProperty("premium_type")]
         public UserPremiumTypes PremiumType { get; set; }
-
-        [JsonProperty("public_flags")]
         public UserFlags PublicFlags { get; set; }
+
+        public static implicit operator User(JsonUser json)
+        {
+            return new User
+            {
+                Avatar = json.Avatar,
+                IsBot = json.IsBot,
+                Discriminator = json.Discriminator,
+                Email = json.Email,
+                Flags = (UserFlags)json.Flags,
+                Id = json.Id,
+                Locale = json.Locale,
+                IsMfaEnabled = json.IsMfaEnabled,
+                PremiumType = (UserPremiumTypes)json.PremiumType,
+                PublicFlags = (UserFlags)json.PublicFlags,
+                IsSystem = json.IsSystem,
+                UserName = json.UserName,
+                IsVerified = json.IsVerified,
+                Nick = $"{json.UserName}#{json.Discriminator}"
+            };
+        }
     }
 }

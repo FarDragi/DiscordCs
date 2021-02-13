@@ -1,8 +1,10 @@
 ﻿using FarDragi.DiscordCs.Caching;
 using FarDragi.DiscordCs.Entities.ChannelModels;
 using FarDragi.DiscordCs.Entities.GuildModels;
+using FarDragi.DiscordCs.Entities.MemberModels;
 using FarDragi.DiscordCs.Entities.PermissionModels;
 using FarDragi.DiscordCs.Entities.RoleModels;
+using FarDragi.DiscordCs.Entities.UserModels;
 using FarDragi.DiscordCs.Json.Entities.GuildModels;
 using System.Threading.Tasks;
 
@@ -68,15 +70,26 @@ namespace FarDragi.DiscordCs.Converters
                 guild.Channels.Caching(ref channel);
             });
 
-            Task.Run(() =>
+            Parallel.For(0, json.Channels.Length, i =>
             {
-                for (int i = 0; i < json.Channels.Length; i++)
+                if (json.Channels[i].ParentId != null)
                 {
-                    if (json.Channels[i].ParentId != null)
-                    {
-                        client.Channels[json.Channels[i].Id].Parent = (GuildCategory)client.Channels[(ulong)json.Channels[i].ParentId];
-                    }
+                    client.Channels[json.Channels[i].Id].Parent = (GuildCategory)client.Channels[(ulong)json.Channels[i].ParentId];
                 }
+            });
+
+            guild.Members = new MemberCollection(cacheConfig.GetCache<Member>());
+
+            Parallel.For(0, json.Members.Length, i =>
+            {
+                User user = json.Members[i].User;
+
+                client.Users.Caching(ref user);
+
+                Member member = json.Members[i];
+                member.User = user;
+
+                guild.Members.Caching(ref member);
             });
 
             client.Guilds.Caching(ref guild);

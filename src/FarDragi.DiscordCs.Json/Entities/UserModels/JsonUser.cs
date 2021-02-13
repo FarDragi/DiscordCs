@@ -20,19 +20,19 @@ namespace FarDragi.DiscordCs.Json.Entities.UserModels
         public string Avatar { get; set; }
 
         [JsonProperty("bot")]
-        public bool Bot { get; set; }
+        public bool IsBot { get; set; }
 
         [JsonProperty("system")]
-        public bool System { get; set; }
+        public bool IsSystem { get; set; }
 
         [JsonProperty("mfa_enabled")]
-        public bool MfaEnabled { get; set; }
+        public bool IsMfaEnabled { get; set; }
 
         [JsonProperty("locale")]
-        public bool Locale { get; set; }
+        public string Locale { get; set; }
 
         [JsonProperty("verified")]
-        public bool Verified { get; set; }
+        public bool IsVerified { get; set; }
 
         [JsonProperty("email")]
         public string Email { get; set; }

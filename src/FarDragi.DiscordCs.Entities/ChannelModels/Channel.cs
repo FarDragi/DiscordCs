@@ -1,5 +1,6 @@
 ﻿using FarDragi.DiscordCs.Entities.PermissionModels;
 using System;
+using System.Diagnostics;
 
 namespace FarDragi.DiscordCs.Entities.ChannelModels
 {

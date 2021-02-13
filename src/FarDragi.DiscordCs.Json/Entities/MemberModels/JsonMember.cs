@@ -25,12 +25,15 @@ namespace FarDragi.DiscordCs.Json.Entities.MemberModels
         public DateTime? PremiumSince { get; set; }
 
         [JsonProperty("deaf")]
-        public bool Deaf { get; set; }
+        public bool IsDeaf { get; set; }
 
         [JsonProperty("mute")]
-        public bool Mute { get; set; }
+        public bool IsMute { get; set; }
 
         [JsonProperty("pending")]
-        public bool Pending { get; set; }
+        public bool IsPending { get; set; }
+
+        [JsonProperty("permissions")]
+        public ulong? Permissions { get; set; }
     }
 }

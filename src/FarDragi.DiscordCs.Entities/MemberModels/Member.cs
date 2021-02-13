@@ -1,4 +1,5 @@
 ﻿using FarDragi.DiscordCs.Entities.UserModels;
+using FarDragi.DiscordCs.Json.Entities.MemberModels;
 using Newtonsoft.Json;
 using System;
 
@@ -9,28 +10,29 @@ namespace FarDragi.DiscordCs.Entities.MemberModels
     /// </summary>
     public class Member
     {
-        [JsonProperty("user")]
         public User User { get; set; }
-
-        [JsonProperty("nick")]
         public string Nick { get; set; }
-
-        [JsonProperty("roles")]
         public ulong[] Roles { get; set; }
-
-        [JsonProperty("joined_at")]
         public DateTime JoinedAt { get; set; }
-
-        [JsonProperty("premium_since")]
         public DateTime? PremiumSince { get; set; }
+        public bool IsDeaf { get; set; }
+        public bool IsMute { get; set; }
+        public bool IsPending { get; set; }
+        public ulong? Permissions { get; set; }
 
-        [JsonProperty("deaf")]
-        public bool Deaf { get; set; }
-
-        [JsonProperty("mute")]
-        public bool Mute { get; set; }
-
-        [JsonProperty("pending")]
-        public bool Pending { get; set; }
+        public static implicit operator Member(JsonMember json)
+        {
+            return new Member
+            {
+                IsDeaf = json.IsDeaf,
+                JoinedAt = json.JoinedAt,
+                IsMute = json.IsMute,
+                Nick = json.Nick,
+                IsPending = json.IsPending,
+                Permissions = json.Permissions,
+                PremiumSince = json.PremiumSince,
+                Roles = json.Roles,
+            };
+        }
     }
 }

@@ -6,6 +6,7 @@ using FarDragi.DiscordCs.Entities.RoleModels;
 using FarDragi.DiscordCs.Entities.VoiceModels;
 using FarDragi.DiscordCs.Json.Entities.GuildModels;
 using System;
+using System.Diagnostics;
 
 namespace FarDragi.DiscordCs.Entities.GuildModels
 {
@@ -44,7 +45,7 @@ namespace FarDragi.DiscordCs.Entities.GuildModels
         public bool Unavailable { get; set; }
         public int MemberCount { get; set; }
         public Voice[] Voices { get; set; }
-        public Member[] Members { get; set; }
+        public MemberCollection Members { get; set; }
         public ChannelCollection Channels { get; set; }
         public Presence[] Presences { get; set; }
         public int? MaxPresences { get; set; }
