@@ -1,7 +1,9 @@
 ﻿using FarDragi.DiscordCs.Caching;
 using FarDragi.DiscordCs.Caching.Standard;
+using FarDragi.DiscordCs.Converters;
 using FarDragi.DiscordCs.Entities.ChannelModels;
 using FarDragi.DiscordCs.Entities.GuildModels;
+using FarDragi.DiscordCs.Entities.PermissionModels;
 using FarDragi.DiscordCs.Entities.UserModels;
 using FarDragi.DiscordCs.Gateway;
 using FarDragi.DiscordCs.Gateway.Attributes;
@@ -104,49 +106,9 @@ namespace FarDragi.DiscordCs
         {
             if (data is JsonGuild json)
             {
-                Guild guild = json;
-
-                guild.Channels = new ChannelCollection(_cacheConfig.GetCache<Channel>());
-
-                Parallel.For(0, json.Channels.Length, i =>
-                {
-                    Channel channel = null;
-
-                    switch ((ChannelTypes)json.Channels[i].Type)
-                    {
-                        case ChannelTypes.GuildText:
-                            channel = (TextChannel)json.Channels[i];
-                            break;
-                        case ChannelTypes.GuildVoice:
-                            channel = (VoiceChannel)json.Channels[i];
-                            break;
-                        case ChannelTypes.GuildCategory:
-                            channel = (GuildCategory)json.Channels[i];
-                            break;
-                        case ChannelTypes.GuildNews:
-                            channel = (GuildNews)json.Channels[i];
-                            break;
-                        case ChannelTypes.GuildStore:
-                            channel = (GuildStore)json.Channels[i];
-                            break;
-                    }
-
-                    channel.GuildId = guild.Id;
-
-                    if (channel.ParentId != null)
-                    {
-                        channel.Parent = (GuildCategory)Channels[(ulong)channel.ParentId];
-                    }
-
-                    Channels.Caching(ref channel);
-                    guild.Channels.Caching(ref channel);
-                });
-
-                Guilds.Caching(ref guild);
-
                 await GuildCreate.Invoke(this, new ClientEventArgs<Guild>
                 {
-                    Data = guild,
+                    Data = json.ToGuild(_cacheConfig, this),
                     Gateway = gateway
                 });
             }

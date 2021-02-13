@@ -14,7 +14,7 @@ namespace FarDragi.DiscordCs.Entities.ChannelModels
         public ChannelTypes Type { get; set; }
         public ulong GuildId { get; set; }
         public int Position { get; set; }
-        public PermissionOverwrite[] PermissionOverwrites { get; set; }
+        public PermissionOverwriteCollection PermissionOverwrites { get; set; }
         public string Name { get; set; }
         public bool Nsfw { get; set; }
         public ulong? ParentId { get; set; }
