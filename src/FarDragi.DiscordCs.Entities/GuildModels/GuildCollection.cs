@@ -21,9 +21,9 @@ namespace FarDragi.DiscordCs.Entities.GuildModels
             }
         }
 
-        public void Caching(ref Guild data)
+        public Guild Caching(ref Guild data)
         {
-            _guilds.Add(data.Id, data);
+            return _guilds.Add(data.Id, data);
         }
 
         public IEnumerator<Guild> GetEnumerator()

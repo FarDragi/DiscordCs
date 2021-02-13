@@ -6,17 +6,22 @@ namespace FarDragi.DiscordCs.Caching.Standard
     public class StandardCache<TType> : ICaching<TType> where TType : class
     {
         private readonly Dictionary<ulong, TType> _dict;
+        private readonly object _lockAdd;
 
         public StandardCache()
         {
             _dict = new Dictionary<ulong, TType>();
+            _lockAdd = new object();
         }
 
         public TType Add(ulong id, TType data)
         {
-            if (_dict.TryAdd(id, data))
+            lock (_lockAdd)
             {
-                return data;
+                if (_dict.TryAdd(id, data))
+                {
+                    return data;
+                }
             }
 
             return Get(id);

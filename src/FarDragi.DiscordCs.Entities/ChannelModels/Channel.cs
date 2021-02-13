@@ -1,5 +1,6 @@
 ﻿using FarDragi.DiscordCs.Entities.PermissionModels;
 using FarDragi.DiscordCs.Entities.UserModels;
+using FarDragi.DiscordCs.Json.Entities.ChannelModels;
 using System;
 
 namespace FarDragi.DiscordCs.Entities.ChannelModels
@@ -15,17 +16,25 @@ namespace FarDragi.DiscordCs.Entities.ChannelModels
         public int Position { get; set; }
         public PermissionOverwrite[] PermissionOverwrites { get; set; }
         public string Name { get; set; }
-        public string Topic { get; set; }
         public bool Nsfw { get; set; }
-        public ulong? LastMessageId { get; set; }
-        public int Bitrate { get; set; }
-        public int UserLimit { get; set; }
-        public int RateLimitPerUser { get; set; }
-        public User[] Recipients { get; set; }
-        public string Icon { get; set; }
-        public ulong OwnerId { get; set; }
         public ulong ApplicationId { get; set; }
         public ulong ParentId { get; set; }
         public DateTime LastPinTimestamp { get; set; }
+
+        public static implicit operator Channel(JsonChannel json)
+        {
+            return new Channel
+            {
+                Id = json.Id,
+                Name = json.Name,
+                ApplicationId = json.ApplicationId,
+                GuildId = json.GuildId,
+                LastPinTimestamp = json.LastPinTimestamp,
+                Nsfw = json.Nsfw,
+                ParentId = json.ParentId,
+                Position = json.Position,
+                Type = (ChannelTypes)json.Type,
+            };
+        }
     }
 }

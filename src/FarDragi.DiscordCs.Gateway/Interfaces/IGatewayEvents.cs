@@ -2,6 +2,6 @@
 {
     public interface IGatewayEvents
     {
-        public void OnRawAsync(GatewayClient gateway, string data);
+        public void OnRaw(GatewayClient gateway, string data);
     }
 }

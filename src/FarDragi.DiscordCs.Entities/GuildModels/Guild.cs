@@ -45,7 +45,7 @@ namespace FarDragi.DiscordCs.Entities.GuildModels
         public int MemberCount { get; set; }
         public Voice[] Voices { get; set; }
         public Member[] Members { get; set; }
-        public Channel[] Channels { get; set; }
+        public ChannelCollection Channels { get; set; }
         public Presence[] Presences { get; set; }
         public int? MaxPresences { get; set; }
         public int? MaxMembers { get; set; }

@@ -21,9 +21,9 @@ namespace FarDragi.DiscordCs.Entities.UserModels
             }
         }
 
-        public void Caching(ref User data)
+        public User Caching(ref User data)
         {
-            _users.Add(data.Id, data);
+            return _users.Add(data.Id, data);
         }
 
         public IEnumerator<User> GetEnumerator()

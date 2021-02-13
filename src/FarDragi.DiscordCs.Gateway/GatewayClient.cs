@@ -62,7 +62,7 @@ namespace FarDragi.DiscordCs.Gateway
             {
                 gatewayEvent.Delegate.Invoke(this, data.ToObject(gatewayEvent.TypeConvert));
             }
-            _events.OnRawAsync(this, json);
+            _events.OnRaw(this, json);
         }
     }
 }

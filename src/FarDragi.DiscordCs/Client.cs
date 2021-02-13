@@ -1,5 +1,6 @@
 ﻿using FarDragi.DiscordCs.Caching;
 using FarDragi.DiscordCs.Caching.Standard;
+using FarDragi.DiscordCs.Entities.ChannelModels;
 using FarDragi.DiscordCs.Entities.GuildModels;
 using FarDragi.DiscordCs.Entities.UserModels;
 using FarDragi.DiscordCs.Gateway;
@@ -10,6 +11,7 @@ using FarDragi.DiscordCs.Json.Entities.MessageModels;
 using FarDragi.DiscordCs.Json.Entities.ReadyModels;
 using FarDragi.DiscordCs.Rest;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs
@@ -29,6 +31,7 @@ namespace FarDragi.DiscordCs
 
         public readonly GuildCollection Guilds;
         public readonly UserCollection Users;
+        public readonly ChannelCollection Channels;
 
         public Client(ClientConfig clientConfig, ICacheConfig cacheConfig = null)
         {
@@ -40,6 +43,8 @@ namespace FarDragi.DiscordCs
                 Token = _config.Token
             });
             Guilds = new GuildCollection(_cacheConfig.GetCache<Guild>());
+            Users = new UserCollection(_cacheConfig.GetCache<User>());
+            Channels = new ChannelCollection(_cacheConfig.GetCache<Channel>());
         }
 
         private async void Init()
@@ -73,7 +78,7 @@ namespace FarDragi.DiscordCs
             await Task.Delay(-1);
         }
 
-        public virtual void OnRawAsync(GatewayClient gateway, string data)
+        public virtual void OnRaw(GatewayClient gateway, string data)
         {
             Raw?.Invoke(this, new ClientEventArgs<string>
             {
@@ -82,36 +87,71 @@ namespace FarDragi.DiscordCs
             });
         }
 
+        #region Ready
         [GatewayEvent("READY", typeof(JsonReady))]
-        public virtual void OnReady(GatewayClient gateway, object data)
+        public virtual void OnReadyJson(GatewayClient gateway, object data)
         {
             if (data is JsonReady ready)
             {
                 gateway.SessionId = ready.SessionId;
             }
         }
+        #endregion
 
+        #region GuildCreate
         [GatewayEvent("GUILD_CREATE", typeof(JsonGuild))]
-        public virtual void OnGuildCreate(GatewayClient gateway, object data)
+        public virtual async void OnGuildCreateJson(GatewayClient gateway, object data)
         {
             if (data is JsonGuild json)
             {
                 Guild guild = json;
 
+                guild.Channels = new ChannelCollection(_cacheConfig.GetCache<Channel>());
+
+                Parallel.For(0, json.Channels.Length, i =>
+                {
+                    Channel channel = null;
+
+                    switch ((ChannelTypes)json.Channels[i].Type)
+                    {
+                        case ChannelTypes.GuildText:
+                            channel = (TextChannel)json.Channels[i];
+                            break;
+                        case ChannelTypes.GuildVoice:
+                            channel = (VoiceChannel)json.Channels[i];
+                            break;
+                        case ChannelTypes.GuildCategory:
+                            channel = (GuildCategory)json.Channels[i];
+                            break;
+                        case ChannelTypes.GuildNews:
+                            channel = (GuildNews)json.Channels[i];
+                            break;
+                        case ChannelTypes.GuildStore:
+                            channel = (GuildStore)json.Channels[i];
+                            break;
+                    }
+
+                    Channels.Caching(ref channel);
+                    guild.Channels.Caching(ref channel);
+                });
+
                 Guilds.Caching(ref guild);
 
-                GuildCreate.Invoke(this, new ClientEventArgs<Guild>
+                await GuildCreate.Invoke(this, new ClientEventArgs<Guild>
                 {
                     Data = guild,
                     Gateway = gateway
                 });
             }
         }
+        #endregion
 
+        #region MessageCreate
         [GatewayEvent("MESSAGE_CREATE", typeof(JsonMessage))]
-        public virtual void OnMessageCreate(GatewayClient gateway, object data)
+        public virtual void OnMessageCreateJson(GatewayClient gateway, object data)
         {
 
         }
+        #endregion
     }
 }
