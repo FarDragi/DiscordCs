@@ -1,6 +1,4 @@
 ﻿using FarDragi.DiscordCs.Entities.PermissionModels;
-using FarDragi.DiscordCs.Entities.UserModels;
-using FarDragi.DiscordCs.Json.Entities.ChannelModels;
 using System;
 
 namespace FarDragi.DiscordCs.Entities.ChannelModels

@@ -3,7 +3,6 @@ using FarDragi.DiscordCs.Caching.Standard;
 using FarDragi.DiscordCs.Converters;
 using FarDragi.DiscordCs.Entities.ChannelModels;
 using FarDragi.DiscordCs.Entities.GuildModels;
-using FarDragi.DiscordCs.Entities.PermissionModels;
 using FarDragi.DiscordCs.Entities.UserModels;
 using FarDragi.DiscordCs.Gateway;
 using FarDragi.DiscordCs.Gateway.Attributes;
@@ -13,7 +12,6 @@ using FarDragi.DiscordCs.Json.Entities.MessageModels;
 using FarDragi.DiscordCs.Json.Entities.ReadyModels;
 using FarDragi.DiscordCs.Rest;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs

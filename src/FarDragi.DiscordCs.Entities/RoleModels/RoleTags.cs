@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using FarDragi.DiscordCs.Json.Entities.RoleModels;
 
 namespace FarDragi.DiscordCs.Entities.RoleModels
 {
@@ -7,13 +7,18 @@ namespace FarDragi.DiscordCs.Entities.RoleModels
     /// </summary>
     public class RoleTags
     {
-        [JsonProperty("bot_id")]
         public ulong BotId { get; set; }
-
-        [JsonProperty("integration_id")]
         public ulong IntegrationId { get; set; }
-
-        [JsonProperty("premium_subscriber")]
         public bool PremiumSubscriber { get; set; }
+
+        public static implicit operator RoleTags(JsonRoleTags json)
+        {
+            return new RoleTags
+            {
+                BotId = json.BotId,
+                IntegrationId = json.IntegrationId,
+                PremiumSubscriber = json.PremiumSubscriber
+            };
+        }
     }
 }

@@ -2,10 +2,8 @@
 using FarDragi.DiscordCs.Entities.ChannelModels;
 using FarDragi.DiscordCs.Entities.GuildModels;
 using FarDragi.DiscordCs.Entities.PermissionModels;
+using FarDragi.DiscordCs.Entities.RoleModels;
 using FarDragi.DiscordCs.Json.Entities.GuildModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs.Converters
@@ -15,6 +13,20 @@ namespace FarDragi.DiscordCs.Converters
         public static Guild ToGuild(this JsonGuild json, ICacheConfig cacheConfig, Client client)
         {
             Guild guild = json;
+
+            guild.Roles = new RoleCollection(cacheConfig.GetCache<Role>());
+
+            Parallel.For(0, json.Roles.Length, i =>
+            {
+                Role role = json.Roles[i];
+
+                if (json.Roles[i].Tags != null)
+                {
+                    role.Tags = json.Roles[i].Tags;
+                }
+
+                guild.Roles.Caching(ref role);
+            });
 
             guild.Channels = new ChannelCollection(cacheConfig.GetCache<Channel>());
 

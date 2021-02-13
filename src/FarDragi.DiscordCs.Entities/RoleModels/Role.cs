@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using FarDragi.DiscordCs.Json.Entities.RoleModels;
 
 namespace FarDragi.DiscordCs.Entities.RoleModels
 {
@@ -7,31 +7,29 @@ namespace FarDragi.DiscordCs.Entities.RoleModels
     /// </summary>
     public class Role
     {
-        [JsonProperty("id")]
         public ulong Id { get; set; }
-
-        [JsonProperty("name")]
         public string Name { get; set; }
-
-        [JsonProperty("color")]
         public int Color { get; set; }
-
-        [JsonProperty("hoist")]
         public bool Hoist { get; set; }
-
-        [JsonProperty("position")]
         public int Position { get; set; }
-
-        [JsonProperty("permissions")]
         public ulong Permissions { get; set; }
-
-        [JsonProperty("managed")]
         public bool Managed { get; set; }
-
-        [JsonProperty("mentionable")]
         public bool Mentionable { get; set; }
-
-        [JsonProperty("tags")]
         public RoleTags Tags { get; set; }
+
+        public static implicit operator Role(JsonRole json)
+        {
+            return new Role
+            {
+                Color = json.Color,
+                Hoist = json.Hoist,
+                Id = json.Id,
+                Managed = json.Managed,
+                Mentionable = json.Mentionable,
+                Name = json.Name,
+                Permissions = json.Permissions,
+                Position = json.Position
+            };
+        }
     }
 }

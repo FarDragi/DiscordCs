@@ -31,7 +31,7 @@ namespace FarDragi.DiscordCs.Entities.GuildModels
         public GuildVerificationLevel VerificationLevel { get; set; }
         public GuildMessageNotificationLevel DefaultMessageNotifications { get; set; }
         public GuildExplicitContentFilterLevel ExplicitContentFilter { get; set; }
-        public Role[] Roles { get; set; }
+        public RoleCollection Roles { get; set; }
         public Emoji[] Emojis { get; set; }
         public string[] Features { get; set; }
         public GuildMfaLevel MfaLevel { get; set; }

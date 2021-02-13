@@ -1,8 +1,4 @@
-﻿using FarDragi.DiscordCs.Entities.ChannelModels;
-using FarDragi.DiscordCs.Json.Entities.ChannelModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FarDragi.DiscordCs.Json.Entities.ChannelModels;
 
 namespace FarDragi.DiscordCs.Entities.ChannelModels
 {
