@@ -1,6 +1,7 @@
 ﻿using FarDragi.DiscordCs.Entities.ActivityModels;
 using FarDragi.DiscordCs.Json.Entities.ActivityModels;
 using FarDragi.DiscordCs.Json.Entities.PresenceModels;
+using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs.Entities.PresenceModels
 {
@@ -27,11 +28,11 @@ namespace FarDragi.DiscordCs.Entities.PresenceModels
             {
                 json.Activities = new JsonActivity[presenceStatusUpdate.Activities.Length];
 
-                for (int i = 0; i < presenceStatusUpdate.Activities.Length; i++)
+                Parallel.For(0, presenceStatusUpdate.Activities.Length, i =>
                 {
                     json.Activities[i] = presenceStatusUpdate.Activities[i];
-                }
-            };
+                });
+            }
 
             return json;
         }

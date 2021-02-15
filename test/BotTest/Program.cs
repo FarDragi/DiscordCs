@@ -1,5 +1,6 @@
 ﻿using FarDragi.DiscordCs;
 using FarDragi.DiscordCs.Entities.GuildModels;
+using FarDragi.DiscordCs.Entities.IdentifyModels;
 using System;
 using System.Configuration;
 using System.Linq;
@@ -25,7 +26,8 @@ namespace BotTest
 
             Client client = new(new ClientConfig
             {
-                Token = token
+                Token = token,
+                Intents = IdentifyIntent.All
             });
 
             client.GuildCreate += Client_GuildCreate;

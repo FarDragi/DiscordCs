@@ -11,8 +11,22 @@ namespace FarDragi.DiscordCs.Entities.ActivityModels
         public string Spectate { get; set; }
         public string Match { get; set; }
 
+        public static implicit operator ActivitySecrets(JsonActivitySecrets json)
+        {
+            if (json == null) return null;
+
+            return new ActivitySecrets
+            {
+                Join = json.Join,
+                Match = json.Match,
+                Spectate = json.Spectate
+            };
+        }
+
         public static implicit operator JsonActivitySecrets(ActivitySecrets activitySecrets)
         {
+            if (activitySecrets == null) return null;
+
             return new JsonActivitySecrets
             {
                 Join = activitySecrets.Join,

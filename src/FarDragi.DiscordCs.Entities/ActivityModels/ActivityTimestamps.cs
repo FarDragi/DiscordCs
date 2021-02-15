@@ -8,11 +8,24 @@ namespace FarDragi.DiscordCs.Entities.ActivityModels
     /// </summary>
     public class ActivityTimestamps
     {
-        public DateTime? Start { get; set; }
-        public DateTime? End { get; set; }
+        public TimeSpan? Start { get; set; }
+        public TimeSpan? End { get; set; }
+
+        public static implicit operator ActivityTimestamps(JsonActivityTimestamps json)
+        {
+            if (json == null) return null;
+
+            return new ActivityTimestamps
+            {
+                End = json.End,
+                Start = json.Start
+            };
+        }
 
         public static implicit operator JsonActivityTimestamps(ActivityTimestamps activityTimestamps)
         {
+            if (activityTimestamps == null) return null;
+
             return new JsonActivityTimestamps
             {
                 End = activityTimestamps.End,

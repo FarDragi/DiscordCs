@@ -10,8 +10,21 @@ namespace FarDragi.DiscordCs.Entities.ActivityModels
         public string Id { get; set; }
         public int[] Size { get; set; }
 
+        public static implicit operator ActivityParty(JsonActivityParty json)
+        {
+            if (json == null) return null;
+
+            return new ActivityParty
+            {
+                Id = json.Id,
+                Size = json.Size
+            };
+        }
+
         public static implicit operator JsonActivityParty(ActivityParty activityParty)
         {
+            if (activityParty == null) return null;
+
             return new JsonActivityParty
             {
                 Id = activityParty.Id,

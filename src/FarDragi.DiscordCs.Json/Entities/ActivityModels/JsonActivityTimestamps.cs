@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using FarDragi.DiscordCs.Json.Converters;
+using Newtonsoft.Json;
 using System;
 
 namespace FarDragi.DiscordCs.Json.Entities.ActivityModels
@@ -9,9 +10,11 @@ namespace FarDragi.DiscordCs.Json.Entities.ActivityModels
     public class JsonActivityTimestamps
     {
         [JsonProperty("start")]
-        public DateTime? Start { get; set; }
+        [JsonConverter(typeof(UnixSpanConverter))]
+        public TimeSpan? Start { get; set; }
 
         [JsonProperty("end")]
-        public DateTime? End { get; set; }
+        [JsonConverter(typeof(UnixSpanConverter))]
+        public TimeSpan? End { get; set; }
     }
 }

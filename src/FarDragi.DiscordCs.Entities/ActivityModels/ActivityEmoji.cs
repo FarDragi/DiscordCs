@@ -11,8 +11,22 @@ namespace FarDragi.DiscordCs.Entities.ActivityModels
         public ulong? Id { get; set; }
         public bool Animated { get; set; }
 
+        public static implicit operator ActivityEmoji(JsonActivityEmoji json)
+        {
+            if (json == null) return null;
+
+            return new ActivityEmoji
+            {
+                Animated = json.Animated,
+                Id = json.Id,
+                Name = json.Name
+            };
+        }
+
         public static implicit operator JsonActivityEmoji(ActivityEmoji activityEmoji)
         {
+            if (activityEmoji == null) return null;
+
             return new JsonActivityEmoji
             {
                 Animated = activityEmoji.Animated,

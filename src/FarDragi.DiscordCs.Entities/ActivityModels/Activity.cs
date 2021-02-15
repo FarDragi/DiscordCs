@@ -11,7 +11,7 @@ namespace FarDragi.DiscordCs.Entities.ActivityModels
         public string Name { get; set; }
         public ActivityTypes Type { get; set; }
         public string Url { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public long CreatedAt { get; set; }
         public ActivityTimestamps Timestamps { get; set; }
         public ulong? ApplicationId { get; set; }
         public string Details { get; set; }
@@ -23,8 +23,35 @@ namespace FarDragi.DiscordCs.Entities.ActivityModels
         public bool? Instance { get; set; }
         public ActivityFlags Flags { get; set; }
 
+        public static implicit operator Activity(JsonActivity json)
+        {
+            if (json == null) return null;
+
+            Activity activity = new Activity
+            {
+                ApplicationId = json.ApplicationId,
+                CreatedAt = json.CreatedAt,
+                Details = json.Details,
+                Flags = (ActivityFlags)json.Flags,
+                Instance = json.Instance,
+                Name = json.Name,
+                State = json.State,
+                Type = (ActivityTypes)json.Type,
+                Url = json.Url,
+                Assets = json.Assets,
+                Emoji = json.Emoji,
+                Party = json.Party,
+                Secrets = json.Secrets,
+                Timestamps = json.Timestamps
+            };
+
+            return activity;
+        }
+
         public static implicit operator JsonActivity(Activity activity)
         {
+            if (activity == null) return null;
+
             return new JsonActivity
             {
                 ApplicationId = activity.ApplicationId,

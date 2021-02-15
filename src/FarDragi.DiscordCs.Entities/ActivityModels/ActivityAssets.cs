@@ -12,8 +12,23 @@ namespace FarDragi.DiscordCs.Entities.ActivityModels
         public string SmallImage { get; set; }
         public string SmallText { get; set; }
 
+        public static implicit operator ActivityAssets(JsonActivityAssets json)
+        {
+            if (json == null) return null;
+
+            return new ActivityAssets
+            {
+                LargeImage = json.LargeImage,
+                LargeText = json.LargeText,
+                SmallImage = json.SmallImage,
+                SmallText = json.SmallText
+            };
+        }
+
         public static implicit operator JsonActivityAssets(ActivityAssets activityAssets)
         {
+            if (activityAssets == null) return null;
+
             return new JsonActivityAssets
             {
                 LargeImage = activityAssets.LargeImage,

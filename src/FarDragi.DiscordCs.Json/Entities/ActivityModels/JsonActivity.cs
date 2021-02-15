@@ -18,7 +18,7 @@ namespace FarDragi.DiscordCs.Json.Entities.ActivityModels
         public string Url { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public long CreatedAt { get; set; }
 
         [JsonProperty("timestamps")]
         public JsonActivityTimestamps Timestamps { get; set; }
