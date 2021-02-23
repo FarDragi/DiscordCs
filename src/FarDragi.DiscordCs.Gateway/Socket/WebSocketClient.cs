@@ -44,7 +44,6 @@ namespace FarDragi.DiscordCs.Gateway.Socket
             _socket = new WebSocket(_config.Url);
             _socket.Closed += Socket_Closed;
             _socket.Error += Socket_Error;
-            _socket.Opened += Socket_Opened;
             _socket.DataReceived += Socket_DataReceived;
             _socket.MessageReceived += Socket_MessageReceived;
         }
@@ -58,21 +57,12 @@ namespace FarDragi.DiscordCs.Gateway.Socket
                 _socket.Dispose();
                 AddEvents();
                 _socket.Open();
-
-                Send(new ResumePayload()
-                {
-                    Data = new JsonResume
-                    {
-                        SequenceNumber = _sequenceNumber,
-                        SessionId = _gatewayClient.SessionId,
-                        Token = _identify.Token
-                    }
-                });
             }
         }
 
         private void Socket_Error(object sender, ErrorEventArgs e)
         {
+            _socket.Close();
         }
 
         private void Socket_MessageReceived(object sender, MessageReceivedEventArgs e)
@@ -114,23 +104,32 @@ namespace FarDragi.DiscordCs.Gateway.Socket
             }
         }
 
-        private void Socket_Opened(object sender, EventArgs e)
-        {
-            if (_firstConnection)
-            {
-                Send(new IdentifyPayload
-                {
-                    Data = _identify
-                });
-
-                _firstConnection = false;
-            }
-        }
-
         public async void Heartbeat(JsonHello hello, CancellationToken token)
         {
             try
             {
+                if (_firstConnection)
+                {
+                    Send(new IdentifyPayload
+                    {
+                        Data = _identify
+                    });
+
+                    _firstConnection = false;
+                }
+                else
+                {
+                    Send(new ResumePayload()
+                    {
+                        Data = new JsonResume
+                        {
+                            SequenceNumber = _sequenceNumber,
+                            SessionId = _gatewayClient.SessionId,
+                            Token = _identify.Token
+                        }
+                    });
+                }
+
                 while (true)
                 {
                     await Task.Delay(hello.HeartbeatInterval, token);
