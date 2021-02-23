@@ -1,5 +1,4 @@
 ﻿using FarDragi.DiscordCs.Json.Entities.ActivityModels;
-using System;
 
 namespace FarDragi.DiscordCs.Entities.ActivityModels
 {

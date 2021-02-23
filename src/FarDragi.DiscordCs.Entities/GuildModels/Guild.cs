@@ -4,10 +4,8 @@ using FarDragi.DiscordCs.Entities.MemberModels;
 using FarDragi.DiscordCs.Entities.PresenceModels;
 using FarDragi.DiscordCs.Entities.RoleModels;
 using FarDragi.DiscordCs.Entities.VoiceModels;
-using FarDragi.DiscordCs.Json.Entities.GuildModels;
 using Newtonsoft.Json;
 using System;
-using System.Diagnostics;
 
 namespace FarDragi.DiscordCs.Entities.GuildModels
 {

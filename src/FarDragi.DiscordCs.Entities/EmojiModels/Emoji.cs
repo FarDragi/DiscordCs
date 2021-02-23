@@ -1,5 +1,4 @@
 ﻿using FarDragi.DiscordCs.Entities.UserModels;
-using Newtonsoft.Json;
 
 namespace FarDragi.DiscordCs.Entities.EmojiModels
 {
