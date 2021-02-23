@@ -1,8 +1,8 @@
 ﻿using FarDragi.DiscordCs.Caching;
 using FarDragi.DiscordCs.Caching.Standard;
-using FarDragi.DiscordCs.Converters;
 using FarDragi.DiscordCs.Entities.ChannelModels;
 using FarDragi.DiscordCs.Entities.GuildModels;
+using FarDragi.DiscordCs.Entities.ReadyModels;
 using FarDragi.DiscordCs.Entities.UserModels;
 using FarDragi.DiscordCs.Gateway;
 using FarDragi.DiscordCs.Gateway.Attributes;
@@ -88,10 +88,10 @@ namespace FarDragi.DiscordCs
         }
 
         #region Ready
-        [GatewayEvent("READY", typeof(JsonReady))]
+        [GatewayEvent("READY", typeof(Ready))]
         public virtual void OnReadyJson(GatewayClient gateway, object data)
         {
-            if (data is JsonReady ready)
+            if (data is Ready ready)
             {
                 gateway.SessionId = ready.SessionId;
             }
@@ -99,14 +99,14 @@ namespace FarDragi.DiscordCs
         #endregion
 
         #region GuildCreate
-        [GatewayEvent("GUILD_CREATE", typeof(JsonGuild))]
+        [GatewayEvent("GUILD_CREATE", typeof(Guild))]
         public virtual async void OnGuildCreateJson(GatewayClient gateway, object data)
         {
-            if (data is JsonGuild json)
+            if (data is Guild guild)
             {
                 await GuildCreate.Invoke(this, new ClientEventArgs<Guild>
                 {
-                    Data = json.ToGuild(_cacheConfig, this),
+                    Data = guild,
                     Gateway = gateway
                 });
             }

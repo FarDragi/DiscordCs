@@ -2,6 +2,7 @@
 using FarDragi.DiscordCs.Gateway.Interfaces;
 using FarDragi.DiscordCs.Gateway.Socket;
 using FarDragi.DiscordCs.Json.Entities.IdentifyModels;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
