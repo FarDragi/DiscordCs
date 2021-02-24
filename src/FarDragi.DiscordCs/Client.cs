@@ -8,7 +8,6 @@ using FarDragi.DiscordCs.Gateway;
 using FarDragi.DiscordCs.Gateway.Attributes;
 using FarDragi.DiscordCs.Gateway.Interfaces;
 using FarDragi.DiscordCs.Json.Entities.MessageModels;
-using FarDragi.DiscordCs.Json.Entities.ReadyModels;
 using FarDragi.DiscordCs.Rest;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -25,9 +24,10 @@ namespace FarDragi.DiscordCs
         private readonly RestClient _restClient;
 
         public event ClientEventHandler<string> Raw;
-        public event ClientEventHandler<JsonReady> Ready;
+        public event ClientEventHandler<Ready> Ready;
         public event ClientEventHandler<Guild> GuildCreate;
 
+        public User User;
         public readonly GuildCollection Guilds;
         public readonly UserCollection Users;
         public readonly ChannelCollection Channels;
@@ -93,13 +93,22 @@ namespace FarDragi.DiscordCs
             if (data is Ready ready)
             {
                 gateway.SessionId = ready.SessionId;
+                User = ready.User;
+
+                Users.Caching(ref User);
+
+                Ready?.Invoke(this, new ClientEventArgs<Ready>
+                {
+                    Data = ready,
+                    Gateway = gateway
+                });
             }
         }
         #endregion
 
         #region GuildCreate
         [GatewayEvent("GUILD_CREATE", typeof(Guild))]
-        public virtual async void OnGuildCreateJson(GatewayClient gateway, object data)
+        public virtual void OnGuildCreateJson(GatewayClient gateway, object data)
         {
             if (data is Guild guild)
             {
@@ -111,7 +120,7 @@ namespace FarDragi.DiscordCs
 
                 Guilds.Caching(ref guild);
 
-                await GuildCreate.Invoke(this, new ClientEventArgs<Guild>
+                GuildCreate?.Invoke(this, new ClientEventArgs<Guild>
                 {
                     Data = guild,
                     Gateway = gateway

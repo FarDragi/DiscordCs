@@ -110,7 +110,7 @@ namespace FarDragi.DiscordCs.Entities.GuildModels
         private Member[] _members { get; set; }
 
         [JsonProperty("channels")]
-        private Channel[] _channels { get; set; }
+        private BaseChannel[] _channels { get; set; }
 
         [JsonProperty("presences")]
         private Presence[] _presences { get; set; }
@@ -178,7 +178,38 @@ namespace FarDragi.DiscordCs.Entities.GuildModels
             {
                 for (int i = 0; i < _channels.Length; i++)
                 {
-                    channels.Caching(ref _channels[i]);
+                    Channel channel = null;
+
+                    switch (_channels[i].Type)
+                    {
+                        case ChannelTypes.GuildText:
+                            channel = (TextChannel)_channels[i];
+                            break;
+                        case ChannelTypes.GuildVoice:
+                            channel = (VoiceChannel)_channels[i];
+                            break;
+                        case ChannelTypes.GuildCategory:
+                            channel = (GuildCategory)_channels[i];
+                            break;
+                        case ChannelTypes.GuildNews:
+                            channel = (GuildNews)_channels[i];
+                            break;
+                        case ChannelTypes.GuildStore:
+                            channel = (GuildStore)_channels[i];
+                            break;
+                    }
+
+                    channels.Caching(ref channel);
+                    Channels.Caching(ref channel);
+                }
+
+                for (int i = 0; i < _channels.Length; i++)
+                {
+                    if (_channels[i].ParentId != null)
+                    {
+                        Channel channel = Channels[_channels[i].Id];
+                        channel.Parent = (GuildCategory)Channels[(ulong)_channels[i].ParentId];
+                    }
                 }
             }
         }
