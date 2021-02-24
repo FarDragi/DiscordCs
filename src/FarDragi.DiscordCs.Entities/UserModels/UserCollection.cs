@@ -4,36 +4,33 @@ using System.Collections.Generic;
 
 namespace FarDragi.DiscordCs.Entities.UserModels
 {
-    public class UserCollection : ICacheable<User>
+    public class UserCollection : Cacheable<User>, ICacheable<User>
     {
-        private readonly ICaching<User> _users;
-
-        public UserCollection(ICaching<User> users)
+        public UserCollection(ICaching<User> cache) : base(cache)
         {
-            _users = users;
         }
 
         public User this[in ulong id]
         {
             get
             {
-                return _users.Get(id);
+                return _cache.Get(id);
             }
         }
 
         public User Caching(ref User data)
         {
-            return _users.Add(data.Id, data);
+            return _cache.Add(data.Id, data);
         }
 
         public IEnumerator<User> GetEnumerator()
         {
-            return _users.GetEnumerator();
+            return _cache.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return _users.GetEnumerator();
+            return _cache.GetEnumerator();
         }
     }
 }

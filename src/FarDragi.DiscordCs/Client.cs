@@ -2,7 +2,6 @@
 using FarDragi.DiscordCs.Caching.Standard;
 using FarDragi.DiscordCs.Entities.ChannelModels;
 using FarDragi.DiscordCs.Entities.GuildModels;
-using FarDragi.DiscordCs.Entities.MemberModels;
 using FarDragi.DiscordCs.Entities.ReadyModels;
 using FarDragi.DiscordCs.Entities.UserModels;
 using FarDragi.DiscordCs.Gateway;
@@ -108,6 +107,7 @@ namespace FarDragi.DiscordCs
                 guild.MemberCache(Users);
                 guild.ChannelCache(Channels);
                 guild.RoleCache();
+                guild.PresenceCache();
 
                 Guilds.Caching(ref guild);
 

@@ -2,18 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace FarDragi.DiscordCs.Entities.RoleModels
+namespace FarDragi.DiscordCs.Entities.PresenceModels
 {
-    public class RoleCollection : ICacheable<Role>
+    public class PresenceCollection : ICacheable<Presence>
     {
-        private readonly ICaching<Role> _cache;
+        private readonly ICaching<Presence> _cache;
 
-        public RoleCollection(ICaching<Role> cache)
+        public PresenceCollection(ICaching<Presence> cache)
         {
             _cache = cache;
         }
 
-        public Role this[in ulong id]
+        public Presence this[in ulong id]
         {
             get
             {
@@ -21,12 +21,12 @@ namespace FarDragi.DiscordCs.Entities.RoleModels
             }
         }
 
-        public Role Caching(ref Role data)
+        public Presence Caching(ref Presence data)
         {
-            return _cache.Add(data.Id, data);
+            return _cache.Add(data.User.Id, data);
         }
 
-        public IEnumerator<Role> GetEnumerator()
+        public IEnumerator<Presence> GetEnumerator()
         {
             return _cache.GetEnumerator();
         }

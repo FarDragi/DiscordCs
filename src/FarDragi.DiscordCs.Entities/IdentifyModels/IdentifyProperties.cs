@@ -1,4 +1,4 @@
-﻿using FarDragi.DiscordCs.Json.Entities.IdentifyModels;
+﻿using Newtonsoft.Json;
 
 namespace FarDragi.DiscordCs.Entities.IdentifyModels
 {
@@ -7,18 +7,13 @@ namespace FarDragi.DiscordCs.Entities.IdentifyModels
     /// </summary>
     public class IdentifyProperties
     {
+        [JsonProperty("$os")]
         public string OS { get; set; }
-        public string Browser { get; set; }
-        public string Device { get; set; }
 
-        public static implicit operator JsonIdentifyProperties(IdentifyProperties identifyProperties)
-        {
-            return new JsonIdentifyProperties
-            {
-                Browser = identifyProperties.Browser,
-                Device = identifyProperties.Device,
-                OS = identifyProperties.OS
-            };
-        }
+        [JsonProperty("$browser")]
+        public string Browser { get; set; }
+
+        [JsonProperty("$device")]
+        public string Device { get; set; }
     }
 }

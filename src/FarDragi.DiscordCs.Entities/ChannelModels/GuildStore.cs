@@ -1,21 +1,19 @@
-﻿using FarDragi.DiscordCs.Json.Entities.ChannelModels;
-
-namespace FarDragi.DiscordCs.Entities.ChannelModels
+﻿namespace FarDragi.DiscordCs.Entities.ChannelModels
 {
     public class GuildStore : Channel
     {
-        public static explicit operator GuildStore(JsonChannel json)
+        public static explicit operator GuildStore(BaseChannel channel)
         {
             return new GuildStore
             {
-                Id = json.Id,
-                Name = json.Name,
-                GuildId = json.GuildId,
-                LastPinTimestamp = json.LastPinTimestamp,
-                Nsfw = json.Nsfw,
-                ParentId = json.ParentId,
-                Position = json.Position,
-                Type = (ChannelTypes)json.Type,
+                Id = channel.Id,
+                Name = channel.Name,
+                GuildId = channel.GuildId,
+                LastPinTimestamp = channel.LastPinTimestamp,
+                Nsfw = channel.Nsfw,
+                ParentId = channel.ParentId,
+                Position = channel.Position,
+                Type = channel.Type,
             };
         }
     }

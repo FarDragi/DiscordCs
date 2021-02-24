@@ -8,7 +8,6 @@ using FarDragi.DiscordCs.Entities.UserModels;
 using FarDragi.DiscordCs.Entities.VoiceModels;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 
 namespace FarDragi.DiscordCs.Entities.GuildModels
 {
@@ -72,7 +71,7 @@ namespace FarDragi.DiscordCs.Entities.GuildModels
         private Role[] _roles { get; set; }
 
         [JsonProperty("emojis")]
-        private Emoji[] _emojis { get; set; }
+        public Emoji[] Emojis { get; set; }
 
         [JsonProperty("features")]
         public string[] Features { get; set; }
@@ -113,8 +112,8 @@ namespace FarDragi.DiscordCs.Entities.GuildModels
         [JsonProperty("channels")]
         private Channel[] _channels { get; set; }
 
-        [JsonIgnore]
-        public Presence[] Presences { get; set; }
+        [JsonProperty("presences")]
+        private Presence[] _presences { get; set; }
 
         [JsonProperty("max_presences")]
         public int? MaxPresences { get; set; }
@@ -157,31 +156,52 @@ namespace FarDragi.DiscordCs.Entities.GuildModels
             Members = new MemberCollection(config.GetCache<Member>());
             Channels = new ChannelCollection(config.GetCache<Channel>());
             Roles = new RoleCollection(config.GetCache<Role>());
+            Presences = new PresenceCollection(config.GetCache<Presence>());
         }
 
         public void MemberCache(UserCollection users)
         {
-            for (int i = 0; i < _members.Length; i++)
+            if (_members != null)
             {
-                User user = _members[i].User;
-                users.Caching(ref user);
-                Members.Caching(ref _members[i]);
+                for (int i = 0; i < _members.Length; i++)
+                {
+                    User user = _members[i].User;
+                    users.Caching(ref user);
+                    Members.Caching(ref _members[i]);
+                }
             }
         }
 
         public void ChannelCache(ChannelCollection channels)
         {
-            for (int i = 0; i < _channels.Length; i++)
+            if (_channels != null)
             {
-                channels.Caching(ref _channels[i]);
+                for (int i = 0; i < _channels.Length; i++)
+                {
+                    channels.Caching(ref _channels[i]);
+                }
             }
         }
 
         public void RoleCache()
         {
-            for (int i = 0; i < _roles.Length; i++)
+            if (_roles != null)
             {
-                Roles.Caching(ref _roles[i]);
+                for (int i = 0; i < _roles.Length; i++)
+                {
+                    Roles.Caching(ref _roles[i]);
+                }
+            }
+        }
+
+        public void PresenceCache()
+        {
+            if (_presences != null)
+            {
+                for (int i = 0; i < _presences.Length; i++)
+                {
+                    Presences.Caching(ref _presences[i]);
+                }
             }
         }
 
@@ -193,5 +213,8 @@ namespace FarDragi.DiscordCs.Entities.GuildModels
 
         [JsonIgnore]
         public RoleCollection Roles { get; set; }
+
+        [JsonIgnore]
+        public PresenceCollection Presences { get; set; }
     }
 }

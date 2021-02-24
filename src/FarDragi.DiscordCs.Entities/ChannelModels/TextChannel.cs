@@ -1,6 +1,4 @@
-﻿using FarDragi.DiscordCs.Json.Entities.ChannelModels;
-
-namespace FarDragi.DiscordCs.Entities.ChannelModels
+﻿namespace FarDragi.DiscordCs.Entities.ChannelModels
 {
     public class TextChannel : Channel
     {
@@ -13,21 +11,21 @@ namespace FarDragi.DiscordCs.Entities.ChannelModels
             Type = ChannelTypes.GuildText;
         }
 
-        public static explicit operator TextChannel(JsonChannel json)
+        public static explicit operator TextChannel(BaseChannel channel)
         {
             return new TextChannel
             {
-                Id = json.Id,
-                Name = json.Name,
-                GuildId = json.GuildId,
-                LastPinTimestamp = json.LastPinTimestamp,
-                Nsfw = json.Nsfw,
-                ParentId = json.ParentId,
-                Position = json.Position,
-                Type = (ChannelTypes)json.Type,
-                LastMessageId = json.LastMessageId,
-                RateLimitPerUser = json.RateLimitPerUser,
-                Topic = json.Topic
+                Id = channel.Id,
+                Name = channel.Name,
+                GuildId = channel.GuildId,
+                LastPinTimestamp = channel.LastPinTimestamp,
+                Nsfw = channel.Nsfw,
+                ParentId = channel.ParentId,
+                Position = channel.Position,
+                Type = channel.Type,
+                LastMessageId = channel.LastMessageId,
+                RateLimitPerUser = channel.RateLimitPerUser,
+                Topic = channel.Topic
             };
         }
     }

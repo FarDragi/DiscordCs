@@ -1,4 +1,4 @@
-﻿using FarDragi.DiscordCs.Json.Entities.ActivityModels;
+﻿using Newtonsoft.Json;
 
 namespace FarDragi.DiscordCs.Entities.ActivityModels
 {
@@ -7,67 +7,46 @@ namespace FarDragi.DiscordCs.Entities.ActivityModels
     /// </summary>
     public class Activity
     {
+        [JsonProperty("name")]
         public string Name { get; set; }
+
+        [JsonProperty("type")]
         public ActivityTypes Type { get; set; }
+
+        [JsonProperty("url")]
         public string Url { get; set; }
+
+        [JsonProperty("created_at")]
         public long CreatedAt { get; set; }
+
+        [JsonProperty("timestamps")]
         public ActivityTimestamps Timestamps { get; set; }
+
+        [JsonProperty("application_id")]
         public ulong? ApplicationId { get; set; }
+
+        [JsonProperty("details")]
         public string Details { get; set; }
+
+        [JsonProperty("state")]
         public string State { get; set; }
+
+        [JsonProperty("emoji")]
         public ActivityEmoji Emoji { get; set; }
+
+        [JsonProperty("party")]
         public ActivityParty Party { get; set; }
+
+        [JsonProperty("assets")]
         public ActivityAssets Assets { get; set; }
+
+        [JsonProperty("secrets")]
         public ActivitySecrets Secrets { get; set; }
+
+        [JsonProperty("instance")]
         public bool? Instance { get; set; }
+
+        [JsonProperty("flags")]
         public ActivityFlags Flags { get; set; }
-
-        public static implicit operator Activity(JsonActivity json)
-        {
-            if (json == null) return null;
-
-            Activity activity = new Activity
-            {
-                ApplicationId = json.ApplicationId,
-                CreatedAt = json.CreatedAt,
-                Details = json.Details,
-                Flags = (ActivityFlags)json.Flags,
-                Instance = json.Instance,
-                Name = json.Name,
-                State = json.State,
-                Type = (ActivityTypes)json.Type,
-                Url = json.Url,
-                Assets = json.Assets,
-                Emoji = json.Emoji,
-                Party = json.Party,
-                Secrets = json.Secrets,
-                Timestamps = json.Timestamps
-            };
-
-            return activity;
-        }
-
-        public static implicit operator JsonActivity(Activity activity)
-        {
-            if (activity == null) return null;
-
-            return new JsonActivity
-            {
-                ApplicationId = activity.ApplicationId,
-                Assets = activity.Assets,
-                CreatedAt = activity.CreatedAt,
-                Details = activity.Details,
-                Emoji = activity.Emoji,
-                Flags = (int)activity.Flags,
-                Instance = activity.Instance,
-                Name = activity.Name,
-                Party = activity.Party,
-                Secrets = activity.Secrets,
-                State = activity.State,
-                Timestamps = activity.Timestamps,
-                Type = (int)activity.Type,
-                Url = activity.Url
-            };
-        }
     }
 }

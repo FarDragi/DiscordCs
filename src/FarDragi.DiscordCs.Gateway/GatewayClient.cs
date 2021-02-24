@@ -1,7 +1,7 @@
-﻿using FarDragi.DiscordCs.Gateway.Attributes;
+﻿using FarDragi.DiscordCs.Entities.IdentifyModels;
+using FarDragi.DiscordCs.Gateway.Attributes;
 using FarDragi.DiscordCs.Gateway.Interfaces;
 using FarDragi.DiscordCs.Gateway.Socket;
-using FarDragi.DiscordCs.Json.Entities.IdentifyModels;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -13,14 +13,14 @@ namespace FarDragi.DiscordCs.Gateway
     public class GatewayClient
     {
         private readonly IGatewayEvents _events;
-        private readonly JsonIdentify _identify;
+        private readonly Identify _identify;
         private readonly WebSocketClient _webSocket;
         private readonly Dictionary<string, GatewayEvent> _eventsHandler;
 
         public int[] Shard { get; set; }
         public string SessionId { get; set; }
 
-        public GatewayClient(IGatewayEvents events, JsonIdentify identify)
+        public GatewayClient(IGatewayEvents events, Identify identify)
         {
             Shard = identify.Shard;
             _events = events;

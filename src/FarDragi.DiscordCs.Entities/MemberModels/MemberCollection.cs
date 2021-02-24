@@ -6,34 +6,34 @@ namespace FarDragi.DiscordCs.Entities.MemberModels
 {
     public class MemberCollection : ICacheable<Member>
     {
-        private readonly ICaching<Member> _members;
+        private readonly ICaching<Member> _cache;
 
-        public MemberCollection(ICaching<Member> members)
+        public MemberCollection(ICaching<Member> cache)
         {
-            _members = members;
+            _cache = cache;
         }
 
         public Member this[in ulong id]
         {
             get
             {
-                return _members.Get(id);
+                return _cache.Get(id);
             }
         }
 
         public Member Caching(ref Member data)
         {
-            return _members.Add(data.User.Id, data);
+            return _cache.Add(data.User.Id, data);
         }
 
         public IEnumerator<Member> GetEnumerator()
         {
-            return _members.GetEnumerator();
+            return _cache.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return _members.GetEnumerator();
+            return _cache.GetEnumerator();
         }
     }
 }

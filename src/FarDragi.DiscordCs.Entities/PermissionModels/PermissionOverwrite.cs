@@ -1,4 +1,4 @@
-﻿using FarDragi.DiscordCs.Json.Entities.PermissionModels;
+﻿using Newtonsoft.Json;
 
 namespace FarDragi.DiscordCs.Entities.PermissionModels
 {
@@ -7,20 +7,16 @@ namespace FarDragi.DiscordCs.Entities.PermissionModels
     /// </summary>
     public class PermissionOverwrite
     {
+        [JsonProperty("id")]
         public ulong Id { get; set; }
-        public PermissionTypes Type { get; set; }
-        public ulong Allow { get; set; }
-        public ulong Deny { get; set; }
 
-        public static implicit operator PermissionOverwrite(JsonPermissionOverwrite json)
-        {
-            return new PermissionOverwrite
-            {
-                Allow = json.Allow,
-                Deny = json.Deny,
-                Id = json.Id,
-                Type = (PermissionTypes)json.Type
-            };
-        }
+        [JsonProperty("type")]
+        public PermissionTypes Type { get; set; }
+
+        [JsonProperty("allow")]
+        public ulong Allow { get; set; }
+
+        [JsonProperty("deny")]
+        public ulong Deny { get; set; }
     }
 }

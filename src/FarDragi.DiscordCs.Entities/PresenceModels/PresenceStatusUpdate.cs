@@ -1,7 +1,5 @@
 ﻿using FarDragi.DiscordCs.Entities.ActivityModels;
-using FarDragi.DiscordCs.Json.Entities.ActivityModels;
-using FarDragi.DiscordCs.Json.Entities.PresenceModels;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace FarDragi.DiscordCs.Entities.PresenceModels
 {
@@ -10,31 +8,16 @@ namespace FarDragi.DiscordCs.Entities.PresenceModels
     /// </summary>
     public class PresenceStatusUpdate
     {
+        [JsonProperty("since")]
         public int? Since { get; set; }
+
+        [JsonProperty("activities")]
         public Activity[] Activities { get; set; }
+
+        [JsonProperty("status")]
         public string Status { get; set; }
+
+        [JsonProperty("afk")]
         public bool Afk { get; set; }
-
-        public static implicit operator JsonPresenceStatusUpdate(PresenceStatusUpdate presenceStatusUpdate)
-        {
-            var json = new JsonPresenceStatusUpdate
-            {
-                Afk = presenceStatusUpdate.Afk,
-                Since = presenceStatusUpdate.Since,
-                Status = presenceStatusUpdate.Status
-            };
-
-            if (presenceStatusUpdate.Activities != null)
-            {
-                json.Activities = new JsonActivity[presenceStatusUpdate.Activities.Length];
-
-                Parallel.For(0, presenceStatusUpdate.Activities.Length, i =>
-                {
-                    json.Activities[i] = presenceStatusUpdate.Activities[i];
-                });
-            }
-
-            return json;
-        }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using FarDragi.DiscordCs.Entities.PresenceModels;
-using FarDragi.DiscordCs.Json.Entities.IdentifyModels;
+using Newtonsoft.Json;
 
 namespace FarDragi.DiscordCs.Entities.IdentifyModels
 {
@@ -8,28 +8,28 @@ namespace FarDragi.DiscordCs.Entities.IdentifyModels
     /// </summary>
     public class Identify
     {
+        [JsonProperty("token")]
         public string Token { get; set; }
-        public IdentifyProperties Properties { get; set; }
-        public bool Compress { get; set; }
-        public int LargeThreshold { get; set; }
-        public int[] Shard { get; set; }
-        public PresenceStatusUpdate Presence { get; set; }
-        public bool GuildSubscriptions { get; set; }
-        public IdentifyIntent Intents { get; set; }
 
-        public static implicit operator JsonIdentify(Identify identify)
-        {
-            return new JsonIdentify
-            {
-                Token = identify.Token,
-                Compress = identify.Compress,
-                GuildSubscriptions = identify.GuildSubscriptions,
-                Intents = (int)identify.Intents,
-                LargeThreshold = identify.LargeThreshold,
-                Presence = identify.Presence,
-                Properties = identify.Properties,
-                Shard = identify.Shard
-            };
-        }
+        [JsonProperty("properties")]
+        public IdentifyProperties Properties { get; set; }
+
+        [JsonProperty("compress")]
+        public bool Compress { get; set; }
+
+        [JsonProperty("large_threshold")]
+        public int LargeThreshold { get; set; }
+
+        [JsonProperty("shard")]
+        public int[] Shard { get; set; }
+
+        [JsonProperty("presence")]
+        public PresenceStatusUpdate Presence { get; set; }
+
+        [JsonProperty("guild_subscriptions")]
+        public bool GuildSubscriptions { get; set; }
+
+        [JsonProperty("intents")]
+        public IdentifyIntent Intents { get; set; }
     }
 }

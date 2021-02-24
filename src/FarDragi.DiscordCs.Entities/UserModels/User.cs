@@ -1,5 +1,4 @@
-﻿using FarDragi.DiscordCs.Json.Entities.UserModels;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace FarDragi.DiscordCs.Entities.UserModels
 {

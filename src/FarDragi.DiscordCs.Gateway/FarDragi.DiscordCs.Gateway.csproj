@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FarDragi.DiscordCs.Entities\FarDragi.DiscordCs.Entities.csproj" />
     <ProjectReference Include="..\FarDragi.DiscordCs.Json\FarDragi.DiscordCs.Json.csproj" />
   </ItemGroup>
 

@@ -1,8 +1,8 @@
-﻿using FarDragi.DiscordCs.Json.Entities.IdentifyModels;
+﻿using FarDragi.DiscordCs.Entities.IdentifyModels;
 
 namespace FarDragi.DiscordCs.Gateway.Payloads
 {
-    public class IdentifyPayload : Payload<JsonIdentify>
+    public class IdentifyPayload : Payload<Identify>
     {
         public IdentifyPayload()
         {

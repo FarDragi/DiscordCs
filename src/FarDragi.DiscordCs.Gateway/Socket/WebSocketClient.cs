@@ -1,6 +1,6 @@
-﻿using FarDragi.DiscordCs.Gateway.Payloads;
+﻿using FarDragi.DiscordCs.Entities.IdentifyModels;
+using FarDragi.DiscordCs.Gateway.Payloads;
 using FarDragi.DiscordCs.Json.Entities.HelloModels;
-using FarDragi.DiscordCs.Json.Entities.IdentifyModels;
 using FarDragi.DiscordCs.Json.Entities.ResumeModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -18,14 +18,14 @@ namespace FarDragi.DiscordCs.Gateway.Socket
         private WebSocket _socket;
         private readonly WebSocketDecompress _decompress;
         private readonly GatewayClient _gatewayClient;
-        private readonly JsonIdentify _identify;
+        private readonly Identify _identify;
         private readonly WebSocketConfig _config;
 
         private CancellationTokenSource _tokenSource;
         private int _sequenceNumber;
         private bool _firstConnection;
 
-        public WebSocketClient(GatewayClient gatewayClient, JsonIdentify identify)
+        public WebSocketClient(GatewayClient gatewayClient, Identify identify)
         {
             _gatewayClient = gatewayClient;
             _identify = identify;

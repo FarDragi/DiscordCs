@@ -1,6 +1,4 @@
-﻿using FarDragi.DiscordCs.Json.Entities.ChannelModels;
-
-namespace FarDragi.DiscordCs.Entities.ChannelModels
+﻿namespace FarDragi.DiscordCs.Entities.ChannelModels
 {
     public class VoiceChannel : Channel
     {
@@ -12,20 +10,20 @@ namespace FarDragi.DiscordCs.Entities.ChannelModels
             Type = ChannelTypes.GuildVoice;
         }
 
-        public static explicit operator VoiceChannel(JsonChannel json)
+        public static explicit operator VoiceChannel(BaseChannel channel)
         {
             return new VoiceChannel
             {
-                Id = json.Id,
-                Name = json.Name,
-                GuildId = json.GuildId,
-                LastPinTimestamp = json.LastPinTimestamp,
-                Nsfw = json.Nsfw,
-                ParentId = json.ParentId,
-                Position = json.Position,
-                Type = (ChannelTypes)json.Type,
-                Bitrate = json.Bitrate,
-                UserLimit = json.UserLimit
+                Id = channel.Id,
+                Name = channel.Name,
+                GuildId = channel.GuildId,
+                LastPinTimestamp = channel.LastPinTimestamp,
+                Nsfw = channel.Nsfw,
+                ParentId = channel.ParentId,
+                Position = channel.Position,
+                Type = channel.Type,
+                Bitrate = channel.Bitrate,
+                UserLimit = channel.UserLimit
             };
         }
     }

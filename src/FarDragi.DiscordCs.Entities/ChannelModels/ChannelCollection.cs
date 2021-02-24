@@ -6,34 +6,34 @@ namespace FarDragi.DiscordCs.Entities.ChannelModels
 {
     public class ChannelCollection : ICacheable<Channel>
     {
-        private readonly ICaching<Channel> _channels;
+        private readonly ICaching<Channel> _cache;
 
-        public ChannelCollection(ICaching<Channel> channels)
+        public ChannelCollection(ICaching<Channel> cache)
         {
-            _channels = channels;
+            _cache = cache;
         }
 
         public Channel this[in ulong id]
         {
             get
             {
-                return _channels.Get(id);
+                return _cache.Get(id);
             }
         }
 
         public Channel Caching(ref Channel data)
         {
-            return _channels.Add(data.Id, data);
+            return _cache.Add(data.Id, data);
         }
 
         public IEnumerator<Channel> GetEnumerator()
         {
-            return _channels.GetEnumerator();
+            return _cache.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return _channels.GetEnumerator();
+            return _cache.GetEnumerator();
         }
     }
 }

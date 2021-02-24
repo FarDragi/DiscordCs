@@ -1,4 +1,4 @@
-﻿using FarDragi.DiscordCs.Json.Entities.ActivityModels;
+﻿using Newtonsoft.Json;
 
 namespace FarDragi.DiscordCs.Entities.ActivityModels
 {
@@ -7,29 +7,10 @@ namespace FarDragi.DiscordCs.Entities.ActivityModels
     /// </summary>
     public class ActivityParty
     {
+        [JsonProperty("id")]
         public string Id { get; set; }
+
+        [JsonProperty("size")]
         public int[] Size { get; set; }
-
-        public static implicit operator ActivityParty(JsonActivityParty json)
-        {
-            if (json == null) return null;
-
-            return new ActivityParty
-            {
-                Id = json.Id,
-                Size = json.Size
-            };
-        }
-
-        public static implicit operator JsonActivityParty(ActivityParty activityParty)
-        {
-            if (activityParty == null) return null;
-
-            return new JsonActivityParty
-            {
-                Id = activityParty.Id,
-                Size = activityParty.Size
-            };
-        }
     }
 }

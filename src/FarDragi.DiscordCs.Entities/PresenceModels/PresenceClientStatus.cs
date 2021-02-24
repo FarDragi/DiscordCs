@@ -1,4 +1,4 @@
-﻿using FarDragi.DiscordCs.Json.Entities.PresenceModels;
+﻿using Newtonsoft.Json;
 
 namespace FarDragi.DiscordCs.Entities.PresenceModels
 {
@@ -7,18 +7,13 @@ namespace FarDragi.DiscordCs.Entities.PresenceModels
     /// </summary>
     public class PresenceClientStatus
     {
+        [JsonProperty("desktop")]
         public string Desktop { get; set; }
-        public string Mobile { get; set; }
-        public string Web { get; set; }
 
-        public static implicit operator PresenceClientStatus(JsonPresenceClientStatus json)
-        {
-            return new PresenceClientStatus
-            {
-                Desktop = json.Desktop,
-                Mobile = json.Mobile,
-                Web = json.Web
-            };
-        }
+        [JsonProperty("mobile")]
+        public string Mobile { get; set; }
+
+        [JsonProperty("web")]
+        public string Web { get; set; }
     }
 }
