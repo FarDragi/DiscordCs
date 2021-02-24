@@ -2,6 +2,7 @@
 using FarDragi.DiscordCs.Caching.Standard;
 using FarDragi.DiscordCs.Entities.ChannelModels;
 using FarDragi.DiscordCs.Entities.GuildModels;
+using FarDragi.DiscordCs.Entities.MemberModels;
 using FarDragi.DiscordCs.Entities.ReadyModels;
 using FarDragi.DiscordCs.Entities.UserModels;
 using FarDragi.DiscordCs.Gateway;
@@ -103,6 +104,13 @@ namespace FarDragi.DiscordCs
         {
             if (data is Guild guild)
             {
+                guild.InitCaching(_cacheConfig);
+                guild.MemberCache(Users);
+                guild.ChannelCache(Channels);
+                guild.RoleCache();
+
+                Guilds.Caching(ref guild);
+
                 await GuildCreate.Invoke(this, new ClientEventArgs<Guild>
                 {
                     Data = guild,

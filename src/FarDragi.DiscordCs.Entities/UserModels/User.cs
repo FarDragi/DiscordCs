@@ -1,4 +1,5 @@
 ﻿using FarDragi.DiscordCs.Json.Entities.UserModels;
+using Newtonsoft.Json;
 
 namespace FarDragi.DiscordCs.Entities.UserModels
 {
@@ -7,40 +8,43 @@ namespace FarDragi.DiscordCs.Entities.UserModels
     /// </summary>
     public class User
     {
+        [JsonProperty("id")]
         public ulong Id { get; set; }
-        public string UserName { get; set; }
-        public string Discriminator { get; set; }
-        public string Nick { get; set; }
-        public string Avatar { get; set; }
-        public bool IsBot { get; set; }
-        public bool IsSystem { get; set; }
-        public bool IsMfaEnabled { get; set; }
-        public string Locale { get; set; }
-        public bool IsVerified { get; set; }
-        public string Email { get; set; }
-        public UserFlags Flags { get; set; }
-        public UserPremiumTypes PremiumType { get; set; }
-        public UserFlags PublicFlags { get; set; }
 
-        public static implicit operator User(JsonUser json)
-        {
-            return new User
-            {
-                Avatar = json.Avatar,
-                IsBot = json.IsBot,
-                Discriminator = json.Discriminator,
-                Email = json.Email,
-                Flags = (UserFlags)json.Flags,
-                Id = json.Id,
-                Locale = json.Locale,
-                IsMfaEnabled = json.IsMfaEnabled,
-                PremiumType = (UserPremiumTypes)json.PremiumType,
-                PublicFlags = (UserFlags)json.PublicFlags,
-                IsSystem = json.IsSystem,
-                UserName = json.UserName,
-                IsVerified = json.IsVerified,
-                Nick = $"{json.UserName}#{json.Discriminator}"
-            };
-        }
+        [JsonProperty("username")]
+        public string UserName { get; set; }
+
+        [JsonProperty("discriminator")]
+        public string Discriminator { get; set; }
+
+        [JsonProperty("avatar")]
+        public string Avatar { get; set; }
+
+        [JsonProperty("bot")]
+        public bool IsBot { get; set; }
+
+        [JsonProperty("system")]
+        public bool IsSystem { get; set; }
+
+        [JsonProperty("mfa_enabled")]
+        public bool IsMfaEnabled { get; set; }
+
+        [JsonProperty("locale")]
+        public string Locale { get; set; }
+
+        [JsonProperty("verified")]
+        public bool IsVerified { get; set; }
+
+        [JsonProperty("email")]
+        public string Email { get; set; }
+
+        [JsonProperty("flags")]
+        public UserFlags Flags { get; set; }
+
+        [JsonProperty("premium_type")]
+        public UserPremiumTypes PremiumType { get; set; }
+
+        [JsonProperty("public_flags")]
+        public UserFlags PublicFlags { get; set; }
     }
 }

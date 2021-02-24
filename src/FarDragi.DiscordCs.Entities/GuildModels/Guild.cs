@@ -1,11 +1,14 @@
-﻿using FarDragi.DiscordCs.Entities.ChannelModels;
+﻿using FarDragi.DiscordCs.Caching;
+using FarDragi.DiscordCs.Entities.ChannelModels;
 using FarDragi.DiscordCs.Entities.EmojiModels;
 using FarDragi.DiscordCs.Entities.MemberModels;
 using FarDragi.DiscordCs.Entities.PresenceModels;
 using FarDragi.DiscordCs.Entities.RoleModels;
+using FarDragi.DiscordCs.Entities.UserModels;
 using FarDragi.DiscordCs.Entities.VoiceModels;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace FarDragi.DiscordCs.Entities.GuildModels
 {
@@ -65,10 +68,11 @@ namespace FarDragi.DiscordCs.Entities.GuildModels
         [JsonProperty("explicit_content_filter")]
         public GuildExplicitContentFilterLevel ExplicitContentFilter { get; set; }
 
-        [JsonIgnore]
-        public RoleCollection Roles { get; set; }
+        [JsonProperty("roles")]
+        private Role[] _roles { get; set; }
 
-        public Emoji[] Emojis { get; set; }
+        [JsonProperty("emojis")]
+        private Emoji[] _emojis { get; set; }
 
         [JsonProperty("features")]
         public string[] Features { get; set; }
@@ -103,11 +107,11 @@ namespace FarDragi.DiscordCs.Entities.GuildModels
         [JsonIgnore]
         public Voice[] Voices { get; set; }
 
-        [JsonIgnore]
-        public MemberCollection Members { get; set; }
+        [JsonProperty("members")]
+        private Member[] _members { get; set; }
 
-        [JsonIgnore]
-        public ChannelCollection Channels { get; set; }
+        [JsonProperty("channels")]
+        private Channel[] _channels { get; set; }
 
         [JsonIgnore]
         public Presence[] Presences { get; set; }
@@ -147,5 +151,47 @@ namespace FarDragi.DiscordCs.Entities.GuildModels
 
         [JsonProperty("approximate_presence_count")]
         public int? ApproximatePresenceCount { get; set; }
+
+        public void InitCaching(ICacheConfig config)
+        {
+            Members = new MemberCollection(config.GetCache<Member>());
+            Channels = new ChannelCollection(config.GetCache<Channel>());
+            Roles = new RoleCollection(config.GetCache<Role>());
+        }
+
+        public void MemberCache(UserCollection users)
+        {
+            for (int i = 0; i < _members.Length; i++)
+            {
+                User user = _members[i].User;
+                users.Caching(ref user);
+                Members.Caching(ref _members[i]);
+            }
+        }
+
+        public void ChannelCache(ChannelCollection channels)
+        {
+            for (int i = 0; i < _channels.Length; i++)
+            {
+                channels.Caching(ref _channels[i]);
+            }
+        }
+
+        public void RoleCache()
+        {
+            for (int i = 0; i < _roles.Length; i++)
+            {
+                Roles.Caching(ref _roles[i]);
+            }
+        }
+
+        [JsonIgnore]
+        public MemberCollection Members { get; set; }
+
+        [JsonIgnore]
+        public ChannelCollection Channels { get; set; }
+
+        [JsonIgnore]
+        public RoleCollection Roles { get; set; }
     }
 }
