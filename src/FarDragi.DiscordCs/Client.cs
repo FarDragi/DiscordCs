@@ -3,6 +3,7 @@ using FarDragi.DiscordCs.Caching.Standard;
 using FarDragi.DiscordCs.Entities.ChannelModels;
 using FarDragi.DiscordCs.Entities.GuildModels;
 using FarDragi.DiscordCs.Entities.MessageModels;
+using FarDragi.DiscordCs.Entities.PresenceModels;
 using FarDragi.DiscordCs.Entities.ReadyModels;
 using FarDragi.DiscordCs.Entities.UserModels;
 using FarDragi.DiscordCs.Gateway;
@@ -28,6 +29,8 @@ namespace FarDragi.DiscordCs
         public event ClientEventHandler<Ready> Ready;
         public event ClientEventHandler<Guild> GuildCreate;
         public event ClientEventHandler<Message> MessageCreate;
+        public event ClientEventHandler<Message> MessageUpdate;
+        public event ClientEventHandler<PresenceUpdateEvent> PresenceUpdate;
 
         public User User;
         public readonly GuildCollection Guilds;
@@ -108,7 +111,7 @@ namespace FarDragi.DiscordCs
         }
         #endregion
 
-        #region GuildCreate
+        #region Guild Create
         [GatewayEvent("GUILD_CREATE", typeof(Guild))]
         public virtual void OnGuildCreateJson(GatewayClient gateway, object data)
         {
@@ -131,7 +134,7 @@ namespace FarDragi.DiscordCs
         }
         #endregion
 
-        #region MessageCreate
+        #region Message Create
         [GatewayEvent("MESSAGE_CREATE", typeof(Message))]
         public virtual void OnMessageCreateJson(GatewayClient gateway, object data)
         {
@@ -140,6 +143,36 @@ namespace FarDragi.DiscordCs
                 MessageCreate?.Invoke(this, new ClientEventArgs<Message>
                 {
                     Data = message,
+                    Gateway = gateway
+                });
+            }
+        }
+        #endregion
+
+        #region Message Update
+        [GatewayEvent("MESSAGE_UPDATE", typeof(Message))]
+        public virtual void OnMessageUpdateJson(GatewayClient gateway, object data)
+        {
+            if (data is Message message)
+            {
+                MessageUpdate?.Invoke(this, new ClientEventArgs<Message>
+                {
+                    Data = message,
+                    Gateway = gateway
+                });
+            }
+        }
+        #endregion
+
+        #region Presence Update
+        [GatewayEvent("PRESENCE_UPDATE", typeof(PresenceUpdateEvent))]
+        public virtual void OnPresenceUpdateJson(GatewayClient gateway, object data)
+        {
+            if (data is PresenceUpdateEvent presenceUpdate)
+            {
+                PresenceUpdate?.Invoke(this, new ClientEventArgs<PresenceUpdateEvent>
+                {
+                    Data = presenceUpdate,
                     Gateway = gateway
                 });
             }
