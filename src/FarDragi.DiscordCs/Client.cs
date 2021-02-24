@@ -2,6 +2,7 @@
 using FarDragi.DiscordCs.Caching.Standard;
 using FarDragi.DiscordCs.Entities.ChannelModels;
 using FarDragi.DiscordCs.Entities.GuildModels;
+using FarDragi.DiscordCs.Entities.MessageModels;
 using FarDragi.DiscordCs.Entities.ReadyModels;
 using FarDragi.DiscordCs.Entities.UserModels;
 using FarDragi.DiscordCs.Gateway;
@@ -26,6 +27,7 @@ namespace FarDragi.DiscordCs
         public event ClientEventHandler<string> Raw;
         public event ClientEventHandler<Ready> Ready;
         public event ClientEventHandler<Guild> GuildCreate;
+        public event ClientEventHandler<Message> MessageCreate;
 
         public User User;
         public readonly GuildCollection Guilds;
@@ -130,10 +132,17 @@ namespace FarDragi.DiscordCs
         #endregion
 
         #region MessageCreate
-        [GatewayEvent("MESSAGE_CREATE", typeof(JsonMessage))]
+        [GatewayEvent("MESSAGE_CREATE", typeof(Message))]
         public virtual void OnMessageCreateJson(GatewayClient gateway, object data)
         {
-
+            if (data is Message message)
+            {
+                MessageCreate?.Invoke(this, new ClientEventArgs<Message>
+                {
+                    Data = message,
+                    Gateway = gateway
+                });
+            }
         }
         #endregion
     }
