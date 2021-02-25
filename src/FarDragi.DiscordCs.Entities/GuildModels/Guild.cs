@@ -6,6 +6,7 @@ using FarDragi.DiscordCs.Entities.PresenceModels;
 using FarDragi.DiscordCs.Entities.RoleModels;
 using FarDragi.DiscordCs.Entities.UserModels;
 using FarDragi.DiscordCs.Entities.VoiceModels;
+using FarDragi.DiscordCs.Rest;
 using Newtonsoft.Json;
 using System;
 
@@ -151,10 +152,10 @@ namespace FarDragi.DiscordCs.Entities.GuildModels
         [JsonProperty("approximate_presence_count")]
         public int? ApproximatePresenceCount { get; set; }
 
-        public void InitCaching(ICacheConfig config)
+        public void InitCaching(ICacheConfig config, RestClient rest)
         {
             Members = new MemberCollection(config.GetCache<Member>());
-            Channels = new ChannelCollection(config.GetCache<Channel>());
+            Channels = new ChannelCollection(config.GetCache<Channel>(), rest);
             Roles = new RoleCollection(config.GetCache<Role>());
             Presences = new PresenceCollection(config.GetCache<Presence>());
         }

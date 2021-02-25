@@ -16,21 +16,23 @@ using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs
 {
-    public delegate Task ClientEventHandler<TData>(Client client, ClientEventArgs<TData> args);
-
     public class Client : IGatewayEvents
     {
+        public delegate Task ClientEventHandler<TData>(Client client, ClientEventArgs<TData> args);
+
         private readonly ClientConfig _config;
         private readonly ICacheConfig _cacheConfig;
         private readonly List<GatewayClient> _gateways;
         private readonly RestClient _restClient;
 
+        #region Events
         public event ClientEventHandler<string> Raw;
         public event ClientEventHandler<Ready> Ready;
         public event ClientEventHandler<Guild> GuildCreate;
         public event ClientEventHandler<Message> MessageCreate;
         public event ClientEventHandler<Message> MessageUpdate;
         public event ClientEventHandler<PresenceUpdateEvent> PresenceUpdate;
+        #endregion
 
         public User User;
         public readonly GuildCollection Guilds;
@@ -48,7 +50,7 @@ namespace FarDragi.DiscordCs
             });
             Guilds = new GuildCollection(_cacheConfig.GetCache<Guild>());
             Users = new UserCollection(_cacheConfig.GetCache<User>());
-            Channels = new ChannelCollection(_cacheConfig.GetCache<Channel>());
+            Channels = new ChannelCollection(_cacheConfig.GetCache<Channel>(), _restClient);
         }
 
         private async void Init()
@@ -117,7 +119,7 @@ namespace FarDragi.DiscordCs
         {
             if (data is Guild guild)
             {
-                guild.InitCaching(_cacheConfig);
+                guild.InitCaching(_cacheConfig, _restClient);
                 guild.MemberCache(Users);
                 guild.ChannelCache(Channels);
                 guild.RoleCache();
@@ -140,6 +142,8 @@ namespace FarDragi.DiscordCs
         {
             if (data is Message message)
             {
+                message.Channel = Channels[message.ChannelId];
+
                 MessageCreate?.Invoke(this, new ClientEventArgs<Message>
                 {
                     Data = message,

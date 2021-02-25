@@ -1,6 +1,7 @@
 ﻿using FarDragi.DiscordCs;
 using FarDragi.DiscordCs.Entities.GuildModels;
 using FarDragi.DiscordCs.Entities.IdentifyModels;
+using FarDragi.DiscordCs.Entities.MessageModels;
 using System;
 using System.Configuration;
 using System.Linq;
@@ -31,11 +32,20 @@ namespace BotTest
             });
 
             client.GuildCreate += Client_GuildCreate;
+            client.MessageCreate += Client_MessageCreate;
 
             await client.LoginAsync();
         }
 
-        private static Task Client_GuildCreate(Client client, ClientEventArgs<Guild> args)
+        private static async Task Client_MessageCreate(Client client, ClientEventArgs<Message> args)
+        {
+            if (args.Data.Content.StartsWith('~'))
+            {
+
+            }
+        }
+
+        private static async Task Client_GuildCreate(Client client, ClientEventArgs<Guild> args)
         {
             Console.WriteLine($"[{args.Data.Id}] [{args.Data.Name}]");
             Console.WriteLine($"GC: [0] {GC.CollectionCount(0)}");
@@ -51,7 +61,7 @@ namespace BotTest
                 }
             }
 
-            return Task.CompletedTask;
+            Message message = await client.Channels.AddMessage("takasaki gay");
         }
     }
 }

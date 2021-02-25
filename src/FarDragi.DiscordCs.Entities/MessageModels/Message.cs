@@ -1,4 +1,5 @@
 ﻿using FarDragi.DiscordCs.Entities.AttachmentModels;
+using FarDragi.DiscordCs.Entities.ChannelModels;
 using FarDragi.DiscordCs.Entities.EmbedModels;
 using FarDragi.DiscordCs.Entities.MemberModels;
 using FarDragi.DiscordCs.Entities.RoleModels;
@@ -20,6 +21,9 @@ namespace FarDragi.DiscordCs.Entities.MessageModels
 
         [JsonProperty("channel_id")]
         public ulong ChannelId { get; set; }
+
+        [JsonIgnore]
+        public Channel Channel { get; set; }
 
         [JsonProperty("guild_id")]
         public ulong? GuildId { get; set; }

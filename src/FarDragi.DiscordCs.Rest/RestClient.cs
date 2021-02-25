@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FarDragi.DiscordCs.Rest.Api;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -7,20 +8,25 @@ namespace FarDragi.DiscordCs.Rest
 {
     public class RestClient
     {
-        private readonly HttpClient httpClient;
-        private readonly RestConfig config;
-        private readonly Queue<object> payloads;
+        private readonly HttpClient _httpClient;
+        private readonly RestConfig _config;
 
         public RestClient(RestConfig restConfig)
         {
-            config = restConfig;
-            config.Version = 8;
-            httpClient = new HttpClient
+            _config = restConfig;
+            _config.Version = 8;
+            _httpClient = new HttpClient
             {
-                BaseAddress = new Uri(config.Url)
+                DefaultRequestHeaders =
+                {
+                    Authorization = new AuthenticationHeaderValue("Bot", _config.Token)
+                }
             };
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bot", config.Token);
-            payloads = new Queue<object>();
+        }
+
+        public ApiClient GetApiClient(string url)
+        {
+            return new ApiClient(_httpClient, _config.Url + url);
         }
     }
 }
