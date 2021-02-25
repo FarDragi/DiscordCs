@@ -23,6 +23,8 @@ namespace FarDragi.DiscordCs.Rest.Api
 
         private void Enqueue(HttpMethod method, string json, object[] urlParams, TaskCompletionSource<HttpResponseMessage> response)
         {
+            System.Console.WriteLine(json);
+
             HttpRequestMessage request = new HttpRequestMessage(method, string.Format(_url, urlParams))
             {
                 Content = new StringContent(json)
@@ -61,7 +63,7 @@ namespace FarDragi.DiscordCs.Rest.Api
         {
             TaskCompletionSource<HttpResponseMessage> responseTask = new TaskCompletionSource<HttpResponseMessage>();
 
-            Enqueue(method, JsonConvert.SerializeObject(input), urlParams, responseTask);
+            Enqueue(method, JsonConvert.SerializeObject(input, Formatting.Indented), urlParams, responseTask);
 
             HttpResponseMessage response = await responseTask.Task;
 
@@ -69,6 +71,8 @@ namespace FarDragi.DiscordCs.Rest.Api
             {
                 return JsonConvert.DeserializeObject<TOutput>(await response.Content.ReadAsStringAsync());
             }
+
+            string resposta = await response.Content.ReadAsStringAsync();
 
             return null;
         }

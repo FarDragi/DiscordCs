@@ -1,7 +1,10 @@
 ﻿using FarDragi.DiscordCs;
+using FarDragi.DiscordCs.Entities.ChannelModels;
+using FarDragi.DiscordCs.Entities.EmbedModels;
 using FarDragi.DiscordCs.Entities.GuildModels;
 using FarDragi.DiscordCs.Entities.IdentifyModels;
 using FarDragi.DiscordCs.Entities.MessageModels;
+using FarDragi.DiscordCs.Entities.PresenceModels;
 using System;
 using System.Configuration;
 using System.Linq;
@@ -33,13 +36,23 @@ namespace BotTest
 
             client.GuildCreate += Client_GuildCreate;
             client.MessageCreate += Client_MessageCreate;
+            client.PresenceUpdate += Client_PresenceUpdate;
 
             await client.LoginAsync();
+        }
+
+        private static async Task Client_PresenceUpdate(Client client, ClientEventArgs<PresenceUpdateEvent> args)
+        {
+            PresenceUpdateEvent presenceUpdate = args.Data;
+
+            Console.WriteLine($"[Presence Update] [{presenceUpdate.User.UserName}] [{presenceUpdate.Activities[0].Details}]");
         }
 
         private static async Task Client_MessageCreate(Client client, ClientEventArgs<Message> args)
         {
             Message message = args.Data;
+
+            Console.WriteLine($"[Message Create] [{message.User.UserName}] [{message.Content ?? "embed"}]");
 
             if (message.Content.StartsWith("~Dcs"))
             {
@@ -49,7 +62,7 @@ namespace BotTest
 
         private static async Task Client_GuildCreate(Client client, ClientEventArgs<Guild> args)
         {
-            Console.WriteLine($"[{args.Data.Id}] [{args.Data.Name}]");
+            Console.WriteLine($"[Guild Create] [{args.Data.Id}] [{args.Data.Name}]");
             Console.WriteLine($"GC: [0] {GC.CollectionCount(0)}");
             Console.WriteLine($"GC: [1] {GC.CollectionCount(1)}");
             Console.WriteLine($"GC: [2] {GC.CollectionCount(2)}");

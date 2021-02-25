@@ -174,6 +174,10 @@ namespace FarDragi.DiscordCs
         {
             if (data is PresenceUpdateEvent presenceUpdate)
             {
+                User user = presenceUpdate.User;
+
+                Users.Caching(ref user);
+
                 PresenceUpdate?.Invoke(this, new ClientEventArgs<PresenceUpdateEvent>
                 {
                     Data = presenceUpdate,

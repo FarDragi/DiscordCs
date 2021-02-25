@@ -61,6 +61,9 @@ namespace FarDragi.DiscordCs.Entities.MessageModels
         [JsonProperty("embeds")]
         public Embed[] Embeds { get; set; }
 
+        [JsonProperty("embed")]
+        public Embed Embed { get; set; }
+
         [JsonProperty("reactions")]
         public MessageReaction[] Reactions { get; set; }
 
