@@ -1,14 +1,30 @@
-﻿namespace FarDragi.DiscordCs.Entities.ChannelModels
+﻿using FarDragi.DiscordCs.Caching;
+using FarDragi.DiscordCs.Entities.MessageModels;
+using FarDragi.DiscordCs.Rest;
+using Newtonsoft.Json;
+
+namespace FarDragi.DiscordCs.Entities.ChannelModels
 {
-    public class TextChannel : Channel
+    /// <summary>
+    /// https://discord.com/developers/docs/resources/channel#channel-object-example-guild-text-channel
+    /// </summary>
+    public class TextChannel : Channel, ICacheInit
     {
+        [JsonProperty("topic")]
         public string Topic { get; set; }
+
+        [JsonProperty("last_message_id")]
         public ulong? LastMessageId { get; set; }
+
+        [JsonProperty("rate_limit_per_user")]
         public int RateLimitPerUser { get; set; }
 
-        public TextChannel()
+        [JsonIgnore]
+        public MessageCollection Messages { get; set; }
+
+        public void InitCaching(ICacheConfig config, RestClient rest)
         {
-            Type = ChannelTypes.GuildText;
+            Messages = new MessageCollection(config.GetCache<Message>(), rest.GetApiClient("/channels/{0}/messages"), Id);
         }
 
         public static explicit operator TextChannel(BaseChannel channel)

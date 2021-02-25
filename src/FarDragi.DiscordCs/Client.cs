@@ -9,7 +9,6 @@ using FarDragi.DiscordCs.Entities.UserModels;
 using FarDragi.DiscordCs.Gateway;
 using FarDragi.DiscordCs.Gateway.Attributes;
 using FarDragi.DiscordCs.Gateway.Interfaces;
-using FarDragi.DiscordCs.Json.Entities.MessageModels;
 using FarDragi.DiscordCs.Rest;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -50,7 +49,7 @@ namespace FarDragi.DiscordCs
             });
             Guilds = new GuildCollection(_cacheConfig.GetCache<Guild>());
             Users = new UserCollection(_cacheConfig.GetCache<User>());
-            Channels = new ChannelCollection(_cacheConfig.GetCache<Channel>(), _restClient);
+            Channels = new ChannelCollection(_cacheConfig.GetCache<Channel>());
         }
 
         private async void Init()
@@ -121,7 +120,7 @@ namespace FarDragi.DiscordCs
             {
                 guild.InitCaching(_cacheConfig, _restClient);
                 guild.MemberCache(Users);
-                guild.ChannelCache(Channels);
+                guild.ChannelCache(_cacheConfig, _restClient, Channels);
                 guild.RoleCache();
                 guild.PresenceCache();
 
@@ -142,7 +141,8 @@ namespace FarDragi.DiscordCs
         {
             if (data is Message message)
             {
-                message.Channel = Channels[message.ChannelId];
+                message.Channel = (TextChannel)Channels[message.ChannelId];
+                message.Channel.Messages.Caching(ref message);
 
                 MessageCreate?.Invoke(this, new ClientEventArgs<Message>
                 {

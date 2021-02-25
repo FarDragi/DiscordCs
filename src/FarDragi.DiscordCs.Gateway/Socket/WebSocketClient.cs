@@ -80,9 +80,6 @@ namespace FarDragi.DiscordCs.Gateway.Socket
                     _sequenceNumber = (int)payload.SequenceNumber;
                 }
 
-                Console.WriteLine(json);
-                Console.WriteLine();
-
                 switch (payload.OpCode)
                 {
                     case PayloadOpCode.Dispatch:
@@ -154,9 +151,6 @@ namespace FarDragi.DiscordCs.Gateway.Socket
         public void Send(object obj)
         {
             string json = JsonConvert.SerializeObject(obj);
-
-            Console.WriteLine(json);
-            Console.WriteLine();
 
             byte[] payload = Encoding.UTF8.GetBytes(json);
             _socket.Send(payload, 0, payload.Length);

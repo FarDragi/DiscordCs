@@ -26,6 +26,11 @@ namespace FarDragi.DiscordCs.Entities.RoleModels
             return _cache.Add(data.Id, data);
         }
 
+        public Role Find(in ulong id)
+        {
+            return _cache.Get(id);
+        }
+
         public IEnumerator<Role> GetEnumerator()
         {
             return _cache.GetEnumerator();

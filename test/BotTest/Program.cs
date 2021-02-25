@@ -39,9 +39,11 @@ namespace BotTest
 
         private static async Task Client_MessageCreate(Client client, ClientEventArgs<Message> args)
         {
-            if (args.Data.Content.StartsWith('~'))
-            {
+            Message message = args.Data;
 
+            if (message.Content.StartsWith("~Dcs"))
+            {
+                await message.Channel.Messages.Add("olá " + message.User.UserName);
             }
         }
 
@@ -60,8 +62,6 @@ namespace BotTest
                     args.Data.Description = "";
                 }
             }
-
-            Message message = await client.Channels.AddMessage("takasaki gay");
         }
     }
 }

@@ -15,7 +15,7 @@ namespace FarDragi.DiscordCs.Entities.GuildModels
     /// <summary>
     /// https://discord.com/developers/docs/resources/guild#guild-object-guild-structure
     /// </summary>
-    public class Guild
+    public class Guild : ICacheInit
     {
         [JsonProperty("id")]
         public ulong Id { get; set; }
@@ -152,12 +152,12 @@ namespace FarDragi.DiscordCs.Entities.GuildModels
         [JsonProperty("approximate_presence_count")]
         public int? ApproximatePresenceCount { get; set; }
 
-        public void InitCaching(ICacheConfig config, RestClient rest)
+        public void InitCaching(ICacheConfig cacheConfig, RestClient rest)
         {
-            Members = new MemberCollection(config.GetCache<Member>());
-            Channels = new ChannelCollection(config.GetCache<Channel>(), rest);
-            Roles = new RoleCollection(config.GetCache<Role>());
-            Presences = new PresenceCollection(config.GetCache<Presence>());
+            Members = new MemberCollection(cacheConfig.GetCache<Member>());
+            Channels = new ChannelCollection(cacheConfig.GetCache<Channel>());
+            Roles = new RoleCollection(cacheConfig.GetCache<Role>());
+            Presences = new PresenceCollection(cacheConfig.GetCache<Presence>());
         }
 
         public void MemberCache(UserCollection users)
@@ -173,7 +173,7 @@ namespace FarDragi.DiscordCs.Entities.GuildModels
             }
         }
 
-        public void ChannelCache(ChannelCollection channels)
+        public void ChannelCache(ICacheConfig cacheConfig, RestClient restClient, ChannelCollection channels)
         {
             if (_channels != null)
             {
@@ -183,8 +183,11 @@ namespace FarDragi.DiscordCs.Entities.GuildModels
 
                     switch (_channels[i].Type)
                     {
+                        case ChannelTypes.GuildNews:
+                        case ChannelTypes.GuildStore:
                         case ChannelTypes.GuildText:
                             channel = (TextChannel)_channels[i];
+                            InitCaching((ICacheInit)channel);
                             break;
                         case ChannelTypes.GuildVoice:
                             channel = (VoiceChannel)_channels[i];
@@ -192,12 +195,11 @@ namespace FarDragi.DiscordCs.Entities.GuildModels
                         case ChannelTypes.GuildCategory:
                             channel = (GuildCategory)_channels[i];
                             break;
-                        case ChannelTypes.GuildNews:
-                            channel = (GuildNews)_channels[i];
-                            break;
-                        case ChannelTypes.GuildStore:
-                            channel = (GuildStore)_channels[i];
-                            break;
+                    }
+
+                    void InitCaching(ICacheInit cacheInit)
+                    {
+                        cacheInit.InitCaching(cacheConfig, restClient);
                     }
 
                     channels.Caching(ref channel);

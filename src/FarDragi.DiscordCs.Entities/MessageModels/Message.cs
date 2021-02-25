@@ -2,12 +2,9 @@
 using FarDragi.DiscordCs.Entities.ChannelModels;
 using FarDragi.DiscordCs.Entities.EmbedModels;
 using FarDragi.DiscordCs.Entities.MemberModels;
-using FarDragi.DiscordCs.Entities.RoleModels;
 using FarDragi.DiscordCs.Entities.UserModels;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FarDragi.DiscordCs.Entities.MessageModels
 {
@@ -23,7 +20,7 @@ namespace FarDragi.DiscordCs.Entities.MessageModels
         public ulong ChannelId { get; set; }
 
         [JsonIgnore]
-        public Channel Channel { get; set; }
+        public TextChannel Channel { get; set; }
 
         [JsonProperty("guild_id")]
         public ulong? GuildId { get; set; }

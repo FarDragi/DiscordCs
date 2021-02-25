@@ -13,7 +13,7 @@ namespace FarDragi.DiscordCs.Entities.RoleModels
         [JsonProperty("integration_id")]
         public ulong IntegrationId { get; set; }
 
-        [JsonProperty("premium_subscriber")]
-        public bool PremiumSubscriber { get; set; }
+        //[JsonProperty("premium_subscriber")]
+        //public bool PremiumSubscriber { get; set; }
     }
 }

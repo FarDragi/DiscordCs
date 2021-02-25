@@ -26,6 +26,11 @@ namespace FarDragi.DiscordCs.Entities.GuildModels
             return _cache.Add(data.Id, data);
         }
 
+        public Guild Find(in ulong id)
+        {
+            return _cache.Get(id);
+        }
+
         public IEnumerator<Guild> GetEnumerator()
         {
             return _cache.GetEnumerator();

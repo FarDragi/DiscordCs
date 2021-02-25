@@ -1,9 +1,7 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs.Rest.Api
@@ -23,7 +21,7 @@ namespace FarDragi.DiscordCs.Rest.Api
             _sending = false;
         }
 
-        private void Enqueue(HttpMethod method, string json, string[] urlParams, TaskCompletionSource<HttpResponseMessage> response)
+        private void Enqueue(HttpMethod method, string json, object[] urlParams, TaskCompletionSource<HttpResponseMessage> response)
         {
             HttpRequestMessage request = new HttpRequestMessage(method, string.Format(_url, urlParams))
             {
@@ -59,7 +57,7 @@ namespace FarDragi.DiscordCs.Rest.Api
             _sending = false;
         }
 
-        public async Task<TOutput> Send<TInput, TOutput>(HttpMethod method, TInput input, params string[] urlParams) where TInput : class where TOutput : class
+        public async Task<TOutput> Send<TInput, TOutput>(HttpMethod method, TInput input, params object[] urlParams) where TInput : class where TOutput : class
         {
             TaskCompletionSource<HttpResponseMessage> responseTask = new TaskCompletionSource<HttpResponseMessage>();
 

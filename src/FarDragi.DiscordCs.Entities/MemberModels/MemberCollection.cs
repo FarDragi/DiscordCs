@@ -26,6 +26,11 @@ namespace FarDragi.DiscordCs.Entities.MemberModels
             return _cache.Add(data.User.Id, data);
         }
 
+        public Member Find(in ulong id)
+        {
+            return _cache.Get(id);
+        }
+
         public IEnumerator<Member> GetEnumerator()
         {
             return _cache.GetEnumerator();

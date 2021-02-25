@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FarDragi.DiscordCs.Entities.MessageModels
+﻿namespace FarDragi.DiscordCs.Entities.MessageModels
 {
     /// <summary>
     /// https://discord.com/developers/docs/resources/channel#message-object-message-types

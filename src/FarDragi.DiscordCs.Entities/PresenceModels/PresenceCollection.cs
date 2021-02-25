@@ -26,6 +26,11 @@ namespace FarDragi.DiscordCs.Entities.PresenceModels
             return _cache.Add(data.User.Id, data);
         }
 
+        public Presence Find(in ulong id)
+        {
+            return _cache.Get(id);
+        }
+
         public IEnumerator<Presence> GetEnumerator()
         {
             return _cache.GetEnumerator();
