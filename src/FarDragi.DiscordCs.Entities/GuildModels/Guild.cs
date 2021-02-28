@@ -111,7 +111,7 @@ namespace FarDragi.DiscordCs.Entities.GuildModels
         private Member[] _members { get; set; }
 
         [JsonProperty("channels")]
-        private BaseChannel[] _channels { get; set; }
+        private Channel[] _channels { get; set; }
 
         [JsonProperty("presences")]
         private Presence[] _presences { get; set; }
@@ -167,8 +167,12 @@ namespace FarDragi.DiscordCs.Entities.GuildModels
                 for (int i = 0; i < _members.Length; i++)
                 {
                     User user = _members[i].User;
-                    users.Caching(ref user);
-                    Members.Caching(ref _members[i]);
+
+                    if (user.Discriminator != null)
+                    {
+                        users.Caching(ref user);
+                        Members.Caching(ref _members[i]);
+                    }
                 }
             }
         }
@@ -179,21 +183,16 @@ namespace FarDragi.DiscordCs.Entities.GuildModels
             {
                 for (int i = 0; i < _channels.Length; i++)
                 {
-                    Channel channel = null;
-
                     switch (_channels[i].Type)
                     {
                         case ChannelTypes.GuildNews:
                         case ChannelTypes.GuildStore:
                         case ChannelTypes.GuildText:
-                            channel = (TextChannel)_channels[i];
-                            InitCaching((ICacheInit)channel);
+                            InitCaching((ICacheInit)_channels[i]);
                             break;
                         case ChannelTypes.GuildVoice:
-                            channel = (VoiceChannel)_channels[i];
                             break;
                         case ChannelTypes.GuildCategory:
-                            channel = (GuildCategory)_channels[i];
                             break;
                     }
 
@@ -202,8 +201,8 @@ namespace FarDragi.DiscordCs.Entities.GuildModels
                         cacheInit.InitCaching(cacheConfig, restClient);
                     }
 
-                    channels.Caching(ref channel);
-                    Channels.Caching(ref channel);
+                    channels.Caching(ref _channels[i]);
+                    Channels.Caching(ref _channels[i]);
                 }
 
                 for (int i = 0; i < _channels.Length; i++)

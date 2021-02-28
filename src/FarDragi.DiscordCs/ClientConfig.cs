@@ -25,7 +25,7 @@ namespace FarDragi.DiscordCs
                 Status = "online"
             };
             Intents = IdentifyIntent.Default;
-            GuildSubscriptions = true;
+            GuildSubscriptions = false;
         }
 
         public Identify GetIdentify(int[] shard)
