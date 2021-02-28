@@ -2,11 +2,10 @@
 using FarDragi.DiscordCs.Gateway.Payloads;
 using FarDragi.DiscordCs.Json.Entities.HelloModels;
 using FarDragi.DiscordCs.Json.Entities.ResumeModels;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using SuperSocket.ClientEngine;
 using System;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using WebSocket4Net;
@@ -20,6 +19,7 @@ namespace FarDragi.DiscordCs.Gateway.Socket
         private readonly GatewayClient _gatewayClient;
         private readonly Identify _identify;
         private readonly WebSocketConfig _config;
+        private readonly JsonSerializerOptions _jsonSerializerOptions;
 
         private CancellationTokenSource _tokenSource;
         private int _sequenceNumber;
@@ -35,6 +35,10 @@ namespace FarDragi.DiscordCs.Gateway.Socket
             {
                 Version = 8,
                 Encoding = "json"
+            };
+            _jsonSerializerOptions = new JsonSerializerOptions
+            {
+
             };
             AddEvents();
         }
@@ -74,7 +78,7 @@ namespace FarDragi.DiscordCs.Gateway.Socket
         {
             if (_decompress.TryDecompress(e.Data, out string json))
             {
-                Payload<object> payload = JsonConvert.DeserializeObject<Payload<object>>(json);
+                Payload<object> payload = JsonSerializer.Deserialize<Payload<object>>(json, _jsonSerializerOptions);
                 if (payload.SequenceNumber != null)
                 {
                     _sequenceNumber = (int)payload.SequenceNumber;
@@ -150,9 +154,7 @@ namespace FarDragi.DiscordCs.Gateway.Socket
 
         public void Send(object obj)
         {
-            string json = JsonConvert.SerializeObject(obj);
-
-            byte[] payload = Encoding.UTF8.GetBytes(json);
+            byte[] payload = JsonSerializer.SerializeToUtf8Bytes(obj, _jsonSerializerOptions);
             _socket.Send(payload, 0, payload.Length);
         }
 
