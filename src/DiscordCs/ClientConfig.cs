@@ -15,7 +15,6 @@ namespace FarDragi.DiscordCs
 
         public ClientConfig()
         {
-            _gateway = new GatewayStandardContext();
             _identify = new Identify
             {
                 IsCompress = true,
@@ -36,13 +35,23 @@ namespace FarDragi.DiscordCs
         }
 
         public Identify Identify { get => _identify; }
-        public uint Shards { get; set; } = 1;
+        public int Shards { get; set; } = 1;
         public IGatewayContext Gateway { set => _gateway = value; }
         public bool IsAutoSharding { get; set; } = true;
         public int[] Shard { get; set; }
 
         public IGatewayContext GetGatewayContext()
         {
+            if (_gateway == null)
+            {
+                _gateway = new GatewayStandardContext(new GatewayStandardConfig
+                {
+                    BaseUrl = "wss://gateway.discord.gg",
+                    Version = 8,
+                    Encoding = "json"
+                });
+            }
+
             return _gateway;
         }
 

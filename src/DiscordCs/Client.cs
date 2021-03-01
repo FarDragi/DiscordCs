@@ -10,12 +10,11 @@ namespace FarDragi.DiscordCs
     public class Client
     {
         private readonly ClientConfig _clientConfig;
-        private readonly List<IGatewayClient> _gateways;
+        private List<IGatewayClient> _gateways;
 
         public Client(ClientConfig clientConfig)
         {
             _clientConfig = clientConfig;
-            _gateways = new List<IGatewayClient>();
         }
 
         #region Login
@@ -33,18 +32,22 @@ namespace FarDragi.DiscordCs
 
             if (_clientConfig.IsAutoSharding)
             {
+                _gateways = new List<IGatewayClient>(_clientConfig.Shards);
+
                 for (int i = 0; i < _clientConfig.Shards; i++)
                 {
                     await Register(_clientConfig.GetIdentify(new int[]
                     {
                         i,
-                        (int)_clientConfig.Shards
+                        _clientConfig.Shards
                     }));
                     await Task.Delay(6000);
                 }
             }
             else
             {
+                _gateways = new List<IGatewayClient>(1);
+
                 await Register(_clientConfig.GetIdentify(_clientConfig.Shard));
             }
         }
