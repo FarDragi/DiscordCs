@@ -1,11 +1,13 @@
-﻿using System;
+﻿using FarDragi.DiscordCs;
+using System;
 using System.Configuration;
+using System.Threading.Tasks;
 
 namespace BotTest
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             string token = ConfigurationManager.AppSettings["token"];
             if (token == null)
@@ -18,6 +20,17 @@ namespace BotTest
                 configFile.Save(ConfigurationSaveMode.Modified);
                 ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
             }
+
+            Client client = new Client(new ClientConfig
+            {
+                Identify =
+                {
+                    Token = token
+                },
+                Shards = 10
+            });
+
+            await client.Login();
         }
     }
 }

@@ -5,4 +5,10 @@
     <RootNamespace>FarDragi.DiscordCs</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DiscordCs.Entity\DiscordCs.Entity.csproj" />
+    <ProjectReference Include="..\DiscordCs.Gateway.Standard\DiscordCs.Gateway.Standard.csproj" />
+    <ProjectReference Include="..\DiscordCs.Gateway\DiscordCs.Gateway.csproj" />
+  </ItemGroup>
+
 </Project>
