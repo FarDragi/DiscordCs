@@ -9,13 +9,10 @@ namespace FarDragi.DiscordCs.Entity.Models.PayloadModels
     /// https://discord.com/developers/docs/topics/gateway#payloads-gateway-payload-structure
     /// </summary>
     /// <typeparam name="TType">DataType</typeparam>
-    public class Payload<TType>
+    public class Payload
     {
         [JsonPropertyName("op")]
         public PayloadOpCode OpCode { get; set; }
-
-        [JsonPropertyName("d")]
-        public TType Data { get; set; }
 
         [JsonPropertyName("s")]
         public int? SequenceNumber { get; set; }

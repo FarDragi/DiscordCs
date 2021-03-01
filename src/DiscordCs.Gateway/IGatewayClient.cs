@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs.Gateway
 {
-    public interface IGatewayClient
+    public interface IGatewayClient : IDisposable
     {
         Task Open();
     }

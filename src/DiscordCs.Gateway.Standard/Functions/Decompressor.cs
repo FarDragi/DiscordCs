@@ -19,7 +19,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard.Functions
             _zLibSufix = new byte[4] { 0x00, 0x00, 0xff, 0xff };
         }
 
-        public bool TryDecompress(byte[] data, out string json)
+        public bool TryDecompress(byte[] data, out ReadOnlySpan<byte> stream)
         {
             if (data[0] == 0x78)
             {
@@ -38,7 +38,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard.Functions
 
             if (sufix == _zLibSufix)
             {
-                json = null;
+                stream = null;
                 return false;
             }
 
@@ -47,12 +47,12 @@ namespace FarDragi.DiscordCs.Gateway.Standard.Functions
                 try
                 {
                     _decompressor.CopyTo(decompressed);
-                    json = Encoding.UTF8.GetString(decompressed.ToArray());
+                    stream = decompressed.ToArray();
                     return true;
                 }
                 catch
                 {
-                    json = null;
+                    stream = null;
                     return false;
                 }
                 finally

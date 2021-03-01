@@ -1,8 +1,10 @@
-﻿using FarDragi.DiscordCs.Entity.Models.IdentifyModels;
+﻿using FarDragi.DiscordCs.Entity.Models.HelloModels;
+using FarDragi.DiscordCs.Entity.Models.IdentifyModels;
 using FarDragi.DiscordCs.Entity.Models.PayloadModels;
 using FarDragi.DiscordCs.Gateway.Standard.Functions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
@@ -11,7 +13,7 @@ using WebSocket4Net;
 
 namespace FarDragi.DiscordCs.Gateway.Standard
 {
-    public class GatewayStandardClient : IGatewayClient, IDisposable
+    public class GatewayStandardClient : IGatewayClient
     {
         private WebSocket _socket;
         private readonly Identify _identify;
@@ -27,9 +29,11 @@ namespace FarDragi.DiscordCs.Gateway.Standard
             _identify = identify;
             _config = config;
             _decompressor = new Decompressor();
-            _jsonSerializerOptions = new JsonSerializerOptions
+            _jsonSerializerOptions = new JsonSerializerOptions()
             {
-
+                Converters =
+                {
+                }
             };
         }
 
@@ -45,9 +49,9 @@ namespace FarDragi.DiscordCs.Gateway.Standard
 
         private void Socket_DataReceived(object sender, DataReceivedEventArgs e)
         {
-            if (_decompressor.TryDecompress(e.Data, out string json))
+            if (_decompressor.TryDecompress(e.Data, out ReadOnlySpan<byte> stream))
             {
-                Receive(json);
+                Receive(stream);
             }
         }
 
@@ -72,9 +76,38 @@ namespace FarDragi.DiscordCs.Gateway.Standard
 
         #region Recive/Send
 
-        public void Receive(string json)
+        public void Receive(ReadOnlySpan<byte> stream)
         {
-            Payload<object> payload = JsonSerializer.Deserialize<Payload<object>>(json, _jsonSerializerOptions);
+            Payload payload = JsonSerializer.Deserialize<Payload>(stream, _jsonSerializerOptions);
+
+            switch (payload.OpCode)
+            {
+                case PayloadOpCode.Dispatch:
+                    break;
+                case PayloadOpCode.Heartbeat:
+                    break;
+                case PayloadOpCode.Identify:
+                    break;
+                case PayloadOpCode.PresenceUpdate:
+                    break;
+                case PayloadOpCode.VoiceStateUpdate:
+                    break;
+                case PayloadOpCode.Resume:
+                    break;
+                case PayloadOpCode.Reconnect:
+                    break;
+                case PayloadOpCode.RequestGuildMembers:
+                    break;
+                case PayloadOpCode.InvalidSession:
+                    break;
+                case PayloadOpCode.Hello:
+                    PayloadData<Hello> hello = JsonSerializer.Deserialize<PayloadData<Hello>>(stream, _jsonSerializerOptions);
+                    break;
+                case PayloadOpCode.HeartbeatACK:
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void Send(object obj)
