@@ -1,12 +1,14 @@
 ﻿using FarDragi.DiscordCs.Entity.Converters;
+using FarDragi.DiscordCs.Entity.Models.GuildModels;
 using FarDragi.DiscordCs.Entity.Models.HelloModels;
 using FarDragi.DiscordCs.Entity.Models.IdentifyModels;
 using FarDragi.DiscordCs.Entity.Models.PayloadModels;
+using FarDragi.DiscordCs.Entity.Models.ReadyModels;
 using FarDragi.DiscordCs.Entity.Models.ResumeModels;
 using FarDragi.DiscordCs.Gateway.Standard.Functions;
+using SuperSocket.ClientEngine;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
@@ -31,11 +33,13 @@ namespace FarDragi.DiscordCs.Gateway.Standard
         {
             _identify = identify;
             _config = config;
+            _firstConnection = true;
             _decompressor = new Decompressor();
             _jsonSerializerOptions = new JsonSerializerOptions()
             {
                 Converters =
                 {
+                    new ToULongConverter()
                 }
             };
         }
@@ -61,6 +65,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
                 switch (payload.OpCode)
                 {
                     case PayloadOpCode.Dispatch:
+                        Receive(payload);
                         break;
                     case PayloadOpCode.Hello:
                         Hello hello = payload.Data.ToObject<Hello>(_jsonSerializerOptions);
@@ -79,7 +84,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
             }
         }
 
-        private void Socket_Error(object sender, SuperSocket.ClientEngine.ErrorEventArgs e)
+        private void Socket_Error(object sender, ErrorEventArgs e)
         {
             _socket.Close();
         }
@@ -101,8 +106,17 @@ namespace FarDragi.DiscordCs.Gateway.Standard
 
         #region Recive/Send
 
-        public void Receive(Payload<object> payload)
+        public void Receive(Payload<JsonElement> payload)
         {
+            if (payload.Event == "READY")
+            {
+                Ready ready = payload.Data.ToObject<Ready>(_jsonSerializerOptions);
+                _sessionId = ready.SessionId;
+            }
+            else if (payload.Event == "GUILD_CREATE")
+            {
+                Guild guild = payload.Data.ToObject<Guild>(_jsonSerializerOptions);
+            }
         }
 
         public void Send(object obj)
