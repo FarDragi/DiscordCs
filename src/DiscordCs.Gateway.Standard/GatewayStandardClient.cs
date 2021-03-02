@@ -1,6 +1,8 @@
-﻿using FarDragi.DiscordCs.Entity.Models.HelloModels;
+﻿using FarDragi.DiscordCs.Entity.Converters;
+using FarDragi.DiscordCs.Entity.Models.HelloModels;
 using FarDragi.DiscordCs.Entity.Models.IdentifyModels;
 using FarDragi.DiscordCs.Entity.Models.PayloadModels;
+using FarDragi.DiscordCs.Entity.Models.ResumeModels;
 using FarDragi.DiscordCs.Gateway.Standard.Functions;
 using System;
 using System.Collections.Generic;
@@ -22,6 +24,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
         private CancellationTokenSource _tokenSource;
         private int _sequenceNumber;
         private bool _firstConnection;
+        private string _sessionId;
         private JsonSerializerOptions _jsonSerializerOptions;
 
         public GatewayStandardClient(Identify identify, GatewayStandardConfig config)
@@ -51,7 +54,28 @@ namespace FarDragi.DiscordCs.Gateway.Standard
         {
             if (_decompressor.TryDecompress(e.Data, out ReadOnlySpan<byte> stream))
             {
-                Receive(stream);
+                Payload<JsonElement> payload = JsonSerializer.Deserialize<Payload<JsonElement>>(stream, _jsonSerializerOptions);
+
+                _sequenceNumber = payload.SequenceNumber ?? _sequenceNumber;
+
+                switch (payload.OpCode)
+                {
+                    case PayloadOpCode.Dispatch:
+                        break;
+                    case PayloadOpCode.Hello:
+                        Hello hello = payload.Data.ToObject<Hello>(_jsonSerializerOptions);
+                        _tokenSource = new CancellationTokenSource();
+                        Heartbeat(hello, _tokenSource.Token);
+                        break;
+                    case PayloadOpCode.HeartbeatACK:
+                        break;
+                    case PayloadOpCode.InvalidSession:
+                        break;
+                    case PayloadOpCode.Reconnect:
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 
@@ -67,6 +91,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
                 Console.WriteLine($"Code: {args.Code} Reason: {args.Reason}\n");
 
                 _socket.Dispose();
+                _tokenSource.Cancel();
                 InitSocket();
                 _socket.Open();
             }
@@ -76,44 +101,62 @@ namespace FarDragi.DiscordCs.Gateway.Standard
 
         #region Recive/Send
 
-        public void Receive(ReadOnlySpan<byte> stream)
+        public void Receive(Payload<object> payload)
         {
-            Payload payload = JsonSerializer.Deserialize<Payload>(stream, _jsonSerializerOptions);
-
-            switch (payload.OpCode)
-            {
-                case PayloadOpCode.Dispatch:
-                    break;
-                case PayloadOpCode.Heartbeat:
-                    break;
-                case PayloadOpCode.Identify:
-                    break;
-                case PayloadOpCode.PresenceUpdate:
-                    break;
-                case PayloadOpCode.VoiceStateUpdate:
-                    break;
-                case PayloadOpCode.Resume:
-                    break;
-                case PayloadOpCode.Reconnect:
-                    break;
-                case PayloadOpCode.RequestGuildMembers:
-                    break;
-                case PayloadOpCode.InvalidSession:
-                    break;
-                case PayloadOpCode.Hello:
-                    PayloadData<Hello> hello = JsonSerializer.Deserialize<PayloadData<Hello>>(stream, _jsonSerializerOptions);
-                    break;
-                case PayloadOpCode.HeartbeatACK:
-                    break;
-                default:
-                    break;
-            }
         }
 
         public void Send(object obj)
         {
             byte[] payload = JsonSerializer.SerializeToUtf8Bytes(obj, _jsonSerializerOptions);
             _socket.Send(payload, 0, payload.Length);
+        }
+
+        private async void Heartbeat(Hello hello, CancellationToken token)
+        {
+            try
+            {
+                if (_firstConnection)
+                {
+                    Send(new PayloadIdentify
+                    {
+                        Data = _identify
+                    });
+
+                    _firstConnection = false;
+                }
+                else
+                {
+                    Send(new PayloadResume
+                    {
+                        Data = new Resume
+                        {
+                            SequenceNumber = _sequenceNumber,
+                            SessionId = _sessionId,
+                            Token = _identify.Token
+                        }
+                    });
+                }
+
+                while (true)
+                {
+                    await Task.Delay(hello.HeartbeatInterval, token);
+
+                    if (token.CanBeCanceled)
+                    {
+                        return;
+                    }
+
+                    Send(new PayloadHeartbeat
+                    {
+                        Data = _sequenceNumber
+                    });
+                }
+            }
+            catch (Exception)
+            {
+                _tokenSource.Dispose();
+                return;
+            }
         }
 
         #endregion
@@ -128,11 +171,8 @@ namespace FarDragi.DiscordCs.Gateway.Standard
 
         public void Dispose()
         {
-            _socket.Dispose();
-            if (_tokenSource != null)
-            {
-                _tokenSource.Dispose();
-            }
+            _socket?.Dispose();
+            _tokenSource?.Dispose();
         }
     }
 }

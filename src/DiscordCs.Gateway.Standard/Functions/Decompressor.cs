@@ -33,8 +33,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard.Functions
             _compressed.Flush();
             _compressed.Position = 0;
 
-            byte[] sufix = new byte[4];
-            Array.Copy(data, sufix, 4);
+            byte[] sufix = data[^4..];
 
             if (sufix == _zLibSufix)
             {

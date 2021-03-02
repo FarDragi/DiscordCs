@@ -59,6 +59,7 @@ namespace FarDragi.DiscordCs.Gateway.Socket
                 Console.WriteLine($"Code: {args.Code} Reason: {args.Reason}\n");
 
                 _socket.Dispose();
+                _tokenSource.Cancel();
                 AddEvents();
                 _socket.Open();
             }
@@ -134,6 +135,10 @@ namespace FarDragi.DiscordCs.Gateway.Socket
                 while (true)
                 {
                     await Task.Delay(hello.HeartbeatInterval, token);
+                    if (token.CanBeCanceled)
+                    {
+                        return;
+                    }
                     Send(new HeartbeatPayload
                     {
                         Data = _sequenceNumber

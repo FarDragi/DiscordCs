@@ -26,8 +26,7 @@ namespace BotTest
                 Identify =
                 {
                     Token = token
-                },
-                Shards = 10
+                }
             });
 
             await client.Login();
