@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 
 namespace FarDragi.DiscordCs.Entity.Converters
 {
-    public class ToULongConverter : JsonConverter<ulong>
+    public class ULongConverter : JsonConverter<ulong>
     {
         public override bool CanConvert(Type typeToConvert)
         {

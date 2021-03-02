@@ -1,3 +1,3 @@
-### DiscordCs
+# DiscordCs
 
-![Net 5.0](https://github.com/FarDragi/DiscordCs/workflows/Net%205.0/badge.svg)
+![Build](https://img.shields.io/github/workflow/status/fardragi/discordcs/Net%205.0/master?logo=github&style=for-the-badge)

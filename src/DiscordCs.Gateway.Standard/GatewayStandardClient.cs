@@ -27,7 +27,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
         private int _sequenceNumber;
         private bool _firstConnection;
         private string _sessionId;
-        private JsonSerializerOptions _jsonSerializerOptions;
+        private readonly JsonSerializerOptions _jsonSerializerOptions;
 
         public GatewayStandardClient(Identify identify, GatewayStandardConfig config)
         {
@@ -39,7 +39,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
             {
                 Converters =
                 {
-                    new ToULongConverter()
+                    new ULongConverter()
                 }
             };
         }
