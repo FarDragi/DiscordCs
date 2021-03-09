@@ -30,6 +30,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
         private bool _firstConnection;
         private string _sessionId;
         private readonly JsonSerializerOptions _jsonSerializerOptions;
+        private readonly System.Diagnostics.Stopwatch _stopwatch;
 
         public GatewayStandardClient(Identify identify, GatewayStandardConfig config, ILogger logger)
         {
@@ -45,6 +46,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
                     new ULongConverter()
                 }
             };
+            _stopwatch = new System.Diagnostics.Stopwatch();
         }
 
         #region Events
@@ -76,8 +78,13 @@ namespace FarDragi.DiscordCs.Gateway.Standard
                         Heartbeat(hello, _tokenSource.Token);
                         break;
                     case PayloadOpCode.HeartbeatACK:
+                        _stopwatch.Stop();
+                        _logger.Log(LoggingLevel.Info, $"Received heartbeat ping {_stopwatch.ElapsedMilliseconds}ms");
+                        _stopwatch.Reset();
                         break;
                     case PayloadOpCode.InvalidSession:
+                        _firstConnection = true;
+                        _socket.Close();
                         break;
                     case PayloadOpCode.Reconnect:
                         break;
@@ -98,7 +105,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
         {
             if (e is ClosedEventArgs args)
             {
-                Console.WriteLine($"Code: {args.Code} Reason: {args.Reason}\n");
+                _logger.Log(LoggingLevel.Warning, $"Code: {args.Code} Reason: {args.Reason}\n");
 
                 _socket.Dispose();
                 _tokenSource.Cancel();
@@ -162,6 +169,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
                 {
                     await Task.Delay(hello.HeartbeatInterval, token);
 
+                    _stopwatch.Start();
                     Send(new PayloadHeartbeat
                     {
                         Data = _sequenceNumber

@@ -1,6 +1,7 @@
 ﻿using FarDragi.DiscordCs.Entity.Models.IdentifyModels;
 using FarDragi.DiscordCs.Gateway;
 using FarDragi.DiscordCs.Logging;
+using Pastel;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,7 +19,7 @@ namespace FarDragi.DiscordCs
         {
             _clientConfig = clientConfig;
             _logger = clientConfig.GetLogger();
-            _logger.Log(LoggingLevel.Info, "DiscordCs v0.1-dev");
+            _logger.Log(LoggingLevel.Dcs, "DiscosCs v0.1-dev");
         }
 
         #region Login

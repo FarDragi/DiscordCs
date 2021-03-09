@@ -3,12 +3,19 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs.Logging.Standard
 {
     public class LoggerStandard : ILogger
     {
         private LoggingLevel _level;
+        private const string DateColor = "#08b1e2";
+        private const string DcsColor = "#24ae91";
+        private const string InfoColor = "#8dc748";
+        private const string WarningColor = "#ffc20e";
+        private const string ErrorColor = "#ca3431";
+        private const string VerboseColor = "#804b9d";
 
         public LoggingLevel Level { get => _level;  set => _level = value; }
 
@@ -20,21 +27,24 @@ namespace FarDragi.DiscordCs.Logging.Standard
             }
 
             DateTime now = DateTime.Now;
-            message = $"[{now:G}] [{level,-7}] : {message}";
+            string messageDate = $"[{now:G}]".Pastel(DateColor);
 
             switch (level)
             {
+                case LoggingLevel.Dcs:
+                    Console.WriteLine("{0} {1} --> {2}", messageDate, "[ Dcs ]".Pastel(DcsColor), message);
+                    break;
                 case LoggingLevel.Info:
-                    Console.WriteLine(message.Pastel(Color.Violet));
+                    Console.WriteLine("{0} {1} --> {2}", messageDate, "[ Inf ]".Pastel(InfoColor), message);
                     break;
                 case LoggingLevel.Warning:
-                    Console.WriteLine(message.Pastel(Color.Yellow));
+                    Console.WriteLine("{0} {1} --> {2}", messageDate, "[ War ]".Pastel(WarningColor), message);
                     break;
                 case LoggingLevel.Error:
-                    Console.WriteLine(message.Pastel(Color.IndianRed));
+                    Console.WriteLine("{0} {1} --> {2}", messageDate, "[ Err ]".Pastel(ErrorColor), message);
                     break;
                 case LoggingLevel.Verbose:
-                    Console.WriteLine(message);
+                    Console.WriteLine("{0} {1} --> {2}", messageDate, "[ Veb ]".Pastel(VerboseColor), message);
                     break;
                 default:
                     break;
