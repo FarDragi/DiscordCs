@@ -2,11 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <RootNamespace>FarDragi.DiscordCs.Gateway</RootNamespace>
+    <RootNamespace>FarDragi.DiscordCs.Logging.Standard</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DiscordCs.Entity\DiscordCs.Entity.csproj" />
+    <PackageReference Include="Pastel" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DiscordCs.Logging\DiscordCs.Logging.csproj" />
   </ItemGroup>
 

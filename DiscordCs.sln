@@ -31,15 +31,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotTest", "code\BotTest\Bot
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscordCs.Gateway", "src\DiscordCs.Gateway\DiscordCs.Gateway.csproj", "{825A945D-9436-4913-8FE1-7CCAB1B37951}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordCs.Gateway.Standard", "src\DiscordCs.Gateway.Standard\DiscordCs.Gateway.Standard.csproj", "{1297A000-5F02-4972-9499-9F9B9E6001F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscordCs.Gateway.Standard", "src\DiscordCs.Gateway.Standard\DiscordCs.Gateway.Standard.csproj", "{1297A000-5F02-4972-9499-9F9B9E6001F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordCs.Caching", "src\DiscordCs.Caching\DiscordCs.Caching.csproj", "{8BCCF192-0B08-4617-A745-2D464BE480B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscordCs.Caching", "src\DiscordCs.Caching\DiscordCs.Caching.csproj", "{8BCCF192-0B08-4617-A745-2D464BE480B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordCs.Caching.Standard", "src\DiscordCs.Caching.Standard\DiscordCs.Caching.Standard.csproj", "{E636BB37-5D15-4221-AA2E-B74B3658EC5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscordCs.Caching.Standard", "src\DiscordCs.Caching.Standard\DiscordCs.Caching.Standard.csproj", "{E636BB37-5D15-4221-AA2E-B74B3658EC5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordCs.Rest", "src\DiscordCs.Rest\DiscordCs.Rest.csproj", "{B01B40C8-D35D-47A8-8EEE-FD56DE184948}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscordCs.Rest", "src\DiscordCs.Rest\DiscordCs.Rest.csproj", "{B01B40C8-D35D-47A8-8EEE-FD56DE184948}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordCs.Rest.Standard", "src\DiscordCs.Rest.Standard\DiscordCs.Rest.Standard.csproj", "{ADF7F876-3279-4246-9017-285E705E8FE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscordCs.Rest.Standard", "src\DiscordCs.Rest.Standard\DiscordCs.Rest.Standard.csproj", "{ADF7F876-3279-4246-9017-285E705E8FE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordCs.Logging", "src\DiscordCs.Logging\DiscordCs.Logging.csproj", "{E4F79221-A38C-409A-A744-CCDAB233BB11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordCs.Logging.Standard", "src\DiscordCs.Logging.Standard\DiscordCs.Logging.Standard.csproj", "{CD531019-D603-4D3C-8AE5-E4C83F1A11E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,6 +115,14 @@ Global
 		{ADF7F876-3279-4246-9017-285E705E8FE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADF7F876-3279-4246-9017-285E705E8FE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADF7F876-3279-4246-9017-285E705E8FE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4F79221-A38C-409A-A744-CCDAB233BB11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4F79221-A38C-409A-A744-CCDAB233BB11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4F79221-A38C-409A-A744-CCDAB233BB11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4F79221-A38C-409A-A744-CCDAB233BB11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD531019-D603-4D3C-8AE5-E4C83F1A11E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD531019-D603-4D3C-8AE5-E4C83F1A11E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD531019-D603-4D3C-8AE5-E4C83F1A11E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD531019-D603-4D3C-8AE5-E4C83F1A11E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -132,6 +144,8 @@ Global
 		{E636BB37-5D15-4221-AA2E-B74B3658EC5D} = {809E016C-9CDB-43C1-AFB9-0D372F77A275}
 		{B01B40C8-D35D-47A8-8EEE-FD56DE184948} = {809E016C-9CDB-43C1-AFB9-0D372F77A275}
 		{ADF7F876-3279-4246-9017-285E705E8FE1} = {809E016C-9CDB-43C1-AFB9-0D372F77A275}
+		{E4F79221-A38C-409A-A744-CCDAB233BB11} = {809E016C-9CDB-43C1-AFB9-0D372F77A275}
+		{CD531019-D603-4D3C-8AE5-E4C83F1A11E8} = {809E016C-9CDB-43C1-AFB9-0D372F77A275}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CBDFC198-519D-4F43-9613-405CE006A1B8}

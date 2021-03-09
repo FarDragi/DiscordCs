@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DiscordCs.Gateway\DiscordCs.Gateway.csproj" />
+    <ProjectReference Include="..\DiscordCs.Logging\DiscordCs.Logging.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
 ﻿using FarDragi.DiscordCs.Entity.Models.IdentifyModels;
+using FarDragi.DiscordCs.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,9 +15,9 @@ namespace FarDragi.DiscordCs.Gateway.Standard
             _config = config;
         }
 
-        public IGatewayClient GetClient(Identify identify)
+        public IGatewayClient GetClient(Identify identify, ILogger logger)
         {
-            return new GatewayStandardClient(identify, _config);
+            return new GatewayStandardClient(identify, _config, logger);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using FarDragi.DiscordCs.Entity.Models.IdentifyModels;
 using FarDragi.DiscordCs.Gateway;
+using FarDragi.DiscordCs.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,11 +11,14 @@ namespace FarDragi.DiscordCs
     public class Client
     {
         private readonly ClientConfig _clientConfig;
+        private readonly ILogger _logger;
         private List<IGatewayClient> _gateways;
 
         public Client(ClientConfig clientConfig)
         {
             _clientConfig = clientConfig;
+            _logger = clientConfig.GetLogger();
+            _logger.Log(LoggingLevel.Info, "DiscordCs v0.1-dev");
         }
 
         #region Login
@@ -25,7 +29,7 @@ namespace FarDragi.DiscordCs
 
             async Task Register(Identify identify)
             {
-                IGatewayClient gatewayClient = gatewayContext.GetClient(identify);
+                IGatewayClient gatewayClient = gatewayContext.GetClient(identify, _logger);
                 await gatewayClient.Open();
                 _gateways.Add(gatewayClient);
             }

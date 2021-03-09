@@ -1,4 +1,5 @@
 ﻿using FarDragi.DiscordCs;
+using FarDragi.DiscordCs.Logging;
 using System;
 using System.Configuration;
 using System.Threading.Tasks;
@@ -26,7 +27,8 @@ namespace BotTest
                 Identify =
                 {
                     Token = token
-                }
+                },
+                LoggingLevel = LoggingLevel.Info
             });
 
             await client.Login();

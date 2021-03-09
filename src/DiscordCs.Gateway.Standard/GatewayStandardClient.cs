@@ -6,6 +6,7 @@ using FarDragi.DiscordCs.Entity.Models.PayloadModels;
 using FarDragi.DiscordCs.Entity.Models.ReadyModels;
 using FarDragi.DiscordCs.Entity.Models.ResumeModels;
 using FarDragi.DiscordCs.Gateway.Standard.Functions;
+using FarDragi.DiscordCs.Logging;
 using SuperSocket.ClientEngine;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
         private WebSocket _socket;
         private readonly Identify _identify;
         private readonly GatewayStandardConfig _config;
+        private readonly ILogger _logger;
         private readonly Decompressor _decompressor;
         private CancellationTokenSource _tokenSource;
         private int _sequenceNumber;
@@ -29,10 +31,11 @@ namespace FarDragi.DiscordCs.Gateway.Standard
         private string _sessionId;
         private readonly JsonSerializerOptions _jsonSerializerOptions;
 
-        public GatewayStandardClient(Identify identify, GatewayStandardConfig config)
+        public GatewayStandardClient(Identify identify, GatewayStandardConfig config, ILogger logger)
         {
             _identify = identify;
             _config = config;
+            _logger = logger;
             _firstConnection = true;
             _decompressor = new Decompressor();
             _jsonSerializerOptions = new JsonSerializerOptions()
@@ -56,9 +59,9 @@ namespace FarDragi.DiscordCs.Gateway.Standard
 
         private void Socket_DataReceived(object sender, DataReceivedEventArgs e)
         {
-            if (_decompressor.TryDecompress(e.Data, out ReadOnlySpan<byte> stream))
+            if (_decompressor.TryDecompress(e.Data, out string json))
             {
-                Payload<JsonElement> payload = JsonSerializer.Deserialize<Payload<JsonElement>>(stream, _jsonSerializerOptions);
+                Payload<JsonElement> payload = JsonSerializer.Deserialize<Payload<JsonElement>>(json, _jsonSerializerOptions);
 
                 _sequenceNumber = payload.SequenceNumber ?? _sequenceNumber;
 
@@ -81,6 +84,8 @@ namespace FarDragi.DiscordCs.Gateway.Standard
                     default:
                         break;
                 }
+
+                _logger.Log(LoggingLevel.Verbose, json);
             }
         }
 
@@ -108,6 +113,8 @@ namespace FarDragi.DiscordCs.Gateway.Standard
 
         public void Receive(Payload<JsonElement> payload)
         {
+            _logger.Log(LoggingLevel.Info, $"[{payload.Event}] Received");
+
             if (payload.Event == "READY")
             {
                 Ready ready = payload.Data.ToObject<Ready>(_jsonSerializerOptions);
@@ -155,15 +162,11 @@ namespace FarDragi.DiscordCs.Gateway.Standard
                 {
                     await Task.Delay(hello.HeartbeatInterval, token);
 
-                    if (token.CanBeCanceled)
-                    {
-                        return;
-                    }
-
                     Send(new PayloadHeartbeat
                     {
                         Data = _sequenceNumber
                     });
+                    _logger.Log(LoggingLevel.Info, "Send heartbeat");
                 }
             }
             catch (Exception)
@@ -177,7 +180,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
 
         public Task Open()
         {
-            Console.WriteLine("Abrindo...");
+            _logger.Log(LoggingLevel.Verbose, "Iniciando Socket");
             InitSocket();
             _socket.Open();
             return Task.CompletedTask;
@@ -186,6 +189,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
         public void Dispose()
         {
             _socket?.Dispose();
+            _tokenSource?.Cancel();
             _tokenSource?.Dispose();
         }
     }
