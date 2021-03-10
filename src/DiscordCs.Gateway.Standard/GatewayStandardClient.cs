@@ -20,20 +20,24 @@ namespace FarDragi.DiscordCs.Gateway.Standard
 {
     public class GatewayStandardClient : IGatewayClient
     {
-        private WebSocket _socket;
+        private readonly IGatewayContext _gatewayContext;
         private readonly Identify _identify;
         private readonly GatewayStandardConfig _config;
         private readonly ILogger _logger;
         private readonly Decompressor _decompressor;
+        private readonly JsonSerializerOptions _jsonSerializerOptions;
+        private readonly System.Diagnostics.Stopwatch _stopwatch;
+
+        private WebSocket _socket;
         private CancellationTokenSource _tokenSource;
         private int _sequenceNumber;
         private bool _firstConnection;
         private string _sessionId;
-        private readonly JsonSerializerOptions _jsonSerializerOptions;
-        private readonly System.Diagnostics.Stopwatch _stopwatch;
+        private long _ping;
 
-        public GatewayStandardClient(Identify identify, GatewayStandardConfig config, ILogger logger)
+        public GatewayStandardClient(IGatewayContext gatewayContext, Identify identify, GatewayStandardConfig config, ILogger logger)
         {
+            _gatewayContext = gatewayContext;
             _identify = identify;
             _config = config;
             _logger = logger;
@@ -48,6 +52,12 @@ namespace FarDragi.DiscordCs.Gateway.Standard
             };
             _stopwatch = new System.Diagnostics.Stopwatch();
         }
+
+        #region Get/Set
+
+        public long Ping { get => _ping; }
+
+        #endregion
 
         #region Events
 
@@ -70,7 +80,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
                 switch (payload.OpCode)
                 {
                     case PayloadOpCode.Dispatch:
-                        Receive(payload);
+                        Received(payload, json);
                         break;
                     case PayloadOpCode.Hello:
                         Hello hello = payload.Data.ToObject<Hello>(_jsonSerializerOptions);
@@ -79,7 +89,8 @@ namespace FarDragi.DiscordCs.Gateway.Standard
                         break;
                     case PayloadOpCode.HeartbeatACK:
                         _stopwatch.Stop();
-                        _logger.Log(LoggingLevel.Info, $"Received heartbeat ping {_stopwatch.ElapsedMilliseconds}ms");
+                        _logger.Log(LoggingLevel.Info, $"Received heartbeat");
+                        _ping = _stopwatch.ElapsedMilliseconds;
                         _stopwatch.Reset();
                         break;
                     case PayloadOpCode.InvalidSession:
@@ -118,19 +129,10 @@ namespace FarDragi.DiscordCs.Gateway.Standard
 
         #region Recive/Send
 
-        public void Receive(Payload<JsonElement> payload)
+        public void Received(Payload<JsonElement> payload, string json)
         {
-            _logger.Log(LoggingLevel.Info, $"[{payload.Event}] Received");
-
-            if (payload.Event == "READY")
-            {
-                Ready ready = payload.Data.ToObject<Ready>(_jsonSerializerOptions);
-                _sessionId = ready.SessionId;
-            }
-            else if (payload.Event == "GUILD_CREATE")
-            {
-                Guild guild = payload.Data.ToObject<Guild>(_jsonSerializerOptions);
-            }
+            _logger.Log(LoggingLevel.Info, $"Received {payload.Event}");
+            _gatewayContext.OnReceivedEvent(this, payload, json, _jsonSerializerOptions);
         }
 
         public void Send(object obj)
@@ -186,9 +188,11 @@ namespace FarDragi.DiscordCs.Gateway.Standard
 
         #endregion
 
+        #region On/Off
+
         public Task Open()
         {
-            _logger.Log(LoggingLevel.Verbose, "Iniciando Socket");
+            _logger.Log(LoggingLevel.Info, $"Start shard {_identify.Shard[0]}");
             InitSocket();
             _socket.Open();
             return Task.CompletedTask;
@@ -200,5 +204,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
             _tokenSource?.Cancel();
             _tokenSource?.Dispose();
         }
+
+        #endregion
     }
 }

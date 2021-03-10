@@ -1,13 +1,18 @@
 ﻿using FarDragi.DiscordCs.Entity.Models.IdentifyModels;
+using FarDragi.DiscordCs.Entity.Models.PayloadModels;
 using FarDragi.DiscordCs.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs.Gateway
 {
     public interface IGatewayContext
     {
-        IGatewayClient GetClient(Identify identify, ILogger logger);
+        public Task AddClient(Identify identify);
+        public void Init(int shards, IGatewayEvents events, ILogger logger);
+        public void OnReceivedEvent(IGatewayClient gatewayClient, Payload<JsonElement> payload, string json, JsonSerializerOptions serializerOptions);
     }
 }

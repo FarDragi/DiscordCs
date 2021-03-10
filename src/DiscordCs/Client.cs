@@ -1,4 +1,7 @@
-﻿using FarDragi.DiscordCs.Entity.Models.IdentifyModels;
+﻿using FarDragi.DiscordCs.Entity.Interfaces;
+using FarDragi.DiscordCs.Entity.Models.GuildModels;
+using FarDragi.DiscordCs.Entity.Models.IdentifyModels;
+using FarDragi.DiscordCs.Entity.Models.ReadyModels;
 using FarDragi.DiscordCs.Gateway;
 using FarDragi.DiscordCs.Logging;
 using Pastel;
@@ -9,11 +12,12 @@ using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs
 {
-    public class Client
+    public class Client : IGatewayEvents
     {
         private readonly ClientConfig _clientConfig;
         private readonly ILogger _logger;
-        private List<IGatewayClient> _gateways;
+
+        private IGatewayContext _gatewayContext;
 
         public Client(ClientConfig clientConfig)
         {
@@ -26,18 +30,16 @@ namespace FarDragi.DiscordCs
 
         private async Task Init()
         {
-            IGatewayContext gatewayContext = _clientConfig.GetGatewayContext();
+            _gatewayContext = _clientConfig.GetGatewayContext();
 
             async Task Register(Identify identify)
             {
-                IGatewayClient gatewayClient = gatewayContext.GetClient(identify, _logger);
-                await gatewayClient.Open();
-                _gateways.Add(gatewayClient);
+                await _gatewayContext.AddClient(identify);
             }
 
             if (_clientConfig.IsAutoSharding)
             {
-                _gateways = new List<IGatewayClient>(_clientConfig.Shards);
+                _gatewayContext.Init(_clientConfig.Shards, this, _logger);
 
                 for (int i = 0; i < _clientConfig.Shards; i++)
                 {
@@ -51,7 +53,7 @@ namespace FarDragi.DiscordCs
             }
             else
             {
-                _gateways = new List<IGatewayClient>(1);
+                _gatewayContext.Init(1, this, _logger);
 
                 await Register(_clientConfig.GetIdentify(_clientConfig.Shard));
             }
@@ -66,6 +68,37 @@ namespace FarDragi.DiscordCs
         {
             await Init();
             await Task.Delay(-1);
+        }
+
+        #endregion
+
+        #region Events
+
+        public delegate Task ClientEventHandler<TEntity>(object sender, TEntity entity);
+
+        public event ClientEventHandler<string> Raw;
+        public event ClientEventHandler<Ready> Ready;
+        public event ClientEventHandler<Guild> GuildCreate;
+
+        public virtual async void OnRaw(IGatewayClient gatewayClient, string json)
+        {
+            await Task.Yield();
+
+            Raw?.Invoke(gatewayClient, json);
+        }
+
+        public virtual async void OnReady(IGatewayClient gatewayClient, Ready ready)
+        {
+            await Task.Yield();
+
+            Ready?.Invoke(gatewayClient, ready);
+        }
+
+        public virtual async void OnGuildCreate(IGatewayClient gatewayClient, Guild guild)
+        {
+            await Task.Yield();
+
+            GuildCreate?.Invoke(gatewayClient, guild);
         }
 
         #endregion

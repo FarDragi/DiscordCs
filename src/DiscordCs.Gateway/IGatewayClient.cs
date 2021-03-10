@@ -7,6 +7,7 @@ namespace FarDragi.DiscordCs.Gateway
 {
     public interface IGatewayClient : IDisposable
     {
+        public long Ping { get; }
         Task Open();
     }
 }

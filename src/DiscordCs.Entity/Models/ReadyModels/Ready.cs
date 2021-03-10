@@ -1,4 +1,5 @@
-﻿using FarDragi.DiscordCs.Entity.Models.ApplicationModels;
+﻿using FarDragi.DiscordCs.Entity.Interfaces;
+using FarDragi.DiscordCs.Entity.Models.ApplicationModels;
 using FarDragi.DiscordCs.Entity.Models.GuildModels;
 using FarDragi.DiscordCs.Entity.Models.UserModels;
 using System;
@@ -11,7 +12,7 @@ namespace FarDragi.DiscordCs.Entity.Models.ReadyModels
     /// <summary>
     /// https://discord.com/developers/docs/topics/gateway#ready-ready-event-fields
     /// </summary>
-    public class Ready
+    public class Ready : IEntity
     {
         [JsonPropertyName("v")]
         public int Vesion { get; set; }
