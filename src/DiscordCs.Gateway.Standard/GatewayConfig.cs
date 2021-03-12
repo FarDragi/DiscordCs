@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FarDragi.DiscordCs.Gateway.Standard
 {
-    public class GatewayStandardConfig
+    public class GatewayConfig
     {
         public const string UrlFormat = "{0}/?v={1}&encoding={2}&compress=zlib-stream";
         private int _version;

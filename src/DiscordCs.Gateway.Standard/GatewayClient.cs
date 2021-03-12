@@ -1,4 +1,5 @@
-﻿using FarDragi.DiscordCs.Entity.Converters;
+﻿using FarDragi.DiscordCs.Caching;
+using FarDragi.DiscordCs.Entity.Converters;
 using FarDragi.DiscordCs.Entity.Models.GuildModels;
 using FarDragi.DiscordCs.Entity.Models.HelloModels;
 using FarDragi.DiscordCs.Entity.Models.IdentifyModels;
@@ -18,12 +19,13 @@ using WebSocket4Net;
 
 namespace FarDragi.DiscordCs.Gateway.Standard
 {
-    public class GatewayStandardClient : IGatewayClient
+    public class GatewayClient : IGatewayClient
     {
         private readonly IGatewayContext _gatewayContext;
         private readonly Identify _identify;
-        private readonly GatewayStandardConfig _config;
+        private readonly GatewayConfig _config;
         private readonly ILogger _logger;
+        private readonly ICacheContext _cacheContext;
         private readonly Decompressor _decompressor;
         private readonly JsonSerializerOptions _jsonSerializerOptions;
         private readonly System.Diagnostics.Stopwatch _stopwatch;
@@ -35,19 +37,22 @@ namespace FarDragi.DiscordCs.Gateway.Standard
         private string _sessionId;
         private long _ping;
 
-        public GatewayStandardClient(IGatewayContext gatewayContext, Identify identify, GatewayStandardConfig config, ILogger logger)
+        public GatewayClient(IGatewayContext gatewayContext, Identify identify, GatewayConfig config, ILogger logger, ICacheContext cacheContext)
         {
             _gatewayContext = gatewayContext;
             _identify = identify;
             _config = config;
             _logger = logger;
+            _cacheContext = cacheContext;
             _firstConnection = true;
             _decompressor = new Decompressor();
             _jsonSerializerOptions = new JsonSerializerOptions()
             {
                 Converters =
                 {
-                    new ULongConverter()
+                    new ULongConverter(),
+                    new MemberCollectionConverter(_cacheContext),
+                    new UserCollectionConverter(_cacheContext)
                 }
             };
             _stopwatch = new System.Diagnostics.Stopwatch();
@@ -56,6 +61,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
         #region Get/Set
 
         public long Ping { get => _ping; }
+        public string SessionId { set => _sessionId = value; }
 
         #endregion
 

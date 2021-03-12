@@ -1,4 +1,5 @@
-﻿using FarDragi.DiscordCs.Entity.Converters;
+﻿using FarDragi.DiscordCs.Caching;
+using FarDragi.DiscordCs.Entity.Converters;
 using FarDragi.DiscordCs.Entity.Interfaces;
 using FarDragi.DiscordCs.Entity.Models.GuildModels;
 using FarDragi.DiscordCs.Entity.Models.IdentifyModels;
@@ -13,32 +14,32 @@ using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs.Gateway.Standard
 {
-    public class GatewayStandardContext : IGatewayContext
+    public class GatewayContext : IGatewayContext
     {
-        private readonly GatewayStandardConfig _config;
+        private readonly GatewayConfig _config;
         private List<IGatewayClient> _clients;
         private ILogger _logger;
         private IGatewayEvents _events;
+        private ICacheContext _cacheContext;
 
-        public event EventHandler<Ready> Ready;
-
-        public GatewayStandardContext(GatewayStandardConfig config)
+        public GatewayContext(GatewayConfig config)
         {
             _config = config;
         }
 
         public async Task AddClient(Identify identify)
         {
-            IGatewayClient client = new GatewayStandardClient(this, identify, _config, _logger);
+            IGatewayClient client = new GatewayClient(this, identify, _config, _logger, _cacheContext);
             await client.Open();
             _clients.Add(client);
         }
 
-        public void Init(int shards, IGatewayEvents events, ILogger logger)
+        public void Init(int shards, IGatewayEvents events, ILogger logger, ICacheContext cacheContext)
         {
             _clients = new List<IGatewayClient>(shards);
             _logger = logger;
             _events = events;
+            _cacheContext = cacheContext;
         }
 
         public void OnReceivedEvent(IGatewayClient gatewayClient, Payload<JsonElement> payload, string json, JsonSerializerOptions serializerOptions)

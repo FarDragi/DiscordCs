@@ -13,8 +13,4 @@
     <ProjectReference Include="..\FarDragi.DiscordCs.Rest\FarDragi.DiscordCs.Rest.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Logging\" />
-  </ItemGroup>
-
 </Project>

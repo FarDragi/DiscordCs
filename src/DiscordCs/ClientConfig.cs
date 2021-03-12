@@ -1,4 +1,6 @@
-﻿using FarDragi.DiscordCs.Entity.Models.IdentifyModels;
+﻿using FarDragi.DiscordCs.Caching;
+using FarDragi.DiscordCs.Caching.Standard;
+using FarDragi.DiscordCs.Entity.Models.IdentifyModels;
 using FarDragi.DiscordCs.Entity.Models.PresenceModels;
 using FarDragi.DiscordCs.Gateway;
 using FarDragi.DiscordCs.Gateway.Standard;
@@ -12,14 +14,9 @@ namespace FarDragi.DiscordCs
 {
     public class ClientConfig
     {
-        private IGatewayContext _gateway;
-        private ILogger _logger;
-        private readonly Identify _identify;
-        private LoggingLevel? _loggingLevel;
-
         public ClientConfig()
         {
-            _identify = new Identify
+            Identify = new Identify
             {
                 IsCompress = true,
                 Properties = new IdentifyProperties
@@ -36,61 +33,42 @@ namespace FarDragi.DiscordCs
                 Intents = IdentifyIntent.Default,
                 IsGuildSubscriptions = false
             };
+            GatewayContext = new GatewayContext(new GatewayConfig
+            {
+                BaseUrl = "wss://gateway.discord.gg",
+                Version = 8,
+                Encoding = "json"
+            });
+            LoggerContext = new Logger
+            {
+                Level = LoggingLevel.Warning
+            };
+            CacheContext = new CacheContext(new CacheConfig
+            {
+
+            });
         }
 
-        public Identify Identify { get => _identify; }
+        public Identify Identify { get; private set; }
         public int Shards { get; set; } = 1;
-        public IGatewayContext GatewayContext { set => _gateway = value; }
-        public ILogger LoggerContext { set => _logger = value; }
-        public LoggingLevel LoggingLevel { set => _loggingLevel = value; }
+        public IGatewayContext GatewayContext { get; set; }
+        public ICacheContext CacheContext { get; set; }
+        public ILogger LoggerContext { get; set; }
         public bool IsAutoSharding { get; set; } = true;
         public int[] Shard { get; set; }
-
-        public IGatewayContext GetGatewayContext()
-        {
-            if (_gateway == null)
-            {
-                _gateway = new GatewayStandardContext(new GatewayStandardConfig
-                {
-                    BaseUrl = "wss://gateway.discord.gg",
-                    Version = 8,
-                    Encoding = "json"
-                });
-            }
-
-            return _gateway;
-        }
-
-        public ILogger GetLogger()
-        {
-            if (_logger == null)
-            {
-                _logger = new LoggerStandard()
-                {
-                    Level = LoggingLevel.Warning
-                };
-            }
-
-            if (_loggingLevel != null)
-            {
-                _logger.Level = (LoggingLevel)_loggingLevel;
-            }
-
-            return _logger;
-        }
 
         public Identify GetIdentify(int[] shard)
         {
             return new Identify
             {
-                Intents = _identify.Intents,
-                IsCompress = _identify.IsCompress,
-                IsGuildSubscriptions = _identify.IsGuildSubscriptions,
-                LargeThreshold = _identify.LargeThreshold,
-                Presence = _identify.Presence,
-                Properties = _identify.Properties,
+                Intents = Identify.Intents,
+                IsCompress = Identify.IsCompress,
+                IsGuildSubscriptions = Identify.IsGuildSubscriptions,
+                LargeThreshold = Identify.LargeThreshold,
+                Presence = Identify.Presence,
+                Properties = Identify.Properties,
                 Shard = shard,
-                Token = _identify.Token
+                Token = Identify.Token
             };
         }
     }

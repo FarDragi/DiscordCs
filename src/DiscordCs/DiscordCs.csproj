@@ -6,11 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DiscordCs.Caching.Standard\DiscordCs.Caching.Standard.csproj" />
     <ProjectReference Include="..\DiscordCs.Entity\DiscordCs.Entity.csproj" />
     <ProjectReference Include="..\DiscordCs.Gateway.Standard\DiscordCs.Gateway.Standard.csproj" />
-    <ProjectReference Include="..\DiscordCs.Gateway\DiscordCs.Gateway.csproj" />
     <ProjectReference Include="..\DiscordCs.Logging.Standard\DiscordCs.Logging.Standard.csproj" />
-    <ProjectReference Include="..\DiscordCs.Logging\DiscordCs.Logging.csproj" />
   </ItemGroup>
 
 </Project>

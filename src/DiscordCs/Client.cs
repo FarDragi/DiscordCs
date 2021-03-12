@@ -1,7 +1,11 @@
-﻿using FarDragi.DiscordCs.Entity.Interfaces;
+﻿using FarDragi.DiscordCs.Args;
+using FarDragi.DiscordCs.Caching;
+using FarDragi.DiscordCs.Entity.Collections;
+using FarDragi.DiscordCs.Entity.Interfaces;
 using FarDragi.DiscordCs.Entity.Models.GuildModels;
 using FarDragi.DiscordCs.Entity.Models.IdentifyModels;
 using FarDragi.DiscordCs.Entity.Models.ReadyModels;
+using FarDragi.DiscordCs.Entity.Models.UserModels;
 using FarDragi.DiscordCs.Gateway;
 using FarDragi.DiscordCs.Logging;
 using Pastel;
@@ -15,22 +19,23 @@ namespace FarDragi.DiscordCs
     public class Client : IGatewayEvents
     {
         private readonly ClientConfig _clientConfig;
-        private readonly ILogger _logger;
 
         private IGatewayContext _gatewayContext;
+        private ICacheContext _cacheContext;
 
         public Client(ClientConfig clientConfig)
         {
             _clientConfig = clientConfig;
-            _logger = clientConfig.GetLogger();
-            _logger.Log(LoggingLevel.Dcs, "DiscosCs v0.1-dev");
+            Logger = clientConfig.LoggerContext;
+            Logger.Log(LoggingLevel.Dcs, "DiscosCs v0.1-dev");
+            InitCollections();
         }
 
         #region Login
 
         private async Task Init()
         {
-            _gatewayContext = _clientConfig.GetGatewayContext();
+            _gatewayContext = _clientConfig.GatewayContext;
 
             async Task Register(Identify identify)
             {
@@ -39,7 +44,7 @@ namespace FarDragi.DiscordCs
 
             if (_clientConfig.IsAutoSharding)
             {
-                _gatewayContext.Init(_clientConfig.Shards, this, _logger);
+                _gatewayContext.Init(_clientConfig.Shards, this, Logger, _cacheContext);
 
                 for (int i = 0; i < _clientConfig.Shards; i++)
                 {
@@ -53,7 +58,7 @@ namespace FarDragi.DiscordCs
             }
             else
             {
-                _gatewayContext.Init(1, this, _logger);
+                _gatewayContext.Init(1, this, Logger, _cacheContext);
 
                 await Register(_clientConfig.GetIdentify(_clientConfig.Shard));
             }
@@ -72,9 +77,24 @@ namespace FarDragi.DiscordCs
 
         #endregion
 
+        #region Datas
+
+        public User User { get; private set; }
+        public ILogger Logger { get; set; }
+        public GuildCollection Guilds { get; private set; }
+        public UserCollection Users { get; private set; }
+
+        public void InitCollections()
+        {
+            _cacheContext = _clientConfig.CacheContext;
+            Guilds = new GuildCollection(_cacheContext.GetCache<Guild, ulong>());
+        }
+
+        #endregion
+
         #region Events
 
-        public delegate Task ClientEventHandler<TEntity>(object sender, TEntity entity);
+        public delegate Task ClientEventHandler<TEntity>(Client client, ClientArgs<TEntity> args);
 
         public event ClientEventHandler<string> Raw;
         public event ClientEventHandler<Ready> Ready;
@@ -84,21 +104,38 @@ namespace FarDragi.DiscordCs
         {
             await Task.Yield();
 
-            Raw?.Invoke(gatewayClient, json);
+            Raw?.Invoke(this, new ClientArgs<string>
+            {
+                GatewayClient = gatewayClient,
+                Data = json
+            });
         }
 
         public virtual async void OnReady(IGatewayClient gatewayClient, Ready ready)
         {
             await Task.Yield();
 
-            Ready?.Invoke(gatewayClient, ready);
+            gatewayClient.SessionId = ready.SessionId;
+            User = ready.User;
+
+            Ready?.Invoke(this, new ClientArgs<Ready>
+            {
+                GatewayClient = gatewayClient,
+                Data = ready
+            });
         }
 
         public virtual async void OnGuildCreate(IGatewayClient gatewayClient, Guild guild)
         {
             await Task.Yield();
 
-            GuildCreate?.Invoke(gatewayClient, guild);
+            Guilds.Caching(ref guild);
+
+            GuildCreate?.Invoke(this, new ClientArgs<Guild>
+            {
+                GatewayClient = gatewayClient,
+                Data = guild
+            });
         }
 
         #endregion

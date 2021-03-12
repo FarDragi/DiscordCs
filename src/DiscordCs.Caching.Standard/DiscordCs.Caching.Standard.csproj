@@ -5,4 +5,8 @@
     <RootNamespace>FarDragi.DiscordCs.Caching.Standard</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DiscordCs.Caching\DiscordCs.Caching.csproj" />
+  </ItemGroup>
+
 </Project>

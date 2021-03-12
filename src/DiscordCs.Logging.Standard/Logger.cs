@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs.Logging.Standard
 {
-    public class LoggerStandard : ILogger
+    public class Logger : ILogger
     {
         private LoggingLevel _level;
         private const string DateColor = "#08b1e2";

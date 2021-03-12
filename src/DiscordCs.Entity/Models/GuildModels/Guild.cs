@@ -1,4 +1,5 @@
-﻿using FarDragi.DiscordCs.Entity.Models.ChannelModels;
+﻿using FarDragi.DiscordCs.Entity.Collections;
+using FarDragi.DiscordCs.Entity.Models.ChannelModels;
 using FarDragi.DiscordCs.Entity.Models.EmojiModels;
 using FarDragi.DiscordCs.Entity.Models.MemberModels;
 using FarDragi.DiscordCs.Entity.Models.PresenceModels;
@@ -107,7 +108,7 @@ namespace FarDragi.DiscordCs.Entity.Models.GuildModels
         public Voice[] Voices { get; set; }
 
         [JsonPropertyName("members")]
-        public Member[] Members { get; set; }
+        public MemberCollection Members { get; set; }
 
         [JsonPropertyName("channels")]
         public Channel[] Channels { get; set; }

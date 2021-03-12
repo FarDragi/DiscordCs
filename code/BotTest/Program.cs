@@ -1,9 +1,12 @@
 ﻿using FarDragi.DiscordCs;
+using FarDragi.DiscordCs.Args;
+using FarDragi.DiscordCs.Entity.Models.GuildModels;
 using FarDragi.DiscordCs.Entity.Models.ReadyModels;
 using FarDragi.DiscordCs.Logging;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BotTest
@@ -31,17 +34,26 @@ namespace BotTest
                 {
                     Token = token
                 },
-                LoggingLevel = LoggingLevel.Info
+                LoggerContext =
+                {
+                    Level = LoggingLevel.Info
+                }
             });
 
             client.Ready += Client_Ready;
+            client.GuildCreate += Client_GuildCreate;
 
             await client.Login();
         }
 
-        private async static Task Client_Ready(object sender, Ready entity)
+        private async static Task Client_GuildCreate(Client client, ClientArgs<Guild> args)
         {
-            Console.WriteLine(entity.User.UserName);
+            //client.Logger.Log(LoggingLevel.Info, args.Data.Members.Count().ToString());
+            Console.WriteLine(args.Data.Id);
+        }
+
+        private async static Task Client_Ready(Client client, ClientArgs<Ready> args)
+        {
         }
     }
 }
