@@ -5,12 +5,12 @@
     /// </summary>
     public enum ChannelTypes
     {
-        GuildText = 0,
-        DirectMessage = 1,
-        GuildVoice = 2,
-        GroupDirectMessage = 3,
+        TextChannel = 0,
+        DmChannel = 1,
+        VoiceChannel = 2,
+        DmGroup = 3,
         GuildCategory = 4,
-        GuildNews = 5,
-        GuildStore = 6
+        NewsChannel = 5,
+        StoreChannel = 6
     }
 }

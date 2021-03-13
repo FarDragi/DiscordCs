@@ -10,7 +10,7 @@ namespace FarDragi.DiscordCs.Entity.Converters
     {
         public override bool CanConvert(Type typeToConvert)
         {
-            return typeof(TimeSpan).IsAssignableFrom(typeToConvert);
+            return typeof(TimeSpan) == typeToConvert;
         }
 
         public override TimeSpan Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)

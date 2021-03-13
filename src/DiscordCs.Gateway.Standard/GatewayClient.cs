@@ -53,8 +53,10 @@ namespace FarDragi.DiscordCs.Gateway.Standard
                     new MemberCollectionConverter(_cacheContext),
                     new UserCollectionConverter(_cacheContext),
                     new ChannelCollectionConverter(_cacheContext),
+                    new GuildChannelCollectionConverter(_cacheContext),
                     new ULongConverter(),
-                    new TimeSpanConverter()
+                    new TimeSpanConverter(),
+                    new GuildChannelConverter()
                 }
             };
             _stopwatch = new System.Diagnostics.Stopwatch();

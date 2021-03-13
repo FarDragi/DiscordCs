@@ -9,25 +9,25 @@ using System.Text.Json.Serialization;
 
 namespace FarDragi.DiscordCs.Entity.Converters
 {
-    public class ChannelCollectionConverter : JsonConverter<ChannelCollection>
+    public class GuildChannelCollectionConverter : JsonConverter<GuildChannelsCollection>
     {
         private readonly ICacheContext _cacheContext;
 
-        public ChannelCollectionConverter(ICacheContext cacheContext)
+        public GuildChannelCollectionConverter(ICacheContext cacheContext)
         {
             _cacheContext = cacheContext;
         }
 
         public override bool CanConvert(Type typeToConvert)
         {
-            return typeof(ChannelCollection) == typeToConvert;
+            return typeof(GuildChannelsCollection) == typeToConvert;
         }
 
-        public override ChannelCollection Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        public override GuildChannelsCollection Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            ChannelCollection channelCollection = new ChannelCollection(_cacheContext.GetCache<ulong, Channel>());
+            GuildChannelsCollection channelCollection = new GuildChannelsCollection(_cacheContext.GetCache<ulong, GuildChannel>());
             JsonDocument document = JsonDocument.ParseValue(ref reader);
-            Channel[] channels = document.ToObject<Channel[]>(options);
+            GuildChannel[] channels = document.ToObject<GuildChannel[]>(options);
             for (int i = 0; i < channels.Length; i++)
             {
                 channelCollection.Caching(ref channels[i]);
@@ -36,9 +36,9 @@ namespace FarDragi.DiscordCs.Entity.Converters
             return channelCollection;
         }
 
-        public override void Write(Utf8JsonWriter writer, ChannelCollection value, JsonSerializerOptions options)
+        public override void Write(Utf8JsonWriter writer, GuildChannelsCollection value, JsonSerializerOptions options)
         {
-            JsonSerializer.Serialize(writer, (IEnumerable<Channel>)value);
+            JsonSerializer.Serialize(writer, (IEnumerable<GuildChannel>)value);
         }
     }
 }

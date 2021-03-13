@@ -21,7 +21,7 @@ namespace FarDragi.DiscordCs.Entity.Converters
 
         public override bool CanConvert(Type typeToConvert)
         {
-            return typeof(MemberCollection).IsAssignableFrom(typeToConvert);
+            return typeof(MemberCollection) == typeToConvert;
         }
 
         public override MemberCollection Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)

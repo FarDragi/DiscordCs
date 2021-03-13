@@ -1,5 +1,6 @@
 ﻿using FarDragi.DiscordCs.Entity.Models.UserModels;
 using System;
+using System.Diagnostics;
 using System.Text.Json.Serialization;
 
 namespace FarDragi.DiscordCs.Entity.Models.MemberModels
@@ -7,6 +8,7 @@ namespace FarDragi.DiscordCs.Entity.Models.MemberModels
     /// <summary>
     /// https://discord.com/developers/docs/resources/guild#guild-member-object-guild-member-structure
     /// </summary>
+    [DebuggerDisplay("({User.Id, nq}) {(Nick == null) ? User.UserName : Nick, nq}#{User.Discriminator, nq}")]
     public class Member
     {
         [JsonPropertyName("user")]

@@ -104,14 +104,14 @@ namespace FarDragi.DiscordCs.Entity.Models.GuildModels
         [JsonPropertyName("member_count")]
         public int MemberCount { get; set; }
 
-        [JsonIgnore]
+        [JsonPropertyName("voices")]
         public Voice[] Voices { get; set; }
 
         [JsonPropertyName("members")]
         public MemberCollection Members { get; set; }
 
         [JsonPropertyName("channels")]
-        public ChannelCollection Channels { get; set; }
+        public GuildChannelsCollection Channels { get; set; }
 
         [JsonPropertyName("presences")]
         public Presence[] Presences { get; set; }

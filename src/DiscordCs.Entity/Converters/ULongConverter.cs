@@ -10,7 +10,7 @@ namespace FarDragi.DiscordCs.Entity.Converters
     {
         public override bool CanConvert(Type typeToConvert)
         {
-            return typeof(ulong).IsAssignableFrom(typeToConvert);
+            return typeof(ulong) == typeToConvert;
         }
 
         public override ulong Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
