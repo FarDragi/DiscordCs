@@ -1,5 +1,6 @@
 ﻿using FarDragi.DiscordCs.Caching;
 using FarDragi.DiscordCs.Entity.Converters;
+using FarDragi.DiscordCs.Entity.Interfaces;
 using FarDragi.DiscordCs.Entity.Models.GuildModels;
 using FarDragi.DiscordCs.Entity.Models.HelloModels;
 using FarDragi.DiscordCs.Entity.Models.IdentifyModels;
@@ -25,7 +26,6 @@ namespace FarDragi.DiscordCs.Gateway.Standard
         private readonly Identify _identify;
         private readonly GatewayConfig _config;
         private readonly ILogger _logger;
-        private readonly ICacheContext _cacheContext;
         private readonly Decompressor _decompressor;
         private readonly JsonSerializerOptions _jsonSerializerOptions;
         private readonly System.Diagnostics.Stopwatch _stopwatch;
@@ -37,23 +37,21 @@ namespace FarDragi.DiscordCs.Gateway.Standard
         private string _sessionId;
         private long _ping;
 
-        public GatewayClient(IGatewayContext gatewayContext, Identify identify, GatewayConfig config, ILogger logger, ICacheContext cacheContext)
+        public GatewayClient(IGatewayContext gatewayContext, Identify identify, GatewayConfig config, ILogger logger, ICacheContext cacheContext, IDatas datas)
         {
             _gatewayContext = gatewayContext;
             _identify = identify;
             _config = config;
             _logger = logger;
-            _cacheContext = cacheContext;
             _firstConnection = true;
             _decompressor = new Decompressor();
             _jsonSerializerOptions = new JsonSerializerOptions()
             {
                 Converters =
                 {
-                    new MemberCollectionConverter(_cacheContext),
-                    new UserCollectionConverter(_cacheContext),
-                    new ChannelCollectionConverter(_cacheContext),
-                    new GuildChannelCollectionConverter(_cacheContext),
+                    new MemberCollectionConverter(cacheContext, datas),
+                    new UserCollectionConverter(cacheContext, datas),
+                    new GuildChannelCollectionConverter(cacheContext, datas),
                     new ULongConverter(),
                     new TimeSpanConverter(),
                     new GuildChannelConverter()

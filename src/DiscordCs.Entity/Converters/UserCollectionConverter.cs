@@ -1,5 +1,6 @@
 ﻿using FarDragi.DiscordCs.Caching;
 using FarDragi.DiscordCs.Entity.Collections;
+using FarDragi.DiscordCs.Entity.Interfaces;
 using FarDragi.DiscordCs.Entity.Models.UserModels;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,12 @@ namespace FarDragi.DiscordCs.Entity.Converters
     public class UserCollectionConverter : JsonConverter<UserCollection>
     {
         private readonly ICacheContext _cacheContext;
+        private readonly IDatas _datas;
 
-        public UserCollectionConverter(ICacheContext cacheContext)
+        public UserCollectionConverter(ICacheContext cacheContext, IDatas datas)
         {
             _cacheContext = cacheContext;
+            _datas = datas;
         }
 
         public override bool CanConvert(Type typeToConvert)
@@ -31,6 +34,7 @@ namespace FarDragi.DiscordCs.Entity.Converters
             for (int i = 0; i < users.Length; i++)
             {
                 usersCollection.Caching(ref users[i]);
+                _datas.Users.Caching(ref users[i]);
             }
 
             return usersCollection;

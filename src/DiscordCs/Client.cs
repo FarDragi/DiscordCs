@@ -2,6 +2,7 @@
 using FarDragi.DiscordCs.Caching;
 using FarDragi.DiscordCs.Entity.Collections;
 using FarDragi.DiscordCs.Entity.Interfaces;
+using FarDragi.DiscordCs.Entity.Models.ChannelModels;
 using FarDragi.DiscordCs.Entity.Models.GuildModels;
 using FarDragi.DiscordCs.Entity.Models.IdentifyModels;
 using FarDragi.DiscordCs.Entity.Models.ReadyModels;
@@ -17,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs
 {
-    public class Client : IGatewayEvents
+    public class Client : IGatewayEvents, IDatas
     {
         private readonly ClientConfig _clientConfig;
 
@@ -45,7 +46,7 @@ namespace FarDragi.DiscordCs
 
             if (_clientConfig.IsAutoSharding)
             {
-                _gatewayContext.Init(_clientConfig.Shards, this, Logger, _cacheContext);
+                _gatewayContext.Init(_clientConfig.Shards, this, Logger, _cacheContext, this);
 
                 for (int i = 0; i < _clientConfig.Shards; i++)
                 {
@@ -59,7 +60,7 @@ namespace FarDragi.DiscordCs
             }
             else
             {
-                _gatewayContext.Init(1, this, Logger, _cacheContext);
+                _gatewayContext.Init(1, this, Logger, _cacheContext, this);
 
                 await Register(_clientConfig.GetIdentify(_clientConfig.Shard));
             }
@@ -84,12 +85,14 @@ namespace FarDragi.DiscordCs
         public ILogger Logger { get; set; }
         public GuildCollection Guilds { get; private set; }
         public UserCollection Users { get; private set; }
+        public GuildChannelsCollection Channels { get; private set; }
 
         public void InitCollections()
         {
             _cacheContext = _clientConfig.CacheContext;
             Guilds = new GuildCollection(_cacheContext.GetCache<ulong, Guild>());
             Users = new UserCollection(_cacheContext.GetCache<ulong, User>());
+            Channels = new GuildChannelsCollection(_cacheContext.GetCache<ulong, GuildChannel>());
         }
 
         #endregion
@@ -134,12 +137,6 @@ namespace FarDragi.DiscordCs
             await Task.Yield();
 
             Guilds.Caching(ref guild);
-
-            Parallel.ForEach(guild.Members, x =>
-            {
-                User user = x.User;
-                Users.Caching(ref user);
-            });
 
             GuildCreate?.Invoke(this, new ClientArgs<Guild>
             {

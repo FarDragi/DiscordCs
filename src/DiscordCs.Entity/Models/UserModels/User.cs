@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -8,6 +9,7 @@ namespace FarDragi.DiscordCs.Entity.Models.UserModels
     /// <summary>
     /// https://discord.com/developers/docs/resources/user#user-object-user-structure
     /// </summary>
+    [DebuggerDisplay("({Id, nq}) {UserName, nq}#{Discriminator, nq}")]
     public class User
     {
         [JsonPropertyName("id")]

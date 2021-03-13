@@ -10,7 +10,7 @@ namespace FarDragi.DiscordCs.Entity.Models.ChannelModels
     /// <summary>
     /// https://discord.com/developers/docs/resources/channel#channel-object-channel-structure
     /// </summary>
-    [DebuggerDisplay("{Type, nq}")]
+    [DebuggerDisplay("({Id, nq}) {Type, nq}")]
     public class Channel
     {
         [JsonPropertyName("id")]

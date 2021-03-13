@@ -12,7 +12,7 @@ namespace FarDragi.DiscordCs.Entity.Models.ReadyModels
     /// <summary>
     /// https://discord.com/developers/docs/topics/gateway#ready-ready-event-fields
     /// </summary>
-    public class Ready : IEntity
+    public class Ready
     {
         [JsonPropertyName("v")]
         public int Vesion { get; set; }
