@@ -7,8 +7,6 @@ using FarDragi.DiscordCs.Gateway.Standard;
 using FarDragi.DiscordCs.Logging;
 using FarDragi.DiscordCs.Logging.Standard;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FarDragi.DiscordCs
 {

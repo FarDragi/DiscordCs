@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FarDragi.DiscordCs.Entity.Models.PresenceModels
+﻿namespace FarDragi.DiscordCs.Entity.Models.PresenceModels
 {
     /// <summary>
     /// https://discord.com/developers/docs/topics/gateway#presence-update-presence-update-event-fields

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FarDragi.DiscordCs.Args
+﻿namespace FarDragi.DiscordCs.Args
 {
     public class ClientArgs
     {

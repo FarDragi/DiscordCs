@@ -1,9 +1,5 @@
 ﻿using Pastel;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs.Logging.Standard
 {
@@ -17,7 +13,7 @@ namespace FarDragi.DiscordCs.Logging.Standard
         private const string ErrorColor = "#ca3431";
         private const string VerboseColor = "#804b9d";
 
-        public LoggingLevel Level { get => _level;  set => _level = value; }
+        public LoggingLevel Level { get => _level; set => _level = value; }
 
         public void Log(LoggingLevel level, string message)
         {

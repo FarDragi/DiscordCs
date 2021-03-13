@@ -1,10 +1,7 @@
 ﻿using FarDragi.DiscordCs.Caching;
 using FarDragi.DiscordCs.Entity.Models.ChannelModels;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 
 namespace FarDragi.DiscordCs.Entity.Collections
 {

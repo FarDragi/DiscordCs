@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FarDragi.DiscordCs.Gateway.Standard
+﻿namespace FarDragi.DiscordCs.Gateway.Standard
 {
     public class GatewayConfig
     {

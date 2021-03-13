@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FarDragi.DiscordCs.Entity.Models.PayloadModels
+﻿namespace FarDragi.DiscordCs.Entity.Models.PayloadModels
 {
     /// <summary>
     /// https://discord.com/developers/docs/topics/gateway#heartbeating

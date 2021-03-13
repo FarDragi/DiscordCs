@@ -4,7 +4,6 @@ using FarDragi.DiscordCs.Json.Entities.HelloModels;
 using FarDragi.DiscordCs.Json.Entities.ResumeModels;
 using SuperSocket.ClientEngine;
 using System;
-using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;

@@ -1,13 +1,9 @@
 ﻿using FarDragi.DiscordCs.Entity.Collections;
-using FarDragi.DiscordCs.Entity.Models.ChannelModels;
 using FarDragi.DiscordCs.Entity.Models.EmojiModels;
-using FarDragi.DiscordCs.Entity.Models.MemberModels;
 using FarDragi.DiscordCs.Entity.Models.PresenceModels;
 using FarDragi.DiscordCs.Entity.Models.RoleModels;
 using FarDragi.DiscordCs.Entity.Models.VoiceModels;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.Json.Serialization;
 
 namespace FarDragi.DiscordCs.Entity.Models.GuildModels

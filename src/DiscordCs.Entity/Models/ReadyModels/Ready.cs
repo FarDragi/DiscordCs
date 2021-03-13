@@ -1,10 +1,6 @@
-﻿using FarDragi.DiscordCs.Entity.Interfaces;
-using FarDragi.DiscordCs.Entity.Models.ApplicationModels;
+﻿using FarDragi.DiscordCs.Entity.Models.ApplicationModels;
 using FarDragi.DiscordCs.Entity.Models.GuildModels;
 using FarDragi.DiscordCs.Entity.Models.UserModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.Json.Serialization;
 
 namespace FarDragi.DiscordCs.Entity.Models.ReadyModels

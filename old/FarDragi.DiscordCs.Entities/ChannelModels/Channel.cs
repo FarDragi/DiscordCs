@@ -1,5 +1,4 @@
-﻿using FarDragi.DiscordCs.Entities.Converters;
-using FarDragi.DiscordCs.Entities.PermissionModels;
+﻿using FarDragi.DiscordCs.Entities.PermissionModels;
 using Newtonsoft.Json;
 using System;
 
@@ -24,7 +23,7 @@ namespace FarDragi.DiscordCs.Entities.ChannelModels
 
         [JsonProperty("permission_overwrites")]
         private PermissionOverwrite[] _permissionOverwrites { get; set; }
-        
+
         [JsonProperty("name")]
         public string Name { get; set; }
 

@@ -1,9 +1,7 @@
 ﻿using FarDragi.DiscordCs.Caching;
 using FarDragi.DiscordCs.Entity.Models.UserModels;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FarDragi.DiscordCs.Entity.Collections
 {

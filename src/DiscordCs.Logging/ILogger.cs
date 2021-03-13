@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FarDragi.DiscordCs.Logging
+﻿namespace FarDragi.DiscordCs.Logging
 {
     public interface ILogger
     {

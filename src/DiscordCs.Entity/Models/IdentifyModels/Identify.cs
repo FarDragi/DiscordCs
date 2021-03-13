@@ -1,7 +1,4 @@
 ﻿using FarDragi.DiscordCs.Entity.Models.PresenceModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.Json.Serialization;
 
 namespace FarDragi.DiscordCs.Entity.Models.IdentifyModels
