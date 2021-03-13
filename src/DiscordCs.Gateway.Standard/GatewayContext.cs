@@ -49,7 +49,9 @@ namespace FarDragi.DiscordCs.Gateway.Standard
             switch (payload.Event)
             {
                 case "GUILD_CREATE":
-                    _events.OnGuildCreate(gatewayClient, payload.Data.ToObject<Guild>(serializerOptions));
+                    var a = payload.Data.ToObject<Guild>(serializerOptions);
+                    Console.WriteLine(JsonSerializer.Serialize(a, serializerOptions));
+                    _events.OnGuildCreate(gatewayClient, a);
                     break;
                 case "READY":
                     _events.OnReady(gatewayClient, payload.Data.ToObject<Ready>(serializerOptions));
@@ -57,6 +59,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
                 default:
                     break;
             }
+
         }
     }
 }

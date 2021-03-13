@@ -11,6 +11,7 @@ using FarDragi.DiscordCs.Logging;
 using Pastel;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -88,6 +89,7 @@ namespace FarDragi.DiscordCs
         {
             _cacheContext = _clientConfig.CacheContext;
             Guilds = new GuildCollection(_cacheContext.GetCache<Guild, ulong>());
+            Users = new UserCollection(_cacheContext.GetCache<User, ulong>());
         }
 
         #endregion
@@ -116,7 +118,9 @@ namespace FarDragi.DiscordCs
             await Task.Yield();
 
             gatewayClient.SessionId = ready.SessionId;
-            User = ready.User;
+            User user = ready.User;
+            Users.Caching(ref user);
+            User = user;
 
             Ready?.Invoke(this, new ClientArgs<Ready>
             {
@@ -130,6 +134,12 @@ namespace FarDragi.DiscordCs
             await Task.Yield();
 
             Guilds.Caching(ref guild);
+
+            Parallel.ForEach(guild.Members, x =>
+            {
+                User user = x.User;
+                Users.Caching(ref user);
+            });
 
             GuildCreate?.Invoke(this, new ClientArgs<Guild>
             {

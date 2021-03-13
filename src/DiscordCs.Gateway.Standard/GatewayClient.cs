@@ -52,7 +52,8 @@ namespace FarDragi.DiscordCs.Gateway.Standard
                 {
                     new ULongConverter(),
                     new MemberCollectionConverter(_cacheContext),
-                    new UserCollectionConverter(_cacheContext)
+                    new UserCollectionConverter(_cacheContext),
+                    new TimeSpanConverter()
                 }
             };
             _stopwatch = new System.Diagnostics.Stopwatch();

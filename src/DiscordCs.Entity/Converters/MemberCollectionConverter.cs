@@ -26,7 +26,6 @@ namespace FarDragi.DiscordCs.Entity.Converters
         public override MemberCollection Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             MemberCollection memberCollection = new MemberCollection(_cacheContext.GetCache<Member, ulong>());
-            //Member[] members = JsonSerializer.Deserialize<Member[]>(reader.ValueSpan, options);
             JsonDocument document = JsonDocument.ParseValue(ref reader);
             Member[] members = document.ToObject<Member[]>(options);
             for (int i = 0; i < members.Length; i++)

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace FarDragi.DiscordCs.Entity.Collections
 {
-    public class GuildCollection : ICacheable<Guild, ulong>, IEnumerable<Guild>
+    public class GuildCollection : ICacheable<Guild, ulong>
     {
         private readonly ICache<Guild, ulong> _cache;
 
