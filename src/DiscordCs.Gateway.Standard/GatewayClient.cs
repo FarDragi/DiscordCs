@@ -50,9 +50,10 @@ namespace FarDragi.DiscordCs.Gateway.Standard
             {
                 Converters =
                 {
-                    new ULongConverter(),
                     new MemberCollectionConverter(_cacheContext),
                     new UserCollectionConverter(_cacheContext),
+                    new ChannelCollectionConverter(_cacheContext),
+                    new ULongConverter(),
                     new TimeSpanConverter()
                 }
             };

@@ -1,5 +1,5 @@
 ﻿using FarDragi.DiscordCs.Caching;
-using FarDragi.DiscordCs.Entity.Models.MemberModels;
+using FarDragi.DiscordCs.Entity.Models.ChannelModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,27 +7,27 @@ using System.Text;
 
 namespace FarDragi.DiscordCs.Entity.Collections
 {
-    public class MemberCollection : ICacheable<ulong, Member>
+    public class ChannelCollection : ICacheable<ulong, Channel>
     {
-        private readonly ICache<ulong, Member> _cache;
+        private readonly ICache<ulong, Channel> _cache;
 
-        public MemberCollection(ICache<ulong, Member> cache)
+        public ChannelCollection(ICache<ulong, Channel> cache)
         {
             _cache = cache;
         }
 
-        public Member Caching(ref Member entity)
+        public Channel Caching(ref Channel entity)
         {
-            _cache.Add(entity.User.Id, ref entity);
+            _cache.Add(entity.Id, ref entity);
             return entity;
         }
 
-        public Member Find(ulong key)
+        public Channel Find(ulong key)
         {
             return _cache.Get(key);
         }
 
-        public IEnumerator<Member> GetEnumerator()
+        public IEnumerator<Channel> GetEnumerator()
         {
             return _cache.GetEnumerator();
         }

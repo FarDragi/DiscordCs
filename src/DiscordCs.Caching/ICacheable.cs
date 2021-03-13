@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FarDragi.DiscordCs.Caching
 {
-    public interface ICacheable<TEntity, TKeyType> : IEnumerable<TEntity>
+    public interface ICacheable<TKeyType, TEntity> : IEnumerable<TEntity>
     {
         public TEntity Caching(ref TEntity entity);
         public TEntity Find(TKeyType key);

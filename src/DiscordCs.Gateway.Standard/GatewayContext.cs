@@ -50,7 +50,6 @@ namespace FarDragi.DiscordCs.Gateway.Standard
             {
                 case "GUILD_CREATE":
                     var a = payload.Data.ToObject<Guild>(serializerOptions);
-                    Console.WriteLine(JsonSerializer.Serialize(a, serializerOptions));
                     _events.OnGuildCreate(gatewayClient, a);
                     break;
                 case "READY":

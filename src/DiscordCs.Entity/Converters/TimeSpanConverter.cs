@@ -25,7 +25,7 @@ namespace FarDragi.DiscordCs.Entity.Converters
 
         public override void Write(Utf8JsonWriter writer, TimeSpan value, JsonSerializerOptions options)
         {
-            writer.WriteStringValue((value.Ticks * 1000).ToString());
+            JsonSerializer.Serialize(writer, value.Ticks * 1000);
         }
     }
 }

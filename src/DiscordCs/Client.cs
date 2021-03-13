@@ -88,8 +88,8 @@ namespace FarDragi.DiscordCs
         public void InitCollections()
         {
             _cacheContext = _clientConfig.CacheContext;
-            Guilds = new GuildCollection(_cacheContext.GetCache<Guild, ulong>());
-            Users = new UserCollection(_cacheContext.GetCache<User, ulong>());
+            Guilds = new GuildCollection(_cacheContext.GetCache<ulong, Guild>());
+            Users = new UserCollection(_cacheContext.GetCache<ulong, User>());
         }
 
         #endregion

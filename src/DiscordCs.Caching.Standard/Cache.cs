@@ -8,7 +8,7 @@ using System.Text;
 
 namespace FarDragi.DiscordCs.Caching.Standard
 {
-    public class Cache<TEntity, TKeyType> : ICache<TEntity, TKeyType>
+    public class Cache<TKeyType, TEntity> : ICache<TKeyType, TEntity>
     {
         private SortedList<TKeyType, TEntity> _entities { get; set; }
 
@@ -17,7 +17,7 @@ namespace FarDragi.DiscordCs.Caching.Standard
             _entities = new SortedList<TKeyType, TEntity>();
         }
 
-        public Cache(Cache<TEntity, TKeyType> cache)
+        public Cache(Cache<TKeyType, TEntity> cache)
         {
             _entities = cache._entities;
         }
@@ -58,7 +58,7 @@ namespace FarDragi.DiscordCs.Caching.Standard
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            yield return _entities.Values;
+            return (IEnumerator)_entities.Values;
         }
     }
 }

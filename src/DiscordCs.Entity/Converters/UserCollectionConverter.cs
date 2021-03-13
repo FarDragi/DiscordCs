@@ -25,7 +25,7 @@ namespace FarDragi.DiscordCs.Entity.Converters
 
         public override UserCollection Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            UserCollection usersCollection = new UserCollection(_cacheContext.GetCache<User, ulong>());
+            UserCollection usersCollection = new UserCollection(_cacheContext.GetCache<ulong, User>());
             User[] users = JsonSerializer.Deserialize<User[]>(reader.ValueSpan, options);
 
             for (int i = 0; i < users.Length; i++)
@@ -38,7 +38,7 @@ namespace FarDragi.DiscordCs.Entity.Converters
 
         public override void Write(Utf8JsonWriter writer, UserCollection value, JsonSerializerOptions options)
         {
-            writer.WriteBase64StringValue(JsonSerializer.SerializeToUtf8Bytes(value, options));
+            JsonSerializer.Serialize(writer, (IEnumerable<User>)value);
         }
     }
 }

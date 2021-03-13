@@ -7,11 +7,11 @@ using System.Text;
 
 namespace FarDragi.DiscordCs.Entity.Collections
 {
-    public class UserCollection : ICacheable<User, ulong>
+    public class UserCollection : ICacheable<ulong, User>
     {
-        private ICache<User, ulong> _cache;
+        private readonly ICache<ulong, User> _cache;
 
-        public UserCollection(ICache<User, ulong> cache)
+        public UserCollection(ICache<ulong, User> cache)
         {
             _cache = cache;
         }
