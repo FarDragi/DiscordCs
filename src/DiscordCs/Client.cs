@@ -9,21 +9,39 @@ using FarDragi.DiscordCs.Entity.Models.ReadyModels;
 using FarDragi.DiscordCs.Entity.Models.UserModels;
 using FarDragi.DiscordCs.Gateway;
 using FarDragi.DiscordCs.Logging;
+using FarDragi.DiscordCs.Rest;
 using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs
 {
     public class Client : IGatewayEvents, IDatas
     {
-        private readonly ClientConfig _clientConfig;
+        private ClientConfig _clientConfig;
 
         private IGatewayContext _gatewayContext;
         private ICacheContext _cacheContext;
+        private IRestContext _restContext;
 
         public Client(ClientConfig clientConfig)
         {
+            StartConfig(clientConfig);
+        }
+
+        public Client(string token)
+        {
+            StartConfig(new ClientConfig
+            {
+                Identify =
+                {
+                    Token = token
+                }
+            });
+        }
+
+        private void StartConfig(ClientConfig clientConfig)
+        {
             _clientConfig = clientConfig;
-            Logger = clientConfig.LoggerContext;
+            Logger = clientConfig.Logger;
             Logger.Log(LoggingLevel.Dcs, "DiscosCs v0.1-dev");
             InitCollections();
         }

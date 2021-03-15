@@ -10,6 +10,7 @@
     <ProjectReference Include="..\DiscordCs.Entity\DiscordCs.Entity.csproj" />
     <ProjectReference Include="..\DiscordCs.Gateway.Standard\DiscordCs.Gateway.Standard.csproj" />
     <ProjectReference Include="..\DiscordCs.Logging.Standard\DiscordCs.Logging.Standard.csproj" />
+    <ProjectReference Include="..\DiscordCs.Rest.Standard\DiscordCs.Rest.Standard.csproj" />
   </ItemGroup>
 
 </Project>

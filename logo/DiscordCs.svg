@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="400mm"
+   height="400mm"
+   viewBox="0 0 400 400"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="DiscordCs.svg"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15, custom)">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.34065104"
+     inkscape:cx="466.52339"
+     inkscape:cy="793.40024"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     inkscape:snap-object-midpoints="false"
+     inkscape:snap-center="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#06c270;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.242502;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate;stop-color:#000000;stop-opacity:1"
+       d="m 258.64309,362.51652 c -27.03784,0 -89.67716,0 -117.28619,0 -27.60903,0 -35.5148,-0.56974 -52.778789,-30.47185 -17.263989,-29.90211 -41.201716,-71.36348 -58.643095,-101.57283 -17.441379,-30.20935 -17.711619,-30.26628 2e-6,-60.9437 17.711621,-30.67742 39.951663,-69.1983 58.643101,-101.572818 18.691441,-32.374516 25.740951,-30.471846 52.778791,-30.471845 27.03784,10e-7 89.67717,5e-6 117.28619,6e-6 27.60902,10e-7 35.5148,0.569744 52.77879,30.47185 17.26399,29.902106 40.80791,70.681397 58.64309,101.572827 17.83518,30.89143 17.26399,31.0416 0,60.9437 -17.26399,29.9021 -40.80792,70.68138 -58.6431,101.57281 -17.83518,30.89143 -25.74095,30.47185 -52.77879,30.47185 z"
+       id="path10"
+       transform="matrix(0,1.045528,-1.045528,0,409.1056,-9.1056001)"
+       sodipodi:nodetypes="zzzzzzzzzzzzz" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:105.833px;line-height:1.25;font-family:sans-serif;fill:#f2f2f2;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="62.885311"
+       y="249.47153"
+       id="text889"><tspan
+         id="tspan887"
+         x="62.885311"
+         y="249.47153"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:141.111px;font-family:Roboto;-inkscape-font-specification:'Roboto Bold';fill:#f2f2f2;stroke-width:0.264583"
+         sodipodi:role="line">D.cs</tspan></text>
+  </g>
+</svg>

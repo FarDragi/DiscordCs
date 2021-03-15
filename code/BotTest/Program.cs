@@ -34,9 +34,16 @@ namespace BotTest
                     Token = token,
                     Intents = IdentifyIntent.Default
                 },
-                LoggerContext =
+                Logger =
                 {
                     Level = LoggingLevel.Info
+                },
+                Rest =
+                {
+                    Config =
+                    {
+                        Type = "Bearer"
+                    }
                 }
             });
 

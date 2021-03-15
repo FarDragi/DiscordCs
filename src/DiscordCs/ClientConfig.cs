@@ -6,6 +6,8 @@ using FarDragi.DiscordCs.Gateway;
 using FarDragi.DiscordCs.Gateway.Standard;
 using FarDragi.DiscordCs.Logging;
 using FarDragi.DiscordCs.Logging.Standard;
+using FarDragi.DiscordCs.Rest;
+using FarDragi.DiscordCs.Rest.Standard;
 using System;
 
 namespace FarDragi.DiscordCs
@@ -37,7 +39,7 @@ namespace FarDragi.DiscordCs
                 Version = 8,
                 Encoding = "json"
             });
-            LoggerContext = new Logger
+            Logger = new Logger
             {
                 Level = LoggingLevel.Warning
             };
@@ -45,13 +47,19 @@ namespace FarDragi.DiscordCs
             {
 
             });
+            Rest = new RestContext(new RestConfig
+            {
+                BaseUrl = "https://discord.com",
+                Version = 8
+            });
         }
 
         public Identify Identify { get; private set; }
         public int Shards { get; set; } = 1;
         public IGatewayContext GatewayContext { get; set; }
         public ICacheContext CacheContext { get; set; }
-        public ILogger LoggerContext { get; set; }
+        public IRestContext Rest { get; set; }
+        public ILogger Logger { get; set; }
         public bool IsAutoSharding { get; set; } = true;
         public int[] Shard { get; set; }
 

@@ -5,4 +5,8 @@
     <RootNamespace>FarDragi.DiscordCs.Rest.Standard</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DiscordCs.Rest\DiscordCs.Rest.csproj" />
+  </ItemGroup>
+
 </Project>
