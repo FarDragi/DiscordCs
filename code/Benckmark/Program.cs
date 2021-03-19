@@ -6,11 +6,11 @@ using System.Linq;
 
 namespace Benckmark
 {
-    class Program
+    static class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            var summary = BenchmarkRunner.Run<Testes>();
+            _ = BenchmarkRunner.Run<Testes>();
         }
     }
 
@@ -19,7 +19,7 @@ namespace Benckmark
     {
         [Params(10000)]
         public int Quantidade { get; set; }
-        public Random Random = new Random();
+        private readonly Random Random = new Random();
 
         [Benchmark]
         public void SortedDictionary()
@@ -31,7 +31,7 @@ namespace Benckmark
                 pairs.Add(i, i);
             }
 
-            var findLinq = pairs.FirstOrDefault(x => x.Key == Quantidade - 1);
+            _ = pairs.FirstOrDefault(x => x.Key == Quantidade - 1);
         }
 
         [Benchmark]
@@ -51,7 +51,7 @@ namespace Benckmark
                 }
             }
 
-            var findLinq = pairs.FirstOrDefault(x => x.Key == chave);
+            _ = pairs.FirstOrDefault(x => x.Key == chave);
         }
 
         [Benchmark]
@@ -64,7 +64,7 @@ namespace Benckmark
                 pairs.Add(i, i);
             }
 
-            var findLinq = pairs.FirstOrDefault(x => x.Key == Quantidade - 1);
+            _ = pairs.FirstOrDefault(x => x.Key == Quantidade - 1);
         }
 
         [Benchmark]
@@ -84,7 +84,7 @@ namespace Benckmark
                 }
             }
 
-            var findLinq = pairs.FirstOrDefault(x => x.Key == chave);
+            _ = pairs.FirstOrDefault(x => x.Key == chave);
         }
 
         [Benchmark]
@@ -104,7 +104,7 @@ namespace Benckmark
                 }
             }
 
-            var findLinq = pairs.FirstOrDefault(x => x.Key == chave);
+            _ = pairs.FirstOrDefault(x => x.Key == chave);
         }
 
         [Benchmark]
@@ -121,7 +121,7 @@ namespace Benckmark
                 tuples.Add(Tuple.Create(chave, i));
             }
 
-            var findLinq = tuples.FirstOrDefault(x => x.Item1 == chave);
+            _ = tuples.FirstOrDefault(x => x.Item1 == chave);
         }
 
         [Benchmark]
@@ -138,7 +138,7 @@ namespace Benckmark
                 tuples.Add(ValueTuple.Create(chave, i));
             }
 
-            var findLinq = tuples.FirstOrDefault(x => x.Item1 == chave);
+            _ = tuples.FirstOrDefault(x => x.Item1 == chave);
         }
     }
 }

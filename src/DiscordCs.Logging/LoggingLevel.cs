@@ -4,6 +4,7 @@
     {
         None,
         Dcs,
+        Severity,
         Error,
         Warning,
         Info,

@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace BotTest
 {
-    class Program
+    static class Program
     {
 
-        static async Task Main(string[] args)
+        static async Task Main()
         {
             string token = ConfigurationManager.AppSettings["token"];
             if (token == null)
@@ -38,13 +38,6 @@ namespace BotTest
                 {
                     Level = LoggingLevel.Info
                 },
-                Rest =
-                {
-                    Config =
-                    {
-                        Type = "Bearer"
-                    }
-                }
             });
 
             client.Ready += Client_Ready;
@@ -53,12 +46,14 @@ namespace BotTest
             await client.Login();
         }
 
-        private async static Task Client_GuildCreate(Client client, ClientArgs<Guild> args)
+        private static Task Client_GuildCreate(Client client, ClientArgs<Guild> args)
         {
+            return Task.CompletedTask;
         }
 
-        private async static Task Client_Ready(Client client, ClientArgs<Ready> args)
+        private static Task Client_Ready(Client client, ClientArgs<Ready> args)
         {
+            return Task.CompletedTask;
         }
     }
 }

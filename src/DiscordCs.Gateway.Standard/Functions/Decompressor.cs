@@ -39,24 +39,22 @@ namespace FarDragi.DiscordCs.Gateway.Standard.Functions
                 return false;
             }
 
-            using (MemoryStream decompressed = new MemoryStream())
+            using MemoryStream decompressed = new MemoryStream();
+            try
             {
-                try
-                {
-                    _decompressor.CopyTo(decompressed);
-                    json = Encoding.UTF8.GetString(decompressed.ToArray());
-                    return true;
-                }
-                catch
-                {
-                    json = null;
-                    return false;
-                }
-                finally
-                {
-                    _compressed.Position = 0;
-                    _compressed.SetLength(0);
-                }
+                _decompressor.CopyTo(decompressed);
+                json = Encoding.UTF8.GetString(decompressed.ToArray());
+                return true;
+            }
+            catch
+            {
+                json = null;
+                return false;
+            }
+            finally
+            {
+                _compressed.Position = 0;
+                _compressed.SetLength(0);
             }
         }
     }

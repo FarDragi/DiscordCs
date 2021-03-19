@@ -68,7 +68,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
         private void InitSocket()
         {
             _socket = new WebSocket(_config.GetUrl());
-            _socket.Closed += Ssocket_Closed;
+            _socket.Closed += Socket_Closed;
             _socket.Error += Socket_Error;
             _socket.DataReceived += Socket_DataReceived;
         }
@@ -116,11 +116,20 @@ namespace FarDragi.DiscordCs.Gateway.Standard
             _socket.Close();
         }
 
-        private void Ssocket_Closed(object sender, EventArgs e)
+        private void Socket_Closed(object sender, EventArgs e)
         {
             if (e is ClosedEventArgs args)
             {
-                _logger.Log(LoggingLevel.Warning, $"Code: {args.Code} Reason: {args.Reason}\n");
+                if (args.Code == 4004)
+                {
+                    _logger.Log(LoggingLevel.Severity, $"Code: {args.Code} Reason: {args.Reason}");
+                    return;
+                } 
+                else
+                {
+                    _logger.Log(LoggingLevel.Warning, $"Code: {args.Code} Reason: {args.Reason}\n");
+
+                }
 
                 _socket.Dispose();
                 _tokenSource.Cancel();
@@ -186,7 +195,6 @@ namespace FarDragi.DiscordCs.Gateway.Standard
             catch (Exception)
             {
                 _tokenSource.Dispose();
-                return;
             }
         }
 

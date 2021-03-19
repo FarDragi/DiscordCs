@@ -3,7 +3,7 @@
     /// <summary>
     /// https://discord.com/developers/docs/topics/gateway#presence-update-presence-update-event-fields
     /// </summary>
-    public class PresenceStatus
+    public static class PresenceStatus
     {
         public const string Online = "online";
         public const string Dnd = "dnd";

@@ -1,19 +1,16 @@
 ﻿namespace FarDragi.DiscordCs.Gateway.Standard
 {
-    public class GatewayConfig
+    public class GatewayConfig : IGatewayConfig
     {
         public const string UrlFormat = "{0}/?v={1}&encoding={2}&compress=zlib-stream";
-        private int _version;
-        private string _encoding;
-        private string _baseUrl;
 
-        public int Version { set => _version = value; }
-        public string Encoding { set => _encoding = value; }
-        public string BaseUrl { set => _baseUrl = value; }
+        public int Version { get; set; }
+        public string Encoding { get; set; }
+        public string BaseUrl { get; set; }
 
         public string GetUrl()
         {
-            return string.Format(UrlFormat, _baseUrl, _version, _encoding);
+            return string.Format(UrlFormat, BaseUrl, Version, Encoding);
         }
     }
 }

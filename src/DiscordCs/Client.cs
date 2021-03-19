@@ -41,6 +41,8 @@ namespace FarDragi.DiscordCs
         private void StartConfig(ClientConfig clientConfig)
         {
             _clientConfig = clientConfig;
+            _restContext = clientConfig.GetRest();
+            _gatewayContext = clientConfig.GetGateway();
             Logger = clientConfig.Logger;
             Logger.Log(LoggingLevel.Dcs, "DiscosCs v0.1-dev");
             InitCollections();
@@ -50,7 +52,7 @@ namespace FarDragi.DiscordCs
 
         private async Task Init()
         {
-            _gatewayContext = _clientConfig.GatewayContext;
+            _restContext.Init();
 
             async Task Register(Identify identify)
             {

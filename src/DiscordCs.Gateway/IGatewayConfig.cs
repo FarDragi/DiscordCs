@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FarDragi.DiscordCs.Rest
+namespace FarDragi.DiscordCs.Gateway
 {
-    public interface IRestConfig
+    public interface IGatewayConfig
     {
-        public string Type { get; set; }
         public int Version { get; set; }
+        public string Encoding { get; set; }
         public string BaseUrl { get; set; }
-        public string Token { get; set; }
     }
 }

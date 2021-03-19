@@ -12,6 +12,7 @@ namespace FarDragi.DiscordCs.Gateway
     {
         public Task AddClient(Identify identify);
         public void Init(int shards, IGatewayEvents events, ILogger logger, ICacheContext cacheContext, IDatas datas);
+        public void Confgi(IGatewayConfig config);
         public void OnReceivedEvent(IGatewayClient gatewayClient, Payload<JsonElement> payload, string json, JsonSerializerOptions serializerOptions);
     }
 }

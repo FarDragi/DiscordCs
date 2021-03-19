@@ -6,6 +6,8 @@ namespace FarDragi.DiscordCs.Rest
 {
     public interface IRestContext
     {
-        public IRestConfig Config { get; }
+        public IRestClient GetClient(string urlFormat);
+        public void Init();
+        public void Config(IRestConfig config);
     }
 }

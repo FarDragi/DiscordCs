@@ -15,23 +15,26 @@ namespace FarDragi.DiscordCs.Gateway.Standard
 {
     public class GatewayContext : IGatewayContext
     {
-        private readonly GatewayConfig _config;
+        private GatewayConfig _config;
         private List<IGatewayClient> _clients;
         private ILogger _logger;
         private IGatewayEvents _events;
         private ICacheContext _cacheContext;
         private IDatas _datas;
 
-        public GatewayContext(GatewayConfig config)
-        {
-            _config = config;
-        }
-
         public async Task AddClient(Identify identify)
         {
             IGatewayClient client = new GatewayClient(this, identify, _config, _logger, _cacheContext, _datas);
             await client.Open();
             _clients.Add(client);
+        }
+
+        public void Confgi(IGatewayConfig config)
+        {
+            if (config is GatewayConfig gatewayConfig)
+            {
+                _config = gatewayConfig;
+            }
         }
 
         public void Init(int shards, IGatewayEvents events, ILogger logger, ICacheContext cacheContext, IDatas datas)

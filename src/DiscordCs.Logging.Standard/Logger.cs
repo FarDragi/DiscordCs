@@ -1,23 +1,24 @@
 ﻿using Pastel;
 using System;
+using System.Drawing;
 
 namespace FarDragi.DiscordCs.Logging.Standard
 {
     public class Logger : ILogger
     {
-        private LoggingLevel _level;
         private const string DateColor = "#08b1e2";
         private const string DcsColor = "#24ae91";
         private const string InfoColor = "#8dc748";
         private const string WarningColor = "#ffc20e";
         private const string ErrorColor = "#ca3431";
         private const string VerboseColor = "#804b9d";
+        private const string SeveriryColor = "#e93519";
 
-        public LoggingLevel Level { get => _level; set => _level = value; }
+        public LoggingLevel Level { get; set; }
 
         public void Log(LoggingLevel level, string message)
         {
-            if (level > _level)
+            if (level > Level)
             {
                 return;
             }
@@ -41,6 +42,9 @@ namespace FarDragi.DiscordCs.Logging.Standard
                     break;
                 case LoggingLevel.Verbose:
                     Console.WriteLine("{0} {1} --> {2}", messageDate, "[ Veb ]".Pastel(VerboseColor), message);
+                    break;
+                case LoggingLevel.Severity:
+                    Console.WriteLine("{0} {1} --> {2}", messageDate, "[ Sev ]".Pastel(Color.Black).PastelBg(SeveriryColor), message);
                     break;
                 default:
                     break;
