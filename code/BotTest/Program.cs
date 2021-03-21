@@ -2,6 +2,7 @@
 using FarDragi.DiscordCs.Args;
 using FarDragi.DiscordCs.Entity.Models.GuildModels;
 using FarDragi.DiscordCs.Entity.Models.IdentifyModels;
+using FarDragi.DiscordCs.Entity.Models.MessageModels;
 using FarDragi.DiscordCs.Entity.Models.ReadyModels;
 using FarDragi.DiscordCs.Logging;
 using System;
@@ -27,7 +28,7 @@ namespace BotTest
                 ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
             }
 
-            Client client = new Client(new ClientConfig
+            Client client = new(new ClientConfig
             {
                 Identify =
                 {
@@ -42,8 +43,15 @@ namespace BotTest
 
             client.Ready += Client_Ready;
             client.GuildCreate += Client_GuildCreate;
+            client.MessageCreate += Client_MessageCreate;
 
             await client.Login();
+        }
+
+        private static Task Client_MessageCreate(Client client, ClientArgs<Message> args)
+        {
+            client.Logger.Log(LoggingLevel.Dcs, args.Data.Content);
+            return Task.CompletedTask;
         }
 
         private static Task Client_GuildCreate(Client client, ClientArgs<Guild> args)

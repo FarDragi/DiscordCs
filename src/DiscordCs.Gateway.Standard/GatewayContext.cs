@@ -3,6 +3,7 @@ using FarDragi.DiscordCs.Entity.Converters;
 using FarDragi.DiscordCs.Entity.Interfaces;
 using FarDragi.DiscordCs.Entity.Models.GuildModels;
 using FarDragi.DiscordCs.Entity.Models.IdentifyModels;
+using FarDragi.DiscordCs.Entity.Models.MessageModels;
 using FarDragi.DiscordCs.Entity.Models.PayloadModels;
 using FarDragi.DiscordCs.Entity.Models.ReadyModels;
 using FarDragi.DiscordCs.Logging;
@@ -58,6 +59,9 @@ namespace FarDragi.DiscordCs.Gateway.Standard
                     break;
                 case "READY":
                     _events.OnReady(gatewayClient, payload.Data.ToObject<Ready>(serializerOptions));
+                    break;
+                case "MESSAGE_CREATE":
+                    _events.OnMessageCreate(gatewayClient, payload.Data.ToObject<Message>(serializerOptions));
                     break;
                 default:
                     break;

@@ -5,6 +5,9 @@ using System;
 
 namespace FarDragi.DiscordCs.Json.Entities.MessageModels
 {
+    /// <summary>
+    /// https://discord.com/developers/docs/resources/channel#message-object-message-structure
+    /// </summary>
     public class JsonMessage
     {
         [JsonProperty("id")]

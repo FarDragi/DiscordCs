@@ -2,6 +2,6 @@
 {
     public interface ICacheContext
     {
-        public ICache<TEntity, TKeyType> GetCache<TEntity, TKeyType>();
+        public ICache<TKeyType, TEntity> GetCache<TKeyType, TEntity>();
     }
 }

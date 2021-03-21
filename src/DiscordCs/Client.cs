@@ -5,6 +5,7 @@ using FarDragi.DiscordCs.Entity.Interfaces;
 using FarDragi.DiscordCs.Entity.Models.ChannelModels;
 using FarDragi.DiscordCs.Entity.Models.GuildModels;
 using FarDragi.DiscordCs.Entity.Models.IdentifyModels;
+using FarDragi.DiscordCs.Entity.Models.MessageModels;
 using FarDragi.DiscordCs.Entity.Models.ReadyModels;
 using FarDragi.DiscordCs.Entity.Models.UserModels;
 using FarDragi.DiscordCs.Gateway;
@@ -119,6 +120,7 @@ namespace FarDragi.DiscordCs
         public event ClientEventHandler<string> Raw;
         public event ClientEventHandler<Ready> Ready;
         public event ClientEventHandler<Guild> GuildCreate;
+        public event ClientEventHandler<Message> MessageCreate;
 
         public virtual async void OnRaw(IGatewayClient gatewayClient, string json)
         {
@@ -157,6 +159,28 @@ namespace FarDragi.DiscordCs
             {
                 GatewayClient = gatewayClient,
                 Data = guild
+            });
+        }
+
+        public virtual async void OnMessageCreate(IGatewayClient gatewayClient, Message message)
+        {
+            await Task.Yield();
+
+            GuildChannel guildChannel = Channels.Find(message.ChannelId);
+
+            if (guildChannel is TextGuildChannel textGuildChannel)
+            {
+                textGuildChannel.CachingMessage(ref message);
+            }
+            else
+            {
+                Logger.Log(LoggingLevel.Warning, $"Fail cache message {message.Id}");
+            }
+
+            MessageCreate?.Invoke(this, new ClientArgs<Message>
+            {
+                GatewayClient = gatewayClient,
+                Data = message
             });
         }
 
