@@ -5,4 +5,8 @@
     <RootNamespace>FarDragi.DiscordCs.Rest</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="5.0.1" />
+  </ItemGroup>
+
 </Project>

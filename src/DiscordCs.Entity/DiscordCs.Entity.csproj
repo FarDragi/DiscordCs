@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DiscordCs.Caching\DiscordCs.Caching.csproj" />
+    <ProjectReference Include="..\DiscordCs.Rest\DiscordCs.Rest.csproj" />
   </ItemGroup>
 
 </Project>

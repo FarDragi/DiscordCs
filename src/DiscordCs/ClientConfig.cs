@@ -84,6 +84,7 @@ namespace FarDragi.DiscordCs
 
         public IRestContext GetRest()
         {
+            RestConfig.Token = Identify.Token;
             Rest.Config(RestConfig);
             return Rest;
         }

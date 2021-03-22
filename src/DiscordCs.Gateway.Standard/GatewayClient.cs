@@ -7,6 +7,7 @@ using FarDragi.DiscordCs.Entity.Models.PayloadModels;
 using FarDragi.DiscordCs.Entity.Models.ResumeModels;
 using FarDragi.DiscordCs.Gateway.Standard.Functions;
 using FarDragi.DiscordCs.Logging;
+using FarDragi.DiscordCs.Rest;
 using SuperSocket.ClientEngine;
 using System;
 using System.Text.Json;
@@ -33,7 +34,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
         private string _sessionId;
         private long _ping;
 
-        public GatewayClient(IGatewayContext gatewayContext, Identify identify, GatewayConfig config, ILogger logger, ICacheContext cacheContext, IDatas datas)
+        public GatewayClient(IGatewayContext gatewayContext, Identify identify, GatewayConfig config, ILogger logger, ICacheContext cacheContext, IRestContext restContext, IDatas datas)
         {
             _gatewayContext = gatewayContext;
             _identify = identify;
@@ -48,7 +49,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
                     new MemberCollectionConverter(cacheContext, datas),
                     new UserCollectionConverter(cacheContext, datas),
                     new GuildChannelCollectionConverter(cacheContext, datas),
-                    new GuildChannelConverter(cacheContext),
+                    new GuildChannelConverter(cacheContext, restContext),
                     new ULongConverter(),
                     new TimeSpanConverter()
                 }

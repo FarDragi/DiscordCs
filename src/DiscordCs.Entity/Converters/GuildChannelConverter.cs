@@ -1,6 +1,8 @@
 ﻿using FarDragi.DiscordCs.Caching;
+using FarDragi.DiscordCs.Entity.Collections;
 using FarDragi.DiscordCs.Entity.Models.ChannelModels;
 using FarDragi.DiscordCs.Entity.Models.MessageModels;
+using FarDragi.DiscordCs.Rest;
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -10,10 +12,12 @@ namespace FarDragi.DiscordCs.Entity.Converters
     public class GuildChannelConverter : JsonConverter<GuildChannel>
     {
         private readonly ICacheContext _cacheContext;
+        private readonly IRestContext _restContext;
 
-        public GuildChannelConverter(ICacheContext cacheContext)
+        public GuildChannelConverter(ICacheContext cacheContext, IRestContext restContext)
         {
             _cacheContext = cacheContext;
+            _restContext = restContext;
         }
 
         public override bool CanConvert(Type typeToConvert)
@@ -31,7 +35,7 @@ namespace FarDragi.DiscordCs.Entity.Converters
             {
                 case ChannelTypes.TextChannel:
                     channel = document.ToObject<TextChannel>(options);
-                    (channel as TextChannel).Messages = new Collections.MessageCollection(_cacheContext.GetCache<ulong, Message>());
+                    (channel as TextChannel).Messages = new MessageCollection(_cacheContext.GetCache<ulong, Message>(), _restContext, options);
                     break;
                 case ChannelTypes.VoiceChannel:
                     channel = document.ToObject<VoiceChannel>(options);

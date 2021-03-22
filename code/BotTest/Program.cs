@@ -1,5 +1,6 @@
 ﻿using FarDragi.DiscordCs;
 using FarDragi.DiscordCs.Args;
+using FarDragi.DiscordCs.Entity.Models.ChannelModels;
 using FarDragi.DiscordCs.Entity.Models.GuildModels;
 using FarDragi.DiscordCs.Entity.Models.IdentifyModels;
 using FarDragi.DiscordCs.Entity.Models.MessageModels;
@@ -48,10 +49,17 @@ namespace BotTest
             await client.Login();
         }
 
-        private static Task Client_MessageCreate(Client client, ClientArgs<Message> args)
+        private static async Task Client_MessageCreate(Client client, ClientArgs<Message> args)
         {
             client.Logger.Log(LoggingLevel.Dcs, args.Data.Content);
-            return Task.CompletedTask;
+
+            if (!args.Data.Author.IsBot)
+            {
+                await (client.Channels.Find(args.Data.ChannelId) as TextGuildChannel).Messages.Add(new Message
+                {
+                    Content = args.Data.Content
+                });
+            }
         }
 
         private static Task Client_GuildCreate(Client client, ClientArgs<Guild> args)

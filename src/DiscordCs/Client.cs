@@ -62,7 +62,7 @@ namespace FarDragi.DiscordCs
 
             if (_clientConfig.IsAutoSharding)
             {
-                _gatewayContext.Init(_clientConfig.Shards, this, Logger, _cacheContext, this);
+                _gatewayContext.Init(_clientConfig.Shards, this, Logger, _cacheContext, _restContext, this);
 
                 for (int i = 0; i < _clientConfig.Shards; i++)
                 {
@@ -76,7 +76,7 @@ namespace FarDragi.DiscordCs
             }
             else
             {
-                _gatewayContext.Init(1, this, Logger, _cacheContext, this);
+                _gatewayContext.Init(1, this, Logger, _cacheContext, _restContext, this);
 
                 await Register(_clientConfig.GetIdentify(_clientConfig.Shard));
             }

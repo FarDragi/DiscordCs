@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
+using System.Text.Json;
 
 namespace FarDragi.DiscordCs.Rest.Standard
 {
@@ -9,22 +11,32 @@ namespace FarDragi.DiscordCs.Rest.Standard
     {
         private RestConfig _config;
         private HttpClient _httpClient;
+        private SortedList<string, RestClient> _clients; 
 
         public void Init()
         {
-            _httpClient = new HttpClient()
+            _httpClient = new HttpClient
             {
-                BaseAddress = new Uri(_config.Url),
                 DefaultRequestHeaders =
                 {
-                    Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(_config.Type, _config.Token)
+                    Authorization = new AuthenticationHeaderValue(_config.Type, _config.Token)
                 }
             };
+            _clients = new SortedList<string, RestClient>();
         }
 
-        public IRestClient GetClient(string urlFormat)
+        public IRestClient GetClient(string urlFormat, JsonSerializerOptions serializerOptions)
         {
-            return new RestClient(_httpClient, urlFormat);
+            if (_clients.TryGetValue(urlFormat, out RestClient restClient))
+            {
+                return restClient;
+            }
+            else
+            {
+                RestClient client = new RestClient(_httpClient, _config.Url + urlFormat, serializerOptions);
+                _clients.Add(urlFormat, client);
+                return client;
+            }
         }
 
         public void Config(IRestConfig config)
