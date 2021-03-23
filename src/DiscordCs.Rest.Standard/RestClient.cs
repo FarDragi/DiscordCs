@@ -1,6 +1,7 @@
 ﻿using FarDragi.DiscordCs.Rest.Standard.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -52,9 +53,36 @@ namespace FarDragi.DiscordCs.Rest.Standard
 
         private async Task SendLoop()
         {
+            int remaining = 0;
+            IEnumerable<string> values;
+
             while (_payloads.TryDequeue(out Payload payload))
             {
-                payload.Response.SetResult(await _httpClient.SendAsync(payload.Request));
+                HttpResponseMessage httpResponseMessage = await _httpClient.SendAsync(payload.Request);
+
+                payload.Response.SetResult(httpResponseMessage);
+
+                if (httpResponseMessage.Headers.TryGetValues("X-RateLimit-Remaining", out values))
+                {
+                    remaining = int.Parse(values.First());
+                }
+
+
+                if (remaining == 0)
+                {
+
+                    if (httpResponseMessage.Headers.TryGetValues("X-RateLimit-Reset", out values))
+                    {
+                        TimeSpan delta;
+                        long milis = Convert.ToInt64(values.First());
+                        delta = new DateTime(milis) - DateTime.Now;
+                        await Task.Delay(delta);
+                    }
+                    else
+                    {
+                        // TODO: Error
+                    }
+                }
             }
 
             _sending = false;
