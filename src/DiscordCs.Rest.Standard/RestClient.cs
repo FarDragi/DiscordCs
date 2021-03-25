@@ -16,7 +16,11 @@ namespace FarDragi.DiscordCs.Rest.Standard
         private readonly string _urlFormat;
         private readonly JsonSerializerOptions _serializerOptions;
         private readonly Queue<Payload> _payloads;
+
+        private static bool _rateLimitiGlobal = false;
+
         private bool _sending;
+        private int _remaining = 1;
 
         public RestClient(HttpClient httpClient, string urlFormat, JsonSerializerOptions serializerOptions)
         {
@@ -47,13 +51,13 @@ namespace FarDragi.DiscordCs.Rest.Standard
 
             if (!_sending)
             {
+                _sending = true;
                 await SendLoop().ConfigureAwait(false);
             }
         }
 
         private async Task SendLoop()
         {
-            int remaining = 0;
             IEnumerable<string> values;
 
             while (_payloads.TryDequeue(out Payload payload))
@@ -64,19 +68,18 @@ namespace FarDragi.DiscordCs.Rest.Standard
 
                 if (httpResponseMessage.Headers.TryGetValues("X-RateLimit-Remaining", out values))
                 {
-                    remaining = int.Parse(values.First());
+                    _remaining = int.Parse(values.First());
                 }
 
 
-                if (remaining == 0)
+                if (_remaining == 0)
                 {
 
-                    if (httpResponseMessage.Headers.TryGetValues("X-RateLimit-Reset", out values))
+                    if (httpResponseMessage.Headers.TryGetValues("X-RateLimit-Reset-After", out values))
                     {
-                        TimeSpan delta;
-                        long milis = Convert.ToInt64(values.First());
-                        delta = new DateTime(milis) - DateTime.Now;
-                        await Task.Delay(delta);
+                        int milis = (int)Convert.ToDouble(values.First());
+                        Console.WriteLine(milis);
+                        await Task.Delay(milis);
                     }
                     else
                     {

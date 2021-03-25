@@ -53,11 +53,11 @@ namespace BotTest
         {
             client.Logger.Log(LoggingLevel.Dcs, args.Data.Content);
 
-            if (!args.Data.Author.IsBot)
+            if (!args.Data.Author.IsBot || args.Data.Author.Id == 730094287345156136)
             {
                 await (client.Channels.Find(args.Data.ChannelId) as TextGuildChannel).Messages.Add(new Message
                 {
-                    Content = args.Data.Content
+                    Content = (Convert.ToInt32(args.Data.Content) + 1).ToString()
                 });
             }
         }
