@@ -18,6 +18,7 @@ namespace FarDragi.DiscordCs.Rest.Standard
         private readonly Queue<Payload> _payloads;
 
         private static bool _rateLimitiGlobal = false;
+        private static int _rateLimitiGlobalCooldown = 0;
 
         private bool _sending;
         private int _remaining = 1;
@@ -62,6 +63,11 @@ namespace FarDragi.DiscordCs.Rest.Standard
 
             while (_payloads.TryDequeue(out Payload payload))
             {
+                if (_rateLimitiGlobal)
+                {
+                    await Task.Delay(_rateLimitiGlobalCooldown);
+                }
+
                 HttpResponseMessage httpResponseMessage = await _httpClient.SendAsync(payload.Request);
 
                 payload.Response.SetResult(httpResponseMessage);
@@ -74,6 +80,17 @@ namespace FarDragi.DiscordCs.Rest.Standard
 
                 if (_remaining == 0)
                 {
+                    if (httpResponseMessage.Headers.TryGetValues("X-RateLimit-Global", out values))
+                    {
+                        if (!bool.TryParse(values.First(), out bool result))
+                        {
+                            // TODO: Error
+                        }
+                        else
+                        {
+                            _rateLimitiGlobal = result;
+                        }
+                    }
 
                     if (httpResponseMessage.Headers.TryGetValues("X-RateLimit-Reset-After", out values))
                     {

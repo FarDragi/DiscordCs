@@ -35,7 +35,7 @@ namespace FarDragi.DiscordCs.Entity.Converters
             {
                 case ChannelTypes.TextChannel:
                     channel = document.ToObject<TextChannel>(options);
-                    (channel as TextChannel).Messages = new MessageCollection(_cacheContext.GetCache<ulong, Message>(), _restContext, options);
+                    (channel as TextChannel).Messages = new MessageCollection(_cacheContext.GetCache<ulong, Message>(), _restContext, options, channel.Id);
                     break;
                 case ChannelTypes.VoiceChannel:
                     channel = document.ToObject<VoiceChannel>(options);
