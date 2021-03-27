@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -17,8 +18,8 @@ namespace FarDragi.DiscordCs.Rest.Standard
         private readonly JsonSerializerOptions _serializerOptions;
         private readonly Queue<Payload> _payloads;
 
-        private static bool _rateLimitiGlobal = false;
-        private static int _rateLimitiGlobalCooldown = 0;
+        private static bool RateLimitiGlobal { get; set; }
+        private static DateTimeOffset RateLimitiGlobalCooldown { get; set; }
 
         private bool _sending;
         private int _remaining = 1;
@@ -59,50 +60,76 @@ namespace FarDragi.DiscordCs.Rest.Standard
 
         private async Task SendLoop()
         {
-            IEnumerable<string> values;
-
             while (_payloads.TryDequeue(out Payload payload))
             {
-                if (_rateLimitiGlobal)
+                HttpResponseMessage httpResponseMessage;
+                do
                 {
-                    await Task.Delay(_rateLimitiGlobalCooldown);
-                }
-
-                HttpResponseMessage httpResponseMessage = await _httpClient.SendAsync(payload.Request);
-
-                payload.Response.SetResult(httpResponseMessage);
-
-                if (httpResponseMessage.Headers.TryGetValues("X-RateLimit-Remaining", out values))
-                {
-                    _remaining = int.Parse(values.First());
-                }
-
-
-                if (_remaining == 0)
-                {
-                    if (httpResponseMessage.Headers.TryGetValues("X-RateLimit-Global", out values))
+                    if (RateLimitiGlobal)
                     {
-                        if (!bool.TryParse(values.First(), out bool result))
+                        TimeSpan cooldown = RateLimitiGlobalCooldown - DateTimeOffset.UtcNow;
+
+                        if (cooldown.TotalMilliseconds > 0)
                         {
-                            // TODO: Error
+                            await Task.Delay(RateLimitiGlobalCooldown - DateTimeOffset.UtcNow);
+                        }
+                    }
+
+                    httpResponseMessage = await _httpClient.SendAsync(payload.Request);
+
+                    payload.Response.SetResult(httpResponseMessage);
+
+                    if (httpResponseMessage.Headers.TryGetValues("X-RateLimit-Remaining", out IEnumerable<string> values))
+                    {
+                        if (int.TryParse(values.First(), out int result))
+                        {
+                            _remaining = result;
                         }
                         else
                         {
-                            _rateLimitiGlobal = result;
+                            _remaining = 0;
                         }
                     }
 
-                    if (httpResponseMessage.Headers.TryGetValues("X-RateLimit-Reset-After", out values))
+                    if (httpResponseMessage.Headers.TryGetValues("X-RateLimit-Global", out values))
                     {
-                        int milis = (int)Convert.ToDouble(values.First());
-                        Console.WriteLine(milis);
-                        await Task.Delay(milis);
+                        if (bool.TryParse(values.First(), out bool result))
+                        {
+                            RateLimitiGlobal = result;
+
+                            if (RateLimitiGlobal && httpResponseMessage.Headers.TryGetValues("X-RateLimit-Reset", out values))
+                            {
+                                long milis = (long)Convert.ToDouble(values.First());
+                                RateLimitiGlobalCooldown = DateTimeOffset.FromUnixTimeMilliseconds(milis);
+
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            // TODO: Error
+                        }
                     }
-                    else
+
+                    if (_remaining == 0)
                     {
-                        // TODO: Error
+                        if (httpResponseMessage.Headers.TryGetValues("X-RateLimit-Reset", out values))
+                        {
+                            long milis = (long)Convert.ToDouble(values.First());
+                            DateTimeOffset date = DateTimeOffset.FromUnixTimeMilliseconds(milis);
+                            TimeSpan cooldown = date - DateTimeOffset.UtcNow;
+
+                            if (cooldown.TotalMilliseconds > 0)
+                            {
+                                await Task.Delay(cooldown);
+                            }
+                        }
+                        else
+                        {
+                            // TODO: Error
+                        }
                     }
-                }
+                } while (httpResponseMessage?.StatusCode == HttpStatusCode.TooManyRequests);
             }
 
             _sending = false;
