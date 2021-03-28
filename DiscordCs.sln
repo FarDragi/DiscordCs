@@ -3,22 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "old", "old", "{6575F7A8-0D08-41D3-AC12-9FCE38639BF4}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarDragi.DiscordCs", "old\FarDragi.DiscordCs\FarDragi.DiscordCs.csproj", "{5FD10A3F-8035-481D-B4AC-467A89538E54}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarDragi.DiscordCs.Caching", "old\FarDragi.DiscordCs.Caching\FarDragi.DiscordCs.Caching.csproj", "{49B588D5-8E5C-4AED-8C58-ECD8E71920F0}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarDragi.DiscordCs.Caching.Standard", "old\FarDragi.DiscordCs.Caching.Standard\FarDragi.DiscordCs.Caching.Standard.csproj", "{02C3E61C-B393-4692-980C-D2A063796733}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarDragi.DiscordCs.Entities", "old\FarDragi.DiscordCs.Entities\FarDragi.DiscordCs.Entities.csproj", "{1C379B5A-EC51-4A6F-93CA-DE77CECDAB93}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarDragi.DiscordCs.Gateway", "old\FarDragi.DiscordCs.Gateway\FarDragi.DiscordCs.Gateway.csproj", "{0087AC6F-19BE-4781-A828-3215577BABF2}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarDragi.DiscordCs.Json", "old\FarDragi.DiscordCs.Json\FarDragi.DiscordCs.Json.csproj", "{844F7987-B807-42A3-8376-4A53578A1659}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarDragi.DiscordCs.Rest", "old\FarDragi.DiscordCs.Rest\FarDragi.DiscordCs.Rest.csproj", "{7D755DF6-5022-44B5-A99B-09C72D8CBAC2}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{809E016C-9CDB-43C1-AFB9-0D372F77A275}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscordCs", "src\DiscordCs\DiscordCs.csproj", "{8F1E9938-8401-44DF-ACEB-3BC3EC97A90A}"
@@ -45,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscordCs.Logging", "src\Di
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscordCs.Logging.Standard", "src\DiscordCs.Logging.Standard\DiscordCs.Logging.Standard.csproj", "{CD531019-D603-4D3C-8AE5-E4C83F1A11E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benckmark", "code\Benckmark\Benckmark.csproj", "{99BB257E-4D2E-4A39-85D4-CB51253726BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Benckmark", "code\Benckmark\Benckmark.csproj", "{99BB257E-4D2E-4A39-85D4-CB51253726BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,34 +37,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5FD10A3F-8035-481D-B4AC-467A89538E54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5FD10A3F-8035-481D-B4AC-467A89538E54}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5FD10A3F-8035-481D-B4AC-467A89538E54}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5FD10A3F-8035-481D-B4AC-467A89538E54}.Release|Any CPU.Build.0 = Release|Any CPU
-		{49B588D5-8E5C-4AED-8C58-ECD8E71920F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{49B588D5-8E5C-4AED-8C58-ECD8E71920F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{49B588D5-8E5C-4AED-8C58-ECD8E71920F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{49B588D5-8E5C-4AED-8C58-ECD8E71920F0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{02C3E61C-B393-4692-980C-D2A063796733}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{02C3E61C-B393-4692-980C-D2A063796733}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{02C3E61C-B393-4692-980C-D2A063796733}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{02C3E61C-B393-4692-980C-D2A063796733}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1C379B5A-EC51-4A6F-93CA-DE77CECDAB93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1C379B5A-EC51-4A6F-93CA-DE77CECDAB93}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1C379B5A-EC51-4A6F-93CA-DE77CECDAB93}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1C379B5A-EC51-4A6F-93CA-DE77CECDAB93}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0087AC6F-19BE-4781-A828-3215577BABF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0087AC6F-19BE-4781-A828-3215577BABF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0087AC6F-19BE-4781-A828-3215577BABF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0087AC6F-19BE-4781-A828-3215577BABF2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{844F7987-B807-42A3-8376-4A53578A1659}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{844F7987-B807-42A3-8376-4A53578A1659}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{844F7987-B807-42A3-8376-4A53578A1659}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{844F7987-B807-42A3-8376-4A53578A1659}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7D755DF6-5022-44B5-A99B-09C72D8CBAC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7D755DF6-5022-44B5-A99B-09C72D8CBAC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7D755DF6-5022-44B5-A99B-09C72D8CBAC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7D755DF6-5022-44B5-A99B-09C72D8CBAC2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8F1E9938-8401-44DF-ACEB-3BC3EC97A90A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8F1E9938-8401-44DF-ACEB-3BC3EC97A90A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F1E9938-8401-44DF-ACEB-3BC3EC97A90A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -134,13 +90,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{5FD10A3F-8035-481D-B4AC-467A89538E54} = {6575F7A8-0D08-41D3-AC12-9FCE38639BF4}
-		{49B588D5-8E5C-4AED-8C58-ECD8E71920F0} = {6575F7A8-0D08-41D3-AC12-9FCE38639BF4}
-		{02C3E61C-B393-4692-980C-D2A063796733} = {6575F7A8-0D08-41D3-AC12-9FCE38639BF4}
-		{1C379B5A-EC51-4A6F-93CA-DE77CECDAB93} = {6575F7A8-0D08-41D3-AC12-9FCE38639BF4}
-		{0087AC6F-19BE-4781-A828-3215577BABF2} = {6575F7A8-0D08-41D3-AC12-9FCE38639BF4}
-		{844F7987-B807-42A3-8376-4A53578A1659} = {6575F7A8-0D08-41D3-AC12-9FCE38639BF4}
-		{7D755DF6-5022-44B5-A99B-09C72D8CBAC2} = {6575F7A8-0D08-41D3-AC12-9FCE38639BF4}
 		{8F1E9938-8401-44DF-ACEB-3BC3EC97A90A} = {809E016C-9CDB-43C1-AFB9-0D372F77A275}
 		{D4E5B7E2-AAF2-453F-BBD9-F3D01A242E68} = {809E016C-9CDB-43C1-AFB9-0D372F77A275}
 		{312DC0D8-4672-42B0-9CE1-67254D6B5586} = {0543B374-9999-4CDA-8E72-898211155001}
