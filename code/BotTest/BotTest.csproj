@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\DiscordCs\DiscordCs.csproj" />
+    <ProjectReference Include="..\..\DiscordCs\DiscordCs.csproj" />
   </ItemGroup>
 
 </Project>
