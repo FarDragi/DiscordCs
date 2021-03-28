@@ -46,6 +46,7 @@ namespace FarDragi.DiscordCs.Entity.Collections
         public async Task<Message> Add(Message message)
         {
             message = await _createMessage.Send<Message, Message>(HttpMethod.Post, message);
+            _cache.Add(message.Id, ref message);
             return message;
         }
     }
