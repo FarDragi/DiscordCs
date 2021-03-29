@@ -1,4 +1,5 @@
 ﻿using FarDragi.DiscordCs.Caching;
+using FarDragi.DiscordCs.Entity.Models.EmbedModels;
 using FarDragi.DiscordCs.Entity.Models.MessageModels;
 using FarDragi.DiscordCs.Rest;
 using System;
@@ -43,7 +44,25 @@ namespace FarDragi.DiscordCs.Entity.Collections
             return _cache.GetEnumerator();
         }
 
-        public async Task<Message> Add(Message message)
+        public async Task<Message> Add(string content, Embed embed, bool isTts = false)
+        {
+            return await Add(new Message
+            {
+                Content = content,
+                Embed = embed,
+                IsTts = isTts
+            });
+        }
+
+        public async Task<Message> Add(Embed embed)
+        {
+            return await Add(new Message
+            {
+                Embed = embed
+            });
+        }
+
+        private async Task<Message> Add(Message message)
         {
             message = await _createMessage.Send<Message, Message>(HttpMethod.Post, message);
             _cache.Add(message.Id, ref message);

@@ -1,6 +1,7 @@
 ﻿using FarDragi.DiscordCs;
 using FarDragi.DiscordCs.Args;
 using FarDragi.DiscordCs.Entity.Models.ChannelModels;
+using FarDragi.DiscordCs.Entity.Models.EmbedModels;
 using FarDragi.DiscordCs.Entity.Models.GuildModels;
 using FarDragi.DiscordCs.Entity.Models.IdentifyModels;
 using FarDragi.DiscordCs.Entity.Models.MessageModels;
@@ -55,9 +56,10 @@ namespace BotTest
 
             if (!args.Data.Author.IsBot || args.Data.Author.Id == 730094287345156136)
             {
-                await (client.Channels.Find(args.Data.ChannelId) as TextGuildChannel).Messages.Add(new Message
+                await (client.Channels.Find(args.Data.ChannelId) as TextGuildChannel).Messages.Add(new Embed
                 {
-                    Content = (Convert.ToInt32(args.Data.Content) + 1).ToString()
+                    Title = "Teste",
+                    Description = (Convert.ToUInt64(args.Data.Content) + 1).ToString()
                 });
             }
         }

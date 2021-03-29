@@ -56,15 +56,17 @@ namespace FarDragi.DiscordCs.Gateway.Standard
 
             switch (payload.Event)
             {
+                case "MESSAGE_CREATE":
+                    _events.OnMessageCreate(gatewayClient, payload.Data.ToObject<Message>(serializerOptions));
+                    break;
+                case "":
+                    break;
                 case "GUILD_CREATE":
                     var a = payload.Data.ToObject<Guild>(serializerOptions);
                     _events.OnGuildCreate(gatewayClient, a);
                     break;
                 case "READY":
                     _events.OnReady(gatewayClient, payload.Data.ToObject<Ready>(serializerOptions));
-                    break;
-                case "MESSAGE_CREATE":
-                    _events.OnMessageCreate(gatewayClient, payload.Data.ToObject<Message>(serializerOptions));
                     break;
                 default:
                     break;

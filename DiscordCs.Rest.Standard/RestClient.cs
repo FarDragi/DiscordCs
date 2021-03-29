@@ -1,4 +1,5 @@
-﻿using FarDragi.DiscordCs.Rest.Standard.Models;
+﻿using FarDragi.DiscordCs.Rest.Standard.Exceptions;
+using FarDragi.DiscordCs.Rest.Standard.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -146,9 +147,12 @@ namespace FarDragi.DiscordCs.Rest.Standard
             if (response.IsSuccessStatusCode)
             {
                 return JsonSerializer.Deserialize<TOutput>(await response.Content.ReadAsStringAsync(), _serializerOptions);
+            } 
+            else
+            {
+                string reason = await response.Content.ReadAsStringAsync();
+                throw new DiscordApiException((int)response.StatusCode, reason);
             }
-
-            return null;
         }
     }
 }

@@ -44,7 +44,7 @@ namespace FarDragi.DiscordCs.Entity.Models.MessageModels
         public DateTime? EditedTimestamp { get; set; }
 
         [JsonPropertyName("tts")]
-        public bool Tts { get; set; }
+        public bool IsTts { get; set; }
 
         [JsonPropertyName("mention_everyone")]
         public bool MentionEveryone { get; set; }
@@ -63,6 +63,9 @@ namespace FarDragi.DiscordCs.Entity.Models.MessageModels
 
         [JsonPropertyName("embeds")]
         public Embed[] Embeds { get; set; }
+
+        [JsonPropertyName("embed")]
+        public Embed Embed { get; set; }
 
         [JsonPropertyName("reactions")]
         public Reaction[] Reactions { get; set; }

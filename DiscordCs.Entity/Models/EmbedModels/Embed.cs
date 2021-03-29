@@ -23,7 +23,7 @@ namespace FarDragi.DiscordCs.Entity.Models.EmbedModels
         public string Url { get; set; }
 
         [JsonPropertyName("timestamp")]
-        public DateTime Timestamp { get; set; }
+        public DateTime? Timestamp { get; set; }
 
         [JsonPropertyName("color")]
         public int Color { get; set; }
