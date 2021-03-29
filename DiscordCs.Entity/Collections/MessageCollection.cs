@@ -2,11 +2,9 @@
 using FarDragi.DiscordCs.Entity.Models.EmbedModels;
 using FarDragi.DiscordCs.Entity.Models.MessageModels;
 using FarDragi.DiscordCs.Rest;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 

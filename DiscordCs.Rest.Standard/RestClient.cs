@@ -6,7 +6,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -147,7 +146,7 @@ namespace FarDragi.DiscordCs.Rest.Standard
             if (response.IsSuccessStatusCode)
             {
                 return JsonSerializer.Deserialize<TOutput>(await response.Content.ReadAsStringAsync(), _serializerOptions);
-            } 
+            }
             else
             {
                 string reason = await response.Content.ReadAsStringAsync();

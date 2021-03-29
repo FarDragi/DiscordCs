@@ -1,8 +1,5 @@
 ﻿using FarDragi.DiscordCs.Entity.Collections;
 using FarDragi.DiscordCs.Entity.Models.MessageModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.Json.Serialization;
 
 namespace FarDragi.DiscordCs.Entity.Models.ChannelModels

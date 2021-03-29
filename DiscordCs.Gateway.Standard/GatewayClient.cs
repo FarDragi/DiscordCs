@@ -125,7 +125,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
                 {
                     _logger.Log(LoggingLevel.Severity, $"[Websocket] Code: {args.Code} Reason: {args.Reason}");
                     return;
-                } 
+                }
                 else
                 {
                     _logger.Log(LoggingLevel.Warning, $"[Websocket] Code: {args.Code} Reason: {args.Reason}");

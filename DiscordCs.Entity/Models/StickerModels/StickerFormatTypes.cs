@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FarDragi.DiscordCs.Entity.Models.StickerModels
+﻿namespace FarDragi.DiscordCs.Entity.Models.StickerModels
 {
     /// <summary>
     /// https://discord.com/developers/docs/resources/channel#message-object-message-sticker-format-types

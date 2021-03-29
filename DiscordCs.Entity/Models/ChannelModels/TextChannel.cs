@@ -1,5 +1,4 @@
-﻿using FarDragi.DiscordCs.Entity.Collections;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace FarDragi.DiscordCs.Entity.Models.ChannelModels
 {

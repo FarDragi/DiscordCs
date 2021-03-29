@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Text.Json;
 
 namespace FarDragi.DiscordCs.Rest.Standard
@@ -11,7 +9,7 @@ namespace FarDragi.DiscordCs.Rest.Standard
     {
         private RestConfig _config;
         private HttpClient _httpClient;
-        private SortedList<string, RestClient> _clients; 
+        private SortedList<string, RestClient> _clients;
 
         public void Init()
         {
