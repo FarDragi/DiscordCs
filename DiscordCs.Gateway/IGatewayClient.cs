@@ -6,7 +6,7 @@ namespace FarDragi.DiscordCs.Gateway
     public interface IGatewayClient : IDisposable
     {
         public long Ping { get; }
-        public string SessionId { set; }
+        public string SessionId { get; set; }
         Task Open();
     }
 }

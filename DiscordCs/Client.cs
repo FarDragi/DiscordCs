@@ -106,9 +106,9 @@ namespace FarDragi.DiscordCs
         public void InitCollections()
         {
             _cacheContext = _clientConfig.CacheContext;
-            Guilds = new GuildCollection(_cacheContext.GetCache<ulong, Guild>());
-            Users = new UserCollection(_cacheContext.GetCache<ulong, User>());
-            Channels = new GuildChannelsCollection(_cacheContext.GetCache<ulong, GuildChannel>());
+            Guilds = new GuildCollection(_cacheContext.GetCache<ulong, Guild>(), Logger);
+            Users = new UserCollection(_cacheContext.GetCache<ulong, User>(), Logger);
+            Channels = new GuildChannelsCollection(_cacheContext.GetCache<ulong, GuildChannel>(), Logger);
         }
 
         #endregion

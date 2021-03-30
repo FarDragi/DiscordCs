@@ -31,10 +31,16 @@ namespace FarDragi.DiscordCs.Gateway.Standard
         private CancellationTokenSource _tokenSource;
         private int _sequenceNumber;
         private bool _firstConnection;
-        private string _sessionId;
         private long _ping;
 
-        public GatewayClient(IGatewayContext gatewayContext, Identify identify, GatewayConfig config, ILogger logger, ICacheContext cacheContext, IRestContext restContext, IDatas datas)
+        public GatewayClient(
+            IGatewayContext gatewayContext,
+            Identify identify,
+            GatewayConfig config,
+            ILogger logger,
+            ICacheContext cacheContext,
+            IRestContext restContext,
+            IDatas datas)
         {
             _gatewayContext = gatewayContext;
             _identify = identify;
@@ -60,7 +66,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
         #region Get/Set
 
         public long Ping { get => _ping; }
-        public string SessionId { set => _sessionId = value; }
+        public string SessionId { get; set; }
 
         #endregion
 
@@ -74,7 +80,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
             _socket.DataReceived += Socket_DataReceived;
         }
 
-        private void Socket_DataReceived(object sender, DataReceivedEventArgs e)
+        private async void Socket_DataReceived(object sender, DataReceivedEventArgs e)
         {
             if (_decompressor.TryDecompress(e.Data, out string json))
             {
@@ -90,12 +96,12 @@ namespace FarDragi.DiscordCs.Gateway.Standard
                     case PayloadOpCode.Hello:
                         Hello hello = payload.Data.ToObject<Hello>(_jsonSerializerOptions);
                         _tokenSource = new CancellationTokenSource();
-                        Heartbeat(hello, _tokenSource.Token);
+                        await Heartbeat(hello, _tokenSource.Token).ConfigureAwait(false);
                         break;
                     case PayloadOpCode.HeartbeatACK:
                         _stopwatch.Stop();
-                        _logger.Log(LoggingLevel.Info, $"Received heartbeat");
                         _ping = _stopwatch.ElapsedMilliseconds;
+                        _logger.Log(LoggingLevel.Info, $"Received heartbeat {_ping}ms");
                         _stopwatch.Reset();
                         break;
                     case PayloadOpCode.InvalidSession:
@@ -155,7 +161,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
             _socket.Send(payload, 0, payload.Length);
         }
 
-        private async void Heartbeat(Hello hello, CancellationToken token)
+        private async Task Heartbeat(Hello hello, CancellationToken token)
         {
             try
             {
@@ -175,7 +181,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
                         Data = new Resume
                         {
                             SequenceNumber = _sequenceNumber,
-                            SessionId = _sessionId,
+                            SessionId = SessionId,
                             Token = _identify.Token
                         }
                     });
@@ -212,6 +218,12 @@ namespace FarDragi.DiscordCs.Gateway.Standard
         }
 
         public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
         {
             _socket?.Dispose();
             _tokenSource?.Cancel();

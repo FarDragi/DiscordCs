@@ -19,12 +19,12 @@ namespace Benckmark
     {
         [Params(10000)]
         public int Quantidade { get; set; }
-        private readonly Random Random = new Random();
+        private readonly Random Random = new();
 
         [Benchmark]
         public void SortedDictionary()
         {
-            SortedDictionary<int, int> pairs = new SortedDictionary<int, int>();
+            SortedDictionary<int, int> pairs = new();
 
             for (int i = 0; i < Quantidade; i++)
             {
@@ -39,7 +39,7 @@ namespace Benckmark
         {
             int chave = 0;
 
-            SortedDictionary<int, int> pairs = new SortedDictionary<int, int>();
+            SortedDictionary<int, int> pairs = new();
 
             for (int i = 0; i < Quantidade;)
             {
@@ -57,7 +57,7 @@ namespace Benckmark
         [Benchmark]
         public void SortedList()
         {
-            SortedList<int, int> pairs = new SortedList<int, int>();
+            SortedList<int, int> pairs = new();
 
             for (int i = 0; i < Quantidade; i++)
             {
@@ -72,7 +72,7 @@ namespace Benckmark
         {
             int chave = 0;
 
-            SortedList<int, int> pairs = new SortedList<int, int>();
+            SortedList<int, int> pairs = new();
 
             for (int i = 0; i < Quantidade;)
             {
@@ -92,7 +92,7 @@ namespace Benckmark
         {
             int chave = 0;
 
-            Dictionary<int, int> pairs = new Dictionary<int, int>();
+            Dictionary<int, int> pairs = new();
 
             for (int i = 0; i < Quantidade;)
             {
@@ -112,7 +112,7 @@ namespace Benckmark
         {
             int chave = 0;
 
-            List<Tuple<int, int>> tuples = new List<Tuple<int, int>>();
+            List<Tuple<int, int>> tuples = new();
 
             for (int i = 0; i < Quantidade; ++i)
             {
@@ -129,7 +129,7 @@ namespace Benckmark
         {
             int chave = 0;
 
-            List<ValueTuple<int, int>> tuples = new List<ValueTuple<int, int>>();
+            List<ValueTuple<int, int>> tuples = new();
 
             for (int i = 0; i < Quantidade; ++i)
             {
