@@ -46,9 +46,9 @@ namespace FarDragi.DiscordCs.Gateway.Standard
             {
                 Converters =
                 {
-                    new MemberCollectionConverter(cacheContext, datas),
-                    new UserCollectionConverter(cacheContext, datas),
-                    new GuildChannelCollectionConverter(cacheContext, datas),
+                    new MemberCollectionConverter(cacheContext, datas, logger),
+                    new UserCollectionConverter(cacheContext, datas, logger),
+                    new GuildChannelCollectionConverter(cacheContext, datas, logger),
                     new GuildChannelConverter(cacheContext, restContext),
                     new ULongConverter(),
                     new TimeSpanConverter()

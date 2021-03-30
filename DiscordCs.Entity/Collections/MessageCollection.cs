@@ -42,7 +42,7 @@ namespace FarDragi.DiscordCs.Entity.Collections
             return _cache.GetEnumerator();
         }
 
-        public async Task<Message> Add(string content, Embed embed, bool isTts = false)
+        public async Task<Message> Add(string content, Embed embed = null, bool isTts = false)
         {
             return await Add(new Message
             {

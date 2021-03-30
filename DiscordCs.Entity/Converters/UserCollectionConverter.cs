@@ -2,6 +2,7 @@
 using FarDragi.DiscordCs.Entity.Collections;
 using FarDragi.DiscordCs.Entity.Interfaces;
 using FarDragi.DiscordCs.Entity.Models.UserModels;
+using FarDragi.DiscordCs.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
@@ -13,11 +14,13 @@ namespace FarDragi.DiscordCs.Entity.Converters
     {
         private readonly ICacheContext _cacheContext;
         private readonly IDatas _datas;
+        private readonly ILogger _logger;
 
-        public UserCollectionConverter(ICacheContext cacheContext, IDatas datas)
+        public UserCollectionConverter(ICacheContext cacheContext, IDatas datas, ILogger logger)
         {
             _cacheContext = cacheContext;
             _datas = datas;
+            _logger = logger;
         }
 
         public override bool CanConvert(Type typeToConvert)
@@ -27,8 +30,9 @@ namespace FarDragi.DiscordCs.Entity.Converters
 
         public override UserCollection Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            UserCollection usersCollection = new UserCollection(_cacheContext.GetCache<ulong, User>());
-            User[] users = JsonSerializer.Deserialize<User[]>(reader.ValueSpan, options);
+            UserCollection usersCollection = new UserCollection(_cacheContext.GetCache<ulong, User>(), _logger);
+            JsonDocument document = JsonDocument.ParseValue(ref reader);
+            Span<User> users = document.ToObject<User[]>(options);
 
             for (int i = 0; i < users.Length; i++)
             {

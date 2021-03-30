@@ -1,5 +1,6 @@
 ﻿using FarDragi.DiscordCs.Caching;
 using FarDragi.DiscordCs.Entity.Models.ChannelModels;
+using FarDragi.DiscordCs.Logging;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,10 +9,12 @@ namespace FarDragi.DiscordCs.Entity.Collections
     public class GuildChannelsCollection : ICacheable<ulong, GuildChannel>
     {
         private readonly ICache<ulong, GuildChannel> _cache;
+        private readonly ILogger _logger;
 
-        public GuildChannelsCollection(ICache<ulong, GuildChannel> cache)
+        public GuildChannelsCollection(ICache<ulong, GuildChannel> cache, ILogger logger)
         {
             _cache = cache;
+            _logger = logger;
         }
 
         public GuildChannel Caching(ref GuildChannel entity)
