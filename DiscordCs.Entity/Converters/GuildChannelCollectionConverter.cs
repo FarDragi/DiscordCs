@@ -35,6 +35,11 @@ namespace FarDragi.DiscordCs.Entity.Converters
             Span<GuildChannel> channels = document.ToObject<GuildChannel[]>(options);
             for (int i = 0; i < channels.Length; i++)
             {
+                if (channels[i] == null)
+                {
+                    continue;
+                }
+
                 channelCollection.Caching(ref channels[i]);
                 _datas.Channels.Caching(ref channels[i]);
             }

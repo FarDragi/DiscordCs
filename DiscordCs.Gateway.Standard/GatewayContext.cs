@@ -59,11 +59,11 @@ namespace FarDragi.DiscordCs.Gateway.Standard
                 case "MESSAGE_CREATE":
                     _events.OnMessageCreate(gatewayClient, payload.Data.ToObject<Message>(serializerOptions));
                     break;
-                case "":
+                case "MESSAGE_UPDATE":
+                    _events.OnMessageUpdate(gatewayClient, payload.Data.ToObject<Message>(serializerOptions));
                     break;
                 case "GUILD_CREATE":
-                    var a = payload.Data.ToObject<Guild>(serializerOptions);
-                    _events.OnGuildCreate(gatewayClient, a);
+                    _events.OnGuildCreate(gatewayClient, payload.Data.ToObject<Guild>(serializerOptions));
                     break;
                 case "READY":
                     _events.OnReady(gatewayClient, payload.Data.ToObject<Ready>(serializerOptions));

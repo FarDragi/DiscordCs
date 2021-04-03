@@ -14,7 +14,7 @@ namespace FarDragi.DiscordCs.Entity.Collections
             _cache = cache;
         }
 
-        public Channel Caching(ref Channel entity)
+        public Channel Caching(ref Channel entity, bool update = false)
         {
             _cache.Add(entity.Id, ref entity);
             return entity;

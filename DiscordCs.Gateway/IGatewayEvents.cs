@@ -10,5 +10,6 @@ namespace FarDragi.DiscordCs.Gateway
         public void OnReady(IGatewayClient gatewayClient, Ready ready);
         public void OnGuildCreate(IGatewayClient gatewayClient, Guild guild);
         public void OnMessageCreate(IGatewayClient gatewayClient, Message message);
+        public void OnMessageUpdate(IGatewayClient gatewayClient, Message message);
     }
 }

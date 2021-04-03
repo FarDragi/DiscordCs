@@ -40,12 +40,12 @@ namespace FarDragi.DiscordCs.Entity.Models.UserModels
         public string Email { get; set; }
 
         [JsonPropertyName("flags")]
-        public UserFlags Flags { get; set; }
+        public UserBadges Badges { get; set; }
 
         [JsonPropertyName("premium_type")]
         public UserPremiumTypes PremiumType { get; set; }
 
         [JsonPropertyName("public_flags")]
-        public UserFlags PublicFlags { get; set; }
+        public UserBadges PublicBadges { get; set; }
     }
 }

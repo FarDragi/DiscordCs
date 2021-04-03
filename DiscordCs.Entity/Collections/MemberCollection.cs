@@ -17,7 +17,7 @@ namespace FarDragi.DiscordCs.Entity.Collections
             _logger = logger;
         }
 
-        public Member Caching(ref Member entity)
+        public Member Caching(ref Member entity, bool update = false)
         {
             _cache.Add(entity.User.Id, ref entity);
             return entity;

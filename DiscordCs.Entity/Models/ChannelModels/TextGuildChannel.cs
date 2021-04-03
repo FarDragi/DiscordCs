@@ -20,5 +20,11 @@ namespace FarDragi.DiscordCs.Entity.Models.ChannelModels
             Messages.Caching(ref message);
             return message;
         }
+
+        public Message UpdateMessage(ref Message message)
+        {
+            Messages.Caching(ref message, true);
+            return message;
+        }
     }
 }

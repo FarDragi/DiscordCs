@@ -6,7 +6,7 @@ namespace FarDragi.DiscordCs.Entity.Models.UserModels
     /// https://discord.com/developers/docs/resources/user#user-object-user-flags
     /// </summary>
     [Flags]
-    public enum UserFlags
+    public enum UserBadges
     {
         None = 0,
         DiscordEmployee = 1,

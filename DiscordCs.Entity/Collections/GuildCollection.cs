@@ -17,7 +17,7 @@ namespace FarDragi.DiscordCs.Entity.Collections
             _logger = logger;
         }
 
-        public Guild Caching(ref Guild entity)
+        public Guild Caching(ref Guild entity, bool update = false)
         {
             _cache.Add(entity.Id, ref entity);
             return entity;

@@ -21,10 +21,18 @@ namespace FarDragi.DiscordCs.Entity.Collections
             _createMessage = rest.GetClient($"/channels/{channelId}/messages", serializerOptions);
         }
 
-        public Message Caching(ref Message entity)
+        public Message Caching(ref Message entity, bool update = false)
         {
-            _cache.Add(entity.Id, ref entity);
-            return entity;
+            if (update)
+            {
+                _cache.Set(entity.Id, ref entity);
+                return entity;
+            }
+            else
+            {
+                _cache.Add(entity.Id, ref entity);
+                return entity;
+            }
         }
 
         public Message Find(ulong key)
