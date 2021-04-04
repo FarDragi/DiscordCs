@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using FarDragi.DiscordCs.Logging;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
@@ -23,7 +24,7 @@ namespace FarDragi.DiscordCs.Rest.Standard
             _clients = new SortedList<string, RestClient>();
         }
 
-        public IRestClient GetClient(string urlFormat, JsonSerializerOptions serializerOptions)
+        public IRestClient GetClient(string urlFormat, JsonSerializerOptions serializerOptions, ILogger logger)
         {
             if (_clients.TryGetValue(urlFormat, out RestClient restClient))
             {
@@ -31,7 +32,7 @@ namespace FarDragi.DiscordCs.Rest.Standard
             }
             else
             {
-                RestClient client = new RestClient(_httpClient, _config.Url + urlFormat, serializerOptions);
+                RestClient client = new RestClient(_httpClient, _config.Url + urlFormat, serializerOptions, logger);
                 _clients.Add(urlFormat, client);
                 return client;
             }

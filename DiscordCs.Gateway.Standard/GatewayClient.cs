@@ -55,7 +55,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
                     new MemberCollectionConverter(cacheContext, datas, logger),
                     new UserCollectionConverter(cacheContext, datas, logger),
                     new GuildChannelCollectionConverter(cacheContext, datas, logger),
-                    new GuildChannelConverter(cacheContext, restContext),
+                    new GuildChannelConverter(cacheContext, restContext, logger),
                     new ULongConverter(),
                     new TimeSpanConverter()
                 }

@@ -2,6 +2,7 @@
 using FarDragi.DiscordCs.Entity.Collections;
 using FarDragi.DiscordCs.Entity.Models.ChannelModels;
 using FarDragi.DiscordCs.Entity.Models.MessageModels;
+using FarDragi.DiscordCs.Logging;
 using FarDragi.DiscordCs.Rest;
 using System;
 using System.Text.Json;
@@ -13,11 +14,13 @@ namespace FarDragi.DiscordCs.Entity.Converters
     {
         private readonly ICacheContext _cacheContext;
         private readonly IRestContext _restContext;
+        private readonly ILogger _logger;
 
-        public GuildChannelConverter(ICacheContext cacheContext, IRestContext restContext)
+        public GuildChannelConverter(ICacheContext cacheContext, IRestContext restContext, ILogger logger)
         {
             _cacheContext = cacheContext;
             _restContext = restContext;
+            _logger = logger;
         }
 
         public override bool CanConvert(Type typeToConvert)
@@ -35,7 +38,7 @@ namespace FarDragi.DiscordCs.Entity.Converters
             {
                 case ChannelTypes.TextChannel:
                     channel = document.ToObject<TextChannel>(options);
-                    (channel as TextChannel).Messages = new MessageCollection(_cacheContext.GetCache<ulong, Message>(), _restContext, options, channel.Id);
+                    (channel as TextChannel).Messages = new MessageCollection(_cacheContext.GetCache<ulong, Message>(), _restContext, options, _logger, channel.Id);
                     break;
                 case ChannelTypes.VoiceChannel:
                     channel = document.ToObject<VoiceChannel>(options);

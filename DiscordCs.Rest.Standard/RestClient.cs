@@ -1,4 +1,5 @@
-﻿using FarDragi.DiscordCs.Rest.Standard.Exceptions;
+﻿using FarDragi.DiscordCs.Logging;
+using FarDragi.DiscordCs.Rest.Standard.Exceptions;
 using FarDragi.DiscordCs.Rest.Standard.Models;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace FarDragi.DiscordCs.Rest.Standard
         private readonly HttpClient _httpClient;
         private readonly string _urlFormat;
         private readonly JsonSerializerOptions _serializerOptions;
+        private readonly ILogger _logger;
         private readonly Queue<Payload> _payloads;
 
         private static bool RateLimitiGlobal { get; set; }
@@ -24,11 +26,12 @@ namespace FarDragi.DiscordCs.Rest.Standard
         private bool _sending;
         private int _remaining = 1;
 
-        public RestClient(HttpClient httpClient, string urlFormat, JsonSerializerOptions serializerOptions)
+        public RestClient(HttpClient httpClient, string urlFormat, JsonSerializerOptions serializerOptions, ILogger logger)
         {
             _httpClient = httpClient;
             _urlFormat = urlFormat;
             _serializerOptions = serializerOptions;
+            _logger = logger;
             _payloads = new Queue<Payload>();
         }
 
@@ -77,7 +80,14 @@ namespace FarDragi.DiscordCs.Rest.Standard
 
                     httpResponseMessage = await _httpClient.SendAsync(payload.Request);
 
-                    payload.Response.SetResult(httpResponseMessage);
+                    if (httpResponseMessage.IsSuccessStatusCode)
+                    {
+                        payload.Response.SetResult(httpResponseMessage);
+                    }
+                    else
+                    {
+                        _logger.Log(LoggingLevel.Warning, $"[Rest] {(int)httpResponseMessage.StatusCode}");
+                    }
 
                     if (httpResponseMessage.Headers.TryGetValues("X-RateLimit-Remaining", out IEnumerable<string> values))
                     {
@@ -90,6 +100,10 @@ namespace FarDragi.DiscordCs.Rest.Standard
                             _remaining = 0;
                         }
                     }
+                    else
+                    {
+                        _logger.Log(LoggingLevel.Error, "[Rest] RateLimit remainig fail get");
+                    }
 
                     if (httpResponseMessage.Headers.TryGetValues("X-RateLimit-Global", out values))
                     {
@@ -101,13 +115,12 @@ namespace FarDragi.DiscordCs.Rest.Standard
                             {
                                 long milis = (long)Convert.ToDouble(values.First());
                                 RateLimitiGlobalCooldown = DateTimeOffset.FromUnixTimeMilliseconds(milis);
-
                                 continue;
                             }
                         }
                         else
                         {
-                            // TODO: Error
+                            _logger.Log(LoggingLevel.Error, "[Rest] RateLimit global fail parse");
                         }
                     }
 
@@ -126,7 +139,7 @@ namespace FarDragi.DiscordCs.Rest.Standard
                         }
                         else
                         {
-                            // TODO: Error
+                            _logger.Log(LoggingLevel.Error, "RateLimit reset fail get");
                         }
                     }
                 } while (httpResponseMessage?.StatusCode == HttpStatusCode.TooManyRequests);
@@ -150,6 +163,7 @@ namespace FarDragi.DiscordCs.Rest.Standard
             else
             {
                 string reason = await response.Content.ReadAsStringAsync();
+                _logger.Log(LoggingLevel.Warning, $"[Rest] ({(int)response.StatusCode}) Reason: {reason}");
                 throw new DiscordApiException((int)response.StatusCode, reason);
             }
         }

@@ -1,6 +1,7 @@
 ﻿using FarDragi.DiscordCs.Caching;
 using FarDragi.DiscordCs.Entity.Models.EmbedModels;
 using FarDragi.DiscordCs.Entity.Models.MessageModels;
+using FarDragi.DiscordCs.Logging;
 using FarDragi.DiscordCs.Rest;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,10 +16,10 @@ namespace FarDragi.DiscordCs.Entity.Collections
         private readonly ICache<ulong, Message> _cache;
         private readonly IRestClient _createMessage;
 
-        public MessageCollection(ICache<ulong, Message> cache, IRestContext rest, JsonSerializerOptions serializerOptions, ulong channelId)
+        public MessageCollection(ICache<ulong, Message> cache, IRestContext rest, JsonSerializerOptions serializerOptions, ILogger logger, ulong channelId)
         {
             _cache = cache;
-            _createMessage = rest.GetClient($"/channels/{channelId}/messages", serializerOptions);
+            _createMessage = rest.GetClient($"/channels/{channelId}/messages", serializerOptions, logger);
         }
 
         public Message Caching(ref Message entity, bool update = false)
