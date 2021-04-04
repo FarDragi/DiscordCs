@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FarDragi.DiscordCs.Caching.Standard
 {
-    public class Cache<TKeyType, TEntity> : ICache<TKeyType, TEntity>
+    public class Cache<TKeyType, TEntity> : ICache<TKeyType, TEntity> where TEntity: class
     {
         private SortedList<TKeyType, TEntity> _entities { get; set; }
 
@@ -38,7 +38,11 @@ namespace FarDragi.DiscordCs.Caching.Standard
 
         public TEntity Get(TKeyType key)
         {
-            return _entities[key];
+            if (_entities.TryGetValue(key, out TEntity entity))
+            {
+                return entity;
+            }
+            return null;
         }
 
         public void Set(TKeyType key, ref TEntity entity)

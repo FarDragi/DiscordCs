@@ -9,7 +9,7 @@
             _cacheConfig = cacheConfig;
         }
 
-        public ICache<TKeyType, TEntity> GetCache<TKeyType, TEntity>()
+        public ICache<TKeyType, TEntity> GetCache<TKeyType, TEntity>() where TEntity: class
         {
             return new Cache<TKeyType, TEntity>();
         }

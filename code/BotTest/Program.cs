@@ -9,6 +9,7 @@ using FarDragi.DiscordCs.Entity.Models.ReadyModels;
 using FarDragi.DiscordCs.Logging;
 using System;
 using System.Configuration;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BotTest
@@ -46,17 +47,23 @@ namespace BotTest
             client.Ready += Client_Ready;
             client.GuildCreate += Client_GuildCreate;
             client.MessageCreate += Client_MessageCreate;
+            client.MessageUpdate += Client_MessageUpdate;
 
             await client.Login();
+        }
+
+        private static async Task Client_MessageUpdate(Client client, ClientArgs<MessageUpdate> args)
+        {
+            await args.Data.Message.Channel.Messages.Add("oi fdp");
         }
 
         private static async Task Client_MessageCreate(Client client, ClientArgs<Message> args)
         {
             client.Logger.Log(LoggingLevel.Dcs, args.Data.Content);
 
-            if (!args.Data.Author.IsBot || args.Data.Author.Id == 730094287345156136)
+            if (!args.Data.Author.IsBot || args.Data.Author.Id == client.User.Id)
             {
-                await (client.Channels.Find(args.Data.ChannelId) as TextGuildChannel).Messages.Add(new Embed
+                await args.Data.Channel.Messages.Add(new Embed
                 {
                     Title = "Teste",
                     Description = (Convert.ToUInt64(args.Data.Content) + 1).ToString()

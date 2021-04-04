@@ -23,6 +23,9 @@ namespace FarDragi.DiscordCs.Entity.Models.MessageModels
         [JsonPropertyName("channel_id")]
         public ulong ChannelId { get; set; }
 
+        [JsonIgnore]
+        public TextGuildChannel Channel { get; set; }
+
         [JsonPropertyName("guild_id")]
         public ulong? GuildId { get; set; }
 

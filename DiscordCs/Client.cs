@@ -121,7 +121,7 @@ namespace FarDragi.DiscordCs
         public event ClientEventHandler<Ready> Ready;
         public event ClientEventHandler<Guild> GuildCreate;
         public event ClientEventHandler<Message> MessageCreate;
-        public event ClientEventHandler<Message> MessageUpdate;
+        public event ClientEventHandler<MessageUpdate> MessageUpdate;
 
         public virtual async void OnRaw(IGatewayClient gatewayClient, string json)
         {
@@ -171,6 +171,7 @@ namespace FarDragi.DiscordCs
 
             if (guildChannel is TextGuildChannel textGuildChannel)
             {
+                message.Channel = textGuildChannel;
                 textGuildChannel.CachingMessage(ref message);
             }
             else
@@ -190,9 +191,12 @@ namespace FarDragi.DiscordCs
             await Task.Yield();
 
             GuildChannel guildChannel = Channels.Find(message.ChannelId);
+            Message messageOld = null;
 
             if (guildChannel is TextGuildChannel textGuildChannel)
             {
+                messageOld = textGuildChannel.Messages.Find(message.Id);
+                message.Channel = textGuildChannel;
                 textGuildChannel.UpdateMessage(ref message);
             }
             else
@@ -200,10 +204,14 @@ namespace FarDragi.DiscordCs
                 Logger.Log(LoggingLevel.Warning, $"Fail cache message {message.Id}");
             }
 
-            MessageUpdate?.Invoke(this, new ClientArgs<Message>
+            MessageUpdate?.Invoke(this, new ClientArgs<MessageUpdate>
             {
                 GatewayClient = gatewayClient,
-                Data = message
+                Data = new MessageUpdate
+                {
+                    Message = message,
+                    OldMessage = messageOld
+                }
             });
         }
 
