@@ -5,6 +5,7 @@ using FarDragi.DiscordCs.Entity.Models.EmbedModels;
 using FarDragi.DiscordCs.Entity.Models.GuildModels;
 using FarDragi.DiscordCs.Entity.Models.IdentifyModels;
 using FarDragi.DiscordCs.Entity.Models.MessageModels;
+using FarDragi.DiscordCs.Entity.Models.PresenceModels;
 using FarDragi.DiscordCs.Entity.Models.ReadyModels;
 using FarDragi.DiscordCs.Logging;
 using System;
@@ -54,39 +55,41 @@ namespace BotTest
 
         private static async Task Client_MessageUpdate(Client client, ClientArgs<MessageUpdate> args)
         {
-            await args.Data.Message.Channel.Messages.Add("oi fdp");
+            //await args.Data.Message.Channel.Messages.Add("oi fdp");
         }
 
         private static async Task Client_MessageCreate(Client client, ClientArgs<Message> args)
         {
             client.Logger.Log(LoggingLevel.Dcs, args.Data.Content);
 
-            if ((!args.Data.Author.IsBot || args.Data.Author.Id == client.User.Id) && args.Data.ChannelId == 814019791958441994)
-            {
-                Embed embed = new Embed
-                {
-                    Title = new string('a', 256),
-                    Description = new string('b', 2048),
-                    Footer = new EmbedFooter
-                    {
-                        Text = new string('c', 2048)
-                    },
-                    Author = new EmbedAuthor
-                    {
-                        Name = new string('d', 256)
-                    }
-                };
+            //if ((!args.Data.Author.IsBot || args.Data.Author.Id == client.User.Id) && args.Data.ChannelId == 814019791958441994)
+            //{
+            //    Embed embed = new Embed
+            //    {
+            //        Title = new string('a', 256),
+            //        Description = new string('b', 2048),
+            //        Footer = new EmbedFooter
+            //        {
+            //            Text = new string('c', 2048)
+            //        },
+            //        Author = new EmbedAuthor
+            //        {
+            //            Name = new string('d', 256)
+            //        }
+            //    };
 
-                args.Data.Content = "teste";
-                Message msg = args.Data;
-                msg.Content = "segundo teste";
+            //    args.Data.Content = "teste";
+            //    Message msg = args.Data;
+            //    msg.Content = "segundo teste";
 
-                await args.Data.Channel.Messages.Add(new string('a', 2000), embed);
-            }
+            //    await args.Data.Channel.Messages.Add(new string('a', 2000), embed);
+            //}
         }
 
         private static Task Client_GuildCreate(Client client, ClientArgs<Guild> args)
         {
+            client.Logger.Log(LoggingLevel.Dcs, args.Data.Name);
+
             return Task.CompletedTask;
         }
 

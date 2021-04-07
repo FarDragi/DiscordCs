@@ -62,6 +62,9 @@ namespace FarDragi.DiscordCs.Gateway.Standard
                 case "MESSAGE_UPDATE":
                     _events.OnMessageUpdate(gatewayClient, payload.Data.ToObject<Message>(serializerOptions));
                     break;
+                case "MESSAGE_DELETE":
+                    _events.OnMessageDelete(gatewayClient, payload.Data.ToObject<MessageDelete>(serializerOptions));
+                    break;
                 case "GUILD_CREATE":
                     _events.OnGuildCreate(gatewayClient, payload.Data.ToObject<Guild>(serializerOptions));
                     break;
@@ -69,6 +72,7 @@ namespace FarDragi.DiscordCs.Gateway.Standard
                     _events.OnReady(gatewayClient, payload.Data.ToObject<Ready>(serializerOptions));
                     break;
                 default:
+                    _logger.Log(LoggingLevel.Info, $"Event not implemented {payload.Event}");
                     break;
             }
 

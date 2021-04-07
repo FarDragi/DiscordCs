@@ -122,6 +122,7 @@ namespace FarDragi.DiscordCs
         public event ClientEventHandler<Guild> GuildCreate;
         public event ClientEventHandler<Message> MessageCreate;
         public event ClientEventHandler<MessageUpdate> MessageUpdate;
+        public event ClientEventHandler<Message> MessageDelete;
 
         public virtual async void OnRaw(IGatewayClient gatewayClient, string json)
         {
@@ -213,6 +214,11 @@ namespace FarDragi.DiscordCs
                     OldMessage = messageOld
                 }
             });
+        }
+
+        public async void OnMessageDelete(IGatewayClient gatewayClient, MessageDelete messageDelete)
+        {
+            await Task.Yield();
         }
 
         #endregion
