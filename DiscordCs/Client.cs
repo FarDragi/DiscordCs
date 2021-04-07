@@ -171,8 +171,8 @@ namespace FarDragi.DiscordCs
 
             if (guildChannel is TextGuildChannel textGuildChannel)
             {
-                message.Channel = textGuildChannel;
                 textGuildChannel.CachingMessage(ref message);
+                message.Channel = textGuildChannel;
             }
             else
             {
@@ -196,8 +196,8 @@ namespace FarDragi.DiscordCs
             if (guildChannel is TextGuildChannel textGuildChannel)
             {
                 messageOld = textGuildChannel.Messages.Find(message.Id);
-                message.Channel = textGuildChannel;
                 textGuildChannel.UpdateMessage(ref message);
+                message.Channel = textGuildChannel;
             }
             else
             {

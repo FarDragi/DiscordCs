@@ -81,13 +81,7 @@ namespace BotTest
                 Message msg = args.Data;
                 msg.Content = "segundo teste";
 
-                await args.Data.Channel.Messages.Add(embed);
-
-                await args.Data.Channel.Messages.Add(new Embed
-                {
-                    Title = "Teste",
-                    Description = (Convert.ToUInt64(args.Data.Content) + 1).ToString()
-                });
+                await args.Data.Channel.Messages.Add(new string('a', 2000), embed);
             }
         }
 
