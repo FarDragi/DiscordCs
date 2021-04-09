@@ -219,6 +219,31 @@ namespace FarDragi.DiscordCs
         public async void OnMessageDelete(IGatewayClient gatewayClient, MessageDelete messageDelete)
         {
             await Task.Yield();
+
+            Channel channel = Channels.Find(messageDelete.ChannelId);
+            Message message = null;
+
+            if (channel is TextChannel textChannel)
+            {
+                message = textChannel.Messages.Find(messageDelete.Id);
+            }
+
+            if (message == null)
+            {
+                message = new Message
+                {
+                    Id = messageDelete.Id,
+                    GuildId = messageDelete.GuildId,
+                    ChannelId = messageDelete.ChannelId,
+                    Channel = (TextChannel)channel
+                };
+            }
+
+            MessageDelete?.Invoke(this, new ClientArgs<Message>
+            {
+                Data = message,
+                GatewayClient = gatewayClient
+            });
         }
 
         #endregion
