@@ -5,18 +5,19 @@ using FarDragi.DiscordCs.Entity.Models.ChannelModels;
 using FarDragi.DiscordCs.Logging;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace FarDragi.DiscordCs.Entity.Converters
 {
-    public class GuildChannelCollectionConverter : JsonConverter<GuildChannelsCollection>
+    public class ChannelCollectionConverter : JsonConverter<ChannelCollection> 
     {
         private readonly ICacheContext _cacheContext;
         private readonly IDatas _datas;
         private readonly ILogger _logger;
 
-        public GuildChannelCollectionConverter(ICacheContext cacheContext, IDatas datas, ILogger logger)
+        public ChannelCollectionConverter(ICacheContext cacheContext, IDatas datas, ILogger logger)
         {
             _cacheContext = cacheContext;
             _datas = datas;
@@ -25,14 +26,14 @@ namespace FarDragi.DiscordCs.Entity.Converters
 
         public override bool CanConvert(Type typeToConvert)
         {
-            return typeof(GuildChannelsCollection) == typeToConvert;
+            return typeof(ChannelCollection) == typeToConvert;
         }
 
-        public override GuildChannelsCollection Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        public override ChannelCollection Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            GuildChannelsCollection channelCollection = new GuildChannelsCollection(_cacheContext.GetCache<ulong, GuildChannel>(), _logger);
+            ChannelCollection channelCollection = new ChannelCollection(_cacheContext.GetCache<ulong, Channel>(), _logger);
             JsonDocument document = JsonDocument.ParseValue(ref reader);
-            Span<GuildChannel> channels = document.ToObject<GuildChannel[]>(options);
+            Span<Channel> channels = document.ToObject<Channel[]>(options);
             for (int i = 0; i < channels.Length; i++)
             {
                 if (channels[i] == null)
@@ -47,9 +48,9 @@ namespace FarDragi.DiscordCs.Entity.Converters
             return channelCollection;
         }
 
-        public override void Write(Utf8JsonWriter writer, GuildChannelsCollection value, JsonSerializerOptions options)
+        public override void Write(Utf8JsonWriter writer, ChannelCollection value, JsonSerializerOptions options)
         {
-            JsonSerializer.Serialize(writer, (IEnumerable<GuildChannel>)value);
+            JsonSerializer.Serialize(writer, (IEnumerable<Channel>)value);
         }
     }
 }

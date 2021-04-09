@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FarDragi.DiscordCs.Entity.Models.PermissionModels;
+using System;
 using System.Diagnostics;
 using System.Text.Json.Serialization;
 
@@ -15,6 +16,24 @@ namespace FarDragi.DiscordCs.Entity.Models.ChannelModels
 
         [JsonPropertyName("type")]
         public ChannelTypes Type { get; set; }
+
+        [JsonPropertyName("guild_id")]
+        public ulong? GuildId { get; set; }
+
+        [JsonPropertyName("position")]
+        public int? Position { get; set; }
+
+        [JsonPropertyName("permission_overwrites")]
+        public PermissionOverwrite[] PermissionOverwrites { get; set; }
+
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        [JsonPropertyName("nsfw")]
+        public bool? IsNfsw { get; set; }
+
+        [JsonPropertyName("parent_id")]
+        public ulong? ParentId { get; set; }
 
         [JsonPropertyName("application_id")]
         protected ulong? _applicationId { get; set; } // Não sei aonde isso vai parar

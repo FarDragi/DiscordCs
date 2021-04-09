@@ -10,13 +10,13 @@ using System.Text.Json.Serialization;
 
 namespace FarDragi.DiscordCs.Entity.Converters
 {
-    public class GuildChannelConverter : JsonConverter<GuildChannel>
+    public class ChannelConverter : JsonConverter<Channel>
     {
         private readonly ICacheContext _cacheContext;
         private readonly IRestContext _restContext;
         private readonly ILogger _logger;
 
-        public GuildChannelConverter(ICacheContext cacheContext, IRestContext restContext, ILogger logger)
+        public ChannelConverter(ICacheContext cacheContext, IRestContext restContext, ILogger logger)
         {
             _cacheContext = cacheContext;
             _restContext = restContext;
@@ -25,17 +25,21 @@ namespace FarDragi.DiscordCs.Entity.Converters
 
         public override bool CanConvert(Type typeToConvert)
         {
-            return typeof(GuildChannel) == typeToConvert;
+            return typeof(Channel) == typeToConvert;
         }
 
-        public override GuildChannel Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        public override Channel Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             JsonDocument document = JsonDocument.ParseValue(ref reader);
 
-            GuildChannel channel = null;
+            Channel channel = null;
 
             switch (document.RootElement.GetProperty("type").ToObject<ChannelTypes>(options))
             {
+                case ChannelTypes.DmChannel:
+                case ChannelTypes.DmGroup:
+                case ChannelTypes.StoreChannel:
+                case ChannelTypes.NewsChannel:
                 case ChannelTypes.TextChannel:
                     channel = document.ToObject<TextChannel>(options);
                     (channel as TextChannel).Messages = new MessageCollection(_cacheContext.GetCache<ulong, Message>(), _restContext, options, _logger, channel.Id);
@@ -46,12 +50,6 @@ namespace FarDragi.DiscordCs.Entity.Converters
                 case ChannelTypes.GuildCategory:
                     channel = document.ToObject<GuildCategory>(options);
                     break;
-                case ChannelTypes.NewsChannel:
-                    channel = document.ToObject<NewsChannel>(options);
-                    break;
-                case ChannelTypes.StoreChannel:
-                    channel = document.ToObject<StoreChannel>(options);
-                    break;
                 default:
                     break;
             }
@@ -59,7 +57,7 @@ namespace FarDragi.DiscordCs.Entity.Converters
             return channel;
         }
 
-        public override void Write(Utf8JsonWriter writer, GuildChannel value, JsonSerializerOptions options)
+        public override void Write(Utf8JsonWriter writer, Channel value, JsonSerializerOptions options)
         {
             JsonSerializer.Serialize(writer, value);
         }

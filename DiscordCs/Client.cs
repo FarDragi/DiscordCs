@@ -101,14 +101,14 @@ namespace FarDragi.DiscordCs
         public ILogger Logger { get; set; }
         public GuildCollection Guilds { get; private set; }
         public UserCollection Users { get; private set; }
-        public GuildChannelsCollection Channels { get; private set; }
+        public ChannelCollection Channels { get; private set; }
 
         public void InitCollections()
         {
             _cacheContext = _clientConfig.CacheContext;
             Guilds = new GuildCollection(_cacheContext.GetCache<ulong, Guild>(), Logger);
             Users = new UserCollection(_cacheContext.GetCache<ulong, User>(), Logger);
-            Channels = new GuildChannelsCollection(_cacheContext.GetCache<ulong, GuildChannel>(), Logger);
+            Channels = new ChannelCollection(_cacheContext.GetCache<ulong, Channel>(), Logger);
         }
 
         #endregion
@@ -168,12 +168,12 @@ namespace FarDragi.DiscordCs
         {
             await Task.Yield();
 
-            GuildChannel guildChannel = Channels.Find(message.ChannelId);
+            Channel guildChannel = Channels.Find(message.ChannelId);
 
-            if (guildChannel is TextGuildChannel textGuildChannel)
+            if (guildChannel is TextChannel textChannel)
             {
-                textGuildChannel.CachingMessage(ref message);
-                message.Channel = textGuildChannel;
+                textChannel.CachingMessage(ref message);
+                message.Channel = textChannel;
             }
             else
             {
@@ -191,14 +191,14 @@ namespace FarDragi.DiscordCs
         {
             await Task.Yield();
 
-            GuildChannel guildChannel = Channels.Find(message.ChannelId);
+            Channel guildChannel = Channels.Find(message.ChannelId);
             Message messageOld = null;
 
-            if (guildChannel is TextGuildChannel textGuildChannel)
+            if (guildChannel is TextChannel textChannel)
             {
-                messageOld = textGuildChannel.Messages.Find(message.Id);
-                textGuildChannel.UpdateMessage(ref message);
-                message.Channel = textGuildChannel;
+                messageOld = textChannel.Messages.Find(message.Id);
+                textChannel.UpdateMessage(ref message);
+                message.Channel = textChannel;
             }
             else
             {

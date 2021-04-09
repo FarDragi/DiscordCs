@@ -8,6 +8,6 @@ namespace FarDragi.DiscordCs.Entity.Interfaces
         public User User { get; }
         public GuildCollection Guilds { get; }
         public UserCollection Users { get; }
-        public GuildChannelsCollection Channels { get; }
+        public ChannelCollection Channels { get; }
     }
 }

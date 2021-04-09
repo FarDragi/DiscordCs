@@ -3,7 +3,7 @@
     /// <summary>
     /// https://discord.com/developers/docs/resources/channel#channel-object-example-channel-category
     /// </summary>
-    public class GuildCategory : GuildChannel
+    public class GuildCategory : Channel
     {
     }
 }
