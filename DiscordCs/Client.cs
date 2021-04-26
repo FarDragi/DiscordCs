@@ -216,27 +216,20 @@ namespace FarDragi.DiscordCs
             });
         }
 
-        public async void OnMessageDelete(IGatewayClient gatewayClient, MessageDelete messageDelete)
+        public async void OnMessageDelete(IGatewayClient gatewayClient, Message message)
         {
             await Task.Yield();
 
-            Channel channel = Channels.Find(messageDelete.ChannelId);
-            Message message = null;
+            Channel channel = Channels.Find(message.ChannelId);
 
             if (channel is TextChannel textChannel)
             {
-                message = textChannel.Messages.Find(messageDelete.Id);
-            }
+                Message messgeCached = textChannel.Messages.Find(message.Id);
 
-            if (message == null)
-            {
-                message = new Message
+                if (messgeCached != null)
                 {
-                    Id = messageDelete.Id,
-                    GuildId = messageDelete.GuildId,
-                    ChannelId = messageDelete.ChannelId,
-                    Channel = (TextChannel)channel
-                };
+                    message = messgeCached;
+                }
             }
 
             MessageDelete?.Invoke(this, new ClientArgs<Message>

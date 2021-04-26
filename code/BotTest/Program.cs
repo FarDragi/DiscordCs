@@ -49,8 +49,16 @@ namespace BotTest
             client.GuildCreate += Client_GuildCreate;
             client.MessageCreate += Client_MessageCreate;
             client.MessageUpdate += Client_MessageUpdate;
+            client.MessageDelete += Client_MessageDelete;
 
             await client.Login();
+        }
+
+        private static Task Client_MessageDelete(Client client, ClientArgs<Message> args)
+        {
+            client.Logger.Log(LoggingLevel.Info, args.Data.Id.ToString());
+
+            return Task.CompletedTask;
         }
 
         private static async Task Client_MessageUpdate(Client client, ClientArgs<MessageUpdate> args)
