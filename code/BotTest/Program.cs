@@ -70,28 +70,12 @@ namespace BotTest
         {
             client.Logger.Log(LoggingLevel.Dcs, args.Data.Content);
 
-            //if ((!args.Data.Author.IsBot || args.Data.Author.Id == client.User.Id) && args.Data.ChannelId == 814019791958441994)
-            //{
-            //    Embed embed = new Embed
-            //    {
-            //        Title = new string('a', 256),
-            //        Description = new string('b', 2048),
-            //        Footer = new EmbedFooter
-            //        {
-            //            Text = new string('c', 2048)
-            //        },
-            //        Author = new EmbedAuthor
-            //        {
-            //            Name = new string('d', 256)
-            //        }
-            //    };
+            Message message = args.Data;
 
-            //    args.Data.Content = "teste";
-            //    Message msg = args.Data;
-            //    msg.Content = "segundo teste";
-
-            //    await args.Data.Channel.Messages.Add(new string('a', 2000), embed);
-            //}
+            if (message.ChannelId == 814019791958441994)
+            {
+                await args.Data.Channel.Messages.Add(message.Content);
+            }
         }
 
         private static Task Client_GuildCreate(Client client, ClientArgs<Guild> args)

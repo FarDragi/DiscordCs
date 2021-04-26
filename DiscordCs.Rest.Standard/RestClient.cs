@@ -15,7 +15,7 @@ namespace FarDragi.DiscordCs.Rest.Standard
     public class RestClient : IRestClient
     {
         private readonly HttpClient _httpClient;
-        private readonly string _urlFormat;
+        private readonly string _urlBase;
         private readonly JsonSerializerOptions _serializerOptions;
         private readonly ILogger _logger;
         private readonly Queue<Payload> _payloads;
@@ -26,18 +26,18 @@ namespace FarDragi.DiscordCs.Rest.Standard
         private bool _sending;
         private int _remaining = 1;
 
-        public RestClient(HttpClient httpClient, string urlFormat, JsonSerializerOptions serializerOptions, ILogger logger)
+        public RestClient(HttpClient httpClient, string urlBase, JsonSerializerOptions serializerOptions, ILogger logger)
         {
             _httpClient = httpClient;
-            _urlFormat = urlFormat;
+            _urlBase = urlBase;
             _serializerOptions = serializerOptions;
             _logger = logger;
             _payloads = new Queue<Payload>();
         }
 
-        private async Task Enqueue(HttpMethod method, string json, string[] urlParams, TaskCompletionSource<HttpResponseMessage> response)
+        private async Task Enqueue(HttpMethod method, string json, string url, TaskCompletionSource<HttpResponseMessage> response)
         {
-            HttpRequestMessage request = new HttpRequestMessage(method, string.Format(_urlFormat, urlParams))
+            HttpRequestMessage request = new HttpRequestMessage(method, _urlBase + url)
             {
                 Content = new StringContent(json)
                 {
@@ -80,66 +80,69 @@ namespace FarDragi.DiscordCs.Rest.Standard
 
                     httpResponseMessage = await _httpClient.SendAsync(payload.Request);
 
-                    if (httpResponseMessage.IsSuccessStatusCode)
+                    if (httpResponseMessage.StatusCode != HttpStatusCode.NotFound)
                     {
-                        payload.Response.SetResult(httpResponseMessage);
-                    }
-                    else
-                    {
-                        _logger.Log(LoggingLevel.Warning, $"[Rest] {(int)httpResponseMessage.StatusCode}");
-                    }
-
-                    if (httpResponseMessage.Headers.TryGetValues("X-RateLimit-Remaining", out IEnumerable<string> values))
-                    {
-                        if (int.TryParse(values.First(), out int result))
+                        if (httpResponseMessage.IsSuccessStatusCode)
                         {
-                            _remaining = result;
+                            payload.Response.SetResult(httpResponseMessage);
                         }
                         else
                         {
-                            _remaining = 0;
+                            _logger.Log(LoggingLevel.Warning, $"[Rest] {(int)httpResponseMessage.StatusCode}");
                         }
-                    }
-                    else
-                    {
-                        _logger.Log(LoggingLevel.Error, "[Rest] RateLimit remainig fail get");
-                    }
 
-                    if (httpResponseMessage.Headers.TryGetValues("X-RateLimit-Global", out values))
-                    {
-                        if (bool.TryParse(values.First(), out bool result))
+                        if (httpResponseMessage.Headers.TryGetValues("X-RateLimit-Remaining", out IEnumerable<string> values))
                         {
-                            RateLimitiGlobal = result;
+                            if (int.TryParse(values.First(), out int result))
+                            {
+                                _remaining = result;
+                            }
+                            else
+                            {
+                                _remaining = 0;
+                            }
+                        }
+                        else
+                        {
+                            _logger.Log(LoggingLevel.Error, "[Rest] RateLimit remainig fail get");
+                        }
 
-                            if (RateLimitiGlobal && httpResponseMessage.Headers.TryGetValues("X-RateLimit-Reset", out values))
+                        if (httpResponseMessage.Headers.TryGetValues("X-RateLimit-Global", out values))
+                        {
+                            if (bool.TryParse(values.First(), out bool result))
+                            {
+                                RateLimitiGlobal = result;
+
+                                if (RateLimitiGlobal && httpResponseMessage.Headers.TryGetValues("X-RateLimit-Reset", out values))
+                                {
+                                    long milis = (long)Convert.ToDouble(values.First());
+                                    RateLimitiGlobalCooldown = DateTimeOffset.FromUnixTimeMilliseconds(milis);
+                                    continue;
+                                }
+                            }
+                            else
+                            {
+                                _logger.Log(LoggingLevel.Error, "[Rest] RateLimit global fail parse");
+                            }
+                        }
+
+                        if (_remaining == 0)
+                        {
+                            if (httpResponseMessage.Headers.TryGetValues("X-RateLimit-Reset", out values))
                             {
                                 long milis = (long)Convert.ToDouble(values.First());
-                                RateLimitiGlobalCooldown = DateTimeOffset.FromUnixTimeMilliseconds(milis);
-                                continue;
+                                DateTimeOffset date = DateTimeOffset.FromUnixTimeMilliseconds(milis);
+                                TimeSpan cooldown = date - DateTimeOffset.UtcNow;
+
+                                if (cooldown.TotalMilliseconds > 0)
+                                {
+                                    await Task.Delay(cooldown);
+                                }
                             }
-                        }
-                        else
-                        {
-                            _logger.Log(LoggingLevel.Error, "[Rest] RateLimit global fail parse");
-                        }
-                    }
-
-                    if (_remaining == 0)
-                    {
-                        if (httpResponseMessage.Headers.TryGetValues("X-RateLimit-Reset", out values))
-                        {
-                            long milis = (long)Convert.ToDouble(values.First());
-                            DateTimeOffset date = DateTimeOffset.FromUnixTimeMilliseconds(milis);
-                            TimeSpan cooldown = date - DateTimeOffset.UtcNow;
-
-                            if (cooldown.TotalMilliseconds > 0)
+                            else
                             {
-                                await Task.Delay(cooldown);
+                                _logger.Log(LoggingLevel.Error, "RateLimit reset fail get");
                             }
-                        }
-                        else
-                        {
-                            _logger.Log(LoggingLevel.Error, "RateLimit reset fail get");
                         }
                     }
                 } while (httpResponseMessage?.StatusCode == HttpStatusCode.TooManyRequests);
@@ -148,11 +151,11 @@ namespace FarDragi.DiscordCs.Rest.Standard
             _sending = false;
         }
 
-        public async Task<TOutput> Send<TInput, TOutput>(HttpMethod method, TInput input, params string[] urlParams) where TInput : class where TOutput : class
+        public async Task<TOutput> Send<TInput, TOutput>(HttpMethod method, TInput input, string url) where TInput : class where TOutput : class
         {
             TaskCompletionSource<HttpResponseMessage> responseTask = new TaskCompletionSource<HttpResponseMessage>();
 
-            await Enqueue(method, JsonSerializer.Serialize(input, _serializerOptions), urlParams, responseTask);
+            await Enqueue(method, JsonSerializer.Serialize(input, _serializerOptions), url, responseTask);
 
             HttpResponseMessage response = await responseTask.Task;
 

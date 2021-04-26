@@ -5,6 +5,6 @@ namespace FarDragi.DiscordCs.Rest
 {
     public interface IRestClient
     {
-        public Task<TOutput> Send<TInput, TOutput>(HttpMethod method, TInput input, params string[] urlParams) where TInput : class where TOutput : class;
+        public Task<TOutput> Send<TInput, TOutput>(HttpMethod method, TInput input, string url) where TInput : class where TOutput : class;
     }
 }

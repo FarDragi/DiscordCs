@@ -14,12 +14,12 @@ namespace FarDragi.DiscordCs.Entity.Collections
     public class MessageCollection : ICacheable<ulong, Message>
     {
         private readonly ICache<ulong, Message> _cache;
-        private readonly IRestClient _createMessage;
+        private readonly IRestClient _rest;
 
         public MessageCollection(ICache<ulong, Message> cache, IRestContext rest, JsonSerializerOptions serializerOptions, ILogger logger, ulong channelId)
         {
             _cache = cache;
-            _createMessage = rest.GetClient($"/channels/{channelId}/messages", serializerOptions, logger);
+            _rest = rest.GetClient($"MessagesChannel{channelId}", $"/channels/{channelId}/messages", serializerOptions, logger);
         }
 
         public Message Caching(ref Message entity, bool update = false)
@@ -71,7 +71,7 @@ namespace FarDragi.DiscordCs.Entity.Collections
 
         private async Task<Message> Add(Message message)
         {
-            message = await _createMessage.Send<Message, Message>(HttpMethod.Post, message);
+            message = await _rest.Send<Message, Message>(HttpMethod.Post, message, "");
             _cache.Add(message.Id, ref message);
             return message;
         }

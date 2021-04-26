@@ -24,9 +24,9 @@ namespace FarDragi.DiscordCs.Rest.Standard
             _clients = new SortedList<string, RestClient>();
         }
 
-        public IRestClient GetClient(string urlFormat, JsonSerializerOptions serializerOptions, ILogger logger)
+        public IRestClient GetClient(string key, string urlFormat, JsonSerializerOptions serializerOptions, ILogger logger)
         {
-            if (_clients.TryGetValue(urlFormat, out RestClient restClient))
+            if (_clients.TryGetValue(key, out RestClient restClient))
             {
                 return restClient;
             }
