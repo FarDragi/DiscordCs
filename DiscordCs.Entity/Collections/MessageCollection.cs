@@ -51,6 +51,13 @@ namespace FarDragi.DiscordCs.Entity.Collections
             return _cache.GetEnumerator();
         }
 
+        /// <summary>
+        /// Send message in channel
+        /// </summary>
+        /// <param name="content">message</param>
+        /// <param name="embed">embed</param>
+        /// <param name="isTts">tts enabled</param>
+        /// <returns></returns>
         public async Task<Message> Add(string content, Embed embed = null, bool isTts = false)
         {
             return await Add(new Message
@@ -72,14 +79,18 @@ namespace FarDragi.DiscordCs.Entity.Collections
         private async Task<Message> Add(Message message)
         {
             message = await _rest.Send<Message, Message>(HttpMethod.Post, message, "");
-            _cache.Add(message.Id, ref message);
+            Caching(ref message);
             return message;
         }
 
-        public async Task<Message> Delete(Message message)
+        public async Task Delete(Message message)
         {
-            message = await _rest.Send<Message, Message>(HttpMethod.Delete, null, $"/{message.Id}");
-            return message;
+            await Delete(message.Id);
+        }
+
+        public async Task Delete(ulong id)
+        {
+            await _rest.Send(HttpMethod.Delete, $"/{id}");
         }
     }
 }

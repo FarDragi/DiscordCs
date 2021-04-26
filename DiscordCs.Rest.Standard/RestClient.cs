@@ -170,5 +170,21 @@ namespace FarDragi.DiscordCs.Rest.Standard
                 throw new DiscordApiException((int)response.StatusCode, reason);
             }
         }
+
+        public async Task Send(HttpMethod method, string url)
+        {
+            TaskCompletionSource<HttpResponseMessage> responseTask = new TaskCompletionSource<HttpResponseMessage>();
+
+            await Enqueue(method, "", url, responseTask);
+
+            HttpResponseMessage response = await responseTask.Task;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                string reason = await response.Content.ReadAsStringAsync();
+                _logger.Log(LoggingLevel.Warning, $"[Rest] ({(int)response.StatusCode}) Reason: {reason}");
+                throw new DiscordApiException((int)response.StatusCode, reason);
+            }
+        }
     }
 }
