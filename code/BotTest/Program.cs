@@ -54,11 +54,9 @@ namespace BotTest
             await client.Login();
         }
 
-        private static Task Client_MessageDelete(Client client, ClientArgs<Message> args)
+        private static async Task Client_MessageDelete(Client client, ClientArgs<Message> args)
         {
             client.Logger.Log(LoggingLevel.Info, args.Data.Id.ToString());
-
-            return Task.CompletedTask;
         }
 
         private static async Task Client_MessageUpdate(Client client, ClientArgs<MessageUpdate> args)
@@ -74,7 +72,7 @@ namespace BotTest
 
             if (message.ChannelId == 814019791958441994)
             {
-                await args.Data.Channel.Messages.Add(message.Content);
+                await args.Data.Channel.Messages.Delete(message);
             }
         }
 

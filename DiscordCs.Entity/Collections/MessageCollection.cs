@@ -75,5 +75,11 @@ namespace FarDragi.DiscordCs.Entity.Collections
             _cache.Add(message.Id, ref message);
             return message;
         }
+
+        public async Task<Message> Delete(Message message)
+        {
+            message = await _rest.Send<Message, Message>(HttpMethod.Delete, null, $"/{message.Id}");
+            return message;
+        }
     }
 }
