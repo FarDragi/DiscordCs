@@ -92,5 +92,11 @@ namespace FarDragi.DiscordCs.Entity.Collections
         {
             await _rest.Send(HttpMethod.Delete, $"/{id}");
         }
+
+        public async Task<Message> Update(Message message)
+        {
+            message = await _rest.Send<Message, Message>(HttpMethod.Patch, message, $"/{message.Id}");
+            return message;
+        }
     }
 }

@@ -73,6 +73,13 @@ namespace BotTest
             if (message.ChannelId == 814019791958441994)
             {
                 await args.Data.Channel.Messages.Delete(message);
+                Message updateMessage = new()
+                {
+                    Id = 836360623100133376,
+                    Content = message.Content
+                };
+
+                await args.Data.Channel.Messages.Update(updateMessage);
             }
         }
 
