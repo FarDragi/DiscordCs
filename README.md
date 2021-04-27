@@ -6,34 +6,36 @@
 Alpha is on its way to be released along with the documentation
 
 <details>
-    <sumary>TODO</sumary>
+    <summary>TODO</summary>
     <br>
-    - [ ] Channel
-        - [ ] Get Channel
-        - [ ] Modify Channel
-        - [ ] Delete/Close Channel
-        - [ ] Get Channel Messages
-        - [ ] Get Channel Message
-        - [ ] Create Message
-        - [ ] Crosspost Message
-        - [ ] Create Reaction
-        - [ ] Delete Own Reaction
-        - [ ] Delete User Reaction
-        - [ ] Get Reaction 
-        - [ ] Delete All Reactions
-        - [ ] Delete All Reactions from Emoji
-        - [x] Edit Message
-        - [x] Delete Message
-        - [ ] Bulk Delete MEssages
-        - [ ] Edit Channel Permissions
-        - [ ] Get Channel Invites
-        - [ ] Create Channel Invite
-        - [ ] Delete Channel Permission
-        - [ ] Follow News Channel
-        - [ ] Trigger Typing Indicator
-        - [ ] Get Pinned Messages
-        - [ ] Add Pinned Channel Message
-        - [ ] Delete Pinned Channel Message
-        - [ ] Group DM Add Recepient
-        - [ ] Group DM Remove Recepient
+    <pre>
+- [ ] Channel
+    - [ ] Get Channel
+    - [ ] Modify Channel
+    - [ ] Delete/Close Channel
+    - [ ] Get Channel Messages
+    - [ ] Get Channel Message
+    - [ ] Create Message
+    - [ ] Crosspost Message
+    - [ ] Create Reaction
+    - [ ] Delete Own Reaction
+    - [ ] Delete User Reaction
+    - [ ] Get Reaction 
+    - [ ] Delete All Reactions
+    - [ ] Delete All Reactions from Emoji
+    - [x] Edit Message
+    - [x] Delete Message
+    - [ ] Bulk Delete MEssages
+    - [ ] Edit Channel Permissions
+    - [ ] Get Channel Invites
+    - [ ] Create Channel Invite
+    - [ ] Delete Channel Permission
+    - [ ] Follow News Channel
+    - [ ] Trigger Typing Indicator
+    - [ ] Get Pinned Messages
+    - [ ] Add Pinned Channel Message
+    - [ ] Delete Pinned Channel Message
+    - [ ] Group DM Add Recepient
+    - [ ] Group DM Remove Recepient
+    </pre>
 </details>
