@@ -3,6 +3,7 @@ using FarDragi.DiscordCs.Entity.Models.UserModels;
 using FarDragi.DiscordCs.Logging;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs.Entity.Collections
 {
@@ -23,9 +24,13 @@ namespace FarDragi.DiscordCs.Entity.Collections
             return entity;
         }
 
-        public User Find(ulong key)
+        public async Task<User> Find(ulong key)
         {
-            return _cache.Get(key);
+            if (_cache.TryGet(key, out User user))
+            {
+                return user;
+            }
+            return null;
         }
 
         public IEnumerator<User> GetEnumerator()

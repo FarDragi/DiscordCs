@@ -38,28 +38,15 @@ namespace FarDragi.DiscordCs.Gateway.Standard
             Identify identify,
             GatewayConfig config,
             ILogger logger,
-            ICacheContext cacheContext,
-            IRestContext restContext,
-            IDatas datas)
+            JsonSerializerOptions serializerOptions)
         {
             _gatewayContext = gatewayContext;
             _identify = identify;
             _config = config;
             _logger = logger;
+            _jsonSerializerOptions = serializerOptions;
             _firstConnection = true;
             _decompressor = new Decompressor();
-            _jsonSerializerOptions = new JsonSerializerOptions()
-            {
-                Converters =
-                {
-                    new MemberCollectionConverter(cacheContext, datas, logger),
-                    new UserCollectionConverter(cacheContext, datas, logger),
-                    new ChannelCollectionConverter(cacheContext, datas, logger),
-                    new ChannelConverter(cacheContext, restContext, logger),
-                    new ULongConverter(),
-                    new TimeSpanConverter()
-                }
-            };
             _stopwatch = new System.Diagnostics.Stopwatch();
         }
 

@@ -1,6 +1,7 @@
 ﻿using FarDragi.DiscordCs.Args;
 using FarDragi.DiscordCs.Caching;
 using FarDragi.DiscordCs.Entity.Collections;
+using FarDragi.DiscordCs.Entity.Converters;
 using FarDragi.DiscordCs.Entity.Interfaces;
 using FarDragi.DiscordCs.Entity.Models.ChannelModels;
 using FarDragi.DiscordCs.Entity.Models.GuildModels;
@@ -11,6 +12,7 @@ using FarDragi.DiscordCs.Entity.Models.UserModels;
 using FarDragi.DiscordCs.Gateway;
 using FarDragi.DiscordCs.Logging;
 using FarDragi.DiscordCs.Rest;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace FarDragi.DiscordCs
@@ -22,6 +24,7 @@ namespace FarDragi.DiscordCs
         private IGatewayContext _gatewayContext;
         private ICacheContext _cacheContext;
         private IRestContext _restContext;
+        private JsonSerializerOptions _serializerOptions;
 
         public Client(ClientConfig clientConfig)
         {
@@ -43,6 +46,20 @@ namespace FarDragi.DiscordCs
         {
             _clientConfig = clientConfig;
             _restContext = clientConfig.GetRest();
+            _restContext.Init();
+            _cacheContext = clientConfig.CacheContext;
+            _serializerOptions = new JsonSerializerOptions()
+            {
+                Converters =
+                {
+                    new MemberCollectionConverter(_cacheContext, this, Logger),
+                    new UserCollectionConverter(_cacheContext, this, Logger),
+                    new ChannelCollectionConverter(_cacheContext, this, _restContext, Logger),
+                    new ChannelConverter(_cacheContext, _restContext, Logger),
+                    new ULongConverter(),
+                    new TimeSpanConverter()
+                }
+            };
             _gatewayContext = clientConfig.GetGateway();
             Logger = clientConfig.Logger;
             Logger.Log(LoggingLevel.Dcs, "DiscosCs v0.1-dev");
@@ -53,16 +70,14 @@ namespace FarDragi.DiscordCs
 
         private async Task Init()
         {
-            _restContext.Init();
-
             async Task Register(Identify identify)
             {
-                await _gatewayContext.AddClient(identify);
+                await _gatewayContext.AddClient(identify, _serializerOptions);
             }
 
             if (_clientConfig.IsAutoSharding)
             {
-                _gatewayContext.Init(_clientConfig.Shards, this, Logger, _cacheContext, _restContext, this);
+                _gatewayContext.Init(_clientConfig.Shards, this, Logger);
 
                 for (int i = 0; i < _clientConfig.Shards; i++)
                 {
@@ -76,7 +91,7 @@ namespace FarDragi.DiscordCs
             }
             else
             {
-                _gatewayContext.Init(1, this, Logger, _cacheContext, _restContext, this);
+                _gatewayContext.Init(1, this, Logger);
 
                 await Register(_clientConfig.GetIdentify(_clientConfig.Shard));
             }
@@ -105,10 +120,9 @@ namespace FarDragi.DiscordCs
 
         public void InitCollections()
         {
-            _cacheContext = _clientConfig.CacheContext;
             Guilds = new GuildCollection(_cacheContext.GetCache<ulong, Guild>(), Logger);
             Users = new UserCollection(_cacheContext.GetCache<ulong, User>(), Logger);
-            Channels = new ChannelCollection(_cacheContext.GetCache<ulong, Channel>(), Logger);
+            Channels = new ChannelCollection(_cacheContext.GetCache<ulong, Channel>(), _restContext, _serializerOptions, Logger);
         }
 
         #endregion
@@ -166,9 +180,7 @@ namespace FarDragi.DiscordCs
 
         public virtual async void OnMessageCreate(IGatewayClient gatewayClient, Message message)
         {
-            await Task.Yield();
-
-            Channel guildChannel = Channels.Find(message.ChannelId);
+            Channel guildChannel = await Channels.Find(message.ChannelId);
 
             if (guildChannel is TextChannel textChannel)
             {
@@ -189,14 +201,12 @@ namespace FarDragi.DiscordCs
 
         public virtual async void OnMessageUpdate(IGatewayClient gatewayClient, Message message)
         {
-            await Task.Yield();
-
-            Channel guildChannel = Channels.Find(message.ChannelId);
+            Channel guildChannel = await Channels.Find(message.ChannelId);
             Message messageOld = null;
 
             if (guildChannel is TextChannel textChannel)
             {
-                messageOld = textChannel.Messages.Find(message.Id);
+                messageOld = await textChannel.Messages.Find(message.Id);
                 textChannel.UpdateMessage(ref message);
                 message.Channel = textChannel;
             }
@@ -218,13 +228,11 @@ namespace FarDragi.DiscordCs
 
         public async void OnMessageDelete(IGatewayClient gatewayClient, Message message)
         {
-            await Task.Yield();
-
-            Channel channel = Channels.Find(message.ChannelId);
+            Channel channel = await Channels.Find(message.ChannelId);
 
             if (channel is TextChannel textChannel)
             {
-                Message messgeCached = textChannel.Messages.Find(message.Id);
+                Message messgeCached = await textChannel.Messages.Find(message.Id);
 
                 if (messgeCached != null)
                 {

@@ -16,10 +16,10 @@ namespace FarDragi.DiscordCs.Entity.Collections
         private readonly ICache<ulong, Message> _cache;
         private readonly IRestClient _rest;
 
-        public MessageCollection(ICache<ulong, Message> cache, IRestContext rest, JsonSerializerOptions serializerOptions, ILogger logger, ulong channelId)
+        public MessageCollection(ICache<ulong, Message> cache, IRestContext restContext, JsonSerializerOptions serializerOptions, ILogger logger, ulong channelId)
         {
             _cache = cache;
-            _rest = rest.GetClient($"MessagesChannel{channelId}", $"/channels/{channelId}/messages", serializerOptions, logger);
+            _rest = restContext.GetClient($"MessagesChannel{channelId}", $"/channels/{channelId}/messages", serializerOptions, logger);
         }
 
         public Message Caching(ref Message entity, bool update = false)
@@ -36,9 +36,13 @@ namespace FarDragi.DiscordCs.Entity.Collections
             }
         }
 
-        public Message Find(ulong key)
+        public async Task<Message> Find(ulong key)
         {
-            return _cache.Get(key);
+            if (_cache.TryGet(key, out Message message))
+            {
+                return message;
+            }
+            return null;
         }
 
         public IEnumerator<Message> GetEnumerator()

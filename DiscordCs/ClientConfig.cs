@@ -91,7 +91,7 @@ namespace FarDragi.DiscordCs
 
         public IGatewayContext GetGateway()
         {
-            Gateway.Confgi(GatewayConfig);
+            Gateway.Config(GatewayConfig);
             return Gateway;
         }
     }

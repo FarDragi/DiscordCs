@@ -6,11 +6,10 @@
 Alpha is on its way to be released along with the documentation
 
 <details>
-    <summary>TODO</summary>
-    <br>
-    <pre>
+<summary>TODO</summary>
+<pre>
 - [ ] Channel
-    - [ ] Get Channel
+    - [x] Get Channel
     - [ ] Modify Channel
     - [ ] Delete/Close Channel
     - [ ] Get Channel Messages
@@ -37,5 +36,5 @@ Alpha is on its way to be released along with the documentation
     - [ ] Delete Pinned Channel Message
     - [ ] Group DM Add Recepient
     - [ ] Group DM Remove Recepient
-    </pre>
+</pre>
 </details>

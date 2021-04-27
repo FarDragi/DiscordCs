@@ -3,6 +3,7 @@ using FarDragi.DiscordCs.Entity.Collections;
 using FarDragi.DiscordCs.Entity.Interfaces;
 using FarDragi.DiscordCs.Entity.Models.ChannelModels;
 using FarDragi.DiscordCs.Logging;
+using FarDragi.DiscordCs.Rest;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,12 +16,14 @@ namespace FarDragi.DiscordCs.Entity.Converters
     {
         private readonly ICacheContext _cacheContext;
         private readonly IDatas _datas;
+        private readonly IRestContext _restContext;
         private readonly ILogger _logger;
 
-        public ChannelCollectionConverter(ICacheContext cacheContext, IDatas datas, ILogger logger)
+        public ChannelCollectionConverter(ICacheContext cacheContext, IDatas datas, IRestContext restContext, ILogger logger)
         {
             _cacheContext = cacheContext;
             _datas = datas;
+            _restContext = restContext;
             _logger = logger;
         }
 
@@ -31,7 +34,7 @@ namespace FarDragi.DiscordCs.Entity.Converters
 
         public override ChannelCollection Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            ChannelCollection channelCollection = new ChannelCollection(_cacheContext.GetCache<ulong, Channel>(), _logger);
+            ChannelCollection channelCollection = new ChannelCollection(_cacheContext.GetCache<ulong, Channel>(), _restContext, options, _logger);
             JsonDocument document = JsonDocument.ParseValue(ref reader);
             Span<Channel> channels = document.ToObject<Channel[]>(options);
             for (int i = 0; i < channels.Length; i++)

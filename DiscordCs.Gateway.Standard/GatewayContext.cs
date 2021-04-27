@@ -21,18 +21,15 @@ namespace FarDragi.DiscordCs.Gateway.Standard
         private List<IGatewayClient> _clients;
         private ILogger _logger;
         private IGatewayEvents _events;
-        private ICacheContext _cacheContext;
-        private IRestContext _restContext;
-        private IDatas _datas;
 
-        public async Task AddClient(Identify identify)
+        public async Task AddClient(Identify identify, JsonSerializerOptions serializerOptions)
         {
-            IGatewayClient client = new GatewayClient(this, identify, _config, _logger, _cacheContext, _restContext, _datas);
+            IGatewayClient client = new GatewayClient(this, identify, _config, _logger, serializerOptions);
             await client.Open();
             _clients.Add(client);
         }
 
-        public void Confgi(IGatewayConfig config)
+        public void Config(IGatewayConfig config)
         {
             if (config is GatewayConfig gatewayConfig)
             {
@@ -40,14 +37,11 @@ namespace FarDragi.DiscordCs.Gateway.Standard
             }
         }
 
-        public void Init(int shards, IGatewayEvents events, ILogger logger, ICacheContext cacheContext, IRestContext restContext, IDatas datas)
+        public void Init(int shards, IGatewayEvents events, ILogger logger)
         {
             _clients = new List<IGatewayClient>(shards);
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _events = events ?? throw new ArgumentNullException(nameof(events));
-            _cacheContext = cacheContext ?? throw new ArgumentNullException(nameof(cacheContext));
-            _restContext = restContext ?? throw new ArgumentNullException(nameof(restContext));
-            _datas = datas ?? throw new ArgumentNullException(nameof(datas));
         }
 
         public void OnReceivedEvent(IGatewayClient gatewayClient, Payload<JsonElement> payload, string json, JsonSerializerOptions serializerOptions)

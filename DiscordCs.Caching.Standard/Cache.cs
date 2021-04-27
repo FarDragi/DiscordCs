@@ -23,7 +23,7 @@ namespace FarDragi.DiscordCs.Caching.Standard
             {
                 if (!_entities.TryAdd(key, entity))
                 {
-                    entity = Get(key);
+                    TryGet(key, out entity);
                 }
             }
         }
@@ -36,13 +36,9 @@ namespace FarDragi.DiscordCs.Caching.Standard
             }
         }
 
-        public TEntity Get(TKeyType key)
+        public bool TryGet(TKeyType key, out TEntity entity)
         {
-            if (_entities.TryGetValue(key, out TEntity entity))
-            {
-                return entity;
-            }
-            return null;
+            return _entities.TryGetValue(key, out entity);
         }
 
         public void Set(TKeyType key, ref TEntity entity)

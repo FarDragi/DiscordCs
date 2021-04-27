@@ -33,7 +33,7 @@ namespace FarDragi.DiscordCs.Rest.Standard
             else
             {
                 RestClient client = new RestClient(_httpClient, _config.Url + urlFormat, serializerOptions, logger);
-                _clients.Add(urlFormat, client);
+                _clients.Add(key, client);
                 return client;
             }
         }
